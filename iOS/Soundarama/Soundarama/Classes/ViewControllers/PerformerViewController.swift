@@ -13,7 +13,7 @@ class PerformerViewController: UIViewController
 {
     private var client = SoundaramaClient()
     
-    private var testAudio = AudioController()
+    private var audioController = AudioController()
     
     private var displayLink: CADisplayLink!
     
@@ -40,7 +40,7 @@ class PerformerViewController: UIViewController
         super.viewDidLoad()
         
         client.delegate = self
-        testAudio.setup()
+        audioController.setup()
         view.addSubview(connectionLabel)
         view.addSubview(timeLabel)
         view.backgroundColor = UIColor.blackColor()
@@ -60,7 +60,6 @@ class PerformerViewController: UIViewController
         
         connectionLabel.sizeToFit()
         connectionLabel.center = view.center
-        
         timeLabel.sizeToFit()
         timeLabel.frame.origin = CGPointMake(12, 12)
     }
@@ -112,29 +111,28 @@ extension PerformerViewController {
     
     func scheduleSound(timestamp: Double, loopLength: NSTimeInterval)
     {
-        testAudio.stop()
-        testAudio.setup()
+        audioController.stop()
+        audioController.setup()
         
         let now = NSDate().timeIntervalSince1970
         let elapsedSinceSync = now - clockMap.local
         let remoteNow = clockMap.remote + elapsedSinceSync
-        let nextStartTime = timestamp + 2
-        let waitSecs = Double(nextStartTime) - Double(remoteNow)
-        let waitNans = waitSecs *  Double(NSEC_PER_SEC)
-        print("----- Local Tick ------")
-        print("Local + wait: \(now + waitSecs)")
-        print("-----------------------")
+    
+        // Calculate `nextStartTime` as a value equal to `timestamp` plus an integer multiple of `loopLength`
+        var nextStartTime = timestamp
+        while nextStartTime < remoteNow {
+            nextStartTime += loopLength
+        }
         
+        let waitSecs = Double(nextStartTime) - Double(remoteNow)
         let expected = now + waitSecs
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, Int64(waitNans)), dispatch_get_main_queue()) { [weak self] in
-            let nownow = NSDate().timeIntervalSince1970
-            print("----- Wait ------")
-            print(" Expected: \(expected) \n Actual: \(nownow) \n Diff: \(nownow - expected)")
-            print("-----------------")
-            self?.view.backgroundColor = UIColor.yellowColor()
-            self?.testAudio.start()
-                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, Int64(2 * 1000000000)), dispatch_get_main_queue()) { [weak self] in
-                    self?.view.backgroundColor = UIColor.blackColor()
+        
+        
+        // dispatch_time doesn't seem to agree with the system clock so doing this instead.
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0)) {
+            while NSDate().timeIntervalSince1970 < expected { /* wait */ }
+            dispatch_async(dispatch_get_main_queue()) {
+                self.audioController.start()
             }
         }
         
