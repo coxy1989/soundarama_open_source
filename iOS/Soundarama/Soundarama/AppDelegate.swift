@@ -14,6 +14,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate
 {
     var window: UIWindow?
 
+    var testAudio: AudioController!
+    
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool
     {
         do
@@ -25,12 +27,20 @@ class AppDelegate: UIResponder, UIApplicationDelegate
             
         }
         
-        VolumeControl.setVolumeToMax()
+        //VolumeControl.setVolumeToMax()
         UIApplication.sharedApplication().idleTimerDisabled = true
         self.window = UIWindow(frame: UIScreen.mainScreen().bounds)
         self.window?.rootViewController = UINavigationController(rootViewController: HomeViewController(nibName: nil, bundle: nil))
         self.window?.makeKeyAndVisible()
         self.window?.backgroundColor = UIColor.whiteColor()
+        
+       // let path = NSBundle.mainBundle().pathForResource("23", ofType: "aif")!
+       // let url = NSURL(fileURLWithPath: path)
+//        testAudio.playFileURL(url)
+        //testAudio = AudioController()
+        //testAudio.setup()
+        //testAudio.start()
+        
         return true
     }
 
