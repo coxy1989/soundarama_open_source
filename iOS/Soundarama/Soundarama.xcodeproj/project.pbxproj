@@ -7,25 +7,25 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		423DC5591C11D676007F3AE3 /* AudioController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 423DC5581C11D676007F3AE3 /* AudioController.mm */; };
-		42A55C0D1C0F107000FD6C7D /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42A55C0C1C0F107000FD6C7D /* Message.swift */; };
-		42A55C191C0F2B5600FD6C7D /* 23.aif in Resources */ = {isa = PBXBuildFile; fileRef = 42A55C141C0F2B5600FD6C7D /* 23.aif */; };
-		42A55C1A1C0F2B5600FD6C7D /* 24.aif in Resources */ = {isa = PBXBuildFile; fileRef = 42A55C151C0F2B5600FD6C7D /* 24.aif */; };
-		42A55C1B1C0F2B5600FD6C7D /* 25.aif in Resources */ = {isa = PBXBuildFile; fileRef = 42A55C161C0F2B5600FD6C7D /* 25.aif */; };
-		42A55C1C1C0F2B5600FD6C7D /* 26.aif in Resources */ = {isa = PBXBuildFile; fileRef = 42A55C171C0F2B5600FD6C7D /* 26.aif */; };
-		42A55C1D1C0F2B5600FD6C7D /* 27.aif in Resources */ = {isa = PBXBuildFile; fileRef = 42A55C181C0F2B5600FD6C7D /* 27.aif */; };
-		42A55C201C0F2B6400FD6C7D /* 29.aif in Resources */ = {isa = PBXBuildFile; fileRef = 42A55C1E1C0F2B6400FD6C7D /* 29.aif */; };
-		42A55C211C0F2B6400FD6C7D /* 30.aif in Resources */ = {isa = PBXBuildFile; fileRef = 42A55C1F1C0F2B6400FD6C7D /* 30.aif */; };
-		E25279C61BF606C8008B4690 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E25279C51BF606C8008B4690 /* AppDelegate.swift */; };
-		E25279C81BF606C8008B4690 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E25279C71BF606C8008B4690 /* HomeViewController.swift */; };
-		E25279CD1BF606C8008B4690 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E25279CC1BF606C8008B4690 /* Assets.xcassets */; };
-		E25279D01BF606C8008B4690 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E25279CE1BF606C8008B4690 /* LaunchScreen.storyboard */; };
-		E25279DB1BF61AEA008B4690 /* VolumeControl.m in Sources */ = {isa = PBXBuildFile; fileRef = E25279DA1BF61AEA008B4690 /* VolumeControl.m */; };
+		E20B94591C17538500222A2B /* 23.aif in Resources */ = {isa = PBXBuildFile; fileRef = E20B94521C17538500222A2B /* 23.aif */; };
+		E20B945A1C17538500222A2B /* 24.aif in Resources */ = {isa = PBXBuildFile; fileRef = E20B94531C17538500222A2B /* 24.aif */; };
+		E20B945B1C17538500222A2B /* 25.aif in Resources */ = {isa = PBXBuildFile; fileRef = E20B94541C17538500222A2B /* 25.aif */; };
+		E20B945C1C17538500222A2B /* 26.aif in Resources */ = {isa = PBXBuildFile; fileRef = E20B94551C17538500222A2B /* 26.aif */; };
+		E20B945D1C17538500222A2B /* 27.aif in Resources */ = {isa = PBXBuildFile; fileRef = E20B94561C17538500222A2B /* 27.aif */; };
+		E20B945E1C17538500222A2B /* 29.aif in Resources */ = {isa = PBXBuildFile; fileRef = E20B94571C17538500222A2B /* 29.aif */; };
+		E20B945F1C17538500222A2B /* 30.aif in Resources */ = {isa = PBXBuildFile; fileRef = E20B94581C17538500222A2B /* 30.aif */; };
+		E20B94611C17539C00222A2B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E20B94601C17539C00222A2B /* AppDelegate.swift */; };
+		E20B94681C1753B900222A2B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E20B94641C1753B900222A2B /* Assets.xcassets */; };
+		E20B946C1C1753C800222A2B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E20B946A1C1753C800222A2B /* LaunchScreen.storyboard */; };
+		E20B94801C17541E00222A2B /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = E20B94731C17541E00222A2B /* Message.swift */; };
+		E20B94811C17541E00222A2B /* AudioController.mm in Sources */ = {isa = PBXBuildFile; fileRef = E20B94761C17541E00222A2B /* AudioController.mm */; };
+		E20B94821C17541E00222A2B /* SoundaramaClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = E20B94771C17541E00222A2B /* SoundaramaClient.swift */; };
+		E20B94831C17541E00222A2B /* SoundaramaServer.swift in Sources */ = {isa = PBXBuildFile; fileRef = E20B94781C17541E00222A2B /* SoundaramaServer.swift */; };
+		E20B94841C17541E00222A2B /* VolumeControl.m in Sources */ = {isa = PBXBuildFile; fileRef = E20B947A1C17541E00222A2B /* VolumeControl.m */; };
+		E20B94851C17541E00222A2B /* DJViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E20B947C1C17541E00222A2B /* DJViewController.swift */; };
+		E20B94861C17541E00222A2B /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E20B947D1C17541E00222A2B /* HomeViewController.swift */; };
+		E20B94871C17541E00222A2B /* PerformerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E20B947E1C17541E00222A2B /* PerformerViewController.swift */; };
 		E2527A251BF62A68008B4690 /* CocoaAsyncSocket.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E2527A201BF62A55008B4690 /* CocoaAsyncSocket.framework */; };
-		E2527A291BF62AB6008B4690 /* DJViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2527A271BF62AB6008B4690 /* DJViewController.swift */; };
-		E2527A2A1BF62AB6008B4690 /* PerformerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2527A281BF62AB6008B4690 /* PerformerViewController.swift */; };
-		E2527A2C1BF62AD8008B4690 /* SoundaramaServer.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2527A2B1BF62AD8008B4690 /* SoundaramaServer.swift */; };
-		E2527A2E1BF6304F008B4690 /* SoundaramaClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2527A2D1BF6304F008B4690 /* SoundaramaClient.swift */; };
 		E2527A301BF638B3008B4690 /* CocoaAsyncSocket.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = E2527A201BF62A55008B4690 /* CocoaAsyncSocket.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
@@ -67,30 +67,30 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		423DC5581C11D676007F3AE3 /* AudioController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = AudioController.mm; sourceTree = "<group>"; };
-		423DC55A1C11D69B007F3AE3 /* AudioController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AudioController.h; sourceTree = "<group>"; };
-		42A55C0C1C0F107000FD6C7D /* Message.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
-		42A55C141C0F2B5600FD6C7D /* 23.aif */ = {isa = PBXFileReference; lastKnownFileType = file; path = 23.aif; sourceTree = "<group>"; };
-		42A55C151C0F2B5600FD6C7D /* 24.aif */ = {isa = PBXFileReference; lastKnownFileType = file; path = 24.aif; sourceTree = "<group>"; };
-		42A55C161C0F2B5600FD6C7D /* 25.aif */ = {isa = PBXFileReference; lastKnownFileType = file; path = 25.aif; sourceTree = "<group>"; };
-		42A55C171C0F2B5600FD6C7D /* 26.aif */ = {isa = PBXFileReference; lastKnownFileType = file; path = 26.aif; sourceTree = "<group>"; };
-		42A55C181C0F2B5600FD6C7D /* 27.aif */ = {isa = PBXFileReference; lastKnownFileType = file; path = 27.aif; sourceTree = "<group>"; };
-		42A55C1E1C0F2B6400FD6C7D /* 29.aif */ = {isa = PBXFileReference; lastKnownFileType = file; path = 29.aif; sourceTree = "<group>"; };
-		42A55C1F1C0F2B6400FD6C7D /* 30.aif */ = {isa = PBXFileReference; lastKnownFileType = file; path = 30.aif; sourceTree = "<group>"; };
+		E20B94521C17538500222A2B /* 23.aif */ = {isa = PBXFileReference; lastKnownFileType = file; path = 23.aif; sourceTree = "<group>"; };
+		E20B94531C17538500222A2B /* 24.aif */ = {isa = PBXFileReference; lastKnownFileType = file; path = 24.aif; sourceTree = "<group>"; };
+		E20B94541C17538500222A2B /* 25.aif */ = {isa = PBXFileReference; lastKnownFileType = file; path = 25.aif; sourceTree = "<group>"; };
+		E20B94551C17538500222A2B /* 26.aif */ = {isa = PBXFileReference; lastKnownFileType = file; path = 26.aif; sourceTree = "<group>"; };
+		E20B94561C17538500222A2B /* 27.aif */ = {isa = PBXFileReference; lastKnownFileType = file; path = 27.aif; sourceTree = "<group>"; };
+		E20B94571C17538500222A2B /* 29.aif */ = {isa = PBXFileReference; lastKnownFileType = file; path = 29.aif; sourceTree = "<group>"; };
+		E20B94581C17538500222A2B /* 30.aif */ = {isa = PBXFileReference; lastKnownFileType = file; path = 30.aif; sourceTree = "<group>"; };
+		E20B94601C17539C00222A2B /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		E20B94641C1753B900222A2B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Assets.xcassets; path = Resources/Assets.xcassets; sourceTree = "<group>"; };
+		E20B946B1C1753C800222A2B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Resources/Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		E20B94731C17541E00222A2B /* Message.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
+		E20B94751C17541E00222A2B /* AudioController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AudioController.h; sourceTree = "<group>"; };
+		E20B94761C17541E00222A2B /* AudioController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = AudioController.mm; sourceTree = "<group>"; };
+		E20B94771C17541E00222A2B /* SoundaramaClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SoundaramaClient.swift; sourceTree = "<group>"; };
+		E20B94781C17541E00222A2B /* SoundaramaServer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SoundaramaServer.swift; sourceTree = "<group>"; };
+		E20B94791C17541E00222A2B /* VolumeControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VolumeControl.h; sourceTree = "<group>"; };
+		E20B947A1C17541E00222A2B /* VolumeControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VolumeControl.m; sourceTree = "<group>"; };
+		E20B947C1C17541E00222A2B /* DJViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DJViewController.swift; sourceTree = "<group>"; };
+		E20B947D1C17541E00222A2B /* HomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
+		E20B947E1C17541E00222A2B /* PerformerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PerformerViewController.swift; sourceTree = "<group>"; };
 		E25279C21BF606C8008B4690 /* Soundarama.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Soundarama.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		E25279C51BF606C8008B4690 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AppDelegate.swift; path = ../AppDelegate.swift; sourceTree = "<group>"; };
-		E25279C71BF606C8008B4690 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = HomeViewController.swift; path = ../../HomeViewController.swift; sourceTree = "<group>"; };
-		E25279CC1BF606C8008B4690 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		E25279CF1BF606C8008B4690 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		E25279D11BF606C8008B4690 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		E25279D91BF61AEA008B4690 /* VolumeControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VolumeControl.h; sourceTree = "<group>"; };
-		E25279DA1BF61AEA008B4690 /* VolumeControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VolumeControl.m; sourceTree = "<group>"; };
 		E25279E01BF61B23008B4690 /* Soundarama-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "Soundarama-Bridging-Header.h"; path = "Resources/Soundarama-Bridging-Header.h"; sourceTree = "<group>"; };
 		E2527A191BF62A55008B4690 /* CocoaAsyncSocket.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = CocoaAsyncSocket.xcodeproj; path = Soundarama/Frameworks/CocoaAsyncSocket/CocoaAsyncSocket.xcodeproj; sourceTree = "<group>"; };
-		E2527A271BF62AB6008B4690 /* DJViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DJViewController.swift; sourceTree = "<group>"; };
-		E2527A281BF62AB6008B4690 /* PerformerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PerformerViewController.swift; sourceTree = "<group>"; };
-		E2527A2B1BF62AD8008B4690 /* SoundaramaServer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SoundaramaServer.swift; sourceTree = "<group>"; };
-		E2527A2D1BF6304F008B4690 /* SoundaramaClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SoundaramaClient.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -105,20 +105,12 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		42A55C0B1C0F0CC300FD6C7D /* Model */ = {
-			isa = PBXGroup;
-			children = (
-				42A55C0C1C0F107000FD6C7D /* Message.swift */,
-			);
-			name = Model;
-			sourceTree = "<group>";
-		};
 		42A55C121C0F2AE900FD6C7D /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				42A55C221C0F2B6700FD6C7D /* Sounds */,
-				E25279CC1BF606C8008B4690 /* Assets.xcassets */,
-				E25279CE1BF606C8008B4690 /* LaunchScreen.storyboard */,
+				E20B946A1C1753C800222A2B /* LaunchScreen.storyboard */,
+				E20B94641C1753B900222A2B /* Assets.xcassets */,
+				E20B94511C17538500222A2B /* Sounds */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -132,18 +124,132 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		42A55C221C0F2B6700FD6C7D /* Sounds */ = {
+		E20B94511C17538500222A2B /* Sounds */ = {
 			isa = PBXGroup;
 			children = (
-				42A55C141C0F2B5600FD6C7D /* 23.aif */,
-				42A55C151C0F2B5600FD6C7D /* 24.aif */,
-				42A55C161C0F2B5600FD6C7D /* 25.aif */,
-				42A55C171C0F2B5600FD6C7D /* 26.aif */,
-				42A55C181C0F2B5600FD6C7D /* 27.aif */,
-				42A55C1E1C0F2B6400FD6C7D /* 29.aif */,
-				42A55C1F1C0F2B6400FD6C7D /* 30.aif */,
+				E20B94521C17538500222A2B /* 23.aif */,
+				E20B94531C17538500222A2B /* 24.aif */,
+				E20B94541C17538500222A2B /* 25.aif */,
+				E20B94551C17538500222A2B /* 26.aif */,
+				E20B94561C17538500222A2B /* 27.aif */,
+				E20B94571C17538500222A2B /* 29.aif */,
+				E20B94581C17538500222A2B /* 30.aif */,
 			);
 			name = Sounds;
+			path = Resources/Sounds;
+			sourceTree = "<group>";
+		};
+		E20B94711C17541E00222A2B /* Shared */ = {
+			isa = PBXGroup;
+			children = (
+				E20B94721C17541E00222A2B /* Model */,
+				E20B94741C17541E00222A2B /* Utilities */,
+				E20B947B1C17541E00222A2B /* ViewControllers */,
+				E20B947F1C17541E00222A2B /* Views */,
+			);
+			path = Shared;
+			sourceTree = "<group>";
+		};
+		E20B94721C17541E00222A2B /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				E20B94731C17541E00222A2B /* Message.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		E20B94741C17541E00222A2B /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				E20B94751C17541E00222A2B /* AudioController.h */,
+				E20B94761C17541E00222A2B /* AudioController.mm */,
+				E20B94771C17541E00222A2B /* SoundaramaClient.swift */,
+				E20B94781C17541E00222A2B /* SoundaramaServer.swift */,
+				E20B94791C17541E00222A2B /* VolumeControl.h */,
+				E20B947A1C17541E00222A2B /* VolumeControl.m */,
+			);
+			path = Utilities;
+			sourceTree = "<group>";
+		};
+		E20B947B1C17541E00222A2B /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				E20B947C1C17541E00222A2B /* DJViewController.swift */,
+				E20B947D1C17541E00222A2B /* HomeViewController.swift */,
+				E20B947E1C17541E00222A2B /* PerformerViewController.swift */,
+			);
+			path = ViewControllers;
+			sourceTree = "<group>";
+		};
+		E20B947F1C17541E00222A2B /* Views */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		E20B94881C17542400222A2B /* DJ */ = {
+			isa = PBXGroup;
+			children = (
+				E20B94891C17542400222A2B /* Model */,
+				E20B948A1C17542400222A2B /* ViewControllers */,
+				E20B948B1C17542400222A2B /* Views */,
+			);
+			name = DJ;
+			path = Soundarama/Classes/DJ;
+			sourceTree = SOURCE_ROOT;
+		};
+		E20B94891C17542400222A2B /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		E20B948A1C17542400222A2B /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = ViewControllers;
+			sourceTree = "<group>";
+		};
+		E20B948B1C17542400222A2B /* Views */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		E20B948C1C17542400222A2B /* Performer */ = {
+			isa = PBXGroup;
+			children = (
+				E20B948D1C17542400222A2B /* Model */,
+				E20B948E1C17542400222A2B /* ViewControllers */,
+				E20B948F1C17542400222A2B /* Views */,
+			);
+			name = Performer;
+			path = Soundarama/Classes/Performer;
+			sourceTree = SOURCE_ROOT;
+		};
+		E20B948D1C17542400222A2B /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		E20B948E1C17542400222A2B /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = ViewControllers;
+			sourceTree = "<group>";
+		};
+		E20B948F1C17542400222A2B /* Views */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Views;
 			sourceTree = "<group>";
 		};
 		E25279B91BF606C8008B4690 = {
@@ -177,25 +283,12 @@
 		E25279D71BF61AEA008B4690 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
-				E25279C51BF606C8008B4690 /* AppDelegate.swift */,
-				42A55C0B1C0F0CC300FD6C7D /* Model */,
-				E2527A261BF62AB6008B4690 /* ViewControllers */,
-				E25279D81BF61AEA008B4690 /* Utilities */,
+				E20B94601C17539C00222A2B /* AppDelegate.swift */,
+				E20B94711C17541E00222A2B /* Shared */,
+				E20B94881C17542400222A2B /* DJ */,
+				E20B948C1C17542400222A2B /* Performer */,
 			);
 			path = Classes;
-			sourceTree = "<group>";
-		};
-		E25279D81BF61AEA008B4690 /* Utilities */ = {
-			isa = PBXGroup;
-			children = (
-				E25279D91BF61AEA008B4690 /* VolumeControl.h */,
-				E25279DA1BF61AEA008B4690 /* VolumeControl.m */,
-				E2527A2B1BF62AD8008B4690 /* SoundaramaServer.swift */,
-				E2527A2D1BF6304F008B4690 /* SoundaramaClient.swift */,
-				423DC55A1C11D69B007F3AE3 /* AudioController.h */,
-				423DC5581C11D676007F3AE3 /* AudioController.mm */,
-			);
-			path = Utilities;
 			sourceTree = "<group>";
 		};
 		E25279E51BF629E9008B4690 /* Frameworks */ = {
@@ -213,16 +306,6 @@
 				E2527A241BF62A55008B4690 /* CocoaAsyncSocket.framework */,
 			);
 			name = Products;
-			sourceTree = "<group>";
-		};
-		E2527A261BF62AB6008B4690 /* ViewControllers */ = {
-			isa = PBXGroup;
-			children = (
-				E25279C71BF606C8008B4690 /* HomeViewController.swift */,
-				E2527A271BF62AB6008B4690 /* DJViewController.swift */,
-				E2527A281BF62AB6008B4690 /* PerformerViewController.swift */,
-			);
-			path = ViewControllers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -315,15 +398,15 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				42A55C1B1C0F2B5600FD6C7D /* 25.aif in Resources */,
-				E25279D01BF606C8008B4690 /* LaunchScreen.storyboard in Resources */,
-				42A55C1C1C0F2B5600FD6C7D /* 26.aif in Resources */,
-				42A55C211C0F2B6400FD6C7D /* 30.aif in Resources */,
-				42A55C1D1C0F2B5600FD6C7D /* 27.aif in Resources */,
-				E25279CD1BF606C8008B4690 /* Assets.xcassets in Resources */,
-				42A55C1A1C0F2B5600FD6C7D /* 24.aif in Resources */,
-				42A55C191C0F2B5600FD6C7D /* 23.aif in Resources */,
-				42A55C201C0F2B6400FD6C7D /* 29.aif in Resources */,
+				E20B946C1C1753C800222A2B /* LaunchScreen.storyboard in Resources */,
+				E20B945B1C17538500222A2B /* 25.aif in Resources */,
+				E20B945C1C17538500222A2B /* 26.aif in Resources */,
+				E20B945F1C17538500222A2B /* 30.aif in Resources */,
+				E20B94681C1753B900222A2B /* Assets.xcassets in Resources */,
+				E20B945D1C17538500222A2B /* 27.aif in Resources */,
+				E20B945A1C17538500222A2B /* 24.aif in Resources */,
+				E20B94591C17538500222A2B /* 23.aif in Resources */,
+				E20B945E1C17538500222A2B /* 29.aif in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -334,25 +417,25 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				423DC5591C11D676007F3AE3 /* AudioController.mm in Sources */,
-				E2527A2E1BF6304F008B4690 /* SoundaramaClient.swift in Sources */,
-				E25279C81BF606C8008B4690 /* HomeViewController.swift in Sources */,
-				E25279DB1BF61AEA008B4690 /* VolumeControl.m in Sources */,
-				E2527A2A1BF62AB6008B4690 /* PerformerViewController.swift in Sources */,
-				E2527A291BF62AB6008B4690 /* DJViewController.swift in Sources */,
-				42A55C0D1C0F107000FD6C7D /* Message.swift in Sources */,
-				E25279C61BF606C8008B4690 /* AppDelegate.swift in Sources */,
-				E2527A2C1BF62AD8008B4690 /* SoundaramaServer.swift in Sources */,
+				E20B94611C17539C00222A2B /* AppDelegate.swift in Sources */,
+				E20B94871C17541E00222A2B /* PerformerViewController.swift in Sources */,
+				E20B94841C17541E00222A2B /* VolumeControl.m in Sources */,
+				E20B94831C17541E00222A2B /* SoundaramaServer.swift in Sources */,
+				E20B94861C17541E00222A2B /* HomeViewController.swift in Sources */,
+				E20B94851C17541E00222A2B /* DJViewController.swift in Sources */,
+				E20B94811C17541E00222A2B /* AudioController.mm in Sources */,
+				E20B94801C17541E00222A2B /* Message.swift in Sources */,
+				E20B94821C17541E00222A2B /* SoundaramaClient.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		E25279CE1BF606C8008B4690 /* LaunchScreen.storyboard */ = {
+		E20B946A1C1753C800222A2B /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
-				E25279CF1BF606C8008B4690 /* Base */,
+				E20B946B1C1753C800222A2B /* Base */,
 			);
 			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";
@@ -450,10 +533,11 @@
 				INFOPLIST_FILE = Soundarama/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.touchpress..flv.Soundarama;
+				PRODUCT_BUNDLE_IDENTIFIER = com.touchpress.flv.Soundarama;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "Soundarama/Resources/Soundarama-Bridging-Header.h";
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
 		};
@@ -466,10 +550,11 @@
 				INFOPLIST_FILE = Soundarama/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.touchpress..flv.Soundarama;
+				PRODUCT_BUNDLE_IDENTIFIER = com.touchpress.flv.Soundarama;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "Soundarama/Resources/Soundarama-Bridging-Header.h";
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
 		};
