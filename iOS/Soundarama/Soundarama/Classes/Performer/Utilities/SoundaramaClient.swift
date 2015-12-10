@@ -12,8 +12,7 @@ protocol SoundaramaClientDelegate {
     
     func clientDidConnect()
     func clientDidDisconnect()
-    func clientDidRecieveAudioStemStartMessage(message: AudioStemStartMessage)
-    func clientDidReceiveAudioStemStopMessage(message: AudioStemStopMessage)
+    func clientDidRecieveAudioStemMessage(message: AudioStemMessage)
     func clientDidSyncClock(local: NSTimeInterval, remote: NSTimeInterval)
 }
 
@@ -124,13 +123,9 @@ extension SoundaramaClient: AsyncSocketDelegate
     {
         print("Recieved message")
         
-        if let message = AudioStemStartMessage(data: data)
+        if let message = AudioStemMessage(data: data)
         {
-            self.delegate?.clientDidRecieveAudioStemStartMessage(message)
-        }
-        else if let message = AudioStemStopMessage(data: data)
-        {
-            self.delegate?.clientDidReceiveAudioStemStopMessage(message)
+            self.delegate?.clientDidRecieveAudioStemMessage(message)
         }
         
         clientSocket?.readDataToData(MessageConstants.seperator, withTimeout: -1, tag: 1)

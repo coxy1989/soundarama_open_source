@@ -16,7 +16,7 @@ class PerformerViewController: UIViewController
     private var backgroundGradientLayer: CAGradientLayer?
     
     private var audioStems = [String: AudioStem]()
-    private var audioController = AudioController()
+    private var audioController = PerformerAudioController()
     
     private var displayLink: CADisplayLink!
     
@@ -54,7 +54,7 @@ class PerformerViewController: UIViewController
         }
         
         client.delegate = self
-        audioController.setup()
+        
         view.addSubview(connectionLabel)
         view.addSubview(timeLabel)
         view.backgroundColor = UIColor.blackColor()
@@ -92,21 +92,17 @@ extension PerformerViewController: SoundaramaClientDelegate {
         connectionLabel.text = "Not Connected"
     }
     
-    func clientDidRecieveAudioStemStartMessage(message: AudioStemStartMessage)
+    func clientDidRecieveAudioStemMessage(message: AudioStemMessage)
     {
         if let audioStem = self.audioStems[message.audioStemRef]
         {
             self.backgroundGradientLayer?.colors = [ audioStem.colour.CGColor, audioStem.colour.colorWithAlphaComponent(0.4).CGColor ]
             
             dispatch_async(dispatch_get_main_queue()) { [unowned self] in
-                self.scheduleSound(message.timestamp, loopLength: message.loopLength)
+                
+                self.scheduleSound(audioStem, timestamp: message.timestamp, loopLength: message.loopLength, stop: (message.type == .Stop))
             }
         }
-    }
-    
-    func clientDidReceiveAudioStemStopMessage(message: AudioStemStopMessage)
-    {
-        self.audioController.stop()
     }
     
     func clientDidSyncClock(local: NSTimeInterval, remote: NSTimeInterval)
@@ -132,14 +128,12 @@ extension PerformerViewController {
     }
 }
 
-extension PerformerViewController {
-    
-    func scheduleSound(timestamp: Double, loopLength: NSTimeInterval)
+extension PerformerViewController
+{
+    func scheduleSound(audioStem: AudioStem, timestamp: Double, loopLength: NSTimeInterval, stop: Bool = false)
     {
-        audioController.stop()
-        audioController.setup()
-        
         let now = NSDate().timeIntervalSince1970
+        
         let elapsedSinceSync = now - clockMap.local
         let remoteNow = clockMap.remote + elapsedSinceSync
     
@@ -150,16 +144,14 @@ extension PerformerViewController {
         }
         
         let waitSecs = Double(nextStartTime) - Double(remoteNow)
-        let expected = now + waitSecs
         
-        
-        // dispatch_time doesn't seem to agree with the system clock so doing this instead.
-        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0)) {
-            while NSDate().timeIntervalSince1970 < expected { /* wait */ }
-            dispatch_async(dispatch_get_main_queue()) {
-                self.audioController.start()
-            }
+        if (stop)
+        {
+            self.audioController.stopAudioStem(audioStem, afterDelay: waitSecs)
         }
-        
+        else
+        {
+            self.audioController.playAudioStem(audioStem, afterDelay: waitSecs)
+        }
     }
 }

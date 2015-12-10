@@ -109,7 +109,7 @@ class DJViewController: UIViewController
                             
                             if let audioStemRef = soundZoneView.audioStem?.reference
                             {
-                                let message = AudioStemStartMessage(audioStemRef: audioStemRef, timestamp: NSDate().timeIntervalSince1970, loopLength: 2)
+                                let message = AudioStemMessage(audioStemRef: audioStemRef, timestamp: NSDate().timeIntervalSince1970, loopLength: 2, type: .Start)
                                 self.server.sendMessage(message, performerID: performerID)
                             }
                         }
@@ -124,9 +124,12 @@ class DJViewController: UIViewController
             //If the performer isn't in a sound zone, but was previously, send stop message
             if !performerInSoundZone && previouslyInSoundZone
             {
-                self.currentPerformerSoundZoneViews[performerID] = nil
-                let message = AudioStemStopMessage(timestamp: NSDate().timeIntervalSince1970, loopLength: 2)
-                self.server.sendMessage(message, performerID: performerID)
+                if let currentAudioStemRef = self.currentPerformerSoundZoneViews[performerID]?.audioStem?.reference
+                {
+                    self.currentPerformerSoundZoneViews[performerID] = nil
+                    let message = AudioStemMessage(audioStemRef: currentAudioStemRef, timestamp: NSDate().timeIntervalSince1970, loopLength: 2, type: .Stop)
+                    self.server.sendMessage(message, performerID: performerID)
+                }
             }
             
             panGesture.setTranslation(CGPoint.zero, inView: self.view)
@@ -166,7 +169,7 @@ extension DJViewController: AudioStemsViewControllerDelegate
             {
                 for (performerID, soundZone) in self.currentPerformerSoundZoneViews where soundZone == selectedSoundZoneView
                 {
-                    let message = AudioStemStartMessage(audioStemRef: audioStemRef, timestamp: NSDate().timeIntervalSince1970, loopLength: 2)
+                    let message = AudioStemMessage(audioStemRef: audioStemRef, timestamp: NSDate().timeIntervalSince1970, loopLength: 2, type: .Start)
                     self.server.sendMessage(message, performerID: performerID)
                 }
             }

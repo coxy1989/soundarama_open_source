@@ -38,6 +38,7 @@
 		E26EBAA61C18B1BF00747726 /* SoundaramaClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = E26EBAA51C18B1BF00747726 /* SoundaramaClient.swift */; };
 		E26EBAA91C18B1DB00747726 /* SoundaramaServer.swift in Sources */ = {isa = PBXBuildFile; fileRef = E26EBAA81C18B1DB00747726 /* SoundaramaServer.swift */; };
 		E26EBAAB1C18C22200747726 /* PerformerPhoneImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E26EBAAA1C18C22200747726 /* PerformerPhoneImageView.swift */; };
+		E26EBAB41C199DC000747726 /* PerformerAudioController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E26EBAB31C199DC000747726 /* PerformerAudioController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -113,6 +114,7 @@
 		E26EBAA51C18B1BF00747726 /* SoundaramaClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SoundaramaClient.swift; sourceTree = "<group>"; };
 		E26EBAA81C18B1DB00747726 /* SoundaramaServer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SoundaramaServer.swift; sourceTree = "<group>"; };
 		E26EBAAA1C18C22200747726 /* PerformerPhoneImageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PerformerPhoneImageView.swift; sourceTree = "<group>"; };
+		E26EBAB31C199DC000747726 /* PerformerAudioController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PerformerAudioController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -345,6 +347,7 @@
 			isa = PBXGroup;
 			children = (
 				E26EBAA51C18B1BF00747726 /* SoundaramaClient.swift */,
+				E26EBAB31C199DC000747726 /* PerformerAudioController.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -485,6 +488,7 @@
 				E26EBAAB1C18C22200747726 /* PerformerPhoneImageView.swift in Sources */,
 				E20B94931C188BF700222A2B /* SoundZoneView.swift in Sources */,
 				E20B94811C17541E00222A2B /* AudioController.mm in Sources */,
+				E26EBAB41C199DC000747726 /* PerformerAudioController.swift in Sources */,
 				E20B94801C17541E00222A2B /* Message.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

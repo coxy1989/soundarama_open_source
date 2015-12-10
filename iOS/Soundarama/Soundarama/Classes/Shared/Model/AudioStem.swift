@@ -16,6 +16,11 @@ struct AudioStem
     let category: String
     let reference: String
     
+    var audioFilePath: String?
+    {
+        return NSBundle.mainBundle().pathForResource("23", ofType: "aif")
+    }
+    
     init?(json: JSON)
     {
         if let name = json["Name"].string,

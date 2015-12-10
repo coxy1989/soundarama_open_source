@@ -20,58 +20,25 @@ struct MessageConstants
     static let seperator = ";".dataUsingEncoding(NSUTF8StringEncoding)!
 }
 
-struct AudioStemStopMessage: Message
+struct AudioStemMessage: Message
 {
-    let timestamp: Double
-    let loopLength: NSTimeInterval
-    
-    init (timestamp: NSTimeInterval, loopLength: NSTimeInterval)
+    enum Type: UInt
     {
-        self.timestamp = timestamp
-        self.loopLength = loopLength
+        case Start = 0
+        case Stop
     }
     
-    init?(data: NSData)
-    {
-        let mutable = data.mutableCopy() as! NSMutableData
-        let range = NSMakeRange(mutable.length - MessageConstants.seperator.length, MessageConstants.seperator.length)
-        mutable.replaceBytesInRange(range, withBytes: nil, length: 0)
-        if let msg = NSKeyedUnarchiver.unarchiveObjectWithData(mutable),
-                _ = msg["audioStemStop"] as? Bool,
-                    timestamp = msg["timestamp"] as? Double,
-                        loopLength = msg["loopLength"] as? NSTimeInterval
-        {
-            //Valid stop message
-            self.timestamp = timestamp
-            self.loopLength = loopLength
-        }
-        else
-        {
-            return nil
-        }
-    }
-    
-    func data() -> NSData
-    {
-        let dic = ["audioStemStop" : true, "timestamp" : timestamp, "loopLength" : loopLength]
-        let msg = NSKeyedArchiver.archivedDataWithRootObject(dic)
-        let dat = msg.mutableCopy()
-        dat.appendData(MessageConstants.seperator)
-        return dat as! NSData
-    }
-}
-
-struct AudioStemStartMessage: Message
-{
     let audioStemRef: String
     let timestamp: Double
     let loopLength: NSTimeInterval
+    let type: Type
 
-    init (audioStemRef: String, timestamp: NSTimeInterval, loopLength: NSTimeInterval)
+    init (audioStemRef: String, timestamp: NSTimeInterval, loopLength: NSTimeInterval, type: Type)
     {
         self.audioStemRef = audioStemRef
         self.timestamp = timestamp
         self.loopLength = loopLength
+        self.type = type
     }
     
     init?(data: NSData)
@@ -82,11 +49,13 @@ struct AudioStemStartMessage: Message
         if let msg = NSKeyedUnarchiver.unarchiveObjectWithData(mutable),
                 audioStemRef = msg["audioStemRef"] as? String,
                     timestamp = msg["timestamp"] as? Double,
-                        loopLength = msg["loopLength"] as? NSTimeInterval
+                        loopLength = msg["loopLength"] as? NSTimeInterval,
+                            typeVal = msg["type"] as? UInt
         {
             self.audioStemRef =  audioStemRef
             self.timestamp = timestamp
             self.loopLength = loopLength
+            self.type = Type(rawValue: typeVal)!
         }
         else
         {
@@ -96,7 +65,7 @@ struct AudioStemStartMessage: Message
     
     func data() -> NSData
     {
-        let dic = ["audioStemRef" : audioStemRef, "timestamp" : timestamp, "loopLength" : loopLength]
+        let dic = ["audioStemRef" : audioStemRef, "timestamp" : timestamp, "loopLength" : loopLength, "type" : self.type.rawValue]
         let msg = NSKeyedArchiver.archivedDataWithRootObject(dic)
         let dat = msg.mutableCopy()
         dat.appendData(MessageConstants.seperator)
