@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		E20B94591C17538500222A2B /* 23.aif in Resources */ = {isa = PBXBuildFile; fileRef = E20B94521C17538500222A2B /* 23.aif */; };
 		E20B94611C17539C00222A2B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E20B94601C17539C00222A2B /* AppDelegate.swift */; };
 		E20B94681C1753B900222A2B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E20B94641C1753B900222A2B /* Assets.xcassets */; };
 		E20B946C1C1753C800222A2B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E20B946A1C1753C800222A2B /* LaunchScreen.storyboard */; };
@@ -22,7 +21,7 @@
 		E20B949E1C1898A000222A2B /* AudioStem.swift in Sources */ = {isa = PBXBuildFile; fileRef = E20B949D1C1898A000222A2B /* AudioStem.swift */; };
 		E2527A251BF62A68008B4690 /* CocoaAsyncSocket.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E2527A201BF62A55008B4690 /* CocoaAsyncSocket.framework */; };
 		E2527A301BF638B3008B4690 /* CocoaAsyncSocket.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = E2527A201BF62A55008B4690 /* CocoaAsyncSocket.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		E26EBA901C189E6000747726 /* AudioStems.json in Resources */ = {isa = PBXBuildFile; fileRef = E26EBA8F1C189E6000747726 /* AudioStems.json */; };
+		E25F9E0E1C19D7B2001D552F /* Sounds in Resources */ = {isa = PBXBuildFile; fileRef = E25F9E0D1C19D7B2001D552F /* Sounds */; };
 		E26EBA951C18A10A00747726 /* AudioStemsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E26EBA941C18A10A00747726 /* AudioStemsViewController.swift */; };
 		E26EBA981C18A3A000747726 /* SwiftyJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = E26EBA971C18A3A000747726 /* SwiftyJSON.swift */; };
 		E26EBA9A1C18A4E600747726 /* UIColor+Hex.swift in Sources */ = {isa = PBXBuildFile; fileRef = E26EBA991C18A4E600747726 /* UIColor+Hex.swift */; };
@@ -73,7 +72,6 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		E20B94521C17538500222A2B /* 23.aif */ = {isa = PBXFileReference; lastKnownFileType = file; path = 23.aif; sourceTree = "<group>"; };
 		E20B94601C17539C00222A2B /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E20B94641C1753B900222A2B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Assets.xcassets; path = Resources/Assets.xcassets; sourceTree = "<group>"; };
 		E20B946B1C1753C800222A2B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Resources/Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -92,7 +90,7 @@
 		E25279D11BF606C8008B4690 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E25279E01BF61B23008B4690 /* Soundarama-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "Soundarama-Bridging-Header.h"; path = "Resources/Soundarama-Bridging-Header.h"; sourceTree = "<group>"; };
 		E2527A191BF62A55008B4690 /* CocoaAsyncSocket.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = CocoaAsyncSocket.xcodeproj; path = Soundarama/Frameworks/CocoaAsyncSocket/CocoaAsyncSocket.xcodeproj; sourceTree = "<group>"; };
-		E26EBA8F1C189E6000747726 /* AudioStems.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = AudioStems.json; sourceTree = "<group>"; };
+		E25F9E0D1C19D7B2001D552F /* Sounds */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Sounds; path = Resources/Sounds; sourceTree = "<group>"; };
 		E26EBA941C18A10A00747726 /* AudioStemsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AudioStemsViewController.swift; sourceTree = "<group>"; };
 		E26EBA971C18A3A000747726 /* SwiftyJSON.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftyJSON.swift; sourceTree = "<group>"; };
 		E26EBA991C18A4E600747726 /* UIColor+Hex.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIColor+Hex.swift"; sourceTree = "<group>"; };
@@ -122,8 +120,8 @@
 			children = (
 				E20B946A1C1753C800222A2B /* LaunchScreen.storyboard */,
 				E20B94641C1753B900222A2B /* Assets.xcassets */,
-				E20B94511C17538500222A2B /* Sounds */,
 				E26EBAA21C18AF4700747726 /* Localizable.strings */,
+				E25F9E0D1C19D7B2001D552F /* Sounds */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -135,16 +133,6 @@
 				E25279D11BF606C8008B4690 /* Info.plist */,
 			);
 			name = "Supporting Files";
-			sourceTree = "<group>";
-		};
-		E20B94511C17538500222A2B /* Sounds */ = {
-			isa = PBXGroup;
-			children = (
-				E26EBA8F1C189E6000747726 /* AudioStems.json */,
-				E20B94521C17538500222A2B /* 23.aif */,
-			);
-			name = Sounds;
-			path = Resources/Sounds;
 			sourceTree = "<group>";
 		};
 		E20B94711C17541E00222A2B /* Shared */ = {
@@ -328,8 +316,8 @@
 		E26EBAA41C18B1BF00747726 /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
-				E26EBAA51C18B1BF00747726 /* SoundaramaClient.swift */,
 				E26EBAB31C199DC000747726 /* PerformerAudioController.swift */,
+				E26EBAA51C18B1BF00747726 /* SoundaramaClient.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -434,9 +422,8 @@
 			files = (
 				E20B946C1C1753C800222A2B /* LaunchScreen.storyboard in Resources */,
 				E26EBAA31C18AF4700747726 /* Localizable.strings in Resources */,
+				E25F9E0E1C19D7B2001D552F /* Sounds in Resources */,
 				E20B94681C1753B900222A2B /* Assets.xcassets in Resources */,
-				E20B94591C17538500222A2B /* 23.aif in Resources */,
-				E26EBA901C189E6000747726 /* AudioStems.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
