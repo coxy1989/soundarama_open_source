@@ -50,13 +50,13 @@ class DJViewController: UIViewController
         }
         
         self.server.delegate = self
+        
+        server.publishService()
     }
     
     override func viewDidAppear(animated: Bool)
     {
         super.viewDidAppear(animated)
-        
-        server.publishService()
     }
     
     override func viewWillLayoutSubviews()
