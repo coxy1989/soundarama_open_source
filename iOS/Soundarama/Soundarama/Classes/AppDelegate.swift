@@ -14,7 +14,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate
 {
     var window: UIWindow?
 
-    var testAudio: AudioController!
+//    var testAudio: AudioController!
     
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool
     {
@@ -26,6 +26,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate
         {
             
         }
+        
+        UIApplication.sharedApplication().setStatusBarHidden(true, withAnimation: .None)
         
         //VolumeControl.setVolumeToMax()
         UIApplication.sharedApplication().idleTimerDisabled = true

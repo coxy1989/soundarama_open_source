@@ -77,11 +77,16 @@ extension PerformerViewController: SoundaramaClientDelegate {
         connectionLabel.text = "Not Connected"
     }
     
-    func clientDidRecieveMessage(message: Message)
+    func clientDidRecieveAudioStemStartMessage(message: AudioStemStartMessage)
     {
         dispatch_async(dispatch_get_main_queue()) { [unowned self] in
             self.scheduleSound(message.timestamp, loopLength: message.loopLength)
         }
+    }
+    
+    func clientDidReceiveAudioStemStopMessage(message: AudioStemStopMessage)
+    {
+        self.audioController.stop()
     }
     
     func clientDidSyncClock(local: NSTimeInterval, remote: NSTimeInterval)

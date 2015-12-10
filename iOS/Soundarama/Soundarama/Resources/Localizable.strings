@@ -1,0 +1,13 @@
+/* 
+  Localizable.strings
+  Soundarama
+
+  Created by Tom Weightman on 09/12/2015.
+  Copyright © 2015 Touchpress Ltd. All rights reserved.
+*/
+
+"DEVICES" = "Devices";
+"SOUND_ZONE_EMPTY" = "Empty";
+
+"HOME_PERFORMER" = "Performer";
+"HOME_DJ" = "DJ";

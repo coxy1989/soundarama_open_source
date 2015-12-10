@@ -12,7 +12,8 @@ protocol SoundaramaClientDelegate {
     
     func clientDidConnect()
     func clientDidDisconnect()
-    func clientDidRecieveMessage(message: Message)
+    func clientDidRecieveAudioStemStartMessage(message: AudioStemStartMessage)
+    func clientDidReceiveAudioStemStopMessage(message: AudioStemStopMessage)
     func clientDidSyncClock(local: NSTimeInterval, remote: NSTimeInterval)
 }
 
@@ -119,12 +120,20 @@ extension SoundaramaClient: NSNetServiceDelegate
 
 extension SoundaramaClient: AsyncSocketDelegate
 {
-    func onSocket(sock: AsyncSocket!, didReadData data: NSData!, withTag tag: Int) {
+    func onSocket(sock: AsyncSocket!, didReadData data: NSData!, withTag tag: Int)
+    {
         print("Recieved message")
-        if let message = Message(data: data) {
-            delegate?.clientDidRecieveMessage(message)
+        
+        if let message = AudioStemStartMessage(data: data)
+        {
+            self.delegate?.clientDidRecieveAudioStemStartMessage(message)
         }
-        clientSocket?.readDataToData(Message.seperator, withTimeout: -1, tag: 1)
+        else if let message = AudioStemStopMessage(data: data)
+        {
+            self.delegate?.clientDidReceiveAudioStemStopMessage(message)
+        }
+        
+        clientSocket?.readDataToData(MessageConstants.seperator, withTimeout: -1, tag: 1)
     }
     
     func onSocket(sock: AsyncSocket!, didConnectToHost host: String!, port: UInt16) {
@@ -170,7 +179,7 @@ extension SoundaramaClient: SoundaramaClientSyncSocketDelegate {
         delegate?.clientDidSyncClock(localTime, remote: christiansTime)
         
         clientSocket?.setDelegate(self)
-        clientSocket?.readDataToData(Message.seperator, withTimeout: -1, tag: 0)
+        clientSocket?.readDataToData(MessageConstants.seperator, withTimeout: -1, tag: 0)
     }
 }
 
@@ -213,8 +222,8 @@ class SoundaramaClientSyncSocket {
     }
     
     func requestTimestamp() {
-        socket.readDataToData(Message.seperator, withTimeout: -1, tag: 0)
-        socket.writeData(Message.seperator, withTimeout: -1, tag: 0)
+        socket.readDataToData(MessageConstants.seperator, withTimeout: -1, tag: 0)
+        socket.writeData(MessageConstants.seperator, withTimeout: -1, tag: 0)
     }
 }
 
@@ -226,7 +235,7 @@ extension SoundaramaClientSyncSocket: AsyncSocketDelegate {
     
     @objc func onSocket(sock: AsyncSocket, didReadData data: NSData!, withTag tag: Int) {
         let mutable = data.mutableCopy()
-        let range = NSMakeRange(mutable.length - Message.seperator.length, Message.seperator.length)
+        let range = NSMakeRange(mutable.length - MessageConstants.seperator.length, MessageConstants.seperator.length)
         mutable.replaceBytesInRange(range, withBytes: nil, length: 0)
         var d: Double = 0
         memcpy(&d, mutable.bytes, sizeof(Double))

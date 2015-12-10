@@ -1,0 +1,17 @@
+{
+  "AudioStems" :
+  [
+    {
+      "Name" : "Bass Drop",
+      "Colour" : "#FFFFFF",
+      "Category" : "Effect",
+      "Ref" : "bass-drop"
+    },
+    {
+      "Name" : "Whistle",
+      "Colour" : "#70BC9E",
+      "Category" : "Effect",
+      "Ref" : "whistle"
+    }
+  ]
+}
