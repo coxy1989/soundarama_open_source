@@ -8,12 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		E20B94591C17538500222A2B /* 23.aif in Resources */ = {isa = PBXBuildFile; fileRef = E20B94521C17538500222A2B /* 23.aif */; };
-		E20B945A1C17538500222A2B /* 24.aif in Resources */ = {isa = PBXBuildFile; fileRef = E20B94531C17538500222A2B /* 24.aif */; };
-		E20B945B1C17538500222A2B /* 25.aif in Resources */ = {isa = PBXBuildFile; fileRef = E20B94541C17538500222A2B /* 25.aif */; };
-		E20B945C1C17538500222A2B /* 26.aif in Resources */ = {isa = PBXBuildFile; fileRef = E20B94551C17538500222A2B /* 26.aif */; };
-		E20B945D1C17538500222A2B /* 27.aif in Resources */ = {isa = PBXBuildFile; fileRef = E20B94561C17538500222A2B /* 27.aif */; };
-		E20B945E1C17538500222A2B /* 29.aif in Resources */ = {isa = PBXBuildFile; fileRef = E20B94571C17538500222A2B /* 29.aif */; };
-		E20B945F1C17538500222A2B /* 30.aif in Resources */ = {isa = PBXBuildFile; fileRef = E20B94581C17538500222A2B /* 30.aif */; };
 		E20B94611C17539C00222A2B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E20B94601C17539C00222A2B /* AppDelegate.swift */; };
 		E20B94681C1753B900222A2B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E20B94641C1753B900222A2B /* Assets.xcassets */; };
 		E20B946C1C1753C800222A2B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E20B946A1C1753C800222A2B /* LaunchScreen.storyboard */; };
@@ -80,12 +74,6 @@
 
 /* Begin PBXFileReference section */
 		E20B94521C17538500222A2B /* 23.aif */ = {isa = PBXFileReference; lastKnownFileType = file; path = 23.aif; sourceTree = "<group>"; };
-		E20B94531C17538500222A2B /* 24.aif */ = {isa = PBXFileReference; lastKnownFileType = file; path = 24.aif; sourceTree = "<group>"; };
-		E20B94541C17538500222A2B /* 25.aif */ = {isa = PBXFileReference; lastKnownFileType = file; path = 25.aif; sourceTree = "<group>"; };
-		E20B94551C17538500222A2B /* 26.aif */ = {isa = PBXFileReference; lastKnownFileType = file; path = 26.aif; sourceTree = "<group>"; };
-		E20B94561C17538500222A2B /* 27.aif */ = {isa = PBXFileReference; lastKnownFileType = file; path = 27.aif; sourceTree = "<group>"; };
-		E20B94571C17538500222A2B /* 29.aif */ = {isa = PBXFileReference; lastKnownFileType = file; path = 29.aif; sourceTree = "<group>"; };
-		E20B94581C17538500222A2B /* 30.aif */ = {isa = PBXFileReference; lastKnownFileType = file; path = 30.aif; sourceTree = "<group>"; };
 		E20B94601C17539C00222A2B /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E20B94641C1753B900222A2B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Assets.xcassets; path = Resources/Assets.xcassets; sourceTree = "<group>"; };
 		E20B946B1C1753C800222A2B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Resources/Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -154,12 +142,6 @@
 			children = (
 				E26EBA8F1C189E6000747726 /* AudioStems.json */,
 				E20B94521C17538500222A2B /* 23.aif */,
-				E20B94531C17538500222A2B /* 24.aif */,
-				E20B94541C17538500222A2B /* 25.aif */,
-				E20B94551C17538500222A2B /* 26.aif */,
-				E20B94561C17538500222A2B /* 27.aif */,
-				E20B94571C17538500222A2B /* 29.aif */,
-				E20B94581C17538500222A2B /* 30.aif */,
 			);
 			name = Sounds;
 			path = Resources/Sounds;
@@ -451,15 +433,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				E20B946C1C1753C800222A2B /* LaunchScreen.storyboard in Resources */,
-				E20B945B1C17538500222A2B /* 25.aif in Resources */,
 				E26EBAA31C18AF4700747726 /* Localizable.strings in Resources */,
-				E20B945C1C17538500222A2B /* 26.aif in Resources */,
-				E20B945F1C17538500222A2B /* 30.aif in Resources */,
 				E20B94681C1753B900222A2B /* Assets.xcassets in Resources */,
-				E20B945D1C17538500222A2B /* 27.aif in Resources */,
-				E20B945A1C17538500222A2B /* 24.aif in Resources */,
 				E20B94591C17538500222A2B /* 23.aif in Resources */,
-				E20B945E1C17538500222A2B /* 29.aif in Resources */,
 				E26EBA901C189E6000747726 /* AudioStems.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

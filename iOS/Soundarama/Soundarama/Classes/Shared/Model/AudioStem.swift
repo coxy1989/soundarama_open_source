@@ -18,7 +18,13 @@ struct AudioStem
     
     var audioFilePath: String?
     {
-        return NSBundle.mainBundle().pathForResource("23", ofType: "aif")
+        if let path = NSBundle.mainBundle().pathForResource(self.name, ofType: "aif")
+        {
+            return path
+        }
+        
+        //TODO: Remove this
+        return NSBundle.mainBundle().pathForResource("test", ofType: "aif")
     }
     
     init?(json: JSON)

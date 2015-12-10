@@ -143,8 +143,9 @@ extension PerformerViewController
         let remoteNow = clockMap.remote + elapsedSinceSync
     
         // Calculate `nextStartTime` as a value equal to `timestamp` plus an integer multiple of `loopLength`
+        // +0.1 is to make sure the audio player has enough time to prepare for playback
         var nextStartTime = timestamp
-        while nextStartTime < remoteNow {
+        while nextStartTime < remoteNow + 0.1 {
             nextStartTime += loopLength
         }
         
