@@ -12,6 +12,8 @@ import UIKit
 protocol SoundZoneViewDelegate: class
 {
     func soundZoneViewDidPressPaylistButton(soundZoneView: SoundZoneView, playlistButton: UIButton)
+    func soundZoneViewDidPressMuteButton(soundZoneView: SoundZoneView, button: UIButton)
+    func soundZoneViewDidPressSoloButton(soundZoneView: SoundZoneView, button: UIButton)
     func soundZoneViewDidPressAddNewStemButton(soundZoneView: SoundZoneView, button: UIButton)
 }
 
@@ -36,10 +38,29 @@ class SoundZoneView: UIView
         }
     }
     
+    var muted: Bool = false
+    {
+        didSet
+        {
+            if (muted)
+            {
+                self.tintColor = UIColor.grayColor()
+            }
+            else if let audioStem = self.audioStem
+            {
+                self.tintColor = audioStem.colour
+            }
+        }
+    }
+    
+    var isSolo: Bool = false
+    
     weak var delegate: SoundZoneViewDelegate?
     
     private var titleLabel: UILabel
     private var playlistButton: UIButton
+    private(set) var muteButton: UIButton
+    private var soloButton: UIButton
     private var addNewStemButton: UIButton
     private var ringShapeLayers: [CAShapeLayer]
     
@@ -50,6 +71,16 @@ class SoundZoneView: UIView
         self.playlistButton = UIButton()
         self.playlistButton.setImage(UIImage(named: "btn-playlist")?.imageWithRenderingMode(UIImageRenderingMode.AlwaysOriginal), forState: .Normal)
         self.playlistButton.layer.borderWidth = 2.0
+        
+        self.muteButton = UIButton()
+        self.muteButton.setTitle(NSLocalizedString("SOUND_ZONE_MUTE", comment: ""), forState: .Normal)
+        self.muteButton.titleLabel?.textColor = UIColor.whiteColor()
+        self.muteButton.layer.borderWidth = 2.0
+        
+        self.soloButton = UIButton()
+        self.soloButton.setTitle(NSLocalizedString("SOUND_ZONE_SOLO", comment: ""), forState: .Normal)
+        self.soloButton.titleLabel?.textColor = UIColor.whiteColor()
+        self.soloButton.layer.borderWidth = 2.0
         
         self.titleLabel = UILabel()
         self.titleLabel.textAlignment = .Center
@@ -64,6 +95,8 @@ class SoundZoneView: UIView
         
         super.init(frame: frame)
         
+        self.clipsToBounds = false
+        
         for i in 0..<Layout.ringFillOpacities.count
         {
             let newShapeLayer = CAShapeLayer()
@@ -73,9 +106,14 @@ class SoundZoneView: UIView
         }
         
         self.playlistButton.addTarget(self, action: "didPressPlaylistButton:", forControlEvents: .TouchUpInside)
+        self.muteButton.addTarget(self, action: "didPressMuteButton:", forControlEvents: .TouchUpInside)
+        self.soloButton.addTarget(self, action: "didPressSoloButton:", forControlEvents: .TouchUpInside)
         self.addNewStemButton.addTarget(self, action: "didPressAddNewStemButton:", forControlEvents: .TouchUpInside)
         
         self.addSubview(self.playlistButton)
+        self.addSubview(self.muteButton)
+        self.addSubview(self.soloButton)
+        
         self.addSubview(self.titleLabel)
         self.addSubview(self.addNewStemButton)
         
@@ -97,6 +135,12 @@ class SoundZoneView: UIView
         
         self.playlistButton.backgroundColor = self.tintColor.darkerColor()
         self.playlistButton.layer.borderColor = self.tintColor.CGColor
+        
+        self.soloButton.backgroundColor = self.playlistButton.backgroundColor
+        self.soloButton.layer.borderColor = self.playlistButton.layer.borderColor
+        
+        self.muteButton.backgroundColor = self.playlistButton.backgroundColor
+        self.muteButton.layer.borderColor = self.playlistButton.layer.borderColor
         
         self.titleLabel.textColor = self.tintColor
     }
@@ -140,9 +184,21 @@ class SoundZoneView: UIView
         self.playlistButton.frame = CGRect(x: 0.0, y: 0.0, width: Layout.buttonWidth, height: Layout.buttonWidth)
         self.playlistButton.layer.cornerRadius = self.playlistButton.frame.width / 2.0
         
-        //Position button around the circle
-        let angle: CGFloat = 5.3
+        self.soloButton.frame = CGRect(x: 0.0, y: 0.0, width: Layout.buttonWidth, height: Layout.buttonWidth)
+        self.soloButton.layer.cornerRadius = self.soloButton.frame.width / 2.0
+        
+        self.muteButton.frame = CGRect(x: 0.0, y: 0.0, width: Layout.buttonWidth, height: Layout.buttonWidth)
+        self.muteButton.layer.cornerRadius = self.muteButton.frame.width / 2.0
+        
+        //Position buttons around the circle
+        var angle: CGFloat = 5.2
         self.playlistButton.center = CGPoint(x: largestRingRadius * CGFloat(cos(angle)) + centreOfRing.x, y: largestRingRadius * CGFloat(sin(angle)) + centreOfRing.y)
+        
+        angle += 0.425
+        self.muteButton.center = CGPoint(x: largestRingRadius * CGFloat(cos(angle)) + centreOfRing.x, y: largestRingRadius * CGFloat(sin(angle)) + centreOfRing.y)
+        
+        angle += 0.425
+        self.soloButton.center = CGPoint(x: largestRingRadius * CGFloat(cos(angle)) + centreOfRing.x, y: largestRingRadius * CGFloat(sin(angle)) + centreOfRing.y)
         
         //Title to fit in bottom of circle
         self.titleLabel.frame = CGRect(x: 0.0, y: 0.0, width: largestRingRadius, height: 44.0)
@@ -155,7 +211,11 @@ class SoundZoneView: UIView
         {
             self.tintColor = audioStem.colour
             let _ = self.ringShapeLayers.map { $0.opacity = 1.0 }
+            
             self.playlistButton.alpha = 1.0
+            self.muteButton.alpha = 1.0
+            self.soloButton.alpha = 1.0
+            
             self.titleLabel.text = audioStem.name
             self.titleLabel.alpha = 1.0
             
@@ -177,6 +237,8 @@ class SoundZoneView: UIView
             self.tintColor = UIColor.darkGrayColor()
             let _ = self.ringShapeLayers.map { $0.opacity = 0.3 }
             self.playlistButton.alpha = 0.3
+            self.muteButton.alpha = 0.3
+            self.soloButton.alpha = 0.3
             self.titleLabel.text = NSLocalizedString("SOUND_ZONE_EMPTY", comment: "Empty").uppercaseString
             self.titleLabel.alpha = 0.4
         }
@@ -202,6 +264,16 @@ class SoundZoneView: UIView
     @objc private func didPressPlaylistButton(button: UIButton)
     {
         self.delegate?.soundZoneViewDidPressPaylistButton(self, playlistButton: button)
+    }
+    
+    @objc private func didPressMuteButton(button: UIButton)
+    {
+        self.delegate?.soundZoneViewDidPressMuteButton(self, button: button)
+    }
+    
+    @objc private func didPressSoloButton(button: UIButton)
+    {
+        self.delegate?.soundZoneViewDidPressSoloButton(self, button: button)
     }
     
     @objc private func didPressAddNewStemButton(button: UIButton)

@@ -7,8 +7,11 @@
 */
 
 "DEVICES" = "Devices";
+
 "SOUND_ZONE_EMPTY" = "Empty";
 "SOUND_ZONE_ADD_NEW_STEM" = "Add new stem";
+"SOUND_ZONE_MUTE" = "M";
+"SOUND_ZONE_SOLO" = "S";
 
 "HOME_PERFORMER" = "Performer";
 "HOME_DJ" = "DJ";

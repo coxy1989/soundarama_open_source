@@ -10,8 +10,7 @@ import Foundation
 
 protocol Message
 {
-    var timestamp: Double { get }
-    var loopLength: NSTimeInterval { get }
+    var timestamp: Double { get } //Always send a timestamp, so we can discard any messages received in the wrong order in the performer code
     func data() -> NSData
 }
 
@@ -66,6 +65,43 @@ struct AudioStemMessage: Message
     func data() -> NSData
     {
         let dic = ["audioStemRef" : audioStemRef, "timestamp" : timestamp, "loopLength" : loopLength, "type" : self.type.rawValue]
+        let msg = NSKeyedArchiver.archivedDataWithRootObject(dic)
+        let dat = msg.mutableCopy()
+        dat.appendData(MessageConstants.seperator)
+        return dat as! NSData
+    }
+}
+
+struct VolumeChangeMessage: Message
+{
+    let volume: Float
+    let timestamp: Double
+    
+    init (volume: Float, timestamp: NSTimeInterval)
+    {
+        self.volume = volume
+        self.timestamp = timestamp
+    }
+    
+    init?(data: NSData)
+    {
+        let mutable = data.mutableCopy() as! NSMutableData
+        let range = NSMakeRange(mutable.length - MessageConstants.seperator.length, MessageConstants.seperator.length)
+        mutable.replaceBytesInRange(range, withBytes: nil, length: 0)
+        if let msg = NSKeyedUnarchiver.unarchiveObjectWithData(mutable), volume = msg["volume"] as? Float, timestamp = msg["timestamp"] as? Double
+        {
+            self.volume = volume
+            self.timestamp = timestamp
+        }
+        else
+        {
+            return nil
+        }
+    }
+    
+    func data() -> NSData
+    {
+        let dic = ["volume" : volume, "timestamp" : timestamp]
         let msg = NSKeyedArchiver.archivedDataWithRootObject(dic)
         let dat = msg.mutableCopy()
         dat.appendData(MessageConstants.seperator)

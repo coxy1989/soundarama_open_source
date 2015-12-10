@@ -19,6 +19,14 @@ class PerformerStemAudioPlayer: AVAudioPlayer
 
 class PerformerAudioController: NSObject
 {
+    var volume: Float = 1.0
+    {
+        didSet
+        {
+            updateForVolume()
+        }
+    }
+    
     private var audioPlayers = [String: AVAudioPlayer]()
     
     override init()
@@ -47,6 +55,8 @@ class PerformerAudioController: NSObject
                 newPlayer.numberOfLoops = -1
                 newPlayer.delegate = self
                 self.audioPlayers[audioStem.reference] = newPlayer
+                
+                updateForVolume()
             }
             catch _ as NSError
             {
@@ -66,6 +76,14 @@ class PerformerAudioController: NSObject
                 self.audioPlayers[audioStem.reference] = nil
             }
         })
+    }
+    
+    private func updateForVolume()
+    {
+        for (_, audioPlayer) in self.audioPlayers
+        {
+            audioPlayer.volume = self.volume
+        }
     }
 }
 

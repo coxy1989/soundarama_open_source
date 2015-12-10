@@ -13,6 +13,7 @@ protocol SoundaramaClientDelegate {
     func clientDidConnect()
     func clientDidDisconnect()
     func clientDidRecieveAudioStemMessage(message: AudioStemMessage)
+    func clientDidRecieveVolumeChangeMessage(message: VolumeChangeMessage)
     func clientDidSyncClock(local: NSTimeInterval, remote: NSTimeInterval)
 }
 
@@ -22,6 +23,7 @@ class SoundaramaClient: NSObject
     private var serviceBrowser: NSNetServiceBrowser?
     private var service: NSNetService?
     private var clientSocket: AsyncSocket?
+    private var timestampOfPreviousMessage: Double = NSDate().timeIntervalSince1970
     
     private var clientSyncSocket: SoundaramaClientSyncSocket?
     
@@ -121,11 +123,19 @@ extension SoundaramaClient: AsyncSocketDelegate
 {
     func onSocket(sock: AsyncSocket!, didReadData data: NSData!, withTag tag: Int)
     {
-        print("Recieved message")
-        
         if let message = AudioStemMessage(data: data)
         {
-            self.delegate?.clientDidRecieveAudioStemMessage(message)
+            if (message.timestamp > self.timestampOfPreviousMessage) //Only process messages in order
+            {
+                self.delegate?.clientDidRecieveAudioStemMessage(message)
+            }
+        }
+        else if let message = VolumeChangeMessage(data: data)
+        {
+            if (message.timestamp > self.timestampOfPreviousMessage) //Only process messages in order
+            {
+                self.delegate?.clientDidRecieveVolumeChangeMessage(message)
+            }
         }
         
         clientSocket?.readDataToData(MessageConstants.seperator, withTimeout: -1, tag: 1)
@@ -170,6 +180,8 @@ extension SoundaramaClient: SoundaramaClientSyncSocketDelegate {
         
         let christiansTime = shortestTrip.timestamp + (shortestTrip.latency() * 0.5)
         let localTime = shortestTrip.responseStamp
+        
+        self.timestampOfPreviousMessage = shortestTrip.timestamp
         
         delegate?.clientDidSyncClock(localTime, remote: christiansTime)
         

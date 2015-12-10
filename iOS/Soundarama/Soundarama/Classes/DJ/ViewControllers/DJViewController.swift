@@ -111,6 +111,7 @@ class DJViewController: UIViewController
                             {
                                 let message = AudioStemMessage(audioStemRef: audioStemRef, timestamp: NSDate().timeIntervalSince1970, loopLength: 2, type: .Start)
                                 self.server.sendMessage(message, performerID: performerID)
+                                updatePerformerVolumes()
                             }
                         }
                         
@@ -129,6 +130,7 @@ class DJViewController: UIViewController
                     self.currentPerformerSoundZoneViews[performerID] = nil
                     let message = AudioStemMessage(audioStemRef: currentAudioStemRef, timestamp: NSDate().timeIntervalSince1970, loopLength: 2, type: .Stop)
                     self.server.sendMessage(message, performerID: performerID)
+                    updatePerformerVolumes()
                 }
             }
             
@@ -142,6 +144,66 @@ extension DJViewController: SoundZoneViewDelegate
     func soundZoneViewDidPressPaylistButton(soundZoneView: SoundZoneView, playlistButton: UIButton)
     {
         presentAudioStemPicker(soundZoneView, button: playlistButton)
+    }
+    
+    func soundZoneViewDidPressMuteButton(soundZoneView: SoundZoneView, button: UIButton)
+    {
+        //Keep mute state on the button, because 'muted' is also used when soloing...could be improved
+        let mute = !button.selected
+        soundZoneView.muted = mute
+        button.selected = mute
+        
+        updatePerformerVolumes()
+    }
+    
+    func soundZoneViewDidPressSoloButton(soundZoneView: SoundZoneView, button: UIButton)
+    {
+        if (soundZoneView.isSolo)
+        {
+            //If is already solo, turn everything back up
+            
+            soundZoneView.isSolo = false
+            
+            if let soundZoneViews = self.soundZoneViews
+            {
+                for currentSoundZoneView in soundZoneViews where !soundZoneView.muteButton.selected //Keep muted ones muted
+                {
+                    currentSoundZoneView.muted = false
+                }
+            }
+        }
+        else
+        {
+            soundZoneView.isSolo = true
+            soundZoneView.muted = false
+            
+            if let soundZoneViews = self.soundZoneViews
+            {
+                for currentSoundZoneView in soundZoneViews where (currentSoundZoneView.audioStem != nil) && (currentSoundZoneView != soundZoneView)
+                {
+                    currentSoundZoneView.isSolo = false //In case a different one was solo before
+                    currentSoundZoneView.muted = true
+                }
+            }
+        }
+        
+        updatePerformerVolumes()
+    }
+    
+    private func updatePerformerVolumes()
+    {
+        for (performerID, _) in self.performerPhoneImageViews
+        {
+            var volume: Float = 0.0
+            
+            if let soundZone = self.currentPerformerSoundZoneViews[performerID]
+            {
+                volume = soundZone.muted ? 0.0 : 1.0
+            }
+            
+            let message = VolumeChangeMessage(volume: volume, timestamp: NSDate().timeIntervalSince1970)
+            self.server.sendMessage(message, performerID: performerID)
+        }
     }
     
     func soundZoneViewDidPressAddNewStemButton(soundZoneView: SoundZoneView, button: UIButton)
@@ -181,6 +243,7 @@ extension DJViewController: AudioStemsViewControllerDelegate
                 {
                     let message = AudioStemMessage(audioStemRef: audioStemRef, timestamp: NSDate().timeIntervalSince1970, loopLength: 2, type: .Start)
                     self.server.sendMessage(message, performerID: performerID)
+                    updatePerformerVolumes()
                 }
             }
         }

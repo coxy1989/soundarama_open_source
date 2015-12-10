@@ -105,6 +105,11 @@ extension PerformerViewController: SoundaramaClientDelegate {
         }
     }
     
+    func clientDidRecieveVolumeChangeMessage(message: VolumeChangeMessage)
+    {
+        self.audioController.volume = message.volume
+    }
+    
     func clientDidSyncClock(local: NSTimeInterval, remote: NSTimeInterval)
     {
         print("Synced clocks \n  Remote: \(remote) Vs Local: \(local) (diff = \(abs(local - remote)))")
