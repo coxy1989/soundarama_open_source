@@ -18,13 +18,13 @@ struct AudioStem
     
     var audioFilePath: String?
     {
-        if let path = NSBundle.mainBundle().pathForResource(self.name, ofType: "aif")
+        if let path = NSBundle.mainBundle().pathForResource(self.name, ofType: "aif", inDirectory: "Sounds")
         {
             return path
         }
         
         //TODO: Remove this
-        return NSBundle.mainBundle().pathForResource("test", ofType: "aif")
+        return NSBundle.mainBundle().pathForResource("test", ofType: "aif", inDirectory: "Sounds")
     }
     
     init?(json: JSON)
@@ -52,7 +52,7 @@ extension JSON
     {
         var audioStems = [AudioStem]()
         
-        if let jsonPath = NSBundle.mainBundle().pathForResource("AudioStems", ofType: "json")
+        if let jsonPath = NSBundle.mainBundle().pathForResource("AudioStems", ofType: "json", inDirectory: "Sounds")
         {
             if let data = NSData(contentsOfFile: jsonPath)
             {

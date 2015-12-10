@@ -41,7 +41,7 @@ class HomeViewController: UIViewController
         
         self.djButton = UIButton()
         self.djButton?.setTitle(NSLocalizedString("HOME_DJ", comment: "").uppercaseString, forState: UIControlState.Normal)
-        self.djButton?.setTitleColor(UIColor.whiteColor(), forState: UIControlState.Normal)
+        self.djButton?.setTitleColor(UIColor(rgba: "#ADFFDF"), forState: UIControlState.Normal)
         self.djButton?.titleLabel?.font = UIFont.soundaramaSansSerifHeavyFont(size: 24)
         self.djButton?.addTarget(self, action: "didPressDJButton:", forControlEvents: UIControlEvents.TouchUpInside)
         self.view.addSubview(self.djButton!)
