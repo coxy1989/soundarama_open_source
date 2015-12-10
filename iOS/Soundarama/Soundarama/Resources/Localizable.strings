@@ -8,6 +8,7 @@
 
 "DEVICES" = "Devices";
 "SOUND_ZONE_EMPTY" = "Empty";
+"SOUND_ZONE_ADD_NEW_STEM" = "Add new stem";
 
 "HOME_PERFORMER" = "Performer";
 "HOME_DJ" = "DJ";

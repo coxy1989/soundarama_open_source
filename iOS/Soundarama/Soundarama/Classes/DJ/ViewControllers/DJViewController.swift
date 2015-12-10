@@ -141,9 +141,19 @@ extension DJViewController: SoundZoneViewDelegate
 {
     func soundZoneViewDidPressPaylistButton(soundZoneView: SoundZoneView, playlistButton: UIButton)
     {
+        presentAudioStemPicker(soundZoneView, button: playlistButton)
+    }
+    
+    func soundZoneViewDidPressAddNewStemButton(soundZoneView: SoundZoneView, button: UIButton)
+    {
+        presentAudioStemPicker(soundZoneView, button: button)
+    }
+    
+    private func presentAudioStemPicker(soundZoneView: SoundZoneView, button: UIButton)
+    {
         self.selectedSoundZoneView = soundZoneView
         
-        let buttonRectInThisView = self.view.convertRect(playlistButton.frame, fromView: playlistButton.superview!)
+        let buttonRectInThisView = self.view.convertRect(button.frame, fromView: button.superview!)
         
         let audioStemsVC = AudioStemsViewController(nibName: nil, bundle: nil)
         audioStemsVC.modalPresentationStyle = .Popover

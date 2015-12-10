@@ -33,20 +33,20 @@ class PerformerAudioController: NSObject
             do
             {
                 //Stop any other players (may not be perfect timing because we're using dispatch blocks...could be improved)
-                let currentAudioPlayers = self.audioPlayers
+                let currentAudioPlayers = Array(self.audioPlayers.values)
                 self.audioPlayers.removeAll()
                 let delayTime = dispatch_time(DISPATCH_TIME_NOW, Int64(afterDelay * Double(NSEC_PER_SEC)))
                 dispatch_after(delayTime, dispatch_get_main_queue(), { () -> Void in
-                    let _ = Array(currentAudioPlayers.values).map { $0.stop() }
+                    let _ = currentAudioPlayers.map { $0.stop() }
                 })
                 
                 //Schedule the new one
                 let newPlayer = try PerformerStemAudioPlayer(contentsOfURL: NSURL(fileURLWithPath: audioPath))
-                self.audioPlayers[audioStem.reference] = newPlayer
-                newPlayer.prepareToPlay()
-                newPlayer.playAtTime(newPlayer.deviceCurrentTime + afterDelay)
+                let playTime = newPlayer.deviceCurrentTime + afterDelay //Calaulate before preparing to play, which may take some time
+                newPlayer.playAtTime(playTime)
                 newPlayer.numberOfLoops = -1
                 newPlayer.delegate = self
+                self.audioPlayers[audioStem.reference] = newPlayer
             }
             catch _ as NSError
             {

@@ -12,6 +12,7 @@ import UIKit
 protocol SoundZoneViewDelegate: class
 {
     func soundZoneViewDidPressPaylistButton(soundZoneView: SoundZoneView, playlistButton: UIButton)
+    func soundZoneViewDidPressAddNewStemButton(soundZoneView: SoundZoneView, button: UIButton)
 }
 
 class SoundZoneView: UIView
@@ -39,6 +40,7 @@ class SoundZoneView: UIView
     
     private var titleLabel: UILabel
     private var playlistButton: UIButton
+    private var addNewStemButton: UIButton
     private var ringShapeLayers: [CAShapeLayer]
     
     override init(frame: CGRect)
@@ -53,6 +55,13 @@ class SoundZoneView: UIView
         self.titleLabel.textAlignment = .Center
         self.titleLabel.font = UIFont.soundaramaSansSerifLightFont(size: 14)
         
+        self.addNewStemButton = UIButton()
+        self.addNewStemButton.setTitle(NSLocalizedString("SOUND_ZONE_ADD_NEW_STEM", comment: ""), forState: .Normal)
+        self.addNewStemButton.setImage(UIImage(named: "icn-add-new-stem"), forState: .Normal)
+        self.addNewStemButton.titleEdgeInsets = UIEdgeInsets(top: 0.0, left: 12.0, bottom: 0.0, right: 0.0)
+        self.addNewStemButton.titleLabel?.font = UIFont.soundaramaSansSerifRomanFont(size: 14)
+        self.addNewStemButton.titleLabel?.textColor = UIColor.whiteColor()
+        
         super.init(frame: frame)
         
         for i in 0..<Layout.ringFillOpacities.count
@@ -64,8 +73,11 @@ class SoundZoneView: UIView
         }
         
         self.playlistButton.addTarget(self, action: "didPressPlaylistButton:", forControlEvents: .TouchUpInside)
+        self.addNewStemButton.addTarget(self, action: "didPressAddNewStemButton:", forControlEvents: .TouchUpInside)
+        
         self.addSubview(self.playlistButton)
         self.addSubview(self.titleLabel)
+        self.addSubview(self.addNewStemButton)
         
         updateForAudioStem()
     }
@@ -97,6 +109,8 @@ class SoundZoneView: UIView
     override func layoutSubviews()
     {
         super.layoutSubviews()
+        
+        self.addNewStemButton.frame = self.bounds
         
         updateForTintColor()
         
@@ -144,6 +158,19 @@ class SoundZoneView: UIView
             self.playlistButton.alpha = 1.0
             self.titleLabel.text = audioStem.name
             self.titleLabel.alpha = 1.0
+            
+            //Fade out add new stem button
+            if (self.addNewStemButton.superview != nil)
+            {
+                UIView.animateWithDuration(0.3, delay: 0.0, options: UIViewAnimationOptions.CurveEaseOut, animations: { () -> Void in
+                    
+                    self.addNewStemButton.alpha = 0.0
+                    
+                    }, completion: { (finished) -> Void in
+                        
+                        self.addNewStemButton.removeFromSuperview()
+                })
+            }
         }
         else
         {
@@ -175,5 +202,10 @@ class SoundZoneView: UIView
     @objc private func didPressPlaylistButton(button: UIButton)
     {
         self.delegate?.soundZoneViewDidPressPaylistButton(self, playlistButton: button)
+    }
+    
+    @objc private func didPressAddNewStemButton(button: UIButton)
+    {
+        self.delegate?.soundZoneViewDidPressAddNewStemButton(self, button: button)
     }
 }
