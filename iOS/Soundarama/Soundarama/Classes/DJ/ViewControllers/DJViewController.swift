@@ -150,8 +150,19 @@ extension DJViewController: SoundZoneViewDelegate
     {
         //Keep mute state on the button, because 'muted' is also used when soloing...could be improved
         let mute = !button.selected
-        soundZoneView.muted = mute
         button.selected = mute
+        
+        var isAnotherSoundZoneMuted = false
+        if let soundZoneViews = self.soundZoneViews
+        {
+            isAnotherSoundZoneMuted = soundZoneViews.filter({ $0.isSolo }).count > 0
+        }
+        
+        //Don't want to be able to un-mute this, if a different one is mute
+        if !isAnotherSoundZoneMuted
+        {
+            soundZoneView.muted = mute
+        }
         
         updatePerformerVolumes()
     }
@@ -166,7 +177,7 @@ extension DJViewController: SoundZoneViewDelegate
             
             if let soundZoneViews = self.soundZoneViews
             {
-                for currentSoundZoneView in soundZoneViews where !soundZoneView.muteButton.selected //Keep muted ones muted
+                for currentSoundZoneView in soundZoneViews where !currentSoundZoneView.muteButton.selected //Keep muted ones muted
                 {
                     currentSoundZoneView.muted = false
                 }
