@@ -30,7 +30,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate
         //VolumeControl.setVolumeToMax()
         UIApplication.sharedApplication().idleTimerDisabled = true
         self.window = UIWindow(frame: UIScreen.mainScreen().bounds)
-        self.window?.rootViewController = UINavigationController(rootViewController: HomeViewController(nibName: nil, bundle: nil))
+        
+        if (UIDevice.currentDevice().userInterfaceIdiom == .Pad)
+        {
+            self.window?.rootViewController = UINavigationController(rootViewController: HomeViewController(nibName: nil, bundle: nil))
+        }
+        else
+        {
+            self.window?.rootViewController = UINavigationController(rootViewController: PerformerViewController(nibName: nil, bundle: nil))
+        }
+        
         self.window?.makeKeyAndVisible()
         self.window?.backgroundColor = UIColor.whiteColor()
         

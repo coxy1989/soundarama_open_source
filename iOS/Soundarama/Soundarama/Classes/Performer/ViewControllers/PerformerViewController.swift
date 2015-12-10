@@ -42,6 +42,8 @@ class PerformerViewController: UIViewController
     {
         super.viewDidLoad()
         
+        self.navigationController?.setNavigationBarHidden(true, animated: false)
+        
         self.backgroundGradientLayer = CAGradientLayer()
         self.backgroundGradientLayer?.startPoint = CGPoint(x: 0.0, y: 0.5)
         self.backgroundGradientLayer?.endPoint = CGPoint(x: 1.0, y: 0.5)
