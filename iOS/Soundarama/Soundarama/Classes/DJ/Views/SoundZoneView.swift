@@ -127,7 +127,7 @@ class SoundZoneView: UIView
         self.playlistButton.layer.cornerRadius = self.playlistButton.frame.width / 2.0
         
         //Position button around the circle
-        let angle: CGFloat = 5.25
+        let angle: CGFloat = 5.3
         self.playlistButton.center = CGPoint(x: largestRingRadius * CGFloat(cos(angle)) + centreOfRing.x, y: largestRingRadius * CGFloat(sin(angle)) + centreOfRing.y)
         
         //Title to fit in bottom of circle

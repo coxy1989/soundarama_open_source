@@ -26,6 +26,11 @@ extension UIFont
         return UIFont.customFontWithName("Avenir-Heavy", size: size)
     }
     
+    class func soundaramaSansSerifBookFont(size size: CGFloat) -> UIFont
+    {
+        return UIFont.customFontWithName("Avenir-Book", size: size)
+    }
+    
     class func customFontWithName(name: String, size: CGFloat) -> UIFont
     {
         if let font = UIFont(name: name, size: size)

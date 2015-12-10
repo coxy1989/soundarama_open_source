@@ -13,6 +13,9 @@ class PerformerViewController: UIViewController
 {
     private var client = SoundaramaClient()
     
+    private var backgroundGradientLayer: CAGradientLayer?
+    
+    private var audioStems = [String: AudioStem]()
     private var audioController = AudioController()
     
     private var displayLink: CADisplayLink!
@@ -39,6 +42,17 @@ class PerformerViewController: UIViewController
     {
         super.viewDidLoad()
         
+        self.backgroundGradientLayer = CAGradientLayer()
+        self.backgroundGradientLayer?.startPoint = CGPoint(x: 0.0, y: 0.5)
+        self.backgroundGradientLayer?.endPoint = CGPoint(x: 1.0, y: 0.5)
+        self.view.layer.addSublayer(self.backgroundGradientLayer!)
+        
+        let audioStems = JSON.audioStemsFromDisk()
+        for audioStem in audioStems
+        {
+            self.audioStems[audioStem.reference] = audioStem
+        }
+        
         client.delegate = self
         audioController.setup()
         view.addSubview(connectionLabel)
@@ -55,8 +69,9 @@ class PerformerViewController: UIViewController
     
     override func viewWillLayoutSubviews()
     {
-        
         super.viewWillLayoutSubviews()
+        
+        self.backgroundGradientLayer?.frame = self.view.bounds
         
         connectionLabel.sizeToFit()
         connectionLabel.center = view.center
@@ -79,8 +94,13 @@ extension PerformerViewController: SoundaramaClientDelegate {
     
     func clientDidRecieveAudioStemStartMessage(message: AudioStemStartMessage)
     {
-        dispatch_async(dispatch_get_main_queue()) { [unowned self] in
-            self.scheduleSound(message.timestamp, loopLength: message.loopLength)
+        if let audioStem = self.audioStems[message.audioStemRef]
+        {
+            self.backgroundGradientLayer?.colors = [ audioStem.colour.CGColor, audioStem.colour.colorWithAlphaComponent(0.4).CGColor ]
+            
+            dispatch_async(dispatch_get_main_queue()) { [unowned self] in
+                self.scheduleSound(message.timestamp, loopLength: message.loopLength)
+            }
         }
     }
     

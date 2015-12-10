@@ -3,15 +3,63 @@
   [
     {
       "Name" : "Bass Drop",
-      "Colour" : "#FFFFFF",
+      "Colour" : "#9F71BD",
       "Category" : "Effect",
       "Ref" : "bass-drop"
     },
     {
       "Name" : "Whistle",
-      "Colour" : "#70BC9E",
+      "Colour" : "#9F71BD",
       "Category" : "Effect",
       "Ref" : "whistle"
+    },
+    {
+      "Name" : "Choir",
+      "Colour" : "#718FBD",
+      "Category" : "Vocals",
+      "Ref" : "choir"
+    },
+    {
+      "Name" : "Scatman",
+      "Colour" : "#718FBD",
+      "Category" : "Vocals",
+      "Ref" : "scatman"
+    },
+    {
+      "Name" : "Etherial",
+      "Colour" : "#8FBD71",
+      "Category" : "Synth",
+      "Ref" : "etherial"
+    },
+    {
+      "Name" : "Oscilating",
+      "Colour" : "#8FBD71",
+      "Category" : "Synth",
+      "Ref" : "oscilating"
+    },
+    {
+      "Name" : "Walking bass line",
+      "Colour" : "#BD9F71",
+      "Category" : "Bass",
+      "Ref" : "walking-bass-line"
+    },
+    {
+      "Name" : "Funky bass line",
+      "Colour" : "#BD9F71",
+      "Category" : "Bass",
+      "Ref" : "funky-bass-line"
+    },
+    {
+      "Name" : "Off beat hi-hats",
+      "Colour" : "#BD718F",
+      "Category" : "Drums",
+      "Ref" : "off-beat-hi-hats"
+    },
+    {
+      "Name" : "Drum & bass beat",
+      "Colour" : "#BD718F",
+      "Category" : "Drums",
+      "Ref" : "drum-and-bass-beat"
     }
   ]
 }

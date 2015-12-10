@@ -34,3 +34,31 @@ struct AudioStem
         }
     }
 }
+
+extension JSON
+{
+    static func audioStemsFromDisk() -> [AudioStem]
+    {
+        var audioStems = [AudioStem]()
+        
+        if let jsonPath = NSBundle.mainBundle().pathForResource("AudioStems", ofType: "json")
+        {
+            if let data = NSData(contentsOfFile: jsonPath)
+            {
+                let json = JSON(data: data)
+                if let audioStemJsons = json["AudioStems"].array
+                {
+                    for audioStemJson in audioStemJsons
+                    {
+                        if let audioStem = AudioStem(json: audioStemJson)
+                        {
+                            audioStems.append(audioStem)
+                        }
+                    }
+                }
+            }
+        }
+        
+        return audioStems
+    }
+}
