@@ -109,7 +109,7 @@ class DJViewController: UIViewController
                             
                             if let audioStemRef = soundZoneView.audioStem?.reference
                             {
-                                let message = AudioStemMessage(audioStemRef: audioStemRef, timestamp: NSDate().timeIntervalSince1970, loopLength: 2, type: .Start)
+                                let message = AudioStemMessage(audioStemRef: audioStemRef, timestamp: NSDate().timeIntervalSince1970, sessionStamp: server.sessionStamp, loopLength: 2, type: .Start)
                                 self.server.sendMessage(message, performerID: performerID)
                                 updatePerformerVolumes()
                             }
@@ -128,7 +128,7 @@ class DJViewController: UIViewController
                 if let currentAudioStemRef = self.currentPerformerSoundZoneViews[performerID]?.audioStem?.reference
                 {
                     self.currentPerformerSoundZoneViews[performerID] = nil
-                    let message = AudioStemMessage(audioStemRef: currentAudioStemRef, timestamp: NSDate().timeIntervalSince1970, loopLength: 2, type: .Stop)
+                    let message = AudioStemMessage(audioStemRef: currentAudioStemRef, timestamp: NSDate().timeIntervalSince1970, sessionStamp: server.sessionStamp, loopLength: 2, type: .Stop)
                     self.server.sendMessage(message, performerID: performerID)
                     updatePerformerVolumes()
                 }
@@ -252,7 +252,7 @@ extension DJViewController: AudioStemsViewControllerDelegate
             {
                 for (performerID, soundZone) in self.currentPerformerSoundZoneViews where soundZone == selectedSoundZoneView
                 {
-                    let message = AudioStemMessage(audioStemRef: audioStemRef, timestamp: NSDate().timeIntervalSince1970, loopLength: 2, type: .Start)
+                    let message = AudioStemMessage(audioStemRef: audioStemRef, timestamp: NSDate().timeIntervalSince1970, sessionStamp: server.sessionStamp, loopLength: 2, type: .Start)
                     self.server.sendMessage(message, performerID: performerID)
                     updatePerformerVolumes()
                 }

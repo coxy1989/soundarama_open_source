@@ -102,7 +102,7 @@ extension PerformerViewController: SoundaramaClientDelegate {
             
             dispatch_async(dispatch_get_main_queue()) { [unowned self] in
                 
-                self.scheduleSound(audioStem, timestamp: message.timestamp, loopLength: message.loopLength, stop: (message.type == .Stop))
+                self.scheduleSound(audioStem, timestamp: message.timestamp, sessionStamp:  message.sessionStamp, loopLength: message.loopLength, stop: (message.type == .Stop))
             }
         }
     }
@@ -137,7 +137,7 @@ extension PerformerViewController {
 
 extension PerformerViewController
 {
-    func scheduleSound(audioStem: AudioStem, timestamp: Double, loopLength: NSTimeInterval, stop: Bool = false)
+    func scheduleSound(audioStem: AudioStem, timestamp: Double, sessionStamp: Double ,loopLength: NSTimeInterval, stop: Bool = false)
     {
         let now = NSDate().timeIntervalSince1970
         
@@ -146,7 +146,7 @@ extension PerformerViewController
     
         // Calculate `nextStartTime` as a value equal to `timestamp` plus an integer multiple of `loopLength`
         // +0.1 is to make sure the audio player has enough time to prepare for playback
-        var nextStartTime = timestamp
+        var nextStartTime = sessionStamp
         while nextStartTime < remoteNow + 0.1 {
             nextStartTime += loopLength
         }

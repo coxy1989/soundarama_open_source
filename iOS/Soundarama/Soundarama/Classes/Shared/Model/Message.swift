@@ -29,15 +29,17 @@ struct AudioStemMessage: Message
     
     let audioStemRef: String
     let timestamp: Double
+    let sessionStamp: Double
     let loopLength: NSTimeInterval
     let type: Type
 
-    init (audioStemRef: String, timestamp: NSTimeInterval, loopLength: NSTimeInterval, type: Type)
+    init (audioStemRef: String, timestamp: NSTimeInterval, sessionStamp: NSTimeInterval, loopLength: NSTimeInterval, type: Type)
     {
         self.audioStemRef = audioStemRef
         self.timestamp = timestamp
         self.loopLength = loopLength
         self.type = type
+        self.sessionStamp = sessionStamp
     }
     
     init?(data: NSData)
@@ -45,16 +47,22 @@ struct AudioStemMessage: Message
         let mutable = data.mutableCopy() as! NSMutableData
         let range = NSMakeRange(mutable.length - MessageConstants.seperator.length, MessageConstants.seperator.length)
         mutable.replaceBytesInRange(range, withBytes: nil, length: 0)
-        if let msg = NSKeyedUnarchiver.unarchiveObjectWithData(mutable),
-                audioStemRef = msg["audioStemRef"] as? String,
-                    timestamp = msg["timestamp"] as? Double,
-                        loopLength = msg["loopLength"] as? NSTimeInterval,
-                            typeVal = msg["type"] as? UInt
-        {
-            self.audioStemRef =  audioStemRef
-            self.timestamp = timestamp
-            self.loopLength = loopLength
-            self.type = Type(rawValue: typeVal)!
+        if let msg = NSKeyedUnarchiver.unarchiveObjectWithData(mutable) {
+            if let  audioStemRef = msg["audioStemRef"] as? String,
+            timestamp = msg["timestamp"] as? Double,
+            loopLength = msg["loopLength"] as? NSTimeInterval,
+                typeVal = msg["type"] as? UInt,
+                sessionStamp = msg["sessionStamp"] as? Double
+            {
+                    self.audioStemRef =  audioStemRef
+                    self.timestamp = timestamp
+                    self.loopLength = loopLength
+                    self.type = Type(rawValue: typeVal)!
+                    self.sessionStamp = sessionStamp
+                
+            } else {
+                return nil
+            }
         }
         else
         {
@@ -64,7 +72,7 @@ struct AudioStemMessage: Message
     
     func data() -> NSData
     {
-        let dic = ["audioStemRef" : audioStemRef, "timestamp" : timestamp, "loopLength" : loopLength, "type" : self.type.rawValue]
+        let dic = ["audioStemRef" : audioStemRef, "timestamp" : timestamp, "sessionStamp" : sessionStamp, "loopLength" : loopLength, "type" : self.type.rawValue]
         let msg = NSKeyedArchiver.archivedDataWithRootObject(dic)
         let dat = msg.mutableCopy()
         dat.appendData(MessageConstants.seperator)

@@ -21,6 +21,7 @@ class SoundaramaServer: NSObject
     }
     
     weak var delegate: SoundaramaServerDelegate?
+    let sessionStamp: NSTimeInterval!
     
     private var serverSocket: AsyncSocket
     private var service: NSNetService?
@@ -29,10 +30,12 @@ class SoundaramaServer: NSObject
     override init()
     {
         self.serverSocket = AsyncSocket()
+        sessionStamp = NSDate().timeIntervalSince1970
         
         super.init()
         
         self.serverSocket.setDelegate(self)
+        
     }
     
     func publishService()
