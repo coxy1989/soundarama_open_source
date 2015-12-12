@@ -1,65 +1,185 @@
 {
-  "AudioStems" :
-  [
-    {
-      "Name" : "Bass Drop",
-      "Colour" : "#9F71BD",
-      "Category" : "Effect",
-      "Ref" : "bass-drop"
-    },
-    {
-      "Name" : "Whistle",
-      "Colour" : "#9F71BD",
-      "Category" : "Effect",
-      "Ref" : "whistle"
-    },
-    {
-      "Name" : "Choir",
-      "Colour" : "#718FBD",
-      "Category" : "Vocals",
-      "Ref" : "choir"
-    },
-    {
-      "Name" : "Scatman",
-      "Colour" : "#718FBD",
-      "Category" : "Vocals",
-      "Ref" : "scatman"
-    },
-    {
-      "Name" : "Etherial",
-      "Colour" : "#8FBD71",
-      "Category" : "Synth",
-      "Ref" : "etherial"
-    },
-    {
-      "Name" : "Oscilating",
-      "Colour" : "#8FBD71",
-      "Category" : "Synth",
-      "Ref" : "oscilating"
-    },
-    {
-      "Name" : "Walking bass line",
-      "Colour" : "#BD9F71",
-      "Category" : "Bass",
-      "Ref" : "walking-bass-line"
-    },
-    {
-      "Name" : "Funky bass line",
-      "Colour" : "#BD9F71",
-      "Category" : "Bass",
-      "Ref" : "funky-bass-line"
-    },
-    {
-      "Name" : "Off beat hi-hats",
-      "Colour" : "#BD718F",
-      "Category" : "Drums",
-      "Ref" : "off-beat-hi-hats"
-    },
-    {
-      "Name" : "Drum & bass beat",
-      "Colour" : "#BD718F",
-      "Category" : "Drums",
-      "Ref" : "drum-and-bass-beat"
-    }
-  ]
+    "AudioStems" :
+    [
+     {
+     "Name" : "BASS EOE",
+     "Colour" : "#9F71BD",
+     "Category" : "Bass",
+     "Ref" : "BASS_EOE"
+     },
+     {
+     "Name" : "BASS LIID",
+     "Colour" : "#9F71BD",
+     "Category" : "Bass",
+     "Ref" : "BASS_LIID"
+     },
+     {
+     "Name" : "INSTR TRUMPET 2",
+     "Colour" : "#718FBD",
+     "Category" : "Instrument",
+     "Ref" : "INSTR_TRUMPET_2"
+     },
+     {
+     "Name" : "INSTR TRUMPET REV",
+     "Colour" : "#718FBD",
+     "Category" : "Instrument",
+     "Ref" : "INSTR_TRUMPET_REV"
+     },
+     {
+     "Name" : "INSTR VOC A3",
+     "Colour" : "#8FBD71",
+     "Category" : "Instrument",
+     "Ref" : "INSTR_VOC_A3"
+     },
+     {
+     "Name" : "INSTR VOC D3",
+     "Colour" : "#8FBD71",
+     "Category" : "Instrument",
+     "Ref" : "INSTR_VOC_D3"
+     },
+     {
+     "Name" : "INSTR VOC G3",
+     "Colour" : "#BD9F71",
+     "Category" : "Instrument",
+     "Ref" : "INSTR_VOC_G3"
+     },
+     {
+     "Name" : "INSTR VOC G4",
+     "Colour" : "#BD9F71",
+     "Category" : "Instrument",
+     "Ref" : "INSTR_VOC_G4"
+     },
+     {
+     "Name" : "LEAD ARPEG NL",
+     "Colour" : "#BD718F",
+     "Category" : "Lead",
+     "Ref" : "LEAD_ARPEG_NL"
+     },
+     {
+     "Name" : "LEAD FUNKY LIID",
+     "Colour" : "#BD718F",
+     "Category" : "Lead",
+     "Ref" : "LEAD_FUNKY_LIID"
+     },
+     {
+     "Name" : "LEAD VOC 1",
+     "Colour" : "#BD718F",
+     "Category" : "Lead",
+     "Ref" : "LEAD_VOC_1"
+     },
+     {
+     "Name" : "PAD AMBIENT BBB",
+     "Colour" : "#BD718F",
+     "Category" : "Pad",
+     "Ref" : "PAD_AMBIENT_BBB"
+     },
+     {
+     "Name" : "PAD AMBIENT BBBB",
+     "Colour" : "#BD718F",
+     "Category" : "Pad",
+     "Ref" : "PAD_AMBIENT_BBBB"
+     },
+     {
+     "Name" : "PAD CELLO A",
+     "Colour" : "#BD718F",
+     "Category" : "Pad",
+     "Ref" : "PAD_CELLO_A"
+     },
+     {
+     "Name" : "PAD PIANO",
+     "Colour" : "#BD718F",
+     "Category" : "Pad",
+     "Ref" : "PAD_PIANO"
+     },
+     {
+     "Name" : "PAD VIOLINS A",
+     "Colour" : "#BD718F",
+     "Category" : "Pad",
+     "Ref" : "PAD_VIOLINS_A"
+     },
+     {
+     "Name" : "RYTH CLAP ORGNK",
+     "Colour" : "#BD718F",
+     "Category" : "Rhythm",
+     "Ref" : "RYTH_CLAP_ORGNK"
+     },
+     {
+     "Name" : "RYTH HH 9A9",
+     "Colour" : "#BD718F",
+     "Category" : "Rhythm",
+     "Ref" : "RYTH_HH_9A9"
+     },
+     {
+     "Name" : "RYTH HH NOIZI",
+     "Colour" : "#BD718F",
+     "Category" : "Rhythm",
+     "Ref" : "RYTH_HH_NOIZI"
+     },
+     {
+     "Name" : "RYTH KIK 8A8",
+     "Colour" : "#BD718F",
+     "Category" : "Rhythm",
+     "Ref" : "RYTH_KIK_8A8"
+     },
+     {
+     "Name" : "RYTH KIK 9A9",
+     "Colour" : "#BD718F",
+     "Category" : "Rhythm",
+     "Ref" : "RYTH_KIK_9A9"
+     },
+     {
+     "Name" : "RYTH LOOP BROKN",
+     "Colour" : "#BD718F",
+     "Category" : "Rhythm",
+     "Ref" : "RYTH_LOOP_BROKN"
+     },
+     {
+     "Name" : "RYTH LOOP PRC SYNTH",
+     "Colour" : "#BD718F",
+     "Category" : "Rhythm",
+     "Ref" : "RYTH_LOOP_PRC_SYNTH"
+     },
+     {
+     "Name" : "RYTH LOOP TONAL",
+     "Colour" : "#BD718F",
+     "Category" : "Rhythm",
+     "Ref" : "RYTH_LOOP_TONAL"
+     },
+     {
+     "Name" : "RYTH LOOP TONAL2",
+     "Colour" : "#BD718F",
+     "Category" : "Rhythm",
+     "Ref" : "RYTH_LOOP_TONAL2"
+     },
+     {
+     "Name" : "RYTH LOOP WEIRD",
+     "Colour" : "#BD718F",
+     "Category" : "Rhythm",
+     "Ref" : "RYTH_LOOP_WEIRD"
+     },
+     {
+     "Name" : "RYTH SHAKER1",
+     "Colour" : "#BD718F",
+     "Category" : "Rhythm",
+     "Ref" : "RYTH_SHAKER1"
+     },
+     {
+     "Name" : "RYTH SNARE 9A9",
+     "Colour" : "#BD718F",
+     "Category" : "Rhythm",
+     "Ref" : "RYTH_SNARE_9A9"
+     },
+     {
+     "Name" : "RYTH SNARE BROKN",
+     "Colour" : "#BD718F",
+     "Category" : "Rhythm",
+     "Ref" : "RYTH_SNARE_BROKN"
+     },
+     {
+     "Name" : "RYTH TAMBORIN",
+     "Colour" : "#BD718F",
+     "Category" : "Rhythm",
+     "Ref" : "RYTH_TAMBORIN"
+     }
+     ]
 }
