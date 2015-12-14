@@ -151,6 +151,7 @@ extension SoundaramaServer
     
     func sendMessage(message: Message, performerID: String)
     {
+        print("send message to performer")
         for s in activeSockets where s.userData() == Int(performerID)
         {
             s.writeData(message.data(), withTimeout: -1, tag: 0)

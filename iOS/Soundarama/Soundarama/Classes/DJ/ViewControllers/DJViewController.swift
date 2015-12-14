@@ -115,12 +115,14 @@ class DJViewController: UIViewController
             }
             
             let previouslyInSoundZone = self.currentPerformerSoundZoneViews[performerID] != nil
+            let previousSoundZone = self.currentPerformerSoundZoneViews[performerID]
             
             let translation = panGesture.translationInView(self.view)
             
             performerImageView.center = CGPoint(x: performerImageView.center.x + translation.x, y: performerImageView.center.y + translation.y)
             
             var performerInSoundZone = false
+            var newSoundZone: SoundZoneView?
             
             for soundZoneView in soundZoneViews
             {
@@ -142,22 +144,28 @@ class DJViewController: UIViewController
                         }
                         
                         performerInSoundZone = true
+                        newSoundZone = soundZoneView
                         
                         break
                     }
                 }
             }
             
-            //If the performer isn't in a sound zone, but was previously, send stop message
-            if !performerInSoundZone && previouslyInSoundZone
+            //If the performer isn't in a sound zone (or an empty one), but was previously, send stop message
+            if (!performerInSoundZone && previouslyInSoundZone) || ((performerInSoundZone && previouslyInSoundZone) && (newSoundZone!.audioStem == nil))
             {
-                if let currentAudioStemRef = self.currentPerformerSoundZoneViews[performerID]?.audioStem?.reference
+                if let previousAudioStemRef = previousSoundZone?.audioStem?.reference
                 {
-                    self.currentPerformerSoundZoneViews[performerID] = nil
-                    let message = AudioStemMessage(audioStemRef: currentAudioStemRef, timestamp: NSDate().timeIntervalSince1970, sessionStamp: server.sessionStamp, loopLength: 1.875, type: .Stop)
+                    let message = AudioStemMessage(audioStemRef: previousAudioStemRef, timestamp: NSDate().timeIntervalSince1970, sessionStamp: server.sessionStamp, loopLength: 1.875, type: .Stop)
                     self.server.sendMessage(message, performerID: performerID)
+                    print ("send stop message")
                     updatePerformerVolumes()
                 }
+            }
+            
+            if (!performerInSoundZone)
+            {
+                self.currentPerformerSoundZoneViews[performerID] = nil
             }
             
             panGesture.setTranslation(CGPoint.zero, inView: self.view)

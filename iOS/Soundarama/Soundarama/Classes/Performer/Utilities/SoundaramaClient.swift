@@ -123,12 +123,13 @@ extension SoundaramaClient: AsyncSocketDelegate
 {
     func onSocket(sock: AsyncSocket!, didReadData data: NSData!, withTag tag: Int)
     {
+        print("received message")
         if let message = AudioStemMessage(data: data)
         {
-            if (message.timestamp > self.timestampOfPreviousMessage) //Only process messages in order
-            {
+//            if (message.timestamp > self.timestampOfPreviousMessage) //Only process messages in order
+//            {
                 self.delegate?.clientDidRecieveAudioStemMessage(message)
-            }
+//            }
         }
         else if let message = VolumeChangeMessage(data: data)
         {

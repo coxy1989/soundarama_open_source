@@ -57,6 +57,8 @@ class PerformerAudioController: NSObject
                 self.audioPlayers[audioStem.reference] = newPlayer
                 
                 updateForVolume()
+                
+                print("playAudioStem")
             }
             catch _ as NSError
             {
@@ -67,15 +69,17 @@ class PerformerAudioController: NSObject
     
     func stopAudioStem(audioStem: AudioStem, afterDelay: NSTimeInterval = 0.0)
     {
-        let delayTime = dispatch_time(DISPATCH_TIME_NOW, Int64(afterDelay * Double(NSEC_PER_SEC)))
-        dispatch_after(delayTime, dispatch_get_main_queue(), { () -> Void in
+        print("stopAudioStem")
+        if let player = self.audioPlayers[audioStem.reference]
+        {
+            self.audioPlayers[audioStem.reference] = nil
             
-            if let player = self.audioPlayers[audioStem.reference]
-            {
+            let delayTime = dispatch_time(DISPATCH_TIME_NOW, Int64(afterDelay * Double(NSEC_PER_SEC)))
+            dispatch_after(delayTime, dispatch_get_main_queue(), { () -> Void in
+                
                 player.stop()
-                self.audioPlayers[audioStem.reference] = nil
-            }
-        })
+            })
+        }
     }
     
     private func updateForVolume()
