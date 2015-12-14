@@ -16,6 +16,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool
     {
+        //Ignore mute switch and set to 80% volume
         do
         {
             try AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayback, withOptions: [])
@@ -25,10 +26,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate
             
         }
         
-        UIApplication.sharedApplication().setStatusBarHidden(true, withAnimation: .None)
+        VolumeControl.setVolume(0.8)
         
-        //VolumeControl.setVolumeToMax()
+        //Hide status bar and don't allow device sleep
+        UIApplication.sharedApplication().setStatusBarHidden(true, withAnimation: .None)
         UIApplication.sharedApplication().idleTimerDisabled = true
+        
         self.window = UIWindow(frame: UIScreen.mainScreen().bounds)
         
         if (UIDevice.currentDevice().userInterfaceIdiom == .Pad)

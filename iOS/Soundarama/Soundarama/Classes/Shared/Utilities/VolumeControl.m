@@ -16,4 +16,9 @@
     [[MPMusicPlayerController applicationMusicPlayer] setVolume: 1.0];
 }
 
++ (void)setVolume:(float)volume
+{
+    [[MPMusicPlayerController applicationMusicPlayer] setVolume: volume];
+}
+
 @end

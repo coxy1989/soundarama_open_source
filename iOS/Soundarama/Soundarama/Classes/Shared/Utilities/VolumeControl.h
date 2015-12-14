@@ -11,5 +11,6 @@
 @interface VolumeControl : NSObject
 
 + (void)setVolumeToMax;
++ (void)setVolume:(float)volume;
 
 @end
