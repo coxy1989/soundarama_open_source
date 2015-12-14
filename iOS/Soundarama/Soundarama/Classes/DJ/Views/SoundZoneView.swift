@@ -80,14 +80,14 @@ class SoundZoneView: UIView
         
         self.muteButton = UIButton()
         self.muteButton.setTitle(NSLocalizedString("SOUND_ZONE_MUTE", comment: ""), forState: .Normal)
-        self.muteButton.setTitleColor(UIColor.whiteColor(), forState: .Normal)
-        self.muteButton.setTitleColor(UIColor.redColor().colorWithAlphaComponent(0.5), forState: .Selected)
+        self.muteButton.setTitleColor(UIColor.blackColor(), forState: .Normal)
+        self.muteButton.setTitleColor(UIColor.whiteColor().colorWithAlphaComponent(0.5), forState: .Selected)
         self.muteButton.layer.borderWidth = 2.0
         
         self.soloButton = UIButton()
         self.soloButton.setTitle(NSLocalizedString("SOUND_ZONE_SOLO", comment: ""), forState: .Normal)
-        self.soloButton.setTitleColor(UIColor.whiteColor(), forState: .Normal)
-        self.soloButton.setTitleColor(UIColor.redColor().colorWithAlphaComponent(0.5), forState: .Selected)
+        self.soloButton.setTitleColor(UIColor.blackColor(), forState: .Normal)
+        self.soloButton.setTitleColor(UIColor.whiteColor().colorWithAlphaComponent(0.5), forState: .Selected)
         self.soloButton.layer.borderWidth = 2.0
         
         self.titleLabel = UILabel()
