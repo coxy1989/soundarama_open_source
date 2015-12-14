@@ -88,6 +88,32 @@ class DJViewController: UIViewController
     {
         if let performerImageView = panGesture.view as? PerformerPhoneImageView, performerID = performerImageView.performerID, soundZoneViews = self.soundZoneViews
         {
+            //Grow phone when dragging
+            if (panGesture.state == .Began)
+            {
+                UIView.animateWithDuration(0.3, delay: 0.0, options: UIViewAnimationOptions.BeginFromCurrentState, animations: { () -> Void in
+                    
+                    performerImageView.transform = CGAffineTransformMakeScale(1.6, 1.6)
+                    
+                    }, completion: { (finished) -> Void in
+                        
+                })
+            }
+            else if (panGesture.state == .Changed)
+            {
+                
+            }
+            else
+            {
+                UIView.animateWithDuration(0.3, delay: 0.0, options: UIViewAnimationOptions.BeginFromCurrentState, animations: { () -> Void in
+                    
+                    performerImageView.transform = CGAffineTransformIdentity
+                    
+                    }, completion: { (finished) -> Void in
+                        
+                })
+            }
+            
             let previouslyInSoundZone = self.currentPerformerSoundZoneViews[performerID] != nil
             
             let translation = panGesture.translationInView(self.view)
