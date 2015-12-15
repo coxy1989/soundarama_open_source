@@ -48,8 +48,8 @@ struct AudioStemMessage: Message
         let range = NSMakeRange(mutable.length - MessageConstants.seperator.length, MessageConstants.seperator.length)
         mutable.replaceBytesInRange(range, withBytes: nil, length: 0)
         if let msg = NSKeyedUnarchiver.unarchiveObjectWithData(mutable) {
-            if let  audioStemRef = msg["audioStemRef"] as? String,
-            timestamp = msg["timestamp"] as? Double,
+            if let  audioStemRef = msg["ref"] as? String,
+            timestamp = msg["time"] as? Double,
             loopLength = msg["loopLength"] as? NSTimeInterval,
                 typeVal = msg["type"] as? UInt,
                 sessionStamp = msg["sessionStamp"] as? Double
@@ -72,7 +72,7 @@ struct AudioStemMessage: Message
     
     func data() -> NSData
     {
-        let dic = ["audioStemRef" : audioStemRef, "timestamp" : timestamp, "sessionStamp" : sessionStamp, "loopLength" : loopLength, "type" : self.type.rawValue]
+        let dic = ["ref" : audioStemRef, "time" : timestamp, "sessionStamp" : sessionStamp, "loopLength" : loopLength, "type" : self.type.rawValue]
         let msg = NSKeyedArchiver.archivedDataWithRootObject(dic)
         let dat = msg.mutableCopy()
         dat.appendData(MessageConstants.seperator)
