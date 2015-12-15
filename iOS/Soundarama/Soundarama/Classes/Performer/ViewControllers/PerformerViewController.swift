@@ -92,6 +92,7 @@ extension PerformerViewController: SoundaramaClientDelegate {
     func clientDidDisconnect()
     {
         connectionLabel.text = "Not Connected"
+        self.audioController.stopAll()
     }
     
     func clientDidRecieveAudioStemMessage(message: AudioStemMessage)

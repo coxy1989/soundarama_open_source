@@ -89,6 +89,14 @@ class PerformerAudioController: NSObject
             audioPlayer.volume = self.volume
         }
     }
+    
+    func stopAll()
+    {
+        //Stop any other players (may not be perfect timing because we're using dispatch blocks...could be improved)
+        let currentAudioPlayers = Array(self.audioPlayers.values)
+        self.audioPlayers.removeAll()
+        let _ = currentAudioPlayers.map { $0.stop() }
+    }
 }
 
 extension PerformerAudioController: AVAudioPlayerDelegate
