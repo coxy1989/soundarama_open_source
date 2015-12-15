@@ -135,6 +135,7 @@ extension PerformerViewController: SoundaramaClientDelegate {
         connectionLabel.text = "Not Connected"
         self.audioController.stopAll()
         self.view.backgroundColor = UIColor.blackColor()
+        self.connectionLabel.textColor = UIColor.blackColor()
         self.connected = false
         self.currentBarNumber = -1
     }
@@ -144,6 +145,7 @@ extension PerformerViewController: SoundaramaClientDelegate {
         if let audioStem = self.audioStems[message.audioStemRef]
         {
             self.view.backgroundColor = audioStem.colour
+            self.connectionLabel.textColor = audioStem.colour
             
             dispatch_async(dispatch_get_main_queue()) { [unowned self] in
                 
