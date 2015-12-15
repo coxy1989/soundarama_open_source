@@ -18,6 +18,8 @@ class HomeViewController: UIViewController
     private var performerButton: UIButton?
     private var performerBackgroundImageView: UIImageView?
     
+    private var flvLogoImageView: UIImageView?
+    
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: NSBundle?)
     {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
@@ -58,6 +60,11 @@ class HomeViewController: UIViewController
         self.performerButton?.addTarget(self, action: "didPressPerformerButton:", forControlEvents: UIControlEvents.TouchUpInside)
         self.view.addSubview(self.performerButton!)
         
+        self.flvLogoImageView = UIImageView()
+        self.flvLogoImageView?.image = UIImage(named: "icn-flv-logo-home")
+        self.flvLogoImageView?.contentMode = .Center
+        self.view.addSubview(self.flvLogoImageView!)
+        
         self.view.backgroundColor = UIColor.blackColor()
     }
     
@@ -75,6 +82,14 @@ class HomeViewController: UIViewController
         
         self.djButton?.frame = CGRect(x: (self.view.bounds.width / 2.0), y: 0.0, width: self.view.bounds.width / 2.0, height: self.view.bounds.height)
         self.djButtonBackgroundImageView?.frame = self.djButton!.frame
+        
+        self.flvLogoImageView?.sizeToFit()
+        self.flvLogoImageView?.frame = CGRect(
+            x: (self.view.bounds.width - self.flvLogoImageView!.bounds.width) / 2.0,
+            y: 42.0,
+            width: self.flvLogoImageView!.bounds.width,
+            height: self.flvLogoImageView!.bounds.height
+        )
     }
     
     override func didReceiveMemoryWarning()

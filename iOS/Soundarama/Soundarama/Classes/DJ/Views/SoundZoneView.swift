@@ -141,7 +141,7 @@ class SoundZoneView: UIView
             self.ringShapeLayers[idx].strokeColor = self.tintColor.colorWithAlphaComponent(Layout.ringStrokeOpacities[idx]).CGColor
         }
         
-        self.playlistButton.backgroundColor = self.tintColor.darkerColor()
+        self.playlistButton.backgroundColor = self.tintColor.lighterColor()
         self.playlistButton.layer.borderColor = self.tintColor.CGColor
         
         self.soloButton.backgroundColor = self.playlistButton.backgroundColor

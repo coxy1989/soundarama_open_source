@@ -25,4 +25,19 @@ extension UIColor
         
         return nil
     }
+    
+    func lighterColor() -> UIColor?
+    {
+        var h: CGFloat = 0
+        var s: CGFloat = 0
+        var b: CGFloat = 0
+        var a: CGFloat = 0
+        
+        if self.getHue(&h, saturation: &s, brightness: &b, alpha: &a)
+        {
+            return UIColor(hue: h, saturation: s, brightness: b * 1.25, alpha: a)
+        }
+        
+        return nil
+    }
 }
