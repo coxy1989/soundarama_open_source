@@ -14,7 +14,7 @@ class PerformerViewController: UIViewController
     struct Layout
     {
         static let connectedLabelHeight: CGFloat = 60
-        static let flvLogoHeight: CGFloat = 60
+        static let flvLogoPadding = CGPoint(x: 18, y: 29)
     }
     
     private var client = SoundaramaClient()
@@ -71,7 +71,7 @@ class PerformerViewController: UIViewController
         
         self.flvLogoImageView = UIImageView()
         self.flvLogoImageView?.image = UIImage(named: "icn-flv-logo")
-        self.flvLogoImageView?.contentMode = .Center
+        self.flvLogoImageView?.contentMode = .ScaleAspectFit
         
         let audioStems = JSON.audioStemsFromDisk()
         for audioStem in audioStems
@@ -104,7 +104,9 @@ class PerformerViewController: UIViewController
         super.viewWillLayoutSubviews()
         
         connectionLabel.frame = CGRect(x: 0.0, y: self.view.bounds.height - Layout.connectedLabelHeight, width: self.view.bounds.width, height: Layout.connectedLabelHeight)
-        flvLogoImageView?.frame = CGRect(x: 0.0, y: 0.0, width: self.view.bounds.width, height: Layout.flvLogoHeight)
+        
+        flvLogoImageView?.sizeToFit()
+        flvLogoImageView?.frame = CGRect(x: Layout.flvLogoPadding.x, y: Layout.flvLogoPadding.y, width: self.view.bounds.width - (Layout.flvLogoPadding.x * 2.0), height: flvLogoImageView!.bounds.height)
         
         self.backgroundImageView?.frame = self.view.bounds
     }
