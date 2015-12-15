@@ -8,8 +8,8 @@
 
 protocol SoundaramaServerDelegate: class
 {
-    func soundaramaServerDidConnectToPerformer(soundaramaServer: SoundaramaServer, id: String)
-    func soundaramaServerDidDisconnectFromPerformer(soundaramaServer: SoundaramaServer, id: String)
+    func soundaramaServerDidConnectToPerformer(soundaramaServer: SoundaramaServer, address: String)
+    func soundaramaServerDidDisconnectFromPerformer(soundaramaServer: SoundaramaServer, address: String)
 }
 
 class SoundaramaServer: NSObject
@@ -25,7 +25,7 @@ class SoundaramaServer: NSObject
     
     private var serverSocket: AsyncSocket
     private var service: NSNetService?
-    private var activeSockets: [AsyncSocket] = []
+    private var activeSockets: [String: AsyncSocket] = [:]
     
     override init()
     {
@@ -55,14 +55,6 @@ class SoundaramaServer: NSObject
             print("Failed to publish service")
         }
     }
-    
-    private var previousSocketId = 0
-    func nextSocketId() -> Int
-    {
-        let socketId = self.previousSocketId
-        self.previousSocketId++
-        return socketId
-    }
 }
 
 extension SoundaramaServer: AsyncSocketDelegate
@@ -70,9 +62,8 @@ extension SoundaramaServer: AsyncSocketDelegate
     func onSocket(sock: AsyncSocket!, didAcceptNewSocket newSocket: AsyncSocket!)
     {
         print("New performer: \(newSocket.connectedHost())")
-        self.activeSockets.append(newSocket)
-        newSocket.setUserData(self.nextSocketId())
-        self.delegate?.soundaramaServerDidConnectToPerformer(self, id: "\(newSocket.userData())")
+        self.activeSockets[newSocket.connectedHost()] = newSocket
+        self.delegate?.soundaramaServerDidConnectToPerformer(self, address: newSocket.connectedHost())
         newSocket?.readDataToData(MessageConstants.seperator, withTimeout: -1, tag: 0)
     }
     
@@ -94,11 +85,29 @@ extension SoundaramaServer: AsyncSocketDelegate
     
     func onSocketDidDisconnect(sock: AsyncSocket!)
     {
-        if let socketIdx = self.activeSockets.indexOf(sock)
+        //Find address for this socket. Now it's disconnected we lose it's local address, so check the dictionary. (this is only ok
+        //because we know we only have one socket per address)
+        
+        let address: String? = {
+            
+            for (address, currentSocket) in self.activeSockets
+            {
+                if (sock == currentSocket)
+                {
+                    return address
+                }
+            }
+            
+            return nil
+            
+        }()
+        
+        
+        if let address = address
         {
-            print("Socket disconnected")
-            self.activeSockets.removeAtIndex(socketIdx)
-            self.delegate?.soundaramaServerDidDisconnectFromPerformer(self, id: "\(sock.userData())")
+            print("Socket disconnected: \(address)")
+            self.activeSockets[address] = nil
+            self.delegate?.soundaramaServerDidDisconnectFromPerformer(self, address: address)
         }
     }
 }
@@ -143,16 +152,16 @@ extension SoundaramaServer
 {
     func sendMessage(message: Message)
     {
-        for s in activeSockets
+        for (_, s) in activeSockets
         {
             s.writeData(message.data(), withTimeout: -1, tag: 0)
         }
     }
     
-    func sendMessage(message: Message, performerID: String)
+    func sendMessage(message: Message, performerAddress: String)
     {
         print("send message to performer")
-        for s in activeSockets where s.userData() == Int(performerID)
+        for (address, s) in activeSockets where address == performerAddress
         {
             s.writeData(message.data(), withTimeout: -1, tag: 0)
         }

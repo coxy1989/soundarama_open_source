@@ -138,7 +138,7 @@ class DJViewController: UIViewController
                             if let audioStemRef = soundZoneView.audioStem?.reference
                             {
                                 let message = AudioStemMessage(audioStemRef: audioStemRef, timestamp: NSDate().timeIntervalSince1970, sessionStamp: server.sessionStamp, loopLength: 1.875, type: .Start)
-                                self.server.sendMessage(message, performerID: performerID)
+                                self.server.sendMessage(message, performerAddress: performerID)
                                 updatePerformerVolumes()
                             }
                         }
@@ -157,7 +157,7 @@ class DJViewController: UIViewController
                 if let previousAudioStemRef = previousSoundZone?.audioStem?.reference
                 {
                     let message = AudioStemMessage(audioStemRef: previousAudioStemRef, timestamp: NSDate().timeIntervalSince1970, sessionStamp: server.sessionStamp, loopLength: 1.875, type: .Stop)
-                    self.server.sendMessage(message, performerID: performerID)
+                    self.server.sendMessage(message, performerAddress: performerID)
                     print ("send stop message")
                     updatePerformerVolumes()
                 }
@@ -247,7 +247,7 @@ extension DJViewController: SoundZoneViewDelegate
             }
             
             let message = VolumeChangeMessage(volume: volume, timestamp: NSDate().timeIntervalSince1970)
-            self.server.sendMessage(message, performerID: performerID)
+            self.server.sendMessage(message, performerAddress: performerID)
         }
     }
     
@@ -284,10 +284,10 @@ extension DJViewController: AudioStemsViewControllerDelegate
             
             if let audioStemRef = selectedSoundZoneView.audioStem?.reference
             {
-                for (performerID, soundZone) in self.currentPerformerSoundZoneViews where soundZone == selectedSoundZoneView
+                for (address, soundZone) in self.currentPerformerSoundZoneViews where soundZone == selectedSoundZoneView
                 {
                     let message = AudioStemMessage(audioStemRef: audioStemRef, timestamp: NSDate().timeIntervalSince1970, sessionStamp: server.sessionStamp, loopLength: 1.875, type: .Start)
-                    self.server.sendMessage(message, performerID: performerID)
+                    self.server.sendMessage(message, performerAddress: address)
                     updatePerformerVolumes()
                 }
             }
@@ -297,38 +297,43 @@ extension DJViewController: AudioStemsViewControllerDelegate
 
 extension DJViewController: SoundaramaServerDelegate
 {
-    func soundaramaServerDidConnectToPerformer(soundaramaServer: SoundaramaServer, id: String)
+    func soundaramaServerDidConnectToPerformer(soundaramaServer: SoundaramaServer, address: String)
     {
-        let imageView = PerformerPhoneImageView(image: UIImage(named: "icn-phone"))
-        imageView.alpha = 0.0
-        imageView.contentMode = .Center
-        imageView.performerID = id
-        
-        imageView.sizeToFit()
-        imageView.frame = CGRectInset(imageView.bounds, -14.0, -14.0) //extend hit area
-        
-        imageView.addGestureRecognizer(UIPanGestureRecognizer(target: self, action: "didPanPerformerImageView:"))
-        imageView.userInteractionEnabled = true
-        
-        //Random position in devices tray
-        let devicesAreaRect = CGRectInset(self.deviceTrayView!.frame, 16.0, 60.0)
-        imageView.center = CGPoint(
-            x: CGFloat(randomInt(Int(devicesAreaRect.minX), max: Int(devicesAreaRect.maxX))),
-            y: CGFloat(randomInt(Int(devicesAreaRect.minY), max: Int(devicesAreaRect.maxY)))
-        )
-        
-        self.view.addSubview(imageView)
-        
-        self.performerPhoneImageViews[id] = imageView
-        
-        UIView.animateWithDuration(0.3, animations: { imageView.alpha = 1.0 })
+        if performerPhoneImageViews[address] == nil
+        {
+            let imageView = PerformerPhoneImageView(image: UIImage(named: "icn-phone"))
+            imageView.alpha = 0.0
+            imageView.contentMode = .Center
+            imageView.performerID = address
+            
+            imageView.sizeToFit()
+            imageView.frame = CGRectInset(imageView.bounds, -14.0, -14.0) //extend hit area
+            
+            imageView.addGestureRecognizer(UIPanGestureRecognizer(target: self, action: "didPanPerformerImageView:"))
+            imageView.userInteractionEnabled = true
+            
+            //Random position in devices tray
+            let devicesAreaRect = CGRectInset(self.deviceTrayView!.frame, 16.0, 60.0)
+            imageView.center = CGPoint(
+                x: CGFloat(randomInt(Int(devicesAreaRect.minX), max: Int(devicesAreaRect.maxX))),
+                y: CGFloat(randomInt(Int(devicesAreaRect.minY), max: Int(devicesAreaRect.maxY)))
+            )
+            
+            self.view.addSubview(imageView)
+            
+            self.performerPhoneImageViews[address] = imageView
+            
+            UIView.animateWithDuration(0.3, animations: { imageView.alpha = 1.0 })
+        }
     }
     
-    func soundaramaServerDidDisconnectFromPerformer(soundaramaServer: SoundaramaServer, id: String)
+    func soundaramaServerDidDisconnectFromPerformer(soundaramaServer: SoundaramaServer, address: String)
     {
-        if let imageView = performerPhoneImageViews[id]
+        print("Disconnect \(address)")
+        
+        if let imageView = performerPhoneImageViews[address]
         {
-            self.performerPhoneImageViews[id] = nil
+            self.performerPhoneImageViews[address] = nil
             
             UIView.animateWithDuration(0.3, animations: { () -> Void in
                 
