@@ -44,8 +44,8 @@ class PerformerViewController: UIViewController
     private lazy var backgroundImages: [UIImage] =
     {
         var images = [UIImage]()
-        let numberOfImages = 33
-        for i in 0..<numberOfImages
+        let numberOfImages = 4
+        for i in 1...numberOfImages
         {
             let imageFileName = "glitch-\(i).jpg"
             images.append(UIImage(named: imageFileName)!)
