@@ -54,6 +54,11 @@ class DJViewController: UIViewController
         server.publishService()
     }
     
+    override func supportedInterfaceOrientations() -> UIInterfaceOrientationMask
+    {
+        return [ UIInterfaceOrientationMask.Landscape ]
+    }
+    
     override func viewDidAppear(animated: Bool)
     {
         super.viewDidAppear(animated)

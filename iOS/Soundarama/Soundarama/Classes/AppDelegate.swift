@@ -36,11 +36,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate
         
         if (UIDevice.currentDevice().userInterfaceIdiom == .Pad)
         {
-            self.window?.rootViewController = UINavigationController(rootViewController: HomeViewController(nibName: nil, bundle: nil))
+            self.window?.rootViewController = RootViewController(rootViewController: HomeViewController(nibName: nil, bundle: nil))
         }
         else
         {
-            self.window?.rootViewController = UINavigationController(rootViewController: PerformerViewController(nibName: nil, bundle: nil))
+            self.window?.rootViewController = RootViewController(rootViewController: PerformerViewController(nibName: nil, bundle: nil))
         }
         
         self.window?.makeKeyAndVisible()
@@ -74,3 +74,26 @@ class AppDelegate: UIResponder, UIApplicationDelegate
 
 }
 
+class RootViewController: UINavigationController
+{
+    override func supportedInterfaceOrientations() -> UIInterfaceOrientationMask
+    {
+        if let lastVC = self.viewControllers.last
+        {
+            if lastVC is HomeViewController
+            {
+                return [ UIInterfaceOrientationMask.Landscape, UIInterfaceOrientationMask.Portrait ]
+            }
+            else if lastVC is PerformerViewController
+            {
+                return [ UIInterfaceOrientationMask.Portrait ]
+            }
+            else if lastVC is DJViewController
+            {
+                return [ UIInterfaceOrientationMask.Landscape ]
+            }
+        }
+        
+        return [ UIInterfaceOrientationMask.Landscape ]
+    }
+}

@@ -29,6 +29,11 @@ class PerformerAudioController: NSObject
     
     private var audioPlayers = [String: AVAudioPlayer]()
     
+    var isPlaying: Bool
+    {
+        return self.audioPlayers.values.count > 0
+    }
+    
     override init()
     {
         super.init()

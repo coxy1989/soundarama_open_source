@@ -61,6 +61,11 @@ class HomeViewController: UIViewController
         self.view.backgroundColor = UIColor.blackColor()
     }
     
+    override func supportedInterfaceOrientations() -> UIInterfaceOrientationMask
+    {
+        return [ UIInterfaceOrientationMask.Landscape ]
+    }
+    
     override func viewWillLayoutSubviews()
     {
         super.viewWillLayoutSubviews()

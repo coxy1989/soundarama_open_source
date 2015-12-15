@@ -11,32 +11,50 @@ import AVFoundation
 
 class PerformerViewController: UIViewController
 {
-    private var client = SoundaramaClient()
+    struct Layout
+    {
+        static let connectedLabelHeight: CGFloat = 60
+        static let flvLogoHeight: CGFloat = 60
+    }
     
-    private var backgroundGradientLayer: CAGradientLayer?
+    private var client = SoundaramaClient()
     
     private var audioStems = [String: AudioStem]()
     private var audioController = PerformerAudioController()
+    private var connected = false
     
     private var displayLink: CADisplayLink!
     
     private var clockMap: (local: NSTimeInterval, remote: NSTimeInterval)!
+    private var currentLoopLength: NSTimeInterval = 2
+    private var currentSessionStartTime: Double = NSDate().timeIntervalSince1970
+    private var currentBarNumber = -1
     
     private lazy var connectionLabel: UILabel =
     {
         let label = UILabel()
-        label.textColor = UIColor.whiteColor()
+        label.textColor = UIColor.blackColor()
         label.text = "Not Connected"
+        label.font = UIFont.soundaramaSansSerifBookFont(size: 18)
+        label.textAlignment = .Center
         return label
     }()
     
-    private lazy var timeLabel: UILabel =
+    private var backgroundImageView: UIImageView?
+    private lazy var backgroundImages: [UIImage] =
     {
-        let label = UILabel()
-        label.textColor = UIColor.whiteColor()
-        label.text = "Waiting for time"
-        return label
+        var images = [UIImage]()
+        let numberOfImages = 33
+        for i in 0..<numberOfImages
+        {
+            let imageFileName = "glitch-\(i).jpg"
+            images.append(UIImage(named: imageFileName)!)
+        }
+        return images
     }()
+    private var backgroundImageIdx = 0
+    
+    private var flvLogoImageView: UIImageView?
     
     override func viewDidLoad()
     {
@@ -44,10 +62,16 @@ class PerformerViewController: UIViewController
         
         self.navigationController?.setNavigationBarHidden(true, animated: false)
         
-        self.backgroundGradientLayer = CAGradientLayer()
-        self.backgroundGradientLayer?.startPoint = CGPoint(x: 0.0, y: 0.5)
-        self.backgroundGradientLayer?.endPoint = CGPoint(x: 1.0, y: 0.5)
-        self.view.layer.addSublayer(self.backgroundGradientLayer!)
+        self.view.backgroundColor = UIColor.blackColor()
+        
+        self.backgroundImageView = UIImageView()
+        self.backgroundImageView?.image = self.backgroundImages.first
+        self.backgroundImageView?.contentMode = .ScaleAspectFill
+        self.backgroundImageIdx = 0
+        
+        self.flvLogoImageView = UIImageView()
+        self.flvLogoImageView?.image = UIImage(named: "icn-flv-logo")
+        self.flvLogoImageView?.contentMode = .Center
         
         let audioStems = JSON.audioStemsFromDisk()
         for audioStem in audioStems
@@ -57,9 +81,15 @@ class PerformerViewController: UIViewController
         
         client.delegate = self
         
+        view.addSubview(self.backgroundImageView!)
         view.addSubview(connectionLabel)
-        view.addSubview(timeLabel)
+        view.addSubview(self.flvLogoImageView!)
         view.backgroundColor = UIColor.blackColor()
+    }
+    
+    override func supportedInterfaceOrientations() -> UIInterfaceOrientationMask
+    {
+        return [ UIInterfaceOrientationMask.Portrait ]
     }
     
     override func viewDidAppear(animated: Bool)
@@ -73,12 +103,21 @@ class PerformerViewController: UIViewController
     {
         super.viewWillLayoutSubviews()
         
-        self.backgroundGradientLayer?.frame = self.view.bounds
+        connectionLabel.frame = CGRect(x: 0.0, y: self.view.bounds.height - Layout.connectedLabelHeight, width: self.view.bounds.width, height: Layout.connectedLabelHeight)
+        flvLogoImageView?.frame = CGRect(x: 0.0, y: 0.0, width: self.view.bounds.width, height: Layout.flvLogoHeight)
         
-        connectionLabel.sizeToFit()
-        connectionLabel.center = view.center
-        timeLabel.sizeToFit()
-        timeLabel.frame.origin = CGPointMake(12, 12)
+        self.backgroundImageView?.frame = self.view.bounds
+    }
+    
+    private func progressToNextBackgroundImage()
+    {
+        self.backgroundImageIdx++
+        if (self.backgroundImageIdx > self.backgroundImages.count - 1)
+        {
+            self.backgroundImageIdx = 0
+        }
+        
+        self.backgroundImageView?.image = self.backgroundImages[self.backgroundImageIdx]
     }
 }
 
@@ -87,19 +126,24 @@ extension PerformerViewController: SoundaramaClientDelegate {
     func clientDidConnect()
     {
         connectionLabel.text = "Connected"
+        self.connected = true
+        self.currentBarNumber = -1
     }
     
     func clientDidDisconnect()
     {
         connectionLabel.text = "Not Connected"
         self.audioController.stopAll()
+        self.view.backgroundColor = UIColor.blackColor()
+        self.connected = false
+        self.currentBarNumber = -1
     }
     
     func clientDidRecieveAudioStemMessage(message: AudioStemMessage)
     {
         if let audioStem = self.audioStems[message.audioStemRef]
         {
-            self.backgroundGradientLayer?.colors = [ audioStem.colour.CGColor, audioStem.colour.colorWithAlphaComponent(0.4).CGColor ]
+            self.view.backgroundColor = audioStem.colour
             
             dispatch_async(dispatch_get_main_queue()) { [unowned self] in
                 
@@ -122,24 +166,39 @@ extension PerformerViewController: SoundaramaClientDelegate {
     }
 }
 
-extension PerformerViewController {
-    
-    
+extension PerformerViewController
+{
     func displayLinkDidFire()
     {
-        let now = NSDate().timeIntervalSince1970
-        let elapsedSinceSync = now - clockMap.local
-        let remoteNow = clockMap.remote + elapsedSinceSync
-        timeLabel.text = String(NSString(format: "%.02f", remoteNow))
-        view.setNeedsLayout()
-        view.layoutIfNeeded()
+        if (self.connected)
+        {
+            let now = NSDate().timeIntervalSince1970
+            let elapsedSinceSync = now - clockMap.local
+            let remoteNow = clockMap.remote + elapsedSinceSync
+            let timeElapsedInSession = remoteNow - self.currentSessionStartTime
+            let barNumber = Int(timeElapsedInSession / (self.currentLoopLength / 4.0))
+            
+            if (barNumber != self.currentBarNumber)
+            {
+                self.currentBarNumber = barNumber
+                
+                if (self.audioController.isPlaying)
+                {
+                    progressToNextBackgroundImage()
+                }
+            }
+            
+        }
     }
 }
 
 extension PerformerViewController
 {
-    func scheduleSound(audioStem: AudioStem, timestamp: Double, sessionStamp: Double ,loopLength: NSTimeInterval, stop: Bool = false)
+    func scheduleSound(audioStem: AudioStem, timestamp: Double, sessionStamp: Double, loopLength: NSTimeInterval, stop: Bool = false)
     {
+        currentLoopLength = loopLength
+        currentSessionStartTime = sessionStamp
+        
         let now = NSDate().timeIntervalSince1970
         
         let elapsedSinceSync = now - clockMap.local
