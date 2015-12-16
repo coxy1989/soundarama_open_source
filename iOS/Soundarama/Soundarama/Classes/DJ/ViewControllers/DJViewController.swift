@@ -129,29 +129,32 @@ class DJViewController: UIViewController
             var performerInSoundZone = false
             var newSoundZone: SoundZoneView?
             
-            for soundZoneView in soundZoneViews
+            if (panGesture.state != .Began && panGesture.state != .Changed) //Only start new sounds when the user lets go
             {
-                if (CGRectContainsPoint(soundZoneView.frame, performerImageView.center))
+                for soundZoneView in soundZoneViews
                 {
-                    if (soundZoneView.pointInsideRings(self.view.convertPoint(performerImageView.center, toView: soundZoneView)))
+                    if (CGRectContainsPoint(soundZoneView.frame, performerImageView.center))
                     {
-                        if (self.currentPerformerSoundZoneViews[performerID] != soundZoneView)
+                        if (soundZoneView.pointInsideRings(self.view.convertPoint(performerImageView.center, toView: soundZoneView)))
                         {
-                            print("New sound zone for \(performerID)")
-                            self.currentPerformerSoundZoneViews[performerID] = soundZoneView
-                            
-                            if let audioStemRef = soundZoneView.audioStem?.reference
+                            if (self.currentPerformerSoundZoneViews[performerID] != soundZoneView)
                             {
-                                let message = AudioStemMessage(audioStemRef: audioStemRef, timestamp: NSDate().timeIntervalSince1970, sessionStamp: server.sessionStamp, loopLength: 1.875, type: .Start)
-                                self.server.sendMessage(message, performerAddress: performerID)
-                                updatePerformerVolumes()
+                                print("New sound zone for \(performerID)")
+                                self.currentPerformerSoundZoneViews[performerID] = soundZoneView
+                                
+                                if let audioStemRef = soundZoneView.audioStem?.reference
+                                {
+                                    let message = AudioStemMessage(audioStemRef: audioStemRef, timestamp: NSDate().timeIntervalSince1970, sessionStamp: server.sessionStamp, loopLength: 1.875, type: .Start)
+                                    self.server.sendMessage(message, performerAddress: performerID)
+                                    updatePerformerVolumes()
+                                }
                             }
+                            
+                            performerInSoundZone = true
+                            newSoundZone = soundZoneView
+                            
+                            break
                         }
-                        
-                        performerInSoundZone = true
-                        newSoundZone = soundZoneView
-                        
-                        break
                     }
                 }
             }
