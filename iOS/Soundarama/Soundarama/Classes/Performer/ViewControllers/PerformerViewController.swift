@@ -34,7 +34,7 @@ class PerformerViewController: UIViewController
     {
         let label = UILabel()
         label.textColor = UIColor.blackColor()
-        label.text = "Not Connected"
+        label.text = "Non Connecté"
         label.font = UIFont.soundaramaSansSerifBookFont(size: 18)
         label.textAlignment = .Center
         return label
@@ -127,14 +127,14 @@ extension PerformerViewController: SoundaramaClientDelegate {
     
     func clientDidConnect()
     {
-        connectionLabel.text = "Connected"
+        connectionLabel.text = "Connecté"
         self.connected = true
         self.currentBarNumber = -1
     }
     
     func clientDidDisconnect()
     {
-        connectionLabel.text = "Not Connected"
+        connectionLabel.text = "Non Connecté"
         self.audioController.stopAll()
         self.view.backgroundColor = UIColor.blackColor()
         self.connectionLabel.textColor = UIColor.blackColor()
