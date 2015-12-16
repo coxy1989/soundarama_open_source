@@ -18,7 +18,7 @@ struct AudioStem
     
     var audioFilePath: String?
     {
-        if let path = NSBundle.mainBundle().pathForResource(self.reference, ofType: "m4a", inDirectory: "Sounds")
+        if let path = NSBundle.mainBundle().pathForResource(self.reference, ofType: "wav", inDirectory: "Sounds")
         {
             return path
         }

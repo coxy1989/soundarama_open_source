@@ -137,7 +137,7 @@
      "Name" : "RYTH LOOP PRC SYNTH",
      "Colour" : "#8371BD",
      "Category" : "Rhythm",
-     "Ref" : "RYTH_LOOP_PRC_SYNTH"
+     "Ref" : "RYTH_LOOP_PRC_STH"
      },
      {
      "Name" : "RYTH LOOP TONAL",
@@ -167,13 +167,13 @@
      "Name" : "RYTH SNARE 9A9",
      "Colour" : "#8371BD",
      "Category" : "Rhythm",
-     "Ref" : "RYTH_SNARE_9A9"
+     "Ref" : "RYTH_SNR_9A9"
      },
      {
      "Name" : "RYTH SNARE BROKN",
      "Colour" : "#8371BD",
      "Category" : "Rhythm",
-     "Ref" : "RYTH_SNARE_BROKN"
+     "Ref" : "RYTH_SNR_BKN"
      },
      {
      "Name" : "RYTH TAMBORIN",
