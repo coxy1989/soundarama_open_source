@@ -6,6 +6,8 @@
 //  Copyright © 2015 Touchpress Ltd. All rights reserved.
 //
 
+import CocoaAsyncSocket
+
 protocol SoundaramaServerDelegate: class
 {
     func soundaramaServerDidConnectToPerformer(soundaramaServer: SoundaramaServer, address: String)
