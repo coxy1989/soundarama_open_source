@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9531" systemVersion="15C50" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
+    </dependencies>
+    <scenes>
+        <!--Performer View Controller-->
+        <scene sceneID="Pq9-iS-zft">
+            <objects>
+                <viewController storyboardIdentifier="PerformerViewController" id="Odd-0B-WGn" customClass="PerformerViewController" customModule="Soundarama" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="ZhZ-HV-Nla"/>
+                        <viewControllerLayoutGuide type="bottom" id="qCh-iF-fy2"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="Hyt-Nq-Gt9">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="glitch-1" translatesAutoresizingMaskIntoConstraints="NO" id="dts-FL-ddH">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                            </imageView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icn-flv-logo" translatesAutoresizingMaskIntoConstraints="NO" id="7gB-WW-KNC">
+                                <rect key="frame" x="130" y="29" width="340" height="17"/>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Non Connecté" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="h4Q-4C-7ah">
+                                <rect key="frame" x="241" y="566.5" width="118" height="25"/>
+                                <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="18"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="dts-FL-ddH" firstAttribute="leading" secondItem="Hyt-Nq-Gt9" secondAttribute="leading" id="GCh-eR-WCP"/>
+                            <constraint firstItem="qCh-iF-fy2" firstAttribute="top" secondItem="h4Q-4C-7ah" secondAttribute="bottom" constant="8" id="Ghw-uh-RMZ"/>
+                            <constraint firstAttribute="trailing" secondItem="dts-FL-ddH" secondAttribute="trailing" id="JG6-pD-7TM"/>
+                            <constraint firstItem="qCh-iF-fy2" firstAttribute="top" secondItem="dts-FL-ddH" secondAttribute="bottom" id="K6G-CJ-Afb"/>
+                            <constraint firstItem="7gB-WW-KNC" firstAttribute="centerX" secondItem="Hyt-Nq-Gt9" secondAttribute="centerX" id="O6R-iZ-wOy"/>
+                            <constraint firstItem="dts-FL-ddH" firstAttribute="top" secondItem="Hyt-Nq-Gt9" secondAttribute="top" id="Xey-x8-few"/>
+                            <constraint firstItem="7gB-WW-KNC" firstAttribute="top" secondItem="Hyt-Nq-Gt9" secondAttribute="top" constant="29" id="cY9-jL-faD"/>
+                            <constraint firstItem="h4Q-4C-7ah" firstAttribute="centerX" secondItem="Hyt-Nq-Gt9" secondAttribute="centerX" id="z4r-VI-QZ5"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="imageView" destination="dts-FL-ddH" id="PP2-3F-dRU"/>
+                        <outlet property="label" destination="h4Q-4C-7ah" id="GJE-ZL-Bru"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="15l-7f-e8L" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="634" y="366"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="glitch-1" width="768" height="1366"/>
+        <image name="icn-flv-logo" width="340" height="17"/>
+    </resources>
+</document>

@@ -9,8 +9,10 @@
 import UIKit
 import AVFoundation
 
-class PerformerViewController: UIViewController
+
+class ShitPerformerViewController: UIViewController
 {
+    
     struct Layout
     {
         static let connectedLabelHeight: CGFloat = 60
@@ -123,7 +125,7 @@ class PerformerViewController: UIViewController
     }
 }
 
-extension PerformerViewController: SoundaramaClientDelegate {
+extension ShitPerformerViewController: SoundaramaClientDelegate {
     
     func clientDidConnect()
     {
@@ -170,7 +172,7 @@ extension PerformerViewController: SoundaramaClientDelegate {
     }
 }
 
-extension PerformerViewController
+extension ShitPerformerViewController
 {
     func displayLinkDidFire()
     {
@@ -196,7 +198,7 @@ extension PerformerViewController
     }
 }
 
-extension PerformerViewController
+extension ShitPerformerViewController
 {
     func scheduleSound(audioStem: AudioStem, timestamp: Double, sessionStamp: Double, loopLength: NSTimeInterval, stop: Bool = false)
     {

@@ -106,7 +106,7 @@ class HomeViewController: UIViewController
     
     @objc private func didPressPerformerButton(button: UIButton)
     {
-        let vc = PerformerViewController(nibName: nil, bundle: nil)
+        let vc = ShitPerformerViewController(nibName: nil, bundle: nil)
         self.navigationController?.pushViewController(vc, animated: true)
     }
     

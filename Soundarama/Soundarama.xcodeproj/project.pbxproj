@@ -8,6 +8,33 @@
 
 /* Begin PBXBuildFile section */
 		40875DF9F44294C2A889FBFC /* Pods.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7A6AF1798DDD888B0BEABD3A /* Pods.framework */; };
+		420AA6991C55055F00F7BB25 /* DecideStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 420AA6981C55055F00F7BB25 /* DecideStoryboard.storyboard */; };
+		420AA69F1C550B1700F7BB25 /* DecideViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 420AA69E1C550B1700F7BB25 /* DecideViewController.swift */; };
+		420AA6A51C551AB300F7BB25 /* PerformerStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 420AA6A41C551AB300F7BB25 /* PerformerStoryboard.storyboard */; };
+		420AA6A71C551C8600F7BB25 /* PerformerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 420AA6A61C551C8600F7BB25 /* PerformerViewController.swift */; };
+		420AA6A91C55236F00F7BB25 /* DecideUserInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = 420AA6A81C55236F00F7BB25 /* DecideUserInterface.swift */; };
+		420AA6AB1C55288E00F7BB25 /* DecideWireframe.swift in Sources */ = {isa = PBXBuildFile; fileRef = 420AA6AA1C55288E00F7BB25 /* DecideWireframe.swift */; };
+		420AA6AD1C55296E00F7BB25 /* DecidePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 420AA6AC1C55296E00F7BB25 /* DecidePresenter.swift */; };
+		42A727A21C552C4800BFCA47 /* DJStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 42A727A11C552C4800BFCA47 /* DJStoryboard.storyboard */; };
+		42A727A41C552D0200BFCA47 /* PerformerWireframe.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42A727A31C552D0200BFCA47 /* PerformerWireframe.swift */; };
+		42A727A61C552D3800BFCA47 /* PerformerPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42A727A51C552D3800BFCA47 /* PerformerPresenter.swift */; };
+		42A727A81C552D5D00BFCA47 /* PerformerModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42A727A71C552D5D00BFCA47 /* PerformerModule.swift */; };
+		42A727AA1C552D9400BFCA47 /* PerformerInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42A727A91C552D9400BFCA47 /* PerformerInteractor.swift */; };
+		42A727AC1C552DCA00BFCA47 /* DecideModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42A727AB1C552DCA00BFCA47 /* DecideModule.swift */; };
+		42A727AE1C552DDF00BFCA47 /* DecideInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42A727AD1C552DDF00BFCA47 /* DecideInteractor.swift */; };
+		42A727B01C552E2800BFCA47 /* DJModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42A727AF1C552E2800BFCA47 /* DJModule.swift */; };
+		42A727B21C552E5D00BFCA47 /* DJWireframe.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42A727B11C552E5D00BFCA47 /* DJWireframe.swift */; };
+		42A727B41C552E7400BFCA47 /* DJPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42A727B31C552E7400BFCA47 /* DJPresenter.swift */; };
+		42A727B61C552E8D00BFCA47 /* DJInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42A727B51C552E8D00BFCA47 /* DJInteractor.swift */; };
+		42A727B81C5537CF00BFCA47 /* PerformerUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42A727B71C5537CF00BFCA47 /* PerformerUseCase.swift */; };
+		42A727BB1C553AC400BFCA47 /* ConnectionState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42A727BA1C553AC400BFCA47 /* ConnectionState.swift */; };
+		42A727BD1C553B8900BFCA47 /* PerformerUserInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42A727BC1C553B8900BFCA47 /* PerformerUserInterface.swift */; };
+		42AFC6531C55447600AD4B9B /* Subscriber.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42AFC6521C55447600AD4B9B /* Subscriber.swift */; };
+		42AFC6551C55447F00AD4B9B /* Publisher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42AFC6541C55447F00AD4B9B /* Publisher.swift */; };
+		42AFC6571C554F5A00AD4B9B /* DJUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42AFC6561C554F5A00AD4B9B /* DJUseCase.swift */; };
+		42AFC6631C55802000AD4B9B /* SubscriberMessageAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42AFC6621C55802000AD4B9B /* SubscriberMessageAdapter.swift */; };
+		42AFC6651C55805300AD4B9B /* PublisherMessageAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42AFC6641C55805300AD4B9B /* PublisherMessageAdapter.swift */; };
+		42E8BE201C54FF470034F1C8 /* Soundarama.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42E8BE1F1C54FF470034F1C8 /* Soundarama.swift */; };
 		E20B94611C17539C00222A2B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E20B94601C17539C00222A2B /* AppDelegate.swift */; };
 		E20B94681C1753B900222A2B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E20B94641C1753B900222A2B /* Assets.xcassets */; };
 		E20B946C1C1753C800222A2B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E20B946A1C1753C800222A2B /* LaunchScreen.storyboard */; };
@@ -17,7 +44,7 @@
 		E20B94861C17541E00222A2B /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E20B947D1C17541E00222A2B /* HomeViewController.swift */; };
 		E20B94931C188BF700222A2B /* SoundZoneView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E20B94921C188BF700222A2B /* SoundZoneView.swift */; };
 		E20B94981C188C7400222A2B /* DJViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E20B94971C188C7400222A2B /* DJViewController.swift */; };
-		E20B949A1C188C8700222A2B /* PerformerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E20B94991C188C8700222A2B /* PerformerViewController.swift */; };
+		E20B949A1C188C8700222A2B /* ShitPerformerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E20B94991C188C8700222A2B /* ShitPerformerViewController.swift */; };
 		E20B949C1C188EA000222A2B /* DeviceTrayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E20B949B1C188EA000222A2B /* DeviceTrayView.swift */; };
 		E20B949E1C1898A000222A2B /* AudioStem.swift in Sources */ = {isa = PBXBuildFile; fileRef = E20B949D1C1898A000222A2B /* AudioStem.swift */; };
 		E25F9E0E1C19D7B2001D552F /* Sounds in Resources */ = {isa = PBXBuildFile; fileRef = E25F9E0D1C19D7B2001D552F /* Sounds */; };
@@ -46,10 +73,37 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		420AA6981C55055F00F7BB25 /* DecideStoryboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = DecideStoryboard.storyboard; sourceTree = "<group>"; };
+		420AA69E1C550B1700F7BB25 /* DecideViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DecideViewController.swift; sourceTree = "<group>"; };
+		420AA6A41C551AB300F7BB25 /* PerformerStoryboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = PerformerStoryboard.storyboard; sourceTree = "<group>"; };
+		420AA6A61C551C8600F7BB25 /* PerformerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PerformerViewController.swift; sourceTree = "<group>"; };
+		420AA6A81C55236F00F7BB25 /* DecideUserInterface.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DecideUserInterface.swift; sourceTree = "<group>"; };
+		420AA6AA1C55288E00F7BB25 /* DecideWireframe.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DecideWireframe.swift; sourceTree = "<group>"; };
+		420AA6AC1C55296E00F7BB25 /* DecidePresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DecidePresenter.swift; sourceTree = "<group>"; };
+		42A727A11C552C4800BFCA47 /* DJStoryboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = DJStoryboard.storyboard; sourceTree = "<group>"; };
+		42A727A31C552D0200BFCA47 /* PerformerWireframe.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PerformerWireframe.swift; sourceTree = "<group>"; };
+		42A727A51C552D3800BFCA47 /* PerformerPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PerformerPresenter.swift; sourceTree = "<group>"; };
+		42A727A71C552D5D00BFCA47 /* PerformerModule.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PerformerModule.swift; sourceTree = "<group>"; };
+		42A727A91C552D9400BFCA47 /* PerformerInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PerformerInteractor.swift; sourceTree = "<group>"; };
+		42A727AB1C552DCA00BFCA47 /* DecideModule.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DecideModule.swift; sourceTree = "<group>"; };
+		42A727AD1C552DDF00BFCA47 /* DecideInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DecideInteractor.swift; sourceTree = "<group>"; };
+		42A727AF1C552E2800BFCA47 /* DJModule.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DJModule.swift; sourceTree = "<group>"; };
+		42A727B11C552E5D00BFCA47 /* DJWireframe.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DJWireframe.swift; sourceTree = "<group>"; };
+		42A727B31C552E7400BFCA47 /* DJPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DJPresenter.swift; sourceTree = "<group>"; };
+		42A727B51C552E8D00BFCA47 /* DJInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DJInteractor.swift; sourceTree = "<group>"; };
+		42A727B71C5537CF00BFCA47 /* PerformerUseCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PerformerUseCase.swift; sourceTree = "<group>"; };
+		42A727BA1C553AC400BFCA47 /* ConnectionState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConnectionState.swift; sourceTree = "<group>"; };
+		42A727BC1C553B8900BFCA47 /* PerformerUserInterface.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PerformerUserInterface.swift; sourceTree = "<group>"; };
+		42AFC6521C55447600AD4B9B /* Subscriber.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Subscriber.swift; sourceTree = "<group>"; };
+		42AFC6541C55447F00AD4B9B /* Publisher.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Publisher.swift; sourceTree = "<group>"; };
+		42AFC6561C554F5A00AD4B9B /* DJUseCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DJUseCase.swift; sourceTree = "<group>"; };
+		42AFC6621C55802000AD4B9B /* SubscriberMessageAdapter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SubscriberMessageAdapter.swift; sourceTree = "<group>"; };
+		42AFC6641C55805300AD4B9B /* PublisherMessageAdapter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PublisherMessageAdapter.swift; sourceTree = "<group>"; };
+		42E8BE1F1C54FF470034F1C8 /* Soundarama.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Soundarama.swift; sourceTree = "<group>"; };
 		5A219AD37DBE00A8997FD63D /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		77BC4CC2D47B6C11CBA7895E /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 		7A6AF1798DDD888B0BEABD3A /* Pods.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		E20B94601C17539C00222A2B /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		E20B94601C17539C00222A2B /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AppDelegate.swift; path = Classes/AppDelegate.swift; sourceTree = "<group>"; };
 		E20B94641C1753B900222A2B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Assets.xcassets; path = Resources/Assets.xcassets; sourceTree = "<group>"; };
 		E20B946B1C1753C800222A2B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Resources/Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		E20B94731C17541E00222A2B /* Message.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
@@ -59,15 +113,15 @@
 		E20B947A1C17541E00222A2B /* VolumeControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VolumeControl.m; sourceTree = "<group>"; };
 		E20B947D1C17541E00222A2B /* HomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		E20B94921C188BF700222A2B /* SoundZoneView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SoundZoneView.swift; sourceTree = "<group>"; };
-		E20B94971C188C7400222A2B /* DJViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DJViewController.swift; sourceTree = "<group>"; };
-		E20B94991C188C8700222A2B /* PerformerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PerformerViewController.swift; sourceTree = "<group>"; };
+		E20B94971C188C7400222A2B /* DJViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DJViewController.swift; path = Classes/DJ/ViewControllers/DJViewController.swift; sourceTree = "<group>"; };
+		E20B94991C188C8700222A2B /* ShitPerformerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShitPerformerViewController.swift; sourceTree = "<group>"; };
 		E20B949B1C188EA000222A2B /* DeviceTrayView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeviceTrayView.swift; sourceTree = "<group>"; };
 		E20B949D1C1898A000222A2B /* AudioStem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AudioStem.swift; sourceTree = "<group>"; };
 		E25279C21BF606C8008B4690 /* Soundarama.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Soundarama.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E25279D11BF606C8008B4690 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E25279E01BF61B23008B4690 /* Soundarama-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "Soundarama-Bridging-Header.h"; path = "Resources/Soundarama-Bridging-Header.h"; sourceTree = "<group>"; };
 		E25F9E0D1C19D7B2001D552F /* Sounds */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Sounds; path = Resources/Sounds; sourceTree = "<group>"; };
-		E26EBA941C18A10A00747726 /* AudioStemsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AudioStemsViewController.swift; sourceTree = "<group>"; };
+		E26EBA941C18A10A00747726 /* AudioStemsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AudioStemsViewController.swift; path = Classes/DJ/ViewControllers/AudioStemsViewController.swift; sourceTree = "<group>"; };
 		E26EBA971C18A3A000747726 /* SwiftyJSON.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SwiftyJSON.swift; path = Frameworks/SwiftyJSON.swift; sourceTree = "<group>"; };
 		E26EBA991C18A4E600747726 /* UIColor+Hex.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "UIColor+Hex.swift"; path = "Frameworks/UIColor+Hex.swift"; sourceTree = "<group>"; };
 		E26EBA9D1C18AAA800747726 /* UIColor+Soundarama.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIColor+Soundarama.swift"; sourceTree = "<group>"; };
@@ -91,12 +145,52 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		420AA69A1C550A8000F7BB25 /* UI */ = {
+			isa = PBXGroup;
+			children = (
+				420AA69B1C550A8D00F7BB25 /* Decide */,
+				420AA69D1C550A9500F7BB25 /* DJ */,
+				420AA69C1C550A9100F7BB25 /* Performer */,
+			);
+			name = UI;
+			sourceTree = "<group>";
+		};
+		420AA69B1C550A8D00F7BB25 /* Decide */ = {
+			isa = PBXGroup;
+			children = (
+				420AA6A81C55236F00F7BB25 /* DecideUserInterface.swift */,
+				420AA69E1C550B1700F7BB25 /* DecideViewController.swift */,
+				420AA6981C55055F00F7BB25 /* DecideStoryboard.storyboard */,
+			);
+			name = Decide;
+			sourceTree = "<group>";
+		};
+		420AA69C1C550A9100F7BB25 /* Performer */ = {
+			isa = PBXGroup;
+			children = (
+				42A727BC1C553B8900BFCA47 /* PerformerUserInterface.swift */,
+				420AA6A61C551C8600F7BB25 /* PerformerViewController.swift */,
+				420AA6A41C551AB300F7BB25 /* PerformerStoryboard.storyboard */,
+			);
+			name = Performer;
+			sourceTree = "<group>";
+		};
+		420AA69D1C550A9500F7BB25 /* DJ */ = {
+			isa = PBXGroup;
+			children = (
+				E20B94971C188C7400222A2B /* DJViewController.swift */,
+				E26EBA941C18A10A00747726 /* AudioStemsViewController.swift */,
+				42A727A11C552C4800BFCA47 /* DJStoryboard.storyboard */,
+			);
+			name = DJ;
+			sourceTree = "<group>";
+		};
 		42A55C121C0F2AE900FD6C7D /* Resources */ = {
 			isa = PBXGroup;
 			children = (
 				E20B946A1C1753C800222A2B /* LaunchScreen.storyboard */,
-				E20B94641C1753B900222A2B /* Assets.xcassets */,
 				E26EBAA21C18AF4700747726 /* Localizable.strings */,
+				E20B94641C1753B900222A2B /* Assets.xcassets */,
 				E25F9E0D1C19D7B2001D552F /* Sounds */,
 			);
 			name = Resources;
@@ -105,12 +199,102 @@
 		42A55C131C0F2AF400FD6C7D /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				E26EBA971C18A3A000747726 /* SwiftyJSON.swift */,
-				E26EBA991C18A4E600747726 /* UIColor+Hex.swift */,
 				E25279E01BF61B23008B4690 /* Soundarama-Bridging-Header.h */,
 				E25279D11BF606C8008B4690 /* Info.plist */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		42A727B91C553A7C00BFCA47 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				42A727BA1C553AC400BFCA47 /* ConnectionState.swift */,
+				42AFC6661C55806A00AD4B9B /* Serialisation */,
+				42AFC6511C5542DA00AD4B9B /* TP2P */,
+			);
+			name = Model;
+			sourceTree = "<group>";
+		};
+		42AFC6511C5542DA00AD4B9B /* TP2P */ = {
+			isa = PBXGroup;
+			children = (
+				42AFC6521C55447600AD4B9B /* Subscriber.swift */,
+				42AFC6541C55447F00AD4B9B /* Publisher.swift */,
+			);
+			name = TP2P;
+			sourceTree = "<group>";
+		};
+		42AFC6661C55806A00AD4B9B /* Serialisation */ = {
+			isa = PBXGroup;
+			children = (
+				42AFC6621C55802000AD4B9B /* SubscriberMessageAdapter.swift */,
+				42AFC6641C55805300AD4B9B /* PublisherMessageAdapter.swift */,
+			);
+			name = Serialisation;
+			sourceTree = "<group>";
+		};
+		42E8BE151C54FB440034F1C8 /* App */ = {
+			isa = PBXGroup;
+			children = (
+				E20B94601C17539C00222A2B /* AppDelegate.swift */,
+				42E8BE1F1C54FF470034F1C8 /* Soundarama.swift */,
+			);
+			name = App;
+			sourceTree = "<group>";
+		};
+		42E8BE161C54FB470034F1C8 /* Use Cases */ = {
+			isa = PBXGroup;
+			children = (
+				42E8BE1E1C54FCF90034F1C8 /* Decide */,
+				42E8BE181C54FB6D0034F1C8 /* DJ */,
+				42E8BE171C54FB690034F1C8 /* Performer */,
+			);
+			name = "Use Cases";
+			sourceTree = "<group>";
+		};
+		42E8BE171C54FB690034F1C8 /* Performer */ = {
+			isa = PBXGroup;
+			children = (
+				42A727A71C552D5D00BFCA47 /* PerformerModule.swift */,
+				42A727A31C552D0200BFCA47 /* PerformerWireframe.swift */,
+				42A727A51C552D3800BFCA47 /* PerformerPresenter.swift */,
+				42A727A91C552D9400BFCA47 /* PerformerInteractor.swift */,
+				42A727B71C5537CF00BFCA47 /* PerformerUseCase.swift */,
+			);
+			name = Performer;
+			sourceTree = "<group>";
+		};
+		42E8BE181C54FB6D0034F1C8 /* DJ */ = {
+			isa = PBXGroup;
+			children = (
+				42A727AF1C552E2800BFCA47 /* DJModule.swift */,
+				42A727B11C552E5D00BFCA47 /* DJWireframe.swift */,
+				42A727B31C552E7400BFCA47 /* DJPresenter.swift */,
+				42A727B51C552E8D00BFCA47 /* DJInteractor.swift */,
+				42AFC6561C554F5A00AD4B9B /* DJUseCase.swift */,
+			);
+			name = DJ;
+			sourceTree = "<group>";
+		};
+		42E8BE191C54FB730034F1C8 /* Tom's Shit */ = {
+			isa = PBXGroup;
+			children = (
+				E26EBA971C18A3A000747726 /* SwiftyJSON.swift */,
+				E26EBA991C18A4E600747726 /* UIColor+Hex.swift */,
+				E25279D71BF61AEA008B4690 /* Classes */,
+			);
+			name = "Tom's Shit";
+			sourceTree = "<group>";
+		};
+		42E8BE1E1C54FCF90034F1C8 /* Decide */ = {
+			isa = PBXGroup;
+			children = (
+				42A727AB1C552DCA00BFCA47 /* DecideModule.swift */,
+				420AA6AA1C55288E00F7BB25 /* DecideWireframe.swift */,
+				420AA6AC1C55296E00F7BB25 /* DecidePresenter.swift */,
+				42A727AD1C552DDF00BFCA47 /* DecideInteractor.swift */,
+			);
+			name = Decide;
 			sourceTree = "<group>";
 		};
 		C34F38C4A45FFA16F71BF5A1 /* Pods */ = {
@@ -192,8 +376,6 @@
 		E20B948A1C17542400222A2B /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
-				E20B94971C188C7400222A2B /* DJViewController.swift */,
-				E26EBA941C18A10A00747726 /* AudioStemsViewController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -230,7 +412,7 @@
 		E20B948E1C17542400222A2B /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
-				E20B94991C188C8700222A2B /* PerformerViewController.swift */,
+				E20B94991C188C8700222A2B /* ShitPerformerViewController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -263,7 +445,11 @@
 		E25279C41BF606C8008B4690 /* Soundarama */ = {
 			isa = PBXGroup;
 			children = (
-				E25279D71BF61AEA008B4690 /* Classes */,
+				42E8BE151C54FB440034F1C8 /* App */,
+				42E8BE161C54FB470034F1C8 /* Use Cases */,
+				420AA69A1C550A8000F7BB25 /* UI */,
+				42A727B91C553A7C00BFCA47 /* Model */,
+				42E8BE191C54FB730034F1C8 /* Tom's Shit */,
 				42A55C131C0F2AF400FD6C7D /* Supporting Files */,
 				42A55C121C0F2AE900FD6C7D /* Resources */,
 			);
@@ -273,7 +459,6 @@
 		E25279D71BF61AEA008B4690 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
-				E20B94601C17539C00222A2B /* AppDelegate.swift */,
 				E20B94711C17541E00222A2B /* Shared */,
 				E20B94881C17542400222A2B /* DJ */,
 				E20B948C1C17542400222A2B /* Performer */,
@@ -342,7 +527,7 @@
 				TargetAttributes = {
 					E25279C11BF606C8008B4690 = {
 						CreatedOnToolsVersion = 7.1.1;
-						DevelopmentTeam = YL8CTL4C9C;
+						DevelopmentTeam = VM73AJJ5PP;
 					};
 				};
 			};
@@ -369,8 +554,11 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				420AA6A51C551AB300F7BB25 /* PerformerStoryboard.storyboard in Resources */,
 				E20B946C1C1753C800222A2B /* LaunchScreen.storyboard in Resources */,
 				E26EBAA31C18AF4700747726 /* Localizable.strings in Resources */,
+				42A727A21C552C4800BFCA47 /* DJStoryboard.storyboard in Resources */,
+				420AA6991C55055F00F7BB25 /* DecideStoryboard.storyboard in Resources */,
 				E25F9E0E1C19D7B2001D552F /* Sounds in Resources */,
 				E20B94681C1753B900222A2B /* Assets.xcassets in Resources */,
 			);
@@ -432,23 +620,47 @@
 			buildActionMask = 2147483647;
 			files = (
 				E26EBAA01C18AD1500747726 /* UIFont+Soundarama.swift in Sources */,
+				42AFC6551C55447F00AD4B9B /* Publisher.swift in Sources */,
+				42A727AA1C552D9400BFCA47 /* PerformerInteractor.swift in Sources */,
 				E20B94611C17539C00222A2B /* AppDelegate.swift in Sources */,
+				420AA69F1C550B1700F7BB25 /* DecideViewController.swift in Sources */,
+				42A727B81C5537CF00BFCA47 /* PerformerUseCase.swift in Sources */,
 				E26EBAA61C18B1BF00747726 /* SoundaramaClient.swift in Sources */,
+				42A727B01C552E2800BFCA47 /* DJModule.swift in Sources */,
+				42A727BD1C553B8900BFCA47 /* PerformerUserInterface.swift in Sources */,
+				42A727B61C552E8D00BFCA47 /* DJInteractor.swift in Sources */,
 				E20B94841C17541E00222A2B /* VolumeControl.m in Sources */,
-				E20B949A1C188C8700222A2B /* PerformerViewController.swift in Sources */,
+				42A727A61C552D3800BFCA47 /* PerformerPresenter.swift in Sources */,
+				E20B949A1C188C8700222A2B /* ShitPerformerViewController.swift in Sources */,
+				42AFC6631C55802000AD4B9B /* SubscriberMessageAdapter.swift in Sources */,
 				E26EBAA91C18B1DB00747726 /* SoundaramaServer.swift in Sources */,
+				42A727BB1C553AC400BFCA47 /* ConnectionState.swift in Sources */,
 				E20B94981C188C7400222A2B /* DJViewController.swift in Sources */,
 				E20B949E1C1898A000222A2B /* AudioStem.swift in Sources */,
+				42AFC6571C554F5A00AD4B9B /* DJUseCase.swift in Sources */,
 				E26EBA981C18A3A000747726 /* SwiftyJSON.swift in Sources */,
+				42AFC6651C55805300AD4B9B /* PublisherMessageAdapter.swift in Sources */,
+				420AA6A71C551C8600F7BB25 /* PerformerViewController.swift in Sources */,
 				E26EBA9E1C18AAA800747726 /* UIColor+Soundarama.swift in Sources */,
+				42E8BE201C54FF470034F1C8 /* Soundarama.swift in Sources */,
+				42A727AC1C552DCA00BFCA47 /* DecideModule.swift in Sources */,
+				42A727B21C552E5D00BFCA47 /* DJWireframe.swift in Sources */,
+				420AA6AB1C55288E00F7BB25 /* DecideWireframe.swift in Sources */,
 				E20B94861C17541E00222A2B /* HomeViewController.swift in Sources */,
+				42A727A41C552D0200BFCA47 /* PerformerWireframe.swift in Sources */,
 				E26EBA951C18A10A00747726 /* AudioStemsViewController.swift in Sources */,
+				42A727B41C552E7400BFCA47 /* DJPresenter.swift in Sources */,
+				42AFC6531C55447600AD4B9B /* Subscriber.swift in Sources */,
 				E26EBA9A1C18A4E600747726 /* UIColor+Hex.swift in Sources */,
 				E20B949C1C188EA000222A2B /* DeviceTrayView.swift in Sources */,
 				E26EBAAB1C18C22200747726 /* PerformerPhoneImageView.swift in Sources */,
+				420AA6AD1C55296E00F7BB25 /* DecidePresenter.swift in Sources */,
 				E20B94931C188BF700222A2B /* SoundZoneView.swift in Sources */,
+				42A727A81C552D5D00BFCA47 /* PerformerModule.swift in Sources */,
 				E20B94811C17541E00222A2B /* AudioController.mm in Sources */,
 				E26EBAB41C199DC000747726 /* PerformerAudioController.swift in Sources */,
+				420AA6A91C55236F00F7BB25 /* DecideUserInterface.swift in Sources */,
+				42A727AE1C552DDF00BFCA47 /* DecideInteractor.swift in Sources */,
 				E20B94801C17541E00222A2B /* Message.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

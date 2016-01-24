@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9531" systemVersion="15C50" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
+    </dependencies>
+    <scenes>
+        <!--Decide View Controller-->
+        <scene sceneID="dUP-it-yf7">
+            <objects>
+                <viewController storyboardIdentifier="DecideViewController" id="45Z-22-kVN" customClass="DecideViewController" customModule="Soundarama" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="NtW-2Y-vyy"/>
+                        <viewControllerLayoutGuide type="bottom" id="Puy-Y7-1yp"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="oNg-Wj-KUR">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bg-home-performer" translatesAutoresizingMaskIntoConstraints="NO" id="7Ob-xf-BIp">
+                                <rect key="frame" x="0.0" y="0.0" width="300" height="600"/>
+                            </imageView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="XCe-vS-ESq">
+                                <rect key="frame" x="300" y="300" width="0.0" height="0.0"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" id="2og-D6-gNf"/>
+                                    <constraint firstAttribute="height" id="4nX-HI-lkW"/>
+                                </constraints>
+                            </view>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bg-home-dj" translatesAutoresizingMaskIntoConstraints="NO" id="hFS-gU-zl9">
+                                <rect key="frame" x="300" y="0.0" width="300" height="600"/>
+                            </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8Ja-HX-Dt7">
+                                <rect key="frame" x="300" y="0.0" width="300" height="600"/>
+                                <fontDescription key="fontDescription" name="Avenir-Heavy" family="Avenir" pointSize="24"/>
+                                <state key="normal" title="DJ">
+                                    <color key="titleColor" red="0.67843137254901964" green="1" blue="0.87450980392156863" alpha="1" colorSpace="calibratedRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="didPressRightButton:" destination="45Z-22-kVN" eventType="touchUpInside" id="Hhe-0O-fa4"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IY3-Io-Fm1">
+                                <rect key="frame" x="0.0" y="0.0" width="300" height="600"/>
+                                <fontDescription key="fontDescription" name="Avenir-Heavy" family="Avenir" pointSize="24"/>
+                                <state key="normal" title="PERFORMER">
+                                    <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="didPressLeftButton:" destination="45Z-22-kVN" eventType="touchUpInside" id="jqy-yQ-jm3"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="IY3-Io-Fm1" firstAttribute="leading" secondItem="oNg-Wj-KUR" secondAttribute="leading" id="227-NI-viZ"/>
+                            <constraint firstItem="7Ob-xf-BIp" firstAttribute="leading" secondItem="oNg-Wj-KUR" secondAttribute="leading" id="417-yv-8nK"/>
+                            <constraint firstItem="XCe-vS-ESq" firstAttribute="centerY" secondItem="oNg-Wj-KUR" secondAttribute="centerY" id="9ZQ-GH-RWf"/>
+                            <constraint firstAttribute="trailing" secondItem="hFS-gU-zl9" secondAttribute="trailing" id="FBb-Yu-DCY"/>
+                            <constraint firstItem="7Ob-xf-BIp" firstAttribute="top" secondItem="oNg-Wj-KUR" secondAttribute="top" id="KZV-T4-uwR"/>
+                            <constraint firstItem="8Ja-HX-Dt7" firstAttribute="leading" secondItem="IY3-Io-Fm1" secondAttribute="trailing" id="QPv-do-don"/>
+                            <constraint firstItem="IY3-Io-Fm1" firstAttribute="top" secondItem="oNg-Wj-KUR" secondAttribute="top" id="RXp-Ss-LP9"/>
+                            <constraint firstItem="XCe-vS-ESq" firstAttribute="centerX" secondItem="oNg-Wj-KUR" secondAttribute="centerX" id="V6d-tA-3mN"/>
+                            <constraint firstItem="Puy-Y7-1yp" firstAttribute="top" secondItem="IY3-Io-Fm1" secondAttribute="bottom" id="Y3K-55-7jU"/>
+                            <constraint firstItem="Puy-Y7-1yp" firstAttribute="top" secondItem="7Ob-xf-BIp" secondAttribute="bottom" id="Zku-8M-h8o"/>
+                            <constraint firstItem="hFS-gU-zl9" firstAttribute="top" secondItem="oNg-Wj-KUR" secondAttribute="top" id="eiS-G0-qwj"/>
+                            <constraint firstItem="Puy-Y7-1yp" firstAttribute="top" secondItem="8Ja-HX-Dt7" secondAttribute="bottom" id="huK-W4-XMu"/>
+                            <constraint firstItem="8Ja-HX-Dt7" firstAttribute="leading" secondItem="7Ob-xf-BIp" secondAttribute="trailing" id="kPc-6a-31F"/>
+                            <constraint firstItem="XCe-vS-ESq" firstAttribute="leading" secondItem="7Ob-xf-BIp" secondAttribute="trailing" id="pJZ-1g-bYC"/>
+                            <constraint firstItem="hFS-gU-zl9" firstAttribute="leading" secondItem="XCe-vS-ESq" secondAttribute="trailing" id="q3G-ja-gTs"/>
+                            <constraint firstItem="Puy-Y7-1yp" firstAttribute="top" secondItem="hFS-gU-zl9" secondAttribute="bottom" id="wWJ-Xc-pui"/>
+                            <constraint firstItem="8Ja-HX-Dt7" firstAttribute="top" secondItem="oNg-Wj-KUR" secondAttribute="top" id="yX4-Ez-lLq"/>
+                            <constraint firstAttribute="trailing" secondItem="8Ja-HX-Dt7" secondAttribute="trailing" id="zM0-Ic-FL2"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="vuC-T9-gtt"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ivm-kn-hbW" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1359" y="348"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="bg-home-dj" width="512" height="768"/>
+        <image name="bg-home-performer" width="512" height="768"/>
+    </resources>
+</document>
