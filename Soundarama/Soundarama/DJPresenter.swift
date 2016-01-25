@@ -11,9 +11,38 @@ import UIKit
 class DJPresenter: DJModule {
     
     weak var djWireframe: DJWireframe!
+    weak var ui: DJUserInterface!
+    weak var input: DJInput!
     
     func start(navigationController: UINavigationController) {
         
         djWireframe.presentDjUI(navigationController)
+    }
+}
+
+extension DJPresenter: DJOutput {
+    
+    func addPerformer(performer: Performer) {
+        
+        ui.addPerformer(performer)
+    }
+    
+    func removePerformer(performer: Performer) {
+        
+        ui.removePerformer(performer)
+    }
+}
+
+extension DJPresenter: DJUserInterfaceDelegate {
+    
+    func ready() {
+        
+        input.start()
+    }
+    
+    func didSelectAudioStemForPerformer(audioStem: AudioStem, performer: Performer) {
+        
+        input.didSelectAudioStemForPerformer(audioStem, performer: performer)
+        print("Message with stem: \(audioStem) performer: \(performer)")
     }
 }

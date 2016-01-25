@@ -8,13 +8,16 @@
 
 import CocoaAsyncSocket
 
-class Publisher: NSObject {
+/*
+class Publisher: NSObject, Publishable {
     
-    typealias Address = String
+    weak var connectionDelegate: ConnectableDelegate!
     
-    static let portTCP: UInt16 = 6565
+    private static let portTCP: UInt16 = 6565
     
-    static let portUDP: UInt16 = 6568
+    private static let portUDP: UInt16 = 6568
+    
+    private var sockets: [Address : AsyncSocket] = [ : ]
     
     private lazy var socket: AsyncSocket = {
         let s = AsyncSocket()
@@ -22,18 +25,25 @@ class Publisher: NSObject {
         return s
     }()
     
+    /*
     private lazy var service: NSNetService = {
         let s = NSNetService(domain: "local", type: "_soundarama._tcp.", name: "", port: Int32(Publisher.portTCP))
         s.delegate = self
         return s
     }()
+    */
+    
+    func connect(strategy: ConnectableStrategy) {
+        
+    }
     
     func connect() {
+        
         
         do {
             try socket.acceptOnPort(Publisher.portTCP)
             print("Accepting on port \(Publisher.portTCP)...")
-            service.publish()
+        //    service.publish()
         } catch {
             print("Failed to publish service")
         }
@@ -50,17 +60,15 @@ class Publisher: NSObject {
     }
     
     func publish(data: NSData, address: Address) {
-        /*
-            print("send message to performer")
-            for (address, s) in activeSockets where address == performerAddress
-            {
-                s.writeData(message.data(), withTimeout: -1, tag: 0)
-            }
-        */
         
+        if let key = sockets.keys.filter({$0 == address}).first {
+            print("Publishing data to address: \(key)")
+            sockets[key]?.writeData(data, withTimeout: -1, tag: 0)
+        }
     }
 }
 
+/*
 extension Publisher: NSNetServiceDelegate {
     
     func netServiceWillPublish(sender: NSNetService) {
@@ -98,12 +106,16 @@ extension Publisher: NSNetServiceDelegate {
         print("Net service will resolve")
     }
 }
+*/
 
-extension Publisher: AsyncSocketDelegate
-{
+extension Publisher: AsyncSocketDelegate {
+    
     func onSocket(sock: AsyncSocket!, didAcceptNewSocket newSocket: AsyncSocket!) {
         
-        print("New socket: \(newSocket.connectedHost())")
+        let address = newSocket.connectedHost()
+        sockets[address] = newSocket
+        connectionDelegate.didConnectToAddress(address)
+        print("New socket: \(address)")
     }
     
     func onSocket(sock: AsyncSocket!, didReadData data: NSData!, withTag tag: Int) {
@@ -113,6 +125,11 @@ extension Publisher: AsyncSocketDelegate
     
     func onSocketDidDisconnect(sock: AsyncSocket!) {
         
+        if let address = sockets.keys.filter({$0 == sock.connectedHost()}).first {
+            sockets[address] = nil
+            connectionDelegate.didDisconnectFromAddress(address)
+        }
         print("Socket did disconnect")
     }
 }
+*/

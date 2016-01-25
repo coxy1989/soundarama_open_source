@@ -10,13 +10,35 @@ class DJInteractor: DJInput {
     
     weak var djOutput: DJOutput!
     
-    let publisher = Publisher()
+    var adapter: WritableMessageAdapter!
     
-    var adapter: PublisherMessageAdapter!
+    private let endpoint = TP2P.endpoint()
     
     func start() {
         
-        adapter = PublisherMessageAdapter(publisher: publisher)
-        publisher.connect()
+        endpoint.connectionDelegate = self
+        endpoint.connect(.Broadcast)
+        adapter = WritableMessageAdapter(writeable: endpoint)
+    }
+    
+    func didSelectAudioStemForPerformer(audioStem: AudioStem, performer: Performer) {
+        
+    // TODO: sessionTimestamp
+    
+        let message = AudioStemMessage(audioStem: audioStem, timestamp: NSDate().timeIntervalSince1970, sessionTimestamp: 0.03, type: .Start)
+        adapter.writeAudioStemMessage(message, address: performer)
+    }
+}
+
+extension DJInteractor: ConnectableDelegate {
+    
+    func didConnectToAddress(address: Address) {
+        
+        djOutput.addPerformer(address)
+    }
+    
+    func didDisconnectFromAddress(address: Address) {
+        
+        djOutput.removePerformer(address)
     }
 }

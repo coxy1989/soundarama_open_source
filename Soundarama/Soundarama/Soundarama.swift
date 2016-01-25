@@ -25,7 +25,6 @@ class Soundarama {
     init(window: UIWindow) {
     
         decideWireframe = DecideWireframe(window: window)
-        
         setupDecideModule()
         setupPerformerModule()
         setupDjModule()
@@ -57,6 +56,9 @@ extension Soundarama {
     
     private func setupDjModule() {
         
-       djPresenter.djWireframe = djWireframe
+        djPresenter.djWireframe = djWireframe
+        djWireframe.djPresenter = djPresenter
+        djPresenter.input = djInteractor
+        djInteractor.djOutput = djPresenter
     }
 }

@@ -1,64 +1,35 @@
 //
-//  Subscriber.swift
+//  SearchStrategy.swift
 //  Soundarama
 //
-//  Created by Jamie Cox on 24/01/2016.
+//  Created by Jamie Cox on 25/01/2016.
 //  Copyright © 2016 Touchpress Ltd. All rights reserved.
 //
 
-import CocoaAsyncSocket
-
-
-/*
-class Subscriber: NSObject, Subscribable {
+protocol SearchStrategyDelegate: class {
     
-    weak var connectionDelegate: ConnectableDelegate!
-    weak var subscriberDelegate: SubscriberDelegate!
+    func searchStrategyDidFindHost(strategy: SearchStrategy, host: String, port: Int)
+}
+
+class SearchStrategy: NSObject {
     
-    /*
+    weak var delegate: SearchStrategyDelegate!
+    
     private lazy var serviceBrowser: NSNetServiceBrowser = {
         let b = NSNetServiceBrowser()
         b.delegate = self
         return b
     }()
-*/
     
-  //  private var service: NSNetService?
-    
-    private var socket: AsyncSocket?
-    
-    
-    func connect(strategy: ConnectableStrategy) {
+    func search() {
         
+        serviceBrowser.searchForServicesOfType("_soundarama._tcp.", inDomain: "local")
     }
     
-    func connect() {
-        
-       // serviceBrowser.searchForServicesOfType("_soundarama._tcp.", inDomain: "local")
-    }
-    
-    func readData(terminator: NSData) {
-        
-        socket?.readDataToData(terminator, withTimeout: -1, tag: 1)
-    }
-    
-    private func connectToHost(hostName: String, port: Int) {
-        
-        print("Connecting to host")
-        socket = AsyncSocket()
-        socket!.setDelegate(self)
-        do {
-            try socket!.connectToHost(hostName, onPort: UInt16(port))
-            print("Connected to host")
-        }
-        catch {
-            print("Failed to connect to host")
-        }
-    }
+    private var service: NSNetService?
 }
 
-/*
-extension Subscriber: NSNetServiceBrowserDelegate {
+extension SearchStrategy: NSNetServiceBrowserDelegate {
     
     func netServiceBrowserWillSearch(browser: NSNetServiceBrowser) {
         
@@ -97,19 +68,17 @@ extension Subscriber: NSNetServiceBrowserDelegate {
         
         print("Browser removed service")
         /* keep retrying if we lose the service */
-        connect()
+        search()
     }
 }
-*/
 
-/*
-extension Subscriber: NSNetServiceDelegate {
+extension SearchStrategy: NSNetServiceDelegate {
     
     func netServiceDidResolveAddress(service: NSNetService) {
         
         print("Resolved host: \(service.domain), \(service.hostName), \(service.addresses), \(service.port)")
-        if let hostName = service.hostName {
-            connectToHost(hostName, port: service.port)
+        if let host = service.hostName {
+            delegate.searchStrategyDidFindHost(self, host: host, port: service.port)
         }
     }
     
@@ -120,28 +89,3 @@ extension Subscriber: NSNetServiceDelegate {
         service?.resolveWithTimeout(5)
     }
 }
-*/
-
-extension Subscriber: AsyncSocketDelegate {
-    
-    func onSocket(sock: AsyncSocket!, didReadData data: NSData!, withTag tag: Int) {
-        print("received data")
-        subscriberDelegate.didRecieveData(data)
-    }
-    
-    func onSocket(sock: AsyncSocket!, didConnectToHost host: String!, port: UInt16) {
-        connectionDelegate.didConnectToAddress(host)
-        print("connected to host: \(host)")
-    }
-    
-    func onSocketDidDisconnect(sock: AsyncSocket!) {
-        connectionDelegate.didDisconnectFromAddress("") //hmmmm
-        print("disconnected from host, retrying..")
-    }
-    
-    func onSocket(sock: AsyncSocket!, didWriteDataWithTag tag: Int) {
-        
-        print("Wrote data with tag \(tag)")
-    }
-}
-*/

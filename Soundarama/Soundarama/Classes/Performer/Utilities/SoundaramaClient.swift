@@ -125,6 +125,7 @@ extension SoundaramaClient: AsyncSocketDelegate
     func onSocket(sock: AsyncSocket!, didReadData data: NSData!, withTag tag: Int)
     {
         print("received message")
+        /*
         if let message = AudioStemMessage(data: data)
         {
 //            if (message.timestamp > self.timestampOfPreviousMessage) //Only process messages in order
@@ -139,8 +140,8 @@ extension SoundaramaClient: AsyncSocketDelegate
                 self.delegate?.clientDidRecieveVolumeChangeMessage(message)
             }
         }
-        
-        clientSocket?.readDataToData(MessageConstants.seperator, withTimeout: -1, tag: 1)
+        */
+       // clientSocket?.readDataToData(MessageConstants.seperator, withTimeout: -1, tag: 1)
     }
     
     func onSocket(sock: AsyncSocket!, didConnectToHost host: String!, port: UInt16) {
@@ -188,7 +189,7 @@ extension SoundaramaClient: SoundaramaClientSyncSocketDelegate {
         delegate?.clientDidSyncClock(localTime, remote: christiansTime)
         
         clientSocket?.setDelegate(self)
-        clientSocket?.readDataToData(MessageConstants.seperator, withTimeout: -1, tag: 0)
+     //   clientSocket?.readDataToData(MessageConstants.seperator, withTimeout: -1, tag: 0)
     }
 }
 
@@ -231,8 +232,8 @@ class SoundaramaClientSyncSocket {
     }
     
     func requestTimestamp() {
-        socket.readDataToData(MessageConstants.seperator, withTimeout: -1, tag: 0)
-        socket.writeData(MessageConstants.seperator, withTimeout: -1, tag: 0)
+        //socket.readDataToData(MessageConstants.seperator, withTimeout: -1, tag: 0)
+        //socket.writeData(MessageConstants.seperator, withTimeout: -1, tag: 0)
     }
 }
 
@@ -244,8 +245,8 @@ extension SoundaramaClientSyncSocket: AsyncSocketDelegate {
     
     @objc func onSocket(sock: AsyncSocket, didReadData data: NSData!, withTag tag: Int) {
         let mutable = data.mutableCopy()
-        let range = NSMakeRange(mutable.length - MessageConstants.seperator.length, MessageConstants.seperator.length)
-        mutable.replaceBytesInRange(range, withBytes: nil, length: 0)
+        //let range = NSMakeRange(mutable.length - MessageConstants.seperator.length, MessageConstants.seperator.length)
+        //mutable.replaceBytesInRange(range, withBytes: nil, length: 0)
         var d: Double = 0
         memcpy(&d, mutable.bytes, sizeof(Double))
         currentTrip!.responseStamp = NSDate().timeIntervalSince1970

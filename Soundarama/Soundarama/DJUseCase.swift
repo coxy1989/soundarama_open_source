@@ -9,9 +9,13 @@
 protocol DJInput: class {
     
     func start()
+    
+    func didSelectAudioStemForPerformer(audioStem: AudioStem, performer: Performer)
 }
 
 protocol DJOutput: class {
     
+    func addPerformer(performer: Performer)
     
+    func removePerformer(performer: Performer)
 }

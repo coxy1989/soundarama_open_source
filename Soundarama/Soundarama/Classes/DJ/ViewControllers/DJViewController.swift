@@ -9,16 +9,17 @@
 import UIKit
 import Darwin
 
-class DJViewController: UIViewController
-{
-    struct Layout
-    {
+class DJViewController: UIViewController {
+    
+    weak var delegate: DJUserInterfaceDelegate!
+    
+    struct Layout {
         static let deviceTrayWidth: CGFloat = 240
         static let numberOfSoundRows = 3
         static let numberOfSoundColumns = 3
     }
     
-    private let server = SoundaramaServer()
+    //private let server = SoundaramaServer()
     
     private var deviceTrayView: DeviceTrayView?
     private var soundZoneViews: [SoundZoneView]?
@@ -26,32 +27,29 @@ class DJViewController: UIViewController
     private var performerPhoneImageViews = [String: UIImageView]()
     private var currentPerformerSoundZoneViews = [String: SoundZoneView]() //So we know when we move sounds
     
-    override func prefersStatusBarHidden() -> Bool
-    {
+    override func prefersStatusBarHidden() -> Bool {
+        
         return true
     }
     
-    override func viewDidLoad()
-    {
+    override func viewDidLoad() {
+        
         super.viewDidLoad()
+        view.backgroundColor = UIColor.blackColor()
+        deviceTrayView = DeviceTrayView()
+        view.addSubview(self.deviceTrayView!)
+        soundZoneViews = []
         
-        self.view.backgroundColor = UIColor.blackColor()
-        
-        self.deviceTrayView = DeviceTrayView()
-        self.view.addSubview(self.deviceTrayView!)
-        
-        self.soundZoneViews = []
-        for _ in (0..<Layout.numberOfSoundColumns * Layout.numberOfSoundRows)
-        {
+        for _ in (0..<Layout.numberOfSoundColumns * Layout.numberOfSoundRows) {
             let soundView = SoundZoneView()
             soundView.delegate = self
             self.view.addSubview(soundView)
             self.soundZoneViews?.append(soundView)
         }
         
-        self.server.delegate = self
-        
-        server.publishService()
+        delegate.ready()
+        //self.server.delegate = self
+        //server.publishService()
     }
     
     
@@ -93,6 +91,54 @@ class DJViewController: UIViewController
             }
         }
     }
+}
+
+extension DJViewController: DJUserInterface {
+    
+    
+    func addPerformer(performer: Performer) {
+        
+        if performerPhoneImageViews[performer] == nil {
+            let imageView = PerformerPhoneImageView(image: UIImage(named: "icn-phone"))
+            imageView.alpha = 0.0
+            imageView.contentMode = .Center
+            imageView.performerID = performer
+            
+            imageView.sizeToFit()
+            imageView.frame = CGRectInset(imageView.bounds, -14.0, -14.0) //extend hit area
+            
+            imageView.addGestureRecognizer(UIPanGestureRecognizer(target: self, action: "didPanPerformerImageView:"))
+            imageView.userInteractionEnabled = true
+            
+            //Random position in devices tray
+            let devicesAreaRect = CGRectInset(self.deviceTrayView!.frame, 16.0, 60.0)
+            imageView.center = CGPoint(
+                x: CGFloat(randomInt(Int(devicesAreaRect.minX), max: Int(devicesAreaRect.maxX))),
+                y: CGFloat(randomInt(Int(devicesAreaRect.minY), max: Int(devicesAreaRect.maxY)))
+            )
+            
+            self.view.addSubview(imageView)
+            
+            self.performerPhoneImageViews[performer] = imageView
+            
+            UIView.animateWithDuration(0.3, animations: { imageView.alpha = 1.0 })
+        }
+    }
+    
+    func removePerformer(performer: Performer) {
+        
+        if let imageView = performerPhoneImageViews[performer] {
+            self.performerPhoneImageViews[performer] = nil
+            UIView.animateWithDuration(0.3, animations: {
+                imageView.alpha = 0.0
+            }){ done in
+                imageView.removeFromSuperview()
+            }
+        }
+    }
+}
+
+extension DJViewController {
     
     @objc private func didPanPerformerImageView(panGesture: UIPanGestureRecognizer)
     {
@@ -147,11 +193,12 @@ class DJViewController: UIViewController
                                 print("New sound zone for \(performerID)")
                                 self.currentPerformerSoundZoneViews[performerID] = soundZoneView
                                 
-                                if let audioStemRef = soundZoneView.audioStem?.reference
+                                if let audioStem = soundZoneView.audioStem
                                 {
-                                    let message = AudioStemMessage(audioStemRef: audioStemRef, timestamp: NSDate().timeIntervalSince1970, sessionStamp: server.sessionStamp, loopLength: 1.875, type: .Start)
-                                    self.server.sendMessage(message, performerAddress: performerID)
-                                    updatePerformerVolumes()
+                                    delegate.didSelectAudioStemForPerformer(audioStem, performer: performerID)
+                                 //   let message = AudioStemMessage(audioStemRef: audioStemRef, timestamp: NSDate().timeIntervalSince1970, sessionStamp: server.sessionStamp, loopLength: 1.875, type: .Start)
+                                   // self.server.sendMessage(message, performerAddress: performerID)
+                                  //  updatePerformerVolumes()
                                 }
                             }
                             
@@ -169,10 +216,10 @@ class DJViewController: UIViewController
             {
                 if let previousAudioStemRef = previousSoundZone?.audioStem?.reference
                 {
-                    let message = AudioStemMessage(audioStemRef: previousAudioStemRef, timestamp: NSDate().timeIntervalSince1970, sessionStamp: server.sessionStamp, loopLength: 1.875, type: .Stop)
-                    self.server.sendMessage(message, performerAddress: performerID)
-                    print ("send stop message")
-                    updatePerformerVolumes()
+                   // let message = AudioStemMessage(audioStemRef: previousAudioStemRef, timestamp: NSDate().timeIntervalSince1970, sessionStamp: server.sessionStamp, loopLength: 1.875, type: .Stop)
+                  //  self.server.sendMessage(message, performerAddress: performerID)
+                  //  print ("send stop message")
+                  //  updatePerformerVolumes()
                 }
             }
             
@@ -185,6 +232,7 @@ class DJViewController: UIViewController
         }
     }
 }
+
 
 extension DJViewController: SoundZoneViewDelegate
 {
@@ -259,8 +307,8 @@ extension DJViewController: SoundZoneViewDelegate
                 volume = soundZone.muted ? 0.0 : 1.0
             }
             
-            let message = VolumeChangeMessage(volume: volume, timestamp: NSDate().timeIntervalSince1970)
-            self.server.sendMessage(message, performerAddress: performerID)
+            //let message = VolumeChangeMessage(volume: volume, timestamp: NSDate().timeIntervalSince1970)
+            //self.server.sendMessage(message, performerAddress: performerID)
         }
     }
     
@@ -297,12 +345,12 @@ extension DJViewController: AudioStemsViewControllerDelegate
             
             if let audioStemRef = selectedSoundZoneView.audioStem?.reference
             {
-                for (address, soundZone) in self.currentPerformerSoundZoneViews where soundZone == selectedSoundZoneView
-                {
-                    let message = AudioStemMessage(audioStemRef: audioStemRef, timestamp: NSDate().timeIntervalSince1970, sessionStamp: server.sessionStamp, loopLength: 1.875, type: .Start)
-                    self.server.sendMessage(message, performerAddress: address)
-                    updatePerformerVolumes()
-                }
+            //    for (address, soundZone) in self.currentPerformerSoundZoneViews where soundZone == selectedSoundZoneView
+              //  {
+                   // let message = AudioStemMessage(audioStemRef: audioStemRef, timestamp: NSDate().timeIntervalSince1970, sessionStamp: server.sessionStamp, loopLength: 1.875, type: .Start)
+                   // self.server.sendMessage(message, performerAddress: address)
+                 //   updatePerformerVolumes()
+               // }
             }
         }
     }

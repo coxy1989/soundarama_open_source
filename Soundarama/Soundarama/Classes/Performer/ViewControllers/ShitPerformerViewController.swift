@@ -153,7 +153,7 @@ extension ShitPerformerViewController: SoundaramaClientDelegate {
             
             dispatch_async(dispatch_get_main_queue()) { [unowned self] in
                 
-                self.scheduleSound(audioStem, timestamp: message.timestamp, sessionStamp:  message.sessionStamp, loopLength: message.loopLength, stop: (message.type == .Stop))
+             //   self.scheduleSound(audioStem, timestamp: message.timestamp, sessionStamp:  message.sessionStamp, loopLength: message.loopLength, stop: (message.type == .Stop))
             }
         }
     }

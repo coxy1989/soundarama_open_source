@@ -66,7 +66,7 @@ extension SoundaramaServer: AsyncSocketDelegate
         print("New performer: \(newSocket.connectedHost())")
         self.activeSockets[newSocket.connectedHost()] = newSocket
         self.delegate?.soundaramaServerDidConnectToPerformer(self, address: newSocket.connectedHost())
-        newSocket?.readDataToData(MessageConstants.seperator, withTimeout: -1, tag: 0)
+   //     newSocket?.readDataToData(MessageConstants.seperator, withTimeout: -1, tag: 0)
     }
     
     func onSocket(sock: AsyncSocket!, didReadData data: NSData!, withTag tag: Int)
@@ -74,10 +74,10 @@ extension SoundaramaServer: AsyncSocketDelegate
         var unix: Double = NSDate().timeIntervalSince1970
         let data = NSData(bytes: &unix, length: sizeof(Double))
         let dat = data.mutableCopy()
-        dat.appendData(MessageConstants.seperator)
+   //     dat.appendData(MessageConstants.seperator)
         
         sock.writeData(dat as! NSData, withTimeout: -1, tag: 0)
-        sock.readDataToData(MessageConstants.seperator, withTimeout: -1, tag: 0)
+     //   sock.readDataToData(MessageConstants.seperator, withTimeout: -1, tag: 0)
     }
     
 //    func onSocket(sock: AsyncSocket!, didWriteDataWithTag tag: Int)

@@ -10,19 +10,26 @@ class PerformerInteractor: PerformerInput {
  
     weak var performerOutput: PerformerOutput!
     
-    let subscriber = Subscriber()
+    private var connectionAdapter: PerformerConnectionAdapter!
     
-    var adapter: SubscriberMessageAdapter!
+    private var messageAdapter: ReadableMessageAdapter!
+    
+    private let endpoint = TP2P.endpoint()
     
     func start() {
         
-        adapter = SubscriberMessageAdapter(subscriber: subscriber)
-        adapter.delegate = self
-        subscriber.subscribe()
+        messageAdapter = ReadableMessageAdapter(readable: endpoint)
+        messageAdapter.delegate = self
+        
+        connectionAdapter = PerformerConnectionAdapter(connection: endpoint)
+        connectionAdapter.delegate = self
+        
+        endpoint.connect(.Search)
+        endpoint.connectionDelegate = self
     }
 }
 
-extension PerformerInteractor: SubscriberMessageAdapterDelegate {
+extension PerformerInteractor: ReadableMessageAdapterDelegate {
     
     func didReceiveAudioStemMessage(message: AudioStemMessage) {
         
@@ -30,5 +37,27 @@ extension PerformerInteractor: SubscriberMessageAdapterDelegate {
     
     func didRecieveVolumeChangeMessage(message: VolumeChangeMessage) {
         
+    }
+}
+
+extension PerformerInteractor: ConnectableDelegate {
+    
+    func didConnectToAddress(address: Address) {
+        
+    }
+    
+    func didDisconnectFromAddress(address: Address) {
+        
+    }
+}
+
+extension PerformerInteractor: PerformerConnectionAdapterDelegate {
+    
+    func performerConnectionStateDidChange(state: ConnectionState) {
+        
+        performerOutput.connectionStateDidChange(state)
+        if state == .Connected {
+            messageAdapter.takeMessage()
+        }
     }
 }

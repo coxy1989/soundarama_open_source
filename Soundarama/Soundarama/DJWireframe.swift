@@ -10,13 +10,20 @@ import UIKit
 
 class DJWireframe {
     
+    weak var djPresenter: DJPresenter!
+    
     func presentDjUI(navigationController: UINavigationController) {
-        navigationController.pushViewController(djViewController(), animated: true)
+        
+        let vc = djViewController()
+        navigationController.pushViewController(vc, animated: true)
     }
     
     private func djViewController() -> UIViewController {
         
         let sb = UIStoryboard(name: "DJStoryboard", bundle: nil)
-        return sb.instantiateViewControllerWithIdentifier("DJViewController")
+        let vc = sb.instantiateViewControllerWithIdentifier("DJViewController") as! DJViewController
+        djPresenter.ui = vc
+        vc.delegate = djPresenter
+        return vc
     }
 }

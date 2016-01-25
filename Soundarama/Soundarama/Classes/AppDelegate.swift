@@ -28,6 +28,25 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         return true
     }
     
+}
+
+extension AppDelegate {
+    
+    func audioSetup() {
+        
+        do { try AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayback, withOptions: []) }
+        catch _ {}
+        VolumeControl.setVolume(1.0)
+    }
+    
+    func appSetup() {
+        
+        UIApplication.sharedApplication().setStatusBarHidden(true, withAnimation: .None)
+        UIApplication.sharedApplication().idleTimerDisabled = true
+    }
+}
+
+
     /*
     func setupNavigation() {
         self.window = UIWindow(frame: UIScreen.mainScreen().bounds)
@@ -42,7 +61,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         self.window?.backgroundColor = UIColor.whiteColor()
     }
     */
-}
+
 
 /*
 class RootViewController: UINavigationController {
@@ -65,20 +84,3 @@ class RootViewController: UINavigationController {
     }
 }
 */
-
-extension AppDelegate {
-    
-    func audioSetup() {
-        
-        do { try AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayback, withOptions: []) }
-        catch _ {}
-        VolumeControl.setVolume(1.0)
-    }
-    
-    func appSetup() {
-        
-        UIApplication.sharedApplication().setStatusBarHidden(true, withAnimation: .None)
-        UIApplication.sharedApplication().idleTimerDisabled = true
-    }
-}
-
