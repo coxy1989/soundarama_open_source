@@ -146,7 +146,7 @@ extension ShitPerformerViewController: SoundaramaClientDelegate {
     
     func clientDidRecieveAudioStemMessage(message: AudioStemMessage)
     {
-        if let audioStem = self.audioStems[message.audioStemRef]
+        if let audioStem = self.audioStems[message.reference]
         {
             self.view.backgroundColor = audioStem.colour
             self.connectionLabel.textColor = audioStem.colour

@@ -11,7 +11,7 @@ class BroadcastStrategy: NSObject {
     private let tcpPort: Int32
     
     private lazy var service: NSNetService = { [unowned self] in
-        let s = NSNetService(domain: "local", type: "_soundarama._tcp.", name: "", port: self.tcpPort)
+        let s = NSNetService(domain: "local", type: "_soundarama_coxy._tcp.", name: "", port: self.tcpPort)
         s.delegate = self
         return s
     }()

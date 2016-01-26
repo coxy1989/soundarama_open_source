@@ -12,20 +12,22 @@ class DJInteractor: DJInput {
     
     var adapter: WritableMessageAdapter!
     
-    private let endpoint = TP2P.endpoint()
+    private let endpoint = TP2P.broadcastingEndpoint()
+    
+    private var christiansTimeServer: ChristiansTimeServer!
     
     func start() {
         
-        endpoint.connectionDelegate = self
-        endpoint.connect(.Broadcast)
+        christiansTimeServer = ChristiansTimeServer(endpoint: endpoint)
         adapter = WritableMessageAdapter(writeable: endpoint)
+        
+        endpoint.connectionDelegate = self
+        endpoint.connect()
     }
     
     func didSelectAudioStemForPerformer(audioStem: AudioStem, performer: Performer) {
         
-    // TODO: sessionTimestamp
-    
-        let message = AudioStemMessage(audioStem: audioStem, timestamp: NSDate().timeIntervalSince1970, sessionTimestamp: 0.03, type: .Start)
+        let message = AudioStemMessage(reference: audioStem.reference, timestamp: NSDate().timeIntervalSince1970, sessionTimestamp: ChristiansTimeServer.timestamp,loopLength: 69, type: .Start)
         adapter.writeAudioStemMessage(message, address: performer)
     }
 }

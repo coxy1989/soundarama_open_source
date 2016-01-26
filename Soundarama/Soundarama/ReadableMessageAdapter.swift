@@ -6,7 +6,6 @@
 //  Copyright © 2016 Touchpress Ltd. All rights reserved.
 //
 
-
 protocol ReadableMessageAdapterDelegate: class {
     
     func didReceiveAudioStemMessage(message: AudioStemMessage)
@@ -26,7 +25,7 @@ class ReadableMessageAdapter {
         self.readable.readableDelegate = self
     }
     
-    func takeMessage() {
+    func takeMessages() {
         
         readable.readData(Serialisation.terminator)
     }
@@ -34,11 +33,13 @@ class ReadableMessageAdapter {
 
 extension ReadableMessageAdapter: ReadableDelegate {
     
-    func didReadData(data: NSData) {
+    func didReadData(data: NSData, address: Address) {
     
         if let audioStemMessage = audioStemMessage(data) {
             delegate.didReceiveAudioStemMessage(audioStemMessage)
         }
+        
+        readable.readData(Serialisation.terminator)
     }
 }
 
@@ -48,12 +49,13 @@ extension ReadableMessageAdapter {
         
         let pl = Serialisation.getPayload(data)
         if let msg = NSKeyedUnarchiver.unarchiveObjectWithData(pl) {
-            if let  audioStemRef = msg["ref"] as? String,
+            if let ref = msg["ref"] as? String,
                 timestamp = msg["time"] as? Double,
+                sessionStamp = msg["sessionTimestamp"] as? Double,
                 loopLength = msg["loopLength"] as? NSTimeInterval,
-               // typeVal = msg["type"] as? UInt,
-                sessionStamp = msg["sessionTimestamp"] as? Double {
-                return AudioStemMessage(audioStemRef: audioStemRef, timestamp: timestamp, sessionTimestamp: sessionStamp, loopLength: loopLength, type: .Start)
+                typeValue = msg["type"] as? UInt,
+                t = AudioStemMessage.MessageType(rawValue: typeValue) {
+                    return AudioStemMessage(reference: ref, timestamp: timestamp, sessionTimestamp: sessionStamp, loopLength: loopLength, type: t)
                     
             } else {
                 return nil

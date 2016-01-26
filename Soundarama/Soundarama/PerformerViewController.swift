@@ -18,6 +18,8 @@ class PerformerViewController: UIViewController, PerformerUserInterface {
         static let NotConnected = "Non Connecté"
     }
     
+    static let timestamp = NSDate().timeIntervalSince1970
+    
     @IBOutlet weak var imageView: UIImageView?
     
     @IBOutlet weak var label: UILabel?

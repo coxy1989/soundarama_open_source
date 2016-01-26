@@ -43,6 +43,5 @@ extension DJPresenter: DJUserInterfaceDelegate {
     func didSelectAudioStemForPerformer(audioStem: AudioStem, performer: Performer) {
         
         input.didSelectAudioStemForPerformer(audioStem, performer: performer)
-        print("Message with stem: \(audioStem) performer: \(performer)")
     }
 }

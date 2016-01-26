@@ -14,6 +14,7 @@ protocol Message
     func data() -> NSData
 }
 
+/*
 struct AudioStemMessage {
     
     enum Type: UInt {
@@ -84,6 +85,7 @@ struct AudioStemMessage {
     }
 */
 }
+*/
 
 struct VolumeChangeMessage: Message
 {

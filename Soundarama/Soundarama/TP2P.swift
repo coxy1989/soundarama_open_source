@@ -6,6 +6,10 @@
 //  Copyright © 2016 Touchpress Ltd. All rights reserved.
 //
 
+/* Representation of one end of a P2P connection */
+
+protocol Endpoint: Connectable, Readable, Writeable { }
+
 /* Connect */
 
 typealias Address = String
@@ -14,7 +18,7 @@ protocol Connectable: class {
     
     weak var connectionDelegate: ConnectableDelegate! { get set }
     
-    func connect(strategy: ConnectableStrategy)
+    func connect()
 }
 
 protocol ConnectableDelegate: class {
@@ -25,14 +29,11 @@ protocol ConnectableDelegate: class {
     
 }
 
-enum ConnectableStrategy {
-    
-    case Search, Broadcast
-}
+/* Read */
 
 protocol ReadableDelegate: class {
     
-    func didReadData(data: NSData)
+    func didReadData(data: NSData, address: Address)
 }
 
 protocol Readable: class {
@@ -40,64 +41,38 @@ protocol Readable: class {
     weak var readableDelegate: ReadableDelegate! { get set }
     
     func readData(terminator: NSData)
+    
+    func readData(terminator: NSData, address: Address)
 }
 
-protocol Writeable {
+/* Write */
+
+protocol WriteableDelegate: class {
+    
+    func didWriteData(data: NSData)
+}
+
+
+protocol Writeable: class  {
+    
+    weak var writeableDelegate: WriteableDelegate? { get set }
+    
+    func writeData(data: NSData)
     
     func writeData(data: NSData, address: Address)
 }
 
-protocol Endpoint: Connectable, Readable, Writeable { }
+/* Dependency Inversion */
 
 struct TP2P {
     
-    static func endpoint() -> Endpoint {
+    static func searchingEndpoint() -> Endpoint {
         
-        return SocketEndpoint()
-    }
-}
-
-
-    /*
-    static func publisher() -> Publishable {
-        
-        return Publisher()
+        return SearchSocketEndpoint()
     }
     
-    static func subscriber() -> Subscribable {
+    static func broadcastingEndpoint() -> Endpoint {
         
-        return Subscriber()
+        return BroadcastSocketEndpoint()
     }
-*/
-
-
-/* Publish */
-
-/*
-protocol Publishable: Connectable {
-    
-    func publish(data: NSData)
-    
-    func publish(data: NSData, address: Address)
-    
 }
-
-/* Subscribe */
-
-protocol Subscribable: class, Connectable {
-    
-    weak var subscriberDelegate: SubscriberDelegate! { get set }
-    
-    func readData(terminator: NSData)
-}
-
-protocol SubscriberDelegate: class {
-    
-    func didRecieveData(data: NSData)
-}
-*/
-/* PubScribe */
-
-//protocol PubScribable: Publishable, Subscribable {  }
-
-/* Dependecy Inversion */

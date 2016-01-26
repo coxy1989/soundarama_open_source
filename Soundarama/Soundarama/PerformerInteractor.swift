@@ -14,18 +14,38 @@ class PerformerInteractor: PerformerInput {
     
     private var messageAdapter: ReadableMessageAdapter!
     
-    private let endpoint = TP2P.endpoint()
+    private var christiansProcess: ChristiansProcess?
+    
+    private let endpoint = TP2P.searchingEndpoint()
     
     func start() {
         
-        messageAdapter = ReadableMessageAdapter(readable: endpoint)
-        messageAdapter.delegate = self
-        
         connectionAdapter = PerformerConnectionAdapter(connection: endpoint)
         connectionAdapter.delegate = self
+        endpoint.connect()
+    }
+}
+
+extension PerformerInteractor: PerformerConnectionAdapterDelegate {
+    
+    func performerConnectionStateDidChange(state: ConnectionState) {
         
-        endpoint.connect(.Search)
-        endpoint.connectionDelegate = self
+        performerOutput.connectionStateDidChange(state)
+        if state == .Connected {
+            christiansProcess = ChristiansProcess(endpoint: endpoint)
+            christiansProcess?.delegate = self
+            christiansProcess?.syncronise()
+        }
+    }
+}
+
+extension PerformerInteractor: ChristiansProcessDelegate {
+    
+    func christiansProcessDidSynchronise(local: NSTimeInterval, remote: NSTimeInterval) {
+    
+        messageAdapter = ReadableMessageAdapter(readable: endpoint)
+        messageAdapter.delegate = self
+        messageAdapter.takeMessages()
     }
 }
 
@@ -37,27 +57,5 @@ extension PerformerInteractor: ReadableMessageAdapterDelegate {
     
     func didRecieveVolumeChangeMessage(message: VolumeChangeMessage) {
         
-    }
-}
-
-extension PerformerInteractor: ConnectableDelegate {
-    
-    func didConnectToAddress(address: Address) {
-        
-    }
-    
-    func didDisconnectFromAddress(address: Address) {
-        
-    }
-}
-
-extension PerformerInteractor: PerformerConnectionAdapterDelegate {
-    
-    func performerConnectionStateDidChange(state: ConnectionState) {
-        
-        performerOutput.connectionStateDidChange(state)
-        if state == .Connected {
-            messageAdapter.takeMessage()
-        }
     }
 }

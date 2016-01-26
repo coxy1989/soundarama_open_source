@@ -23,7 +23,7 @@ class SearchStrategy: NSObject {
     
     func search() {
         
-        serviceBrowser.searchForServicesOfType("_soundarama._tcp.", inDomain: "local")
+        serviceBrowser.searchForServicesOfType("_soundarama_coxy._tcp.", inDomain: "local")
     }
     
     private var service: NSNetService?

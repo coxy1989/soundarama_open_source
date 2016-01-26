@@ -31,7 +31,7 @@ extension WritableMessageAdapter {
     func getData(message: AudioStemMessage) -> NSData {
         
         let d = [
-            "ref" : message.audioStemRef,
+            "ref" : message.reference,
             "time" : message.timestamp,
             "sessionTimestamp" : message.sessionTimestamp,
             "loopLength" : message.loopLength,
