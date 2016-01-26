@@ -26,6 +26,11 @@ extension PerformerPresenter: PerformerOutput {
         
         ui.setConnectionState(state)
     }
+    
+    func audioStemDidChange(stem: AudioStem) {
+        
+        ui.setAudioStem(stem)
+    }
 }
 
 extension PerformerPresenter: PerformerUserInterfaceDelegate {

@@ -20,11 +20,11 @@ class AudioStemsViewController: UIViewController
     
     private var navBar: UINavigationBar
     private var tableView: UITableView
-    private var audioStems: [AudioStem]
+    private var audioStems: [AudioStem] = []
     
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: NSBundle?)
     {
-        self.audioStems = JSON.audioStemsFromDisk()
+     //   self.audioStems = JSON.audioStemsFromDisk()
         
         self.navBar = UINavigationBar()
         

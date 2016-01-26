@@ -9,6 +9,7 @@
 import Foundation
 import UIKit
 
+/*
 struct AudioStem
 {
     let name: String
@@ -44,7 +45,9 @@ struct AudioStem
         }
     }
 }
+*/
 
+/*
 extension JSON
 {
     static func audioStemsFromDisk() -> [AudioStem]
@@ -72,3 +75,4 @@ extension JSON
         return audioStems
     }
 }
+*/

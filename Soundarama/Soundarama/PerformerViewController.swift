@@ -37,4 +37,10 @@ class PerformerViewController: UIViewController, PerformerUserInterface {
             label?.text = Strings.NotConnected
         }
     }
+    
+    func setAudioStem(audioStem: AudioStem) {
+        
+        view.backgroundColor = audioStem.colour
+        label?.textColor = audioStem.colour
+    }
 }

@@ -75,11 +75,11 @@ class ShitPerformerViewController: UIViewController
         self.flvLogoImageView?.image = UIImage(named: "icn-flv-logo")
         self.flvLogoImageView?.contentMode = .ScaleAspectFit
         
-        let audioStems = JSON.audioStemsFromDisk()
-        for audioStem in audioStems
-        {
-            self.audioStems[audioStem.reference] = audioStem
-        }
+       // let audioStems = JSON.audioStemsFromDisk()
+       // for audioStem in audioStems
+       // {
+         //   self.audioStems[audioStem.reference] = audioStem
+       // }
         
         client.delegate = self
         

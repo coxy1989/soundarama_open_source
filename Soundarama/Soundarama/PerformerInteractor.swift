@@ -16,13 +16,30 @@ class PerformerInteractor: PerformerInput {
     
     private var christiansProcess: ChristiansProcess?
     
+    private var christiansMap: (remote: NSTimeInterval, local: NSTimeInterval)?
+    
+    private var audioStemStore = AudioStemStore()
+    
     private let endpoint = TP2P.searchingEndpoint()
     
+    private let audioController = PerformerAudioController()
+    
     func start() {
+        
+        startNetwork()
+        startDatabase()
+    }
+    
+    private func startNetwork() {
         
         connectionAdapter = PerformerConnectionAdapter(connection: endpoint)
         connectionAdapter.delegate = self
         endpoint.connect()
+    }
+    
+    private func startDatabase() {
+        
+        audioStemStore.cacheAllStems()
     }
 }
 
@@ -53,6 +70,29 @@ extension PerformerInteractor: ReadableMessageAdapterDelegate {
     
     func didReceiveAudioStemMessage(message: AudioStemMessage) {
         
+        guard let cmap = christiansMap, stem = audioStemStore.audioStem(message.reference) else {
+            return
+        }
+        
+        let now = NSDate().timeIntervalSince1970
+        let elapsedSinceSync = now - cmap.local
+        let remoteNow = cmap.remote + elapsedSinceSync
+        var nextStartTime = message.sessionTimestamp
+        
+        while nextStartTime < remoteNow + 0.1 {
+            nextStartTime += message.loopLength
+        }
+        
+        let waitSecs = Double(nextStartTime) - Double(remoteNow)
+        
+        if message.type == .Stop {
+            audioController.stopAudioStem(stem, afterDelay: waitSecs)
+        }
+        else if message.type == .Start {
+            audioController.playAudioStem(stem, afterDelay: waitSecs)
+        }
+        
+        performerOutput.audioStemDidChange(stem)
     }
     
     func didRecieveVolumeChangeMessage(message: VolumeChangeMessage) {

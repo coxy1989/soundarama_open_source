@@ -45,6 +45,8 @@
 		42AFC6571C554F5A00AD4B9B /* DJUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42AFC6561C554F5A00AD4B9B /* DJUseCase.swift */; };
 		42AFC6631C55802000AD4B9B /* ReadableMessageAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42AFC6621C55802000AD4B9B /* ReadableMessageAdapter.swift */; };
 		42AFC6651C55805300AD4B9B /* WriteableMessageAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42AFC6641C55805300AD4B9B /* WriteableMessageAdapter.swift */; };
+		42C45A841C57DE8700888EA8 /* AudioStem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42C45A831C57DE8700888EA8 /* AudioStem.swift */; };
+		42C45A861C57DF2100888EA8 /* AudioStemStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42C45A851C57DF2100888EA8 /* AudioStemStore.swift */; };
 		42E8BE201C54FF470034F1C8 /* Soundarama.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42E8BE1F1C54FF470034F1C8 /* Soundarama.swift */; };
 		E20B94611C17539C00222A2B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E20B94601C17539C00222A2B /* AppDelegate.swift */; };
 		E20B94681C1753B900222A2B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E20B94641C1753B900222A2B /* Assets.xcassets */; };
@@ -57,7 +59,7 @@
 		E20B94981C188C7400222A2B /* DJViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E20B94971C188C7400222A2B /* DJViewController.swift */; };
 		E20B949A1C188C8700222A2B /* ShitPerformerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E20B94991C188C8700222A2B /* ShitPerformerViewController.swift */; };
 		E20B949C1C188EA000222A2B /* DeviceTrayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E20B949B1C188EA000222A2B /* DeviceTrayView.swift */; };
-		E20B949E1C1898A000222A2B /* AudioStem.swift in Sources */ = {isa = PBXBuildFile; fileRef = E20B949D1C1898A000222A2B /* AudioStem.swift */; };
+		E20B949E1C1898A000222A2B /* AudioStem2.swift in Sources */ = {isa = PBXBuildFile; fileRef = E20B949D1C1898A000222A2B /* AudioStem2.swift */; };
 		E25F9E0E1C19D7B2001D552F /* Sounds in Resources */ = {isa = PBXBuildFile; fileRef = E25F9E0D1C19D7B2001D552F /* Sounds */; };
 		E26EBA951C18A10A00747726 /* AudioStemsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E26EBA941C18A10A00747726 /* AudioStemsViewController.swift */; };
 		E26EBA981C18A3A000747726 /* SwiftyJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = E26EBA971C18A3A000747726 /* SwiftyJSON.swift */; };
@@ -121,6 +123,8 @@
 		42AFC6561C554F5A00AD4B9B /* DJUseCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DJUseCase.swift; sourceTree = "<group>"; };
 		42AFC6621C55802000AD4B9B /* ReadableMessageAdapter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReadableMessageAdapter.swift; sourceTree = "<group>"; };
 		42AFC6641C55805300AD4B9B /* WriteableMessageAdapter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WriteableMessageAdapter.swift; sourceTree = "<group>"; };
+		42C45A831C57DE8700888EA8 /* AudioStem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AudioStem.swift; sourceTree = "<group>"; };
+		42C45A851C57DF2100888EA8 /* AudioStemStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AudioStemStore.swift; sourceTree = "<group>"; };
 		42E8BE1F1C54FF470034F1C8 /* Soundarama.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Soundarama.swift; sourceTree = "<group>"; };
 		5A219AD37DBE00A8997FD63D /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		77BC4CC2D47B6C11CBA7895E /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
@@ -138,7 +142,7 @@
 		E20B94971C188C7400222A2B /* DJViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DJViewController.swift; path = Classes/DJ/ViewControllers/DJViewController.swift; sourceTree = "<group>"; };
 		E20B94991C188C8700222A2B /* ShitPerformerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShitPerformerViewController.swift; sourceTree = "<group>"; };
 		E20B949B1C188EA000222A2B /* DeviceTrayView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeviceTrayView.swift; sourceTree = "<group>"; };
-		E20B949D1C1898A000222A2B /* AudioStem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AudioStem.swift; sourceTree = "<group>"; };
+		E20B949D1C1898A000222A2B /* AudioStem2.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AudioStem2.swift; sourceTree = "<group>"; };
 		E25279C21BF606C8008B4690 /* Soundarama.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Soundarama.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E25279D11BF606C8008B4690 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E25279E01BF61B23008B4690 /* Soundarama-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "Soundarama-Bridging-Header.h"; path = "Resources/Soundarama-Bridging-Header.h"; sourceTree = "<group>"; };
@@ -152,7 +156,7 @@
 		E26EBAA51C18B1BF00747726 /* SoundaramaClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SoundaramaClient.swift; sourceTree = "<group>"; };
 		E26EBAA81C18B1DB00747726 /* SoundaramaServer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SoundaramaServer.swift; sourceTree = "<group>"; };
 		E26EBAAA1C18C22200747726 /* PerformerPhoneImageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PerformerPhoneImageView.swift; sourceTree = "<group>"; };
-		E26EBAB31C199DC000747726 /* PerformerAudioController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PerformerAudioController.swift; sourceTree = "<group>"; };
+		E26EBAB31C199DC000747726 /* PerformerAudioController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PerformerAudioController.swift; path = Classes/Performer/Utilities/PerformerAudioController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -193,6 +197,7 @@
 				42A727BC1C553B8900BFCA47 /* PerformerUserInterface.swift */,
 				420AA6A61C551C8600F7BB25 /* PerformerViewController.swift */,
 				420AA6A41C551AB300F7BB25 /* PerformerStoryboard.storyboard */,
+				42C45A811C57DBE000888EA8 /* Audio */,
 			);
 			name = Performer;
 			sourceTree = "<group>";
@@ -255,6 +260,7 @@
 		4249B5991C5792190096872D /* Representation */ = {
 			isa = PBXGroup;
 			children = (
+				42C45A831C57DE8700888EA8 /* AudioStem.swift */,
 				4249B59A1C5792490096872D /* AudioStemMessage.swift */,
 			);
 			name = Representation;
@@ -284,6 +290,7 @@
 			isa = PBXGroup;
 			children = (
 				4249B5991C5792190096872D /* Representation */,
+				42C45A821C57DE5700888EA8 /* Persistence */,
 				421468581C56473C00892786 /* Connection */,
 				42AFC6661C55806A00AD4B9B /* Serialisation */,
 				421468621C56751600892786 /* Synchronisation */,
@@ -312,6 +319,22 @@
 				42AFC6641C55805300AD4B9B /* WriteableMessageAdapter.swift */,
 			);
 			name = Serialisation;
+			sourceTree = "<group>";
+		};
+		42C45A811C57DBE000888EA8 /* Audio */ = {
+			isa = PBXGroup;
+			children = (
+				E26EBAB31C199DC000747726 /* PerformerAudioController.swift */,
+			);
+			name = Audio;
+			sourceTree = "<group>";
+		};
+		42C45A821C57DE5700888EA8 /* Persistence */ = {
+			isa = PBXGroup;
+			children = (
+				42C45A851C57DF2100888EA8 /* AudioStemStore.swift */,
+			);
+			name = Persistence;
 			sourceTree = "<group>";
 		};
 		42E8BE151C54FB440034F1C8 /* App */ = {
@@ -402,7 +425,7 @@
 			isa = PBXGroup;
 			children = (
 				E20B94731C17541E00222A2B /* Message.swift */,
-				E20B949D1C1898A000222A2B /* AudioStem.swift */,
+				E20B949D1C1898A000222A2B /* AudioStem2.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -550,7 +573,6 @@
 		E26EBAA41C18B1BF00747726 /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
-				E26EBAB31C199DC000747726 /* PerformerAudioController.swift */,
 				E26EBAA51C18B1BF00747726 /* SoundaramaClient.swift */,
 			);
 			path = Utilities;
@@ -715,12 +737,14 @@
 				E20B94841C17541E00222A2B /* VolumeControl.m in Sources */,
 				42A727A61C552D3800BFCA47 /* PerformerPresenter.swift in Sources */,
 				E20B949A1C188C8700222A2B /* ShitPerformerViewController.swift in Sources */,
+				42C45A861C57DF2100888EA8 /* AudioStemStore.swift in Sources */,
 				42AFC6631C55802000AD4B9B /* ReadableMessageAdapter.swift in Sources */,
 				4249B5961C578A160096872D /* BroadcastSocketEndpoint.swift in Sources */,
 				421468571C56404C00892786 /* DJUserInterface.swift in Sources */,
 				E26EBAA91C18B1DB00747726 /* SoundaramaServer.swift in Sources */,
 				E20B94981C188C7400222A2B /* DJViewController.swift in Sources */,
-				E20B949E1C1898A000222A2B /* AudioStem.swift in Sources */,
+				E20B949E1C1898A000222A2B /* AudioStem2.swift in Sources */,
+				42C45A841C57DE8700888EA8 /* AudioStem.swift in Sources */,
 				42AFC6571C554F5A00AD4B9B /* DJUseCase.swift in Sources */,
 				4249B59D1C5797920096872D /* ChristiansTimeServer.swift in Sources */,
 				421468551C56345700892786 /* TP2P.swift in Sources */,

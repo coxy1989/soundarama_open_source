@@ -11,8 +11,8 @@ import Foundation
 struct AudioStemMessage {
     
     enum MessageType: UInt {
-        case Start = 0
-        case Stop
+        
+        case Start = 0, Stop
     }
     
     let reference: String
@@ -21,8 +21,7 @@ struct AudioStemMessage {
     let loopLength: NSTimeInterval
     let type: MessageType
 
-    init (reference: String, timestamp: NSTimeInterval, sessionTimestamp: NSTimeInterval, loopLength: NSTimeInterval, type: MessageType)
-    {
+    init (reference: String, timestamp: NSTimeInterval, sessionTimestamp: NSTimeInterval, loopLength: NSTimeInterval, type: MessageType) {
         self.reference = reference
         self.timestamp = timestamp
         self.loopLength = loopLength

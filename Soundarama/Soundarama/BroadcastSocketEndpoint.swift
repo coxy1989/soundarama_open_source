@@ -28,7 +28,6 @@ class BroadcastSocketEndpoint: SocketEndpoint {
     override func writeData(data: NSData, address: Address) {
         
         if let pair = sockets.filter({$0.0 == address}).first {
-            //print("Writing data to address: \(pair.0)")
             pair.1.writeData(data, withTimeout: -1, tag: 0)
         }
         else {
