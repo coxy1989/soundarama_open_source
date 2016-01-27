@@ -9,7 +9,7 @@
 import UIKit
 import Darwin
 
-class DJViewController: UIViewController {
+class ShitDJViewController: UIViewController {
     
     weak var delegate: DJUserInterfaceDelegate!
     
@@ -42,7 +42,7 @@ class DJViewController: UIViewController {
         
         for _ in (0..<Layout.numberOfSoundColumns * Layout.numberOfSoundRows) {
             let soundView = SoundZoneView()
-            soundView.delegate = self
+          //  soundView.delegate = self
             self.view.addSubview(soundView)
             self.soundZoneViews?.append(soundView)
         }
@@ -93,12 +93,13 @@ class DJViewController: UIViewController {
     }
 }
 
-extension DJViewController: DJUserInterface {
+extension ShitDJViewController {
     
     
     func addPerformer(performer: Performer) {
         
         if performerPhoneImageViews[performer] == nil {
+            /*
             let imageView = PerformerPhoneImageView(image: UIImage(named: "icn-phone"))
             imageView.alpha = 0.0
             imageView.contentMode = .Center
@@ -122,7 +123,9 @@ extension DJViewController: DJUserInterface {
             self.performerPhoneImageViews[performer] = imageView
             
             UIView.animateWithDuration(0.3, animations: { imageView.alpha = 1.0 })
+*/
         }
+
     }
     
     func removePerformer(performer: Performer) {
@@ -138,11 +141,12 @@ extension DJViewController: DJUserInterface {
     }
 }
 
-extension DJViewController {
+extension ShitDJViewController {
     
     @objc private func didPanPerformerImageView(panGesture: UIPanGestureRecognizer)
     {
-        if let performerImageView = panGesture.view as? PerformerPhoneImageView, performerID = performerImageView.performerID, soundZoneViews = self.soundZoneViews
+        /*
+        if let performerImageView = panGesture.view as? PerformerView, performerID = performerImageView.performerID, soundZoneViews = self.soundZoneViews
         {
             //Grow phone when dragging
             if (panGesture.state == .Began)
@@ -230,11 +234,13 @@ extension DJViewController {
             
             panGesture.setTranslation(CGPoint.zero, inView: self.view)
         }
+*/
     }
+
 }
 
 
-extension DJViewController: SoundZoneViewDelegate
+extension ShitDJViewController
 {
     func soundZoneViewDidPressPaylistButton(soundZoneView: SoundZoneView, playlistButton: UIButton)
     {
@@ -256,7 +262,7 @@ extension DJViewController: SoundZoneViewDelegate
         //Don't want to be able to un-mute this, if a different one is mute
         if !isAnotherSoundZoneMuted
         {
-            soundZoneView.muted = mute
+      //      soundZoneView.muted = mute
         }
         
         updatePerformerVolumes()
@@ -274,21 +280,21 @@ extension DJViewController: SoundZoneViewDelegate
             {
                 for currentSoundZoneView in soundZoneViews where !currentSoundZoneView.muteButton.selected //Keep muted ones muted
                 {
-                    currentSoundZoneView.muted = false
+         //           currentSoundZoneView.muted = false
                 }
             }
         }
         else
         {
             soundZoneView.isSolo = true
-            soundZoneView.muted = false
+          //  soundZoneView.muted = false
             
             if let soundZoneViews = self.soundZoneViews
             {
                 for currentSoundZoneView in soundZoneViews where (currentSoundZoneView.audioStem != nil) && (currentSoundZoneView != soundZoneView)
                 {
                     currentSoundZoneView.isSolo = false //In case a different one was solo before
-                    currentSoundZoneView.muted = true
+            //        currentSoundZoneView.muted = true
                 }
             }
         }
@@ -304,7 +310,7 @@ extension DJViewController: SoundZoneViewDelegate
             
             if let soundZone = self.currentPerformerSoundZoneViews[performerID]
             {
-                volume = soundZone.muted ? 0.0 : 1.0
+          //      volume = soundZone.muted ? 0.0 : 1.0
             }
             
             //let message = VolumeChangeMessage(volume: volume, timestamp: NSDate().timeIntervalSince1970)
@@ -330,9 +336,10 @@ extension DJViewController: SoundZoneViewDelegate
         audioStemsVC.delegate = self
         self.presentViewController(audioStemsVC, animated: true, completion: nil)
     }
+
 }
 
-extension DJViewController: AudioStemsViewControllerDelegate
+extension ShitDJViewController: AudioStemsViewControllerDelegate
 {
     func audioStemsViewControllerDidSelectStem(audioStemsVC: AudioStemsViewController, audioStem: AudioStem)
     {
@@ -356,12 +363,13 @@ extension DJViewController: AudioStemsViewControllerDelegate
     }
 }
 
-extension DJViewController: SoundaramaServerDelegate
+extension ShitDJViewController: SoundaramaServerDelegate
 {
     func soundaramaServerDidConnectToPerformer(soundaramaServer: SoundaramaServer, address: String)
     {
         if performerPhoneImageViews[address] == nil
         {
+            /*
             let imageView = PerformerPhoneImageView(image: UIImage(named: "icn-phone"))
             imageView.alpha = 0.0
             imageView.contentMode = .Center
@@ -385,6 +393,7 @@ extension DJViewController: SoundaramaServerDelegate
             self.performerPhoneImageViews[address] = imageView
             
             UIView.animateWithDuration(0.3, animations: { imageView.alpha = 1.0 })
+            */
         }
     }
     
@@ -409,7 +418,9 @@ extension DJViewController: SoundaramaServerDelegate
     }
 }
 
-func randomInt(min: Int, max:Int) -> Int
-{
+/*
+func randomInt(min: Int, max:Int) -> Int {
     return min + Int(arc4random_uniform(UInt32(max - min + 1)))
 }
+*/
+

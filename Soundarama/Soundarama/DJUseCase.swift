@@ -11,6 +11,8 @@ protocol DJInput: class {
     func start()
     
     func didSelectAudioStemForPerformer(audioStem: AudioStem, performer: Performer)
+    
+    func fetchAudioStems() -> [AudioStem]
 }
 
 protocol DJOutput: class {

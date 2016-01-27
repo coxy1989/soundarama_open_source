@@ -9,19 +9,38 @@
 import Foundation
 import UIKit
 
-protocol SoundZoneViewDelegate: class
-{
-    func soundZoneViewDidPressPaylistButton(soundZoneView: SoundZoneView, playlistButton: UIButton)
-    func soundZoneViewDidPressMuteButton(soundZoneView: SoundZoneView, button: UIButton)
-    func soundZoneViewDidPressSoloButton(soundZoneView: SoundZoneView, button: UIButton)
-    func soundZoneViewDidPressAddNewStemButton(soundZoneView: SoundZoneView, button: UIButton)
+protocol SoundZoneViewDelegate: class {
+    
+    func soundZoneViewDidChangeMuteState(soundZoneView: SoundZoneView )
+    
+    func soundZoneViewDidChangeSoloState(soundZoneView: SoundZoneView)
+    
+    func soundZoneViewDidPressAddNewStemButton(soundZoneView: SoundZoneView)
+    
+//    func soundZoneViewDidPressPaylistButton(soundZoneView: SoundZoneView)
+//    func soundZoneViewDidPressMuteButton(soundZoneView: SoundZoneView)
+//    func soundZoneViewDidPressSoloButton(soundZoneView: SoundZoneView)
 }
 
-class SoundZoneView: UIView
-{
-    struct Layout
-    {
-        //From outer to inner
+class SoundZoneView: UIView {
+    
+    
+    // TODO: REMOVE THIS OBNOXIOUS MVC VIOLATION
+    
+    var audioStem: AudioStem? {
+        
+        didSet {
+            updateForAudioStem()
+        }
+    }
+    
+    var isMute = false
+    
+    var isSolo = false
+    
+    private struct Layout {
+        
+        /* From outer to inner */
         static let ringFillOpacities: [CGFloat] = [ 0.0, 0.15, 0.35, 0.5, 1.0 ]
         static let ringStrokeWidths: [CGFloat] = [ 2.0, 2.0, 2.0, 2.0, 0.0 ]
         static let ringStrokeOpacities: [CGFloat] = [ 0.8, 0.2, 0.5, 0.8, 0.0 ]
@@ -30,16 +49,8 @@ class SoundZoneView: UIView
         static let buttonWidth: CGFloat = 36
     }
     
-    var audioStem: AudioStem?
-    {
-        didSet
-        {
-            updateForAudioStem()
-        }
-    }
-    
-    var muted: Bool = false
-    {
+    /*
+    var muted: Bool = false {
         didSet
         {
             if (muted)
@@ -61,6 +72,8 @@ class SoundZoneView: UIView
         }
     }
     
+*/
+    
     weak var delegate: SoundZoneViewDelegate?
     
     private var titleLabel: UILabel
@@ -70,8 +83,8 @@ class SoundZoneView: UIView
     private var addNewStemButton: UIButton
     private var ringShapeLayers: [CAShapeLayer]
     
-    override init(frame: CGRect)
-    {
+    override init(frame: CGRect) {
+        
         self.ringShapeLayers = []
         
         self.playlistButton = UIButton()
@@ -155,7 +168,61 @@ class SoundZoneView: UIView
 
     required init?(coder aDecoder: NSCoder)
     {
-        fatalError("init(coder:) has not been implemented")
+        self.ringShapeLayers = []
+        
+        self.playlistButton = UIButton()
+        self.playlistButton.setImage(UIImage(named: "btn-playlist")?.imageWithRenderingMode(UIImageRenderingMode.AlwaysOriginal), forState: .Normal)
+        self.playlistButton.layer.borderWidth = 2.0
+        
+        self.muteButton = UIButton()
+        self.muteButton.setTitle(NSLocalizedString("SOUND_ZONE_MUTE", comment: ""), forState: .Normal)
+        self.muteButton.setTitleColor(UIColor.blackColor(), forState: .Normal)
+        self.muteButton.setTitleColor(UIColor.whiteColor().colorWithAlphaComponent(0.5), forState: .Selected)
+        self.muteButton.layer.borderWidth = 2.0
+        
+        self.soloButton = UIButton()
+        self.soloButton.setTitle(NSLocalizedString("SOUND_ZONE_SOLO", comment: ""), forState: .Normal)
+        self.soloButton.setTitleColor(UIColor.blackColor(), forState: .Normal)
+        self.soloButton.setTitleColor(UIColor.whiteColor().colorWithAlphaComponent(0.5), forState: .Selected)
+        self.soloButton.layer.borderWidth = 2.0
+        
+        self.titleLabel = UILabel()
+        self.titleLabel.textAlignment = .Center
+        self.titleLabel.font = UIFont.soundaramaSansSerifLightFont(size: 14)
+        
+        self.addNewStemButton = UIButton()
+        self.addNewStemButton.setTitle(NSLocalizedString("SOUND_ZONE_ADD_NEW_STEM", comment: ""), forState: .Normal)
+        self.addNewStemButton.setImage(UIImage(named: "icn-add-new-stem"), forState: .Normal)
+        self.addNewStemButton.titleEdgeInsets = UIEdgeInsets(top: 0.0, left: 12.0, bottom: 0.0, right: 0.0)
+        self.addNewStemButton.titleLabel?.font = UIFont.soundaramaSansSerifRomanFont(size: 14)
+        self.addNewStemButton.titleLabel?.textColor = UIColor.whiteColor()
+        
+        
+        
+        super.init(coder: aDecoder)
+        self.clipsToBounds = false
+        for i in 0..<Layout.ringFillOpacities.count
+        {
+            let newShapeLayer = CAShapeLayer()
+            newShapeLayer.lineWidth = Layout.ringStrokeWidths[i]
+            self.layer.addSublayer(newShapeLayer)
+            self.ringShapeLayers.append(newShapeLayer)
+        }
+        
+        self.playlistButton.addTarget(self, action: "didPressPlaylistButton:", forControlEvents: .TouchUpInside)
+        self.muteButton.addTarget(self, action: "didPressMuteButton:", forControlEvents: .TouchUpInside)
+        self.soloButton.addTarget(self, action: "didPressSoloButton:", forControlEvents: .TouchUpInside)
+        self.addNewStemButton.addTarget(self, action: "didPressAddNewStemButton:", forControlEvents: .TouchUpInside)
+        
+        self.addSubview(self.playlistButton)
+        self.addSubview(self.muteButton)
+        self.addSubview(self.soloButton)
+        
+        self.addSubview(self.titleLabel)
+        self.addSubview(self.addNewStemButton)
+        
+        updateForAudioStem()
+       // fatalError("init(coder:) has not been implemented")
     }
     
     override func layoutSubviews()
@@ -254,7 +321,7 @@ class SoundZoneView: UIView
         updateForTintColor()
     }
     
-    func pointInsideRings(point: CGPoint) -> Bool
+    func pointIsInsideRings(point: CGPoint) -> Bool
     {
         if let largestRing = self.ringShapeLayers.first, path = largestRing.path
         {
@@ -267,25 +334,25 @@ class SoundZoneView: UIView
         return false
     }
     
-    //MARK: Actions
-    
-    @objc private func didPressPlaylistButton(button: UIButton)
-    {
-        self.delegate?.soundZoneViewDidPressPaylistButton(self, playlistButton: button)
+    @objc private func didPressPlaylistButton(button: UIButton) {
+        
+//        self.delegate?.soundZoneViewDidPressPaylistButton(self)
     }
     
-    @objc private func didPressMuteButton(button: UIButton)
-    {
-        self.delegate?.soundZoneViewDidPressMuteButton(self, button: button)
+    @objc private func didPressMuteButton(button: UIButton) {
+        
+        isMute = !isMute
+        delegate?.soundZoneViewDidChangeMuteState(self)
     }
     
-    @objc private func didPressSoloButton(button: UIButton)
-    {
-        self.delegate?.soundZoneViewDidPressSoloButton(self, button: button)
+    @objc private func didPressSoloButton(button: UIButton) {
+        
+        isSolo = !isSolo
+        delegate?.soundZoneViewDidChangeSoloState(self)
     }
     
-    @objc private func didPressAddNewStemButton(button: UIButton)
-    {
-        self.delegate?.soundZoneViewDidPressAddNewStemButton(self, button: button)
+    @objc private func didPressAddNewStemButton(button: UIButton) {
+        
+      //  self.delegate?.soundZoneViewDidPressAddNewStemButton(self)
     }
 }

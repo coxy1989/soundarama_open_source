@@ -37,11 +37,30 @@ extension DJPresenter: DJUserInterfaceDelegate {
     
     func ready() {
         
-        input.start()
+        //input.start()
+        ui.addPerformer("x")
     }
     
-    func didSelectAudioStemForPerformer(audioStem: AudioStem, performer: Performer) {
+    func didSelectAudioStemForPerformer(audioStem: AudioStem, performer: Performer, muted: Bool) {
         
-        input.didSelectAudioStemForPerformer(audioStem, performer: performer)
+        print("Selected audio stem muted: \(muted)")
+        // TODO: mute
+        //input.didSelectAudioStemForPerformer(audioStem, performer: performer)
+    }
+    
+    func didMutePerformer(performer: Performer) {
+        print("Muted performer")
+    }
+    
+    func didDeselectAudioStemForPerformer(performer: Performer) {
+        print("Deselected audio stem")
+    }
+}
+
+extension DJPresenter: DJUserInterfaceDataSource {
+    
+    func audioStems() -> [AudioStem] {
+        
+        return input.fetchAudioStems()
     }
 }

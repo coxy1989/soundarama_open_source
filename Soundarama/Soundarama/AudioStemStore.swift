@@ -30,7 +30,7 @@ class AudioStemStore {
         return map
     }
     
-    private func fetchAllStems() -> [AudioStem] {
+    func fetchAllStems() -> [AudioStem] {
         
         let jsonPath = NSBundle.mainBundle().pathForResource("AudioStems", ofType: "json", inDirectory: "Sounds")!
         let data = NSData(contentsOfFile: jsonPath)!

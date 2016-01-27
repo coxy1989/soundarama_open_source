@@ -24,6 +24,7 @@ class DJWireframe {
         let vc = sb.instantiateViewControllerWithIdentifier("DJViewController") as! DJViewController
         djPresenter.ui = vc
         vc.delegate = djPresenter
+        vc.dataSource = djPresenter
         return vc
     }
 }

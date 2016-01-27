@@ -9,22 +9,22 @@
 import Foundation
 import UIKit
 
-protocol AudioStemsViewControllerDelegate: class
-{
+protocol AudioStemsViewControllerDelegate: class {
+    
     func audioStemsViewControllerDidSelectStem(audioStemsVC: AudioStemsViewController, audioStem: AudioStem)
 }
 
-class AudioStemsViewController: UIViewController
-{
+class AudioStemsViewController: UIViewController {
+    
     weak var delegate: AudioStemsViewControllerDelegate?
     
-    private var navBar: UINavigationBar
-    private var tableView: UITableView
-    private var audioStems: [AudioStem] = []
+    var audioStems: [AudioStem] = []
     
-    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: NSBundle?)
-    {
-     //   self.audioStems = JSON.audioStemsFromDisk()
+    private var navBar: UINavigationBar
+    
+    private var tableView: UITableView
+    
+    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: NSBundle?) {
         
         self.navBar = UINavigationBar()
         

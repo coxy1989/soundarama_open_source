@@ -6,7 +6,7 @@
 //  Copyright © 2016 Touchpress Ltd. All rights reserved.
 //
 
-class DJInteractor: DJInput {
+class DJInteractor {
     
     weak var djOutput: DJOutput!
     
@@ -16,6 +16,8 @@ class DJInteractor: DJInput {
     
     private var christiansTimeServer: ChristiansTimeServer!
     
+    private var audioStemStore = AudioStemStore()
+    
     func start() {
         
         christiansTimeServer = ChristiansTimeServer(endpoint: endpoint)
@@ -24,11 +26,22 @@ class DJInteractor: DJInput {
         endpoint.connectionDelegate = self
         endpoint.connect()
     }
+}
+
+extension DJInteractor: DJInput {
     
     func didSelectAudioStemForPerformer(audioStem: AudioStem, performer: Performer) {
         
-        let message = AudioStemMessage(reference: audioStem.reference, timestamp: NSDate().timeIntervalSince1970, sessionTimestamp: ChristiansTimeServer.timestamp,loopLength: 69, type: .Start)
+        print("Sending AudoStem Message: \(audioStem.reference) performer: \(performer)")
+        return
+        
+        let message = AudioStemMessage(reference: audioStem.reference, timestamp: NSDate().timeIntervalSince1970, sessionTimestamp: ChristiansTimeServer.timestamp,loopLength: 1.875, type: .Start)
         adapter.writeAudioStemMessage(message, address: performer)
+    }
+    
+    func fetchAudioStems() -> [AudioStem] {
+        
+        return audioStemStore.fetchAllStems()
     }
 }
 

@@ -12,6 +12,8 @@ protocol DJUserInterface: class {
     
     weak var delegate: DJUserInterfaceDelegate! { get set }
     
+    weak var dataSource: DJUserInterfaceDataSource! { get set }
+    
     func addPerformer(performer: Performer)
     
     func removePerformer(performer: Performer)
@@ -21,5 +23,14 @@ protocol DJUserInterfaceDelegate: class {
     
     func ready()
     
-    func didSelectAudioStemForPerformer(audioStem: AudioStem, performer: Performer)
+    func didSelectAudioStemForPerformer(audioStem: AudioStem, performer: Performer, muted: Bool)
+    
+    func didDeselectAudioStemForPerformer(performer: Performer)
+    
+    func didMutePerformer(performer: Performer)
+}
+
+protocol DJUserInterfaceDataSource: class {
+    
+    func audioStems() -> [AudioStem]
 }
