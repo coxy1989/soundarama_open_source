@@ -6,6 +6,7 @@
 //  Copyright © 2015 Touchpress Ltd. All rights reserved.
 //
 
+/*
 import UIKit
 import Darwin
 
@@ -424,3 +425,4 @@ func randomInt(min: Int, max:Int) -> Int {
 }
 */
 
+*/

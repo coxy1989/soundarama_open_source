@@ -16,14 +16,17 @@ class PerformerConnectionAdapter: ConnectableDelegate {
     weak var delegate: PerformerConnectionAdapterDelegate!
     
     init(connection: Connectable) {
+        
         connection.connectionDelegate = self
     }
     
     func didConnectToAddress(address: Address) {
+        
         delegate.performerConnectionStateDidChange(.Connected)
     }
     
     func didDisconnectFromAddress(address: Address) {
+        
         delegate.performerConnectionStateDidChange(.NotConnected)
     }
 }

@@ -13,8 +13,8 @@ protocol SoundaramaClientDelegate {
     
     func clientDidConnect()
     func clientDidDisconnect()
-    func clientDidRecieveAudioStemMessage(message: AudioStemMessage)
-    func clientDidRecieveVolumeChangeMessage(message: VolumeChangeMessage)
+    //func clientDidRecieveAudioStemMessage(message: AudioStemMessage)
+   // func clientDidRecieveVolumeChangeMessage(message: VolumeChangeMessage)
     func clientDidSyncClock(local: NSTimeInterval, remote: NSTimeInterval)
 }
 

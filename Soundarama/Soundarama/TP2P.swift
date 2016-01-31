@@ -17,8 +17,10 @@ typealias Address = String
 protocol Connectable: class {
     
     weak var connectionDelegate: ConnectableDelegate! { get set }
-    
+   
     func connect()
+    
+    func disconnect()
 }
 
 protocol ConnectableDelegate: class {
@@ -60,19 +62,4 @@ protocol Writeable: class  {
     func writeData(data: NSData)
     
     func writeData(data: NSData, address: Address)
-}
-
-/* Dependency Inversion */
-
-struct TP2P {
-    
-    static func searchingEndpoint() -> Endpoint {
-        
-        return SearchSocketEndpoint()
-    }
-    
-    static func broadcastingEndpoint() -> Endpoint {
-        
-        return BroadcastSocketEndpoint()
-    }
 }

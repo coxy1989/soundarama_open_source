@@ -6,13 +6,15 @@
 //  Copyright © 2016 Touchpress Ltd. All rights reserved.
 //
 
-typealias Performer = String
+import UIKit
 
 protocol DJUserInterface: class {
     
     weak var delegate: DJUserInterfaceDelegate! { get set }
     
-    weak var dataSource: DJUserInterfaceDataSource! { get set }
+    var audioStems:[AudioStem]! { get set }
+    
+    func setSuite(suite: Suite)
     
     func addPerformer(performer: Performer)
     
@@ -21,16 +23,34 @@ protocol DJUserInterface: class {
 
 protocol DJUserInterfaceDelegate: class {
     
+    // TODO: Use Touchpress kit ViewController Methods
     func ready()
+    func didRequestTravelBack()
     
-    func didSelectAudioStemForPerformer(audioStem: AudioStem, performer: Performer, muted: Bool)
+    func didRequestToggleMuteInWorkspace(workspace: Workspace)
     
-    func didDeselectAudioStemForPerformer(performer: Performer)
+    func didRequestToggleSoloInWorkspace(workspace: Workspace)
     
-    func didMutePerformer(performer: Performer)
+    func didRequestAudioStemInWorkspace(audioStem: AudioStem, workspace: Workspace)
+    
+    func didRequestAddPerformer(performer: Performer, workspace: Workspace)
+    
+    func didRequestRemovePerformer(performer: Performer, workspace: Workspace)
+    
+    
+    //func didSelectAudioStemForPerformer(audioStem: AudioStem, performer: Performer, muted: Bool)
+    
+    //func didDeselectAudioStemForPerformer(performer: Performer)
+    
+    //func didChangeMuteState(isMute: Bool, performer: Performer)
+    
 }
 
+/*
 protocol DJUserInterfaceDataSource: class {
     
-    func audioStems() -> [AudioStem]
+    func numberOfAudioStems() -> Int
+    
+    func audioStemAtIndex(index: Int) -> AudioStem
 }
+*/

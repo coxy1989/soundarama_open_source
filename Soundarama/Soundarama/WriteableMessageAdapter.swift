@@ -15,17 +15,20 @@ class WritableMessageAdapter {
         self.writeable = writeable
     }
     
-    func writeAudioStemMessage(message: AudioStemMessage, address: Address) {
+    func writeMessage(message: PerformerMessage) {
         
-        writeable.writeData(getData(message), address: address)
-    }
-    
-    func publishVolumeChangeMessage(message: VolumeChangeMessage) {
-        
-        
+        writeable.writeData(message.data(), address: message.address)
     }
 }
 
+/*
+func writeAudioStemMessage(message: AudioStemMessage, address: Address) {
+
+writeable.writeData(getData(message), address: address)
+}
+*/
+
+/*
 extension WritableMessageAdapter {
     
     func getData(message: AudioStemMessage) -> NSData {
@@ -41,3 +44,4 @@ extension WritableMessageAdapter {
         return Serialisation.setPayload(d)
     }
 }
+*/

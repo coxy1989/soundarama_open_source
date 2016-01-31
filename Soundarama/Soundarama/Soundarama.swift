@@ -10,20 +10,23 @@ import UIKit
 
 class Soundarama {
     
-    let decideWireframe: DecideWireframe!
-    let decidePresenter = DecidePresenter()
-    var decideInteractor = DecideInteractor()
+    let dependencies: SoundaramaDependencies!
     
-    let performerWireframe = PerformerWireframe()
-    let performerPresenter = PerformerPresenter()
-    let performerInteractor = PerformerInteractor()
+    private let decideWireframe: DecideWireframe!
+    private let decidePresenter = DecidePresenter()
+    private let decideInteractor = DecideInteractor()
     
-    let djWireframe = DJWireframe()
-    let djPresenter = DJPresenter()
-    let djInteractor = DJInteractor()
+    private let performerWireframe = PerformerWireframe()
+    private let performerPresenter = PerformerPresenter()
+    private let performerInteractor = PerformerInteractor()
     
-    init(window: UIWindow) {
+    private let djWireframe = DJWireframe()
+    private let djPresenter = DJPresenter()
+    private let djInteractor = DJInteractor()
     
+    init(window: UIWindow, dependencies: SoundaramaDependencies) {
+    
+        self.dependencies = dependencies
         decideWireframe = DecideWireframe(window: window)
         setupDecideModule()
         setupPerformerModule()
@@ -52,6 +55,7 @@ extension Soundarama {
         performerWireframe.performerPresenter = performerPresenter
         performerPresenter.input = performerInteractor
         performerInteractor.performerOutput = performerPresenter
+        performerInteractor.endpoint = dependencies.searchingEndpoint()
     }
     
     private func setupDjModule() {
@@ -60,5 +64,6 @@ extension Soundarama {
         djWireframe.djPresenter = djPresenter
         djPresenter.input = djInteractor
         djInteractor.djOutput = djPresenter
+        djInteractor.endpoint = dependencies.broadcastingEndpoint()
     }
 }

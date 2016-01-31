@@ -25,6 +25,14 @@ class BroadcastSocketEndpoint: SocketEndpoint {
         }
     }
     
+    override func disconnect() {
+        
+        socket.disconnect()
+        for s in sockets.values {
+            s.disconnect()
+        }
+    }
+    
     override func writeData(data: NSData, address: Address) {
         
         if let pair = sockets.filter({$0.0 == address}).first {

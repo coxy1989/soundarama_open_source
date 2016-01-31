@@ -144,6 +144,7 @@ extension ShitPerformerViewController: SoundaramaClientDelegate {
         self.currentBarNumber = -1
     }
     
+    /*
     func clientDidRecieveAudioStemMessage(message: AudioStemMessage)
     {
         if let audioStem = self.audioStems[message.reference]
@@ -157,11 +158,14 @@ extension ShitPerformerViewController: SoundaramaClientDelegate {
             }
         }
     }
+*/
     
+    /*
     func clientDidRecieveVolumeChangeMessage(message: VolumeChangeMessage)
     {
         self.audioController.volume = message.volume
     }
+*/
     
     func clientDidSyncClock(local: NSTimeInterval, remote: NSTimeInterval)
     {

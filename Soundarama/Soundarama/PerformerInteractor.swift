@@ -10,6 +10,8 @@ class PerformerInteractor: PerformerInput {
  
     weak var performerOutput: PerformerOutput!
     
+    var endpoint: Endpoint!
+    
     private var connectionAdapter: PerformerConnectionAdapter!
     
     private var messageAdapter: ReadableMessageAdapter!
@@ -20,26 +22,13 @@ class PerformerInteractor: PerformerInput {
     
     private var audioStemStore = AudioStemStore()
     
-    private let endpoint = TP2P.searchingEndpoint()
-    
     private let audioController = PerformerAudioController()
     
     func start() {
         
-        startNetwork()
-        startDatabase()
-    }
-    
-    private func startNetwork() {
-        
         connectionAdapter = PerformerConnectionAdapter(connection: endpoint)
         connectionAdapter.delegate = self
         endpoint.connect()
-    }
-    
-    private func startDatabase() {
-        
-        audioStemStore.cacheAllStems()
     }
 }
 
@@ -50,8 +39,8 @@ extension PerformerInteractor: PerformerConnectionAdapterDelegate {
         performerOutput.connectionStateDidChange(state)
         if state == .Connected {
             christiansProcess = ChristiansProcess(endpoint: endpoint)
-            christiansProcess?.delegate = self
-            christiansProcess?.syncronise()
+            christiansProcess!.delegate = self
+            christiansProcess!.syncronise()
         }
     }
 }
@@ -68,6 +57,7 @@ extension PerformerInteractor: ChristiansProcessDelegate {
 
 extension PerformerInteractor: ReadableMessageAdapterDelegate {
     
+    /*
     func didReceiveAudioStemMessage(message: AudioStemMessage) {
         
         guard let cmap = christiansMap, stem = audioStemStore.audioStem(message.reference) else {
@@ -94,8 +84,5 @@ extension PerformerInteractor: ReadableMessageAdapterDelegate {
         
         performerOutput.audioStemDidChange(stem)
     }
-    
-    func didRecieveVolumeChangeMessage(message: VolumeChangeMessage) {
-        
-    }
+*/
 }

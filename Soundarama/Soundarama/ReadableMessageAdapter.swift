@@ -8,9 +8,8 @@
 
 protocol ReadableMessageAdapterDelegate: class {
     
-    func didReceiveAudioStemMessage(message: AudioStemMessage)
-    
-    func didRecieveVolumeChangeMessage(message: VolumeChangeMessage)
+   // func didReceiveAudioStemMessage(message: AudioStemMessage)
+
 }
 
 class ReadableMessageAdapter {
@@ -35,16 +34,18 @@ extension ReadableMessageAdapter: ReadableDelegate {
     
     func didReadData(data: NSData, address: Address) {
     
+        /*
         if let audioStemMessage = audioStemMessage(data) {
             delegate.didReceiveAudioStemMessage(audioStemMessage)
         }
-        
+        */
         readable.readData(Serialisation.terminator)
     }
 }
 
 extension ReadableMessageAdapter {
     
+    /*
     func audioStemMessage(data: NSData) -> AudioStemMessage? {
         
         let pl = Serialisation.getPayload(data)
@@ -65,4 +66,5 @@ extension ReadableMessageAdapter {
             return nil
         }
     }
+*/
 }

@@ -10,27 +10,35 @@ import UIKit
 
 class AudioStemStore {
     
+    var audioStems: [AudioStem]!
+    
     private var audioStemCache: [String : AudioStem]!
+    
+    init() {
+        
+        audioStems = fetchStems()
+        cacheStems(audioStems)
+    }
     
     func audioStem(reference: String) -> AudioStem? {
         
         if audioStemCache == nil {
-            cacheAllStems()
+            cacheStems(audioStems)
         }
         
         return audioStemCache[reference]
     }
     
-    func cacheAllStems() -> [String : AudioStem] {
+    func cacheStems(stems: [AudioStem]) -> [String : AudioStem] {
         
         var map: [String : AudioStem] = [ : ]
-        for s in fetchAllStems() {
+        for s in stems {
             map[s.reference] = s
         }
         return map
     }
     
-    func fetchAllStems() -> [AudioStem] {
+    private func fetchStems() -> [AudioStem] {
         
         let jsonPath = NSBundle.mainBundle().pathForResource("AudioStems", ofType: "json", inDirectory: "Sounds")!
         let data = NSData(contentsOfFile: jsonPath)!
@@ -53,7 +61,7 @@ class AudioStemStore {
         
         if let  name = json["Name"].string, colourString = json["Colour"].string, category = json["Category"].string, reference = json["Ref"].string {
             let colour = UIColor(rgba: colourString, defaultColor: UIColor.grayColor())
-            return AudioStem(name: name, colour: colour, category: category, reference: reference)
+            return AudioStem(name: name, colour: colour, category: category, reference: reference, loopLength: 1.85)
         }
         else {
             return nil

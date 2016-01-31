@@ -5,10 +5,103 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
     </dependencies>
     <scenes>
-        <!--View Controller-->
+        <!--View Controller i Phone-->
+        <scene sceneID="5dr-bJ-w5j">
+            <objects>
+                <viewController storyboardIdentifier="DJViewController_iPhone" id="oB8-AN-WvL" customClass="DJViewController_iPhone" customModule="Soundarama" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="UAG-0J-yCn"/>
+                        <viewControllerLayoutGuide type="bottom" id="BMF-zI-ckm"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="VBZ-HG-M8P">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="dj-device-tray-bg" translatesAutoresizingMaskIntoConstraints="NO" id="lOu-zl-DQn">
+                                <rect key="frame" x="0.0" y="536" width="414" height="200"/>
+                                <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="200" id="hSh-8S-Nx4"/>
+                                </constraints>
+                            </imageView>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="ZyW-pL-8UL">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="536"/>
+                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="12" minimumInteritemSpacing="0.0" id="vtl-eM-f6R">
+                                    <size key="itemSize" width="189" height="234"/>
+                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                    <inset key="sectionInset" minX="12" minY="28" maxX="12" maxY="28"/>
+                                </collectionViewFlowLayout>
+                                <cells>
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" restorationIdentifier="cell" reuseIdentifier="cell" id="Tcf-Jb-UxL" customClass="SoundZoneCollectionViewCell" customModule="Soundarama" customModuleProvider="target">
+                                        <rect key="frame" x="12" y="28" width="189" height="234"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                            <rect key="frame" x="0.0" y="0.0" width="189" height="234"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vHc-ff-VDq" customClass="SoundZoneView_TopAligned" customModule="Soundarama" customModuleProvider="target">
+                                                    <rect key="frame" x="0.0" y="0.0" width="189" height="234"/>
+                                                    <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                                </view>
+                                            </subviews>
+                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        </view>
+                                        <constraints>
+                                            <constraint firstItem="vHc-ff-VDq" firstAttribute="top" secondItem="Tcf-Jb-UxL" secondAttribute="top" id="B9C-el-iHK"/>
+                                            <constraint firstAttribute="bottom" secondItem="vHc-ff-VDq" secondAttribute="bottom" id="FlW-Zj-I4K"/>
+                                            <constraint firstAttribute="trailing" secondItem="vHc-ff-VDq" secondAttribute="trailing" id="aJb-XE-Og9"/>
+                                            <constraint firstItem="vHc-ff-VDq" firstAttribute="leading" secondItem="Tcf-Jb-UxL" secondAttribute="leading" id="hdK-e1-Ffo"/>
+                                        </constraints>
+                                        <connections>
+                                            <outlet property="soundZoneView" destination="vHc-ff-VDq" id="bpG-LS-cuy"/>
+                                        </connections>
+                                    </collectionViewCell>
+                                </cells>
+                                <connections>
+                                    <outlet property="dataSource" destination="oB8-AN-WvL" id="Tad-Sr-bI6"/>
+                                    <outlet property="delegate" destination="oB8-AN-WvL" id="fe2-ss-aWO"/>
+                                </connections>
+                            </collectionView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8Nn-t2-TE3">
+                                <rect key="frame" x="8" y="8" width="57" height="25"/>
+                                <fontDescription key="fontDescription" name="Avenir-Roman" family="Avenir" pointSize="18"/>
+                                <state key="normal" title=" Back" image="back-btn">
+                                    <color key="titleColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="didPressBackButton:" destination="oB8-AN-WvL" eventType="touchUpInside" id="Y9q-eq-twX"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="ZyW-pL-8UL" firstAttribute="top" secondItem="VBZ-HG-M8P" secondAttribute="top" id="HZa-Oe-VHs"/>
+                            <constraint firstItem="BMF-zI-ckm" firstAttribute="top" secondItem="lOu-zl-DQn" secondAttribute="bottom" id="K0m-ow-lEC"/>
+                            <constraint firstItem="lOu-zl-DQn" firstAttribute="top" secondItem="ZyW-pL-8UL" secondAttribute="bottom" id="U1e-aZ-q0x"/>
+                            <constraint firstItem="ZyW-pL-8UL" firstAttribute="leading" secondItem="VBZ-HG-M8P" secondAttribute="leading" id="Ygx-I6-7O1"/>
+                            <constraint firstItem="lOu-zl-DQn" firstAttribute="leading" secondItem="VBZ-HG-M8P" secondAttribute="leading" id="aaH-s7-fTk"/>
+                            <constraint firstItem="8Nn-t2-TE3" firstAttribute="top" secondItem="VBZ-HG-M8P" secondAttribute="top" constant="8" id="fFA-4f-JaM"/>
+                            <constraint firstAttribute="trailing" secondItem="ZyW-pL-8UL" secondAttribute="trailing" id="oIi-be-Mt7"/>
+                            <constraint firstItem="8Nn-t2-TE3" firstAttribute="leading" secondItem="VBZ-HG-M8P" secondAttribute="leading" constant="8" id="or7-Aj-C1f"/>
+                            <constraint firstAttribute="trailing" secondItem="lOu-zl-DQn" secondAttribute="trailing" id="twA-ZC-2hr"/>
+                        </constraints>
+                    </view>
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina55"/>
+                    <connections>
+                        <outlet property="collectionView" destination="ZyW-pL-8UL" id="Jhm-7g-yvh"/>
+                        <outlet property="devicesTrayView" destination="lOu-zl-DQn" id="zYo-oO-dKZ"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="6OY-Qq-UV6" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1029" y="374"/>
+        </scene>
+        <!--View Controller i Pad-->
         <scene sceneID="com-Kn-FoV">
             <objects>
-                <viewController storyboardIdentifier="DJViewController" id="uQ1-Om-b5x" customClass="DJViewController" customModule="Soundarama" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="DJViewController_iPad" id="uQ1-Om-b5x" customClass="DJViewController_iPad" customModule="Soundarama" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="0mJ-2h-CP2"/>
                         <viewControllerLayoutGuide type="bottom" id="3Hb-bt-rZ9"/>
@@ -55,7 +148,7 @@
                                             <constraint firstItem="UZg-MQ-bzS" firstAttribute="leading" secondItem="zq4-ah-lsx" secondAttribute="leading" id="pt0-Pp-jg9"/>
                                         </constraints>
                                         <connections>
-                                            <outlet property="soundZoneView" destination="UZg-MQ-bzS" id="XHg-dF-LoP"/>
+                                            <outlet property="soundZoneView" destination="UZg-MQ-bzS" id="to1-zX-ezz"/>
                                         </connections>
                                     </collectionViewCell>
                                 </cells>
@@ -69,6 +162,9 @@
                                 <state key="normal" title=" Back" image="back-btn">
                                     <color key="titleColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
                                 </state>
+                                <connections>
+                                    <action selector="didPressBackButton:" destination="uQ1-Om-b5x" eventType="touchUpInside" id="BZy-Nz-JmZ"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
@@ -93,11 +189,12 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bsG-to-w5a" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="546" y="384"/>
+            <point key="canvasLocation" x="115" y="358"/>
         </scene>
     </scenes>
     <resources>
         <image name="back-btn" width="13" height="22"/>
         <image name="bg-device-tray" width="240" height="756"/>
+        <image name="dj-device-tray-bg" width="375" height="203"/>
     </resources>
 </document>

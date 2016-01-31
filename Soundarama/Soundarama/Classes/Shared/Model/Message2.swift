@@ -8,11 +8,6 @@
 
 import Foundation
 
-protocol Message
-{
-    var timestamp: Double { get } //Always send a timestamp, so we can discard any messages received in the wrong order in the performer code
-    func data() -> NSData
-}
 
 /*
 struct AudioStemMessage {
@@ -87,6 +82,7 @@ struct AudioStemMessage {
 }
 */
 
+/*
 struct VolumeChangeMessage: Message
 {
     let volume: Float
@@ -123,3 +119,4 @@ struct VolumeChangeMessage: Message
         return dat as! NSData
     }
 }
+*/

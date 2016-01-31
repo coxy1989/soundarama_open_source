@@ -9,6 +9,13 @@
 import Foundation
 import UIKit
 
+protocol AudioStemsViewControllerDataSource: class {
+    
+    func numberOfAudioStems() -> Int
+    
+    func audioStemAtIndex(index: Int) -> AudioStem
+}
+
 protocol AudioStemsViewControllerDelegate: class {
     
     func audioStemsViewControllerDidSelectStem(audioStemsVC: AudioStemsViewController, audioStem: AudioStem)
@@ -18,7 +25,7 @@ class AudioStemsViewController: UIViewController {
     
     weak var delegate: AudioStemsViewControllerDelegate?
     
-    var audioStems: [AudioStem] = []
+    weak var dataSource: AudioStemsViewControllerDataSource?
     
     private var navBar: UINavigationBar
     
@@ -26,63 +33,63 @@ class AudioStemsViewController: UIViewController {
     
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: NSBundle?) {
         
-        self.navBar = UINavigationBar()
+        navBar = UINavigationBar()
         
-        self.tableView = UITableView()
+        tableView = UITableView()
         
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
         
-        self.navBar.pushNavigationItem(UINavigationItem(title: NSLocalizedString("DJ_STEMS_LIST_TITLE", comment: "")), animated: false)
-        self.navBar.titleTextAttributes = [ NSFontAttributeName : UIFont.soundaramaSansSerifRomanFont(size: 18) ]
+        navBar.pushNavigationItem(UINavigationItem(title: NSLocalizedString("DJ_STEMS_LIST_TITLE", comment: "")), animated: false)
+        navBar.titleTextAttributes = [ NSFontAttributeName : UIFont.soundaramaSansSerifRomanFont(size: 18) ]
         
-        self.view.addSubview(self.navBar)
+        view.addSubview(navBar)
         
-        self.tableView.dataSource = self
-        self.tableView.delegate = self
-        self.view.addSubview(self.tableView)
+        tableView.dataSource = self
+        tableView.delegate = self
+        view.addSubview(tableView)
         
-        self.preferredContentSize = CGSize(width: 280.0, height: 400.0)
+        preferredContentSize = CGSize(width: 280.0, height: 400.0)
     }
 
-    required init?(coder aDecoder: NSCoder)
-    {
+    required init?(coder aDecoder: NSCoder) {
+        
         fatalError("init(coder:) has not been implemented")
     }
     
-    override func viewWillLayoutSubviews()
-    {
+    override func viewWillLayoutSubviews() {
+        
         super.viewWillLayoutSubviews()
         
         let titleBarHeight: CGFloat = 44.0
-        self.navBar.frame = CGRect(x: 0.0, y: 0.0, width: self.view.bounds.width, height: titleBarHeight)
-        self.tableView.frame = CGRect(x: 0.0, y: titleBarHeight, width: self.view.bounds.width, height: self.view.bounds.height - titleBarHeight)
+        navBar.frame = CGRect(x: 0.0, y: 0.0, width: view.bounds.width, height: titleBarHeight)
+        tableView.frame = CGRect(x: 0.0, y: titleBarHeight, width: view.bounds.width, height: view.bounds.height - titleBarHeight)
     }
 }
 
-extension AudioStemsViewController: UITableViewDelegate, UITableViewDataSource
-{
-    func numberOfSectionsInTableView(tableView: UITableView) -> Int
-    {
+extension AudioStemsViewController: UITableViewDelegate, UITableViewDataSource {
+    
+    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+        
         return 1
     }
     
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int
-    {
-        return self.audioStems.count
+    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        
+        return dataSource?.numberOfAudioStems() ?? 0
     }
     
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell
-    {
-        let stem = self.audioStems[indexPath.row]
+    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        
+        let stem = dataSource!.audioStemAtIndex(indexPath.row)
         var cell = tableView.dequeueReusableCellWithIdentifier("audio-stem-cell")
-        if (cell == nil)
-        {
+        
+        if (cell == nil) {
+            
             cell = UITableViewCell(style: UITableViewCellStyle.Subtitle, reuseIdentifier: "audio-stem-cell")
         }
         
         cell!.textLabel?.text = stem.name
         cell!.textLabel?.font = UIFont.soundaramaSansSerifBookFont(size: 17)
-        
         cell!.detailTextLabel?.text = stem.category
         cell!.detailTextLabel?.font = UIFont.soundaramaSansSerifBookFont(size: 12)
         cell!.detailTextLabel?.textColor = UIColor.blackColor().colorWithAlphaComponent(0.5)
@@ -90,14 +97,14 @@ extension AudioStemsViewController: UITableViewDelegate, UITableViewDataSource
         return cell!
     }
     
-    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath)
-    {
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        
         tableView.deselectRowAtIndexPath(indexPath, animated: true)
-        self.delegate?.audioStemsViewControllerDidSelectStem(self, audioStem: self.audioStems[indexPath.row])
+        delegate?.audioStemsViewControllerDidSelectStem(self, audioStem: dataSource!.audioStemAtIndex(indexPath.row))
     }
     
-    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat
-    {
+    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+        
         return 44.0
     }
 }

@@ -6,19 +6,30 @@
 //  Copyright © 2016 Touchpress Ltd. All rights reserved.
 //
 
+import UIKit
+
 class DJInteractor {
     
     weak var djOutput: DJOutput!
     
-    var adapter: WritableMessageAdapter!
+    var endpoint: Endpoint!
     
-    private let endpoint = TP2P.broadcastingEndpoint()
+    private var adapter: WritableMessageAdapter!
     
     private var christiansTimeServer: ChristiansTimeServer!
     
     private var audioStemStore = AudioStemStore()
     
+    private var suiteStore: SuiteStore!
+}
+
+extension DJInteractor: DJInput {
+    
     func start() {
+        
+        suiteStore = SuiteStore(number: UIDevice.isPad() ? 9 : 4)
+        djOutput.setSuite(suiteStore.suite)
+        djOutput.setAudioStems(audioStemStore.audioStems)
         
         christiansTimeServer = ChristiansTimeServer(endpoint: endpoint)
         adapter = WritableMessageAdapter(writeable: endpoint)
@@ -26,22 +37,56 @@ class DJInteractor {
         endpoint.connectionDelegate = self
         endpoint.connect()
     }
-}
-
-extension DJInteractor: DJInput {
     
-    func didSelectAudioStemForPerformer(audioStem: AudioStem, performer: Performer) {
+    func stop() {
         
-        print("Sending AudoStem Message: \(audioStem.reference) performer: \(performer)")
-        return
+        endpoint.disconnect()
         
-        let message = AudioStemMessage(reference: audioStem.reference, timestamp: NSDate().timeIntervalSince1970, sessionTimestamp: ChristiansTimeServer.timestamp,loopLength: 1.875, type: .Start)
-        adapter.writeAudioStemMessage(message, address: performer)
     }
     
-    func fetchAudioStems() -> [AudioStem] {
+    func requestToggleMuteInWorkspace(workspace: Workspace) {
         
-        return audioStemStore.fetchAllStems()
+        let prestate = suiteStore.suite
+        suiteStore.toggleMute(workspace)
+        let poststate = suiteStore.suite
+        didChangeSuite(prestate, toSuite: poststate)
+        djOutput.setSuite(poststate)
+    }
+    
+    func requestToggleSoloInWorkspace(workspace: Workspace) {
+        
+      let prestate = suiteStore.suite
+        suiteStore.toggleSolo(workspace)
+        let poststate = suiteStore.suite
+        didChangeSuite(prestate, toSuite: poststate)
+        djOutput.setSuite(poststate)
+    }
+    
+    func requestAudioStemInWorkspace(audioStem: AudioStem, workspace: Workspace) {
+        
+        let prestate = suiteStore.suite
+        suiteStore.setAudioStem(audioStem, workspace: workspace)
+        let poststate = suiteStore.suite
+        didChangeSuite(prestate, toSuite: poststate)
+        djOutput.setSuite(poststate)
+    }
+    
+    func requestAddPerformerToWorkspace(performer: Performer, workspace: Workspace) {
+        
+        let prestate = suiteStore.suite
+        suiteStore.addPerformer(performer, workspace: workspace)
+        let poststate = suiteStore.suite
+        didChangeSuite(prestate, toSuite: poststate)
+        djOutput.setSuite(poststate)
+    }
+    
+    func requestRemovePerformerFromWorkspace(performer: Performer, workspace: Workspace) {
+        
+        let prestate = suiteStore.suite
+        suiteStore.removePerformer(performer, workspace: workspace)
+        let poststate = suiteStore.suite
+        didChangeSuite(prestate, toSuite: poststate)
+        djOutput.setSuite(poststate)
     }
 }
 
@@ -55,5 +100,20 @@ extension DJInteractor: ConnectableDelegate {
     func didDisconnectFromAddress(address: Address) {
         
         djOutput.removePerformer(address)
+    }
+}
+
+extension DJInteractor {
+    
+    func didChangeSuite(fromSuite: Suite, toSuite: Suite) {
+        
+        let messages = MessageTransformer.transform(fromSuite, toSuite: toSuite)
+        
+        MessageLogger.log(messages)
+        
+        for m in messages {
+            adapter.writeMessage(m)
+        }
+
     }
 }

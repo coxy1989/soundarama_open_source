@@ -23,7 +23,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         audioSetup()
         appSetup()
         window = UIWindow(frame: UIScreen.mainScreen().bounds)
-        soundarama = Soundarama(window: window!)
+        soundarama = Soundarama(window: window!, dependencies: SoundaramaDependencies())
         soundarama.start()
         return true
     }

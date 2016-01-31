@@ -11,4 +11,5 @@ import UIKit
 class SoundZoneCollectionViewCell: UICollectionViewCell {
     
     @IBOutlet weak var soundZoneView: SoundZoneView!
+    
 }

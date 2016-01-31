@@ -37,31 +37,33 @@ class DecideWireframe {
         
         window.rootViewController = nvc
         window.makeKeyAndVisible()
-        isPad() ? nvc.setViewControllers([decideViewController()], animated: false) : performerModule.start(nvc)
+        nvc.setViewControllers([decideViewController()], animated: false)
     }
     
     func decide(decision: Decision) {
         
-        if decision == .DJ {
-            djModule.start(nvc)
-        } else if decision == .Performer {
-            performerModule.start(nvc)
-        }
+        decision == .DJ ? djModule.start(nvc) : performerModule.start(nvc)
     }
 }
 
 extension DecideWireframe {
     
-    private func isPad() -> Bool {
-        
-        return UIDevice.currentDevice().userInterfaceIdiom == .Pad
-    }
-    
     private func decideViewController() -> UIViewController {
         
-        let sb = UIStoryboard(name: "DecideStoryboard", bundle: NSBundle.mainBundle())
-        let vc = sb.instantiateViewControllerWithIdentifier("DecideViewController") as! DecideViewController
+        let vc = UIDevice.isPad() ? decideViewController_iPad() : decideViewController_iPhone()
         vc.delegate = decidePresenter
         return vc
+    }
+    
+    private func decideViewController_iPad() -> DecideViewController {
+        
+        let sb = UIStoryboard(name: "DecideStoryboard", bundle: NSBundle.mainBundle())
+        return sb.instantiateViewControllerWithIdentifier("DecideViewController_iPad") as! DecideViewController
+    }
+    
+    private func decideViewController_iPhone() -> DecideViewController {
+        
+        let sb = UIStoryboard(name: "DecideStoryboard", bundle: NSBundle.mainBundle())
+        return sb.instantiateViewControllerWithIdentifier("DecideViewController_iPhone") as! DecideViewController
     }
 }

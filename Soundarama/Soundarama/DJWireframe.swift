@@ -12,19 +12,39 @@ class DJWireframe {
     
     weak var djPresenter: DJPresenter!
     
-    func presentDjUI(navigationController: UINavigationController) {
+    func djUserInterface() -> DJUserInterface {
         
+        let vc = UIDevice.isPad() ? djViewController_iPad() : djViewController_iPhone()
+        djPresenter.ui = vc
+        vc.delegate = djPresenter
+        return vc
+    }
+}
+
+extension DJWireframe {
+    
+    private func djViewController_iPhone() -> DJViewController {
+        
+        let sb = UIStoryboard(name: "DJStoryboard", bundle: nil)
+        return sb.instantiateViewControllerWithIdentifier("DJViewController_iPhone") as! DJViewController
+    }
+    
+    private func djViewController_iPad() -> DJViewController {
+        
+        let sb = UIStoryboard(name: "DJStoryboard", bundle: nil)
+        return sb.instantiateViewControllerWithIdentifier("DJViewController_iPad") as! DJViewController
+    }
+}
+
+    /*
+    func presentDjUI(navigationController: UINavigationController) {
+        self.navigationController = navigationController
         let vc = djViewController()
         navigationController.pushViewController(vc, animated: true)
     }
     
-    private func djViewController() -> UIViewController {
+    func unpresentDJUI() {
         
-        let sb = UIStoryboard(name: "DJStoryboard", bundle: nil)
-        let vc = sb.instantiateViewControllerWithIdentifier("DJViewController") as! DJViewController
-        djPresenter.ui = vc
-        vc.delegate = djPresenter
-        vc.dataSource = djPresenter
-        return vc
+        navigationController.popViewControllerAnimated(true)
     }
-}
+*/

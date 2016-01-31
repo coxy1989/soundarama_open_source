@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9531" systemVersion="15C50" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9531" systemVersion="15B42" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
@@ -8,20 +8,20 @@
         <!--Decide View Controller-->
         <scene sceneID="dUP-it-yf7">
             <objects>
-                <viewController storyboardIdentifier="DecideViewController" id="45Z-22-kVN" customClass="DecideViewController" customModule="Soundarama" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="DecideViewController_iPad" id="45Z-22-kVN" customClass="DecideViewController" customModule="Soundarama" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="NtW-2Y-vyy"/>
                         <viewControllerLayoutGuide type="bottom" id="Puy-Y7-1yp"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="oNg-Wj-KUR">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="1024" height="768"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bg-home-performer" translatesAutoresizingMaskIntoConstraints="NO" id="7Ob-xf-BIp">
-                                <rect key="frame" x="0.0" y="0.0" width="300" height="600"/>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="performer-bg-ipad" translatesAutoresizingMaskIntoConstraints="NO" id="7Ob-xf-BIp">
+                                <rect key="frame" x="0.0" y="0.0" width="512" height="768"/>
                             </imageView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="XCe-vS-ESq">
-                                <rect key="frame" x="300" y="300" width="0.0" height="0.0"/>
+                                <rect key="frame" x="512" y="384" width="0.0" height="0.0"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="width" id="2og-D6-gNf"/>
@@ -29,26 +29,26 @@
                                 </constraints>
                             </view>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bg-home-dj" translatesAutoresizingMaskIntoConstraints="NO" id="hFS-gU-zl9">
-                                <rect key="frame" x="300" y="0.0" width="300" height="600"/>
+                                <rect key="frame" x="512" y="0.0" width="512" height="768"/>
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8Ja-HX-Dt7">
-                                <rect key="frame" x="300" y="0.0" width="300" height="600"/>
+                                <rect key="frame" x="512" y="0.0" width="512" height="768"/>
                                 <fontDescription key="fontDescription" name="Avenir-Heavy" family="Avenir" pointSize="24"/>
                                 <state key="normal" title="DJ">
                                     <color key="titleColor" red="0.67843137254901964" green="1" blue="0.87450980392156863" alpha="1" colorSpace="calibratedRGB"/>
                                 </state>
                                 <connections>
-                                    <action selector="didPressRightButton:" destination="45Z-22-kVN" eventType="touchUpInside" id="Hhe-0O-fa4"/>
+                                    <action selector="didPressDJButton:" destination="45Z-22-kVN" eventType="touchUpInside" id="FJr-5l-bvj"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IY3-Io-Fm1">
-                                <rect key="frame" x="0.0" y="0.0" width="300" height="600"/>
+                                <rect key="frame" x="0.0" y="0.0" width="512" height="768"/>
                                 <fontDescription key="fontDescription" name="Avenir-Heavy" family="Avenir" pointSize="24"/>
                                 <state key="normal" title="PERFORMER">
-                                    <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <action selector="didPressLeftButton:" destination="45Z-22-kVN" eventType="touchUpInside" id="jqy-yQ-jm3"/>
+                                    <action selector="didPressPerformerButton:" destination="45Z-22-kVN" eventType="touchUpInside" id="B5C-JT-obs"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -75,14 +75,93 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="vuC-T9-gtt"/>
+                    <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="iPad"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ivm-kn-hbW" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1359" y="348"/>
+            <point key="canvasLocation" x="1247" y="344"/>
+        </scene>
+        <!--Decide View Controller-->
+        <scene sceneID="5yL-tS-lHY">
+            <objects>
+                <viewController storyboardIdentifier="DecideViewController_iPhone" id="ZzL-9u-QRF" customClass="DecideViewController" customModule="Soundarama" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="Nbu-OE-FH6"/>
+                        <viewControllerLayoutGuide type="bottom" id="LuJ-nR-1k1"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="Hwz-SC-NkN">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="performer-bg-iphone" translatesAutoresizingMaskIntoConstraints="NO" id="M15-ix-fnv">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="368"/>
+                            </imageView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="M2r-DG-uQj">
+                                <rect key="frame" x="0.0" y="368" width="414" height="368"/>
+                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                            </imageView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tvu-EN-sjz">
+                                <rect key="frame" x="207" y="368" width="0.0" height="0.0"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" id="NV5-Ac-9rL"/>
+                                    <constraint firstAttribute="width" id="USe-1j-DBC"/>
+                                </constraints>
+                            </view>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zDW-KC-B9B">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="368"/>
+                                <fontDescription key="fontDescription" name="Avenir-Heavy" family="Avenir" pointSize="24"/>
+                                <state key="normal" title="Performer">
+                                    <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="didPressPerformerButton:" destination="ZzL-9u-QRF" eventType="touchUpInside" id="OVl-lI-93n"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yZ4-JV-fQx">
+                                <rect key="frame" x="0.0" y="368" width="414" height="368"/>
+                                <fontDescription key="fontDescription" name="Avenir-Heavy" family="Avenir" pointSize="24"/>
+                                <state key="normal" title="DJ">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="didPressDJButton:" destination="ZzL-9u-QRF" eventType="touchUpInside" id="ZC6-OR-wNk"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="M15-ix-fnv" secondAttribute="trailing" id="1Hp-xr-wDO"/>
+                            <constraint firstItem="M2r-DG-uQj" firstAttribute="top" secondItem="tvu-EN-sjz" secondAttribute="bottom" id="3sb-If-vfy"/>
+                            <constraint firstItem="M15-ix-fnv" firstAttribute="leading" secondItem="Hwz-SC-NkN" secondAttribute="leading" id="9CQ-Me-jFN"/>
+                            <constraint firstItem="tvu-EN-sjz" firstAttribute="top" secondItem="M15-ix-fnv" secondAttribute="bottom" id="FON-ch-JLY"/>
+                            <constraint firstItem="LuJ-nR-1k1" firstAttribute="top" secondItem="M2r-DG-uQj" secondAttribute="bottom" id="Fj1-tm-gD1"/>
+                            <constraint firstItem="tvu-EN-sjz" firstAttribute="centerY" secondItem="Hwz-SC-NkN" secondAttribute="centerY" id="Il7-sr-k1Y"/>
+                            <constraint firstItem="M2r-DG-uQj" firstAttribute="leading" secondItem="Hwz-SC-NkN" secondAttribute="leading" id="SpH-bz-FP7"/>
+                            <constraint firstItem="yZ4-JV-fQx" firstAttribute="leading" secondItem="Hwz-SC-NkN" secondAttribute="leading" id="Wh7-0n-4r9"/>
+                            <constraint firstItem="yZ4-JV-fQx" firstAttribute="top" secondItem="zDW-KC-B9B" secondAttribute="bottom" id="aBI-oO-dA9"/>
+                            <constraint firstItem="M15-ix-fnv" firstAttribute="top" secondItem="Hwz-SC-NkN" secondAttribute="top" id="bpy-tC-9Mg"/>
+                            <constraint firstItem="zDW-KC-B9B" firstAttribute="top" secondItem="Hwz-SC-NkN" secondAttribute="top" id="eP1-yj-JpL"/>
+                            <constraint firstItem="LuJ-nR-1k1" firstAttribute="top" secondItem="yZ4-JV-fQx" secondAttribute="bottom" id="fgP-ve-taq"/>
+                            <constraint firstAttribute="trailing" secondItem="M2r-DG-uQj" secondAttribute="trailing" id="fgt-7A-CHq"/>
+                            <constraint firstAttribute="trailing" secondItem="yZ4-JV-fQx" secondAttribute="trailing" id="iy0-Ul-Bww"/>
+                            <constraint firstItem="M2r-DG-uQj" firstAttribute="top" secondItem="zDW-KC-B9B" secondAttribute="bottom" id="mtt-Qc-WCA"/>
+                            <constraint firstAttribute="trailing" secondItem="zDW-KC-B9B" secondAttribute="trailing" id="n1a-CJ-xI8"/>
+                            <constraint firstItem="zDW-KC-B9B" firstAttribute="leading" secondItem="Hwz-SC-NkN" secondAttribute="leading" id="pWG-Hc-B7n"/>
+                            <constraint firstItem="tvu-EN-sjz" firstAttribute="centerX" secondItem="Hwz-SC-NkN" secondAttribute="centerX" id="tD8-dx-c1G"/>
+                        </constraints>
+                    </view>
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina55"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="F7P-Eb-oi2" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2087" y="344"/>
         </scene>
     </scenes>
     <resources>
         <image name="bg-home-dj" width="512" height="768"/>
-        <image name="bg-home-performer" width="512" height="768"/>
+        <image name="performer-bg-ipad" width="768" height="1024"/>
+        <image name="performer-bg-iphone" width="375" height="334"/>
     </resources>
 </document>

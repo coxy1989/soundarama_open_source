@@ -152,6 +152,7 @@ extension SoundaramaServer: NSNetServiceDelegate
 
 extension SoundaramaServer
 {
+    /*
     func sendMessage(message: Message)
     {
         for (_, s) in activeSockets
@@ -168,4 +169,5 @@ extension SoundaramaServer
             s.writeData(message.data(), withTimeout: -1, tag: 0)
         }
     }
+*/
 }

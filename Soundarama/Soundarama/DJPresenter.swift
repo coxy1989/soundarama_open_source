@@ -14,13 +14,27 @@ class DJPresenter: DJModule {
     weak var ui: DJUserInterface!
     weak var input: DJInput!
     
+    weak var navigationController: UINavigationController!
+    
     func start(navigationController: UINavigationController) {
         
-        djWireframe.presentDjUI(navigationController)
+        self.navigationController = navigationController
+        let ui = djWireframe.djUserInterface()
+        navigationController.pushViewController((ui as! UIViewController), animated: true)
     }
 }
 
 extension DJPresenter: DJOutput {
+    
+    func setAudioStems(audioStems: [AudioStem]) {
+        
+        ui.audioStems = audioStems
+    }
+    
+    func setSuite(suite: Suite) {
+        
+         ui.setSuite(suite)
+    }
     
     func addPerformer(performer: Performer) {
         
@@ -37,30 +51,42 @@ extension DJPresenter: DJUserInterfaceDelegate {
     
     func ready() {
         
-        //input.start()
+        input.start()
         ui.addPerformer("x")
+        ui.addPerformer("y")
+        ui.addPerformer("z")
     }
     
-    func didSelectAudioStemForPerformer(audioStem: AudioStem, performer: Performer, muted: Bool) {
+    
+    func didRequestTravelBack() {
         
-        print("Selected audio stem muted: \(muted)")
-        // TODO: mute
-        //input.didSelectAudioStemForPerformer(audioStem, performer: performer)
+        navigationController.popViewControllerAnimated(true)
+        input.stop()
     }
     
-    func didMutePerformer(performer: Performer) {
-        print("Muted performer")
+    func didRequestToggleMuteInWorkspace(workspace: Workspace) {
+        
+        input.requestToggleMuteInWorkspace(workspace)
     }
     
-    func didDeselectAudioStemForPerformer(performer: Performer) {
-        print("Deselected audio stem")
+    func didRequestToggleSoloInWorkspace(workspace: Workspace) {
+        
+        input.requestToggleSoloInWorkspace(workspace)
+    }
+    
+    func didRequestAudioStemInWorkspace(audioStem: AudioStem, workspace: Workspace) {
+        
+        input.requestAudioStemInWorkspace(audioStem, workspace: workspace)
+    }
+    
+    func didRequestAddPerformer(performer: Performer, workspace: Workspace) {
+        
+        input.requestAddPerformerToWorkspace(performer, workspace: workspace)
+    }
+    
+    func didRequestRemovePerformer(performer: Performer, workspace: Workspace) {
+        
+        input.requestRemovePerformerFromWorkspace(performer,workspace: workspace)
     }
 }
 
-extension DJPresenter: DJUserInterfaceDataSource {
-    
-    func audioStems() -> [AudioStem] {
-        
-        return input.fetchAudioStems()
-    }
-}

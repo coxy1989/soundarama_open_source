@@ -10,12 +10,24 @@ protocol DJInput: class {
     
     func start()
     
-    func didSelectAudioStemForPerformer(audioStem: AudioStem, performer: Performer)
+    func stop()
     
-    func fetchAudioStems() -> [AudioStem]
+    func requestToggleMuteInWorkspace(workspace: Workspace)
+    
+    func requestToggleSoloInWorkspace(workspace: Workspace)
+    
+    func requestAudioStemInWorkspace(audioStem: AudioStem, workspace: Workspace)
+    
+    func requestAddPerformerToWorkspace(performer: Performer, workspace: Workspace)
+    
+    func requestRemovePerformerFromWorkspace(performer: Performer, workspace: Workspace)
 }
 
 protocol DJOutput: class {
+
+    func setSuite(suite: Suite)
+    
+    func setAudioStems(audioStems: [AudioStem])
     
     func addPerformer(performer: Performer)
     

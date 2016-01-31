@@ -21,6 +21,11 @@ class SearchSocketEndpoint: SocketEndpoint {
         strategy.search()
     }
     
+    override func disconnect() {
+        
+        socket.disconnect()
+    }
+    
     override func readData(terminator: NSData) {
         
         socket.readDataToData(terminator, withTimeout: -1, tag: 1)

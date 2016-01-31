@@ -12,11 +12,11 @@ class DecideViewController: UIViewController, DecideUserInterface {
     
     weak var delegate: DecideUserInterfaceDelegate!
     
-    @IBAction func didPressLeftButton(sender: AnyObject) {
+    @IBAction func didPressPerformerButton(sender: AnyObject) {
         delegate.decideUserInterfaceDidSelectPerformer(self)
     }
     
-    @IBAction func didPressRightButton(sender: AnyObject) {
+    @IBAction func didPressDJButton(sender: AnyObject) {
         delegate.decideUserInterfaceDidSelectDJ(self)
     }
 }

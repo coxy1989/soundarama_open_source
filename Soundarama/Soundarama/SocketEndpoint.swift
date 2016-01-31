@@ -33,6 +33,11 @@ extension SocketEndpoint: Connectable {
         assert(false, "This is an abstract method")
     }
     
+    func disconnect() {
+        
+        /* Abstract */
+        assert(false, "This is an abstract method")
+    }
 }
 
 extension SocketEndpoint: Readable {
