@@ -9,42 +9,34 @@
 import Foundation
 import AVFoundation
 
-class PerformerStemAudioPlayer: AVAudioPlayer
-{
-    deinit
-    {
+class PerformerStemAudioPlayer: AVAudioPlayer {
+    
+    deinit {
         print("PerformerStemAudioPlayer dealloc")
     }
 }
 
-class PerformerAudioController: NSObject
-{
-    var volume: Float = 1.0
-    {
-        didSet
-        {
+class PerformerAudioController: NSObject {
+    
+    var volume: Float = 1.0 {
+        
+        didSet {
             updateForVolume()
         }
     }
     
     private var audioPlayers = [String: AVAudioPlayer]()
     
-    var isPlaying: Bool
-    {
+    var isPlaying: Bool {
+        
         return self.audioPlayers.values.count > 0
     }
     
-    override init()
-    {
-        super.init()
-    }
     
-    func playAudioStem(audioStem: AudioStem, afterDelay: NSTimeInterval = 0.0)
-    {
-        if let audioPath = audioStem.audioFilePath
-        {
-            do
-            {
+    func playAudio(audioPath: String, afterDelay: NSTimeInterval = 0.0) {
+        
+        
+            do {
                 //Stop any other players (may not be perfect timing because we're using dispatch blocks...could be improved)
                 let currentAudioPlayers = Array(self.audioPlayers.values)
                 self.audioPlayers.removeAll()
@@ -59,7 +51,7 @@ class PerformerAudioController: NSObject
                 newPlayer.playAtTime(playTime)
                 newPlayer.numberOfLoops = -1
                 newPlayer.delegate = self
-                self.audioPlayers[audioStem.reference] = newPlayer
+               // self.audioPlayers[audioStem.reference] = newPlayer
                 
                 updateForVolume()
                 
@@ -69,16 +61,14 @@ class PerformerAudioController: NSObject
             {
                 
             }
-        }
     }
     
-    func stopAudioStem(audioStem: AudioStem, afterDelay: NSTimeInterval = 0.0)
-    {
+    func stopAudioStem(audioStem: AudioStem, afterDelay: NSTimeInterval = 0.0) {
+        
         print("stopAudioStem")
-        if let player = self.audioPlayers[audioStem.reference]
-        {
-            self.audioPlayers[audioStem.reference] = nil
+        if let player = self.audioPlayers[audioStem.reference] {
             
+            self.audioPlayers[audioStem.reference] = nil
             let delayTime = dispatch_time(DISPATCH_TIME_NOW, Int64(afterDelay * Double(NSEC_PER_SEC)))
             dispatch_after(delayTime, dispatch_get_main_queue(), { () -> Void in
                 
@@ -87,16 +77,14 @@ class PerformerAudioController: NSObject
         }
     }
     
-    private func updateForVolume()
-    {
-        for (_, audioPlayer) in self.audioPlayers
-        {
+    private func updateForVolume() {
+        
+        for (_, audioPlayer) in self.audioPlayers {
             audioPlayer.volume = self.volume
         }
     }
     
-    func stopAll()
-    {
+    func stopAll() {
         //Stop any other players (may not be perfect timing because we're using dispatch blocks...could be improved)
         let currentAudioPlayers = Array(self.audioPlayers.values)
         self.audioPlayers.removeAll()
@@ -104,20 +92,16 @@ class PerformerAudioController: NSObject
     }
 }
 
-extension PerformerAudioController: AVAudioPlayerDelegate
-{
-    func audioPlayerDidFinishPlaying(player: AVAudioPlayer, successfully flag: Bool)
-    {
-        dispatch_async(dispatch_get_main_queue(), { () -> Void in
-            
-            for (ref, currentPlayer) in self.audioPlayers
-            {
-                if (player == currentPlayer)
-                {
+extension PerformerAudioController: AVAudioPlayerDelegate {
+    
+    func audioPlayerDidFinishPlaying(player: AVAudioPlayer, successfully flag: Bool) {
+        
+        dispatch_async(dispatch_get_main_queue()) {
+            for (ref, currentPlayer) in self.audioPlayers {
+                if (player == currentPlayer) {
                     self.audioPlayers[ref] = nil
                 }
             }
-            
-        })
+        }
     }
 }

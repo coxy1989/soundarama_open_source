@@ -49,8 +49,8 @@ struct AudioStem {
     let reference: String
     let loopLength: NSTimeInterval
     
-    var audioFilePath: String? {
+    var audioFilePath: String {
         
-        return NSBundle.mainBundle().pathForResource(self.reference, ofType: "wav", inDirectory: "Sounds") ?? nil
+        return NSBundle.mainBundle().pathForResource(self.reference, ofType: "wav", inDirectory: "Sounds")!
     }
 }

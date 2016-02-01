@@ -274,7 +274,6 @@
 				42A727BC1C553B8900BFCA47 /* PerformerUserInterface.swift */,
 				420AA6A61C551C8600F7BB25 /* PerformerViewController.swift */,
 				420AA6A41C551AB300F7BB25 /* PerformerStoryboard.storyboard */,
-				42C45A811C57DBE000888EA8 /* Audio */,
 			);
 			name = Performer;
 			sourceTree = "<group>";
@@ -374,6 +373,7 @@
 		42A727B91C553A7C00BFCA47 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				42B37E931C5FAE1E003DF5A6 /* Audio Player */,
 				4200803C1C5BD595009009E8 /* TPKitAdditions */,
 				4249B5991C5792190096872D /* Representation */,
 				4280C0D61C5D166400B2C9B3 /* Transformation */,
@@ -407,12 +407,12 @@
 			name = Serialisation;
 			sourceTree = "<group>";
 		};
-		42C45A811C57DBE000888EA8 /* Audio */ = {
+		42B37E931C5FAE1E003DF5A6 /* Audio Player */ = {
 			isa = PBXGroup;
 			children = (
 				E26EBAB31C199DC000747726 /* PerformerAudioController.swift */,
 			);
-			name = Audio;
+			name = "Audio Player";
 			sourceTree = "<group>";
 		};
 		42C45A821C57DE5700888EA8 /* Data Store */ = {

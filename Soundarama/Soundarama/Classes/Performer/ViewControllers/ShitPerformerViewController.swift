@@ -225,11 +225,11 @@ extension ShitPerformerViewController
         
         if (stop)
         {
-            self.audioController.stopAudioStem(audioStem, afterDelay: waitSecs)
+           // self.audioController.stopAudioStem(audioStem, afterDelay: waitSecs)
         }
         else
         {
-            self.audioController.playAudioStem(audioStem, afterDelay: waitSecs)
+           // self.audioController.playAudioStem(audioStem, afterDelay: waitSecs)
         }
     }
 }

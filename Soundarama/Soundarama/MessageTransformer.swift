@@ -32,6 +32,7 @@ class MessageTransformer {
             messages.appendContentsOf(toAudioStem(from, to: ws, toSolos: solosTo))
             messages.appendContentsOf(fromAudioStem(from, to: ws, toSolos: solosTo))
             messages.appendContentsOf(mute(from, to: ws, toSolos: solosTo))
+            messages.appendContentsOf(betweenAudioStems(from, to: ws, toSolos: solosTo))
         }
 
         return filter(messages)
@@ -153,6 +154,19 @@ extension MessageTransformer {
         }
         
         return to.performers.map({ PerformerMessage(address: $0, timestamp: timestamp, sessionTimestamp: sessionTimestamp, reference: audioStem.reference,loopLength: audioStem.loopLength, command: .Stop, muted: effectiveMute(workspace: to, solos: toSolos))})
+    }
+    
+    private func betweenAudioStems(from: Workspace, to: Workspace, toSolos: Set<Workspace>) -> [PerformerMessage] {
+        
+        guard let toStem = to.audioStem, fromStem = from.audioStem else {
+            return []
+        }
+        
+        guard toStem.reference != fromStem.reference else {
+            return []
+        }
+        
+        return to.performers.map({ PerformerMessage(address: $0, timestamp: timestamp, sessionTimestamp: sessionTimestamp, reference: toStem.reference,loopLength: toStem.loopLength, command: .Stop, muted: effectiveMute(workspace: to, solos: toSolos))})
     }
     
     private func mute(from: Workspace, to: Workspace, toSolos: Set<Workspace>) -> [PerformerMessage] {
