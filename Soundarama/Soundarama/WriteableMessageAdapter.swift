@@ -17,7 +17,24 @@ class WritableMessageAdapter {
     
     func writeMessage(message: PerformerMessage) {
         
-        writeable.writeData(message.data(), address: message.address)
+        writeable.writeData(serialize(message), address: message.address)
+    }
+}
+
+extension WritableMessageAdapter {
+    
+    func serialize(message: PerformerMessage) -> NSData {
+        
+        let json = [
+            "timestamp" : message.timestamp,
+            "sessionTimestamp" : message.sessionTimestamp,
+            "reference" : message.reference,
+            "loopLength" : message.loopLength,
+            "command" : message.command.rawValue,
+            "muted" : message.muted
+        ]
+        
+        return Serialisation.setPayload(json)
     }
 }
 

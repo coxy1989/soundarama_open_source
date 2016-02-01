@@ -27,7 +27,8 @@ extension DJInteractor: DJInput {
     
     func start() {
         
-        suiteStore = SuiteStore(number: UIDevice.isPad() ? 9 : 4)
+        //TODO: handle pro (16), pad(9) phone(4)
+        suiteStore = SuiteStore(number: UIDevice.isPad() ? 16 : 4)
         djOutput.setSuite(suiteStore.suite)
         djOutput.setAudioStems(audioStemStore.audioStems)
         
@@ -107,13 +108,13 @@ extension DJInteractor {
     
     func didChangeSuite(fromSuite: Suite, toSuite: Suite) {
         
-        let messages = MessageTransformer.transform(fromSuite, toSuite: toSuite)
+        let transformer = MessageTransformer(timestamp: NSDate().timeIntervalSince1970, sessionTimestamp: ChristiansTimeServer.timestamp)
+        let messages = transformer.transform(fromSuite, toSuite: toSuite)
         
         MessageLogger.log(messages)
         
         for m in messages {
             adapter.writeMessage(m)
         }
-
     }
 }

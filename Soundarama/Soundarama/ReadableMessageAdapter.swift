@@ -8,7 +8,7 @@
 
 protocol ReadableMessageAdapterDelegate: class {
     
-   // func didReceiveAudioStemMessage(message: AudioStemMessage)
+    func didReceivePerformerMessage(performerMessage: PerformerMessage)
 
 }
 
@@ -34,37 +34,40 @@ extension ReadableMessageAdapter: ReadableDelegate {
     
     func didReadData(data: NSData, address: Address) {
     
-        /*
-        if let audioStemMessage = audioStemMessage(data) {
-            delegate.didReceiveAudioStemMessage(audioStemMessage)
+        if let message = deserialize(data) {
+            
+            print("Success: Deserialised a message: \(message)")
+            delegate.didReceivePerformerMessage(message)
         }
-        */
         readable.readData(Serialisation.terminator)
     }
 }
 
 extension ReadableMessageAdapter {
     
-    /*
-    func audioStemMessage(data: NSData) -> AudioStemMessage? {
+    func deserialize(data: NSData) -> PerformerMessage? {
         
-        let pl = Serialisation.getPayload(data)
-        if let msg = NSKeyedUnarchiver.unarchiveObjectWithData(pl) {
-            if let ref = msg["ref"] as? String,
-                timestamp = msg["time"] as? Double,
-                sessionStamp = msg["sessionTimestamp"] as? Double,
-                loopLength = msg["loopLength"] as? NSTimeInterval,
-                typeValue = msg["type"] as? UInt,
-                t = AudioStemMessage.MessageType(rawValue: typeValue) {
-                    return AudioStemMessage(reference: ref, timestamp: timestamp, sessionTimestamp: sessionStamp, loopLength: loopLength, type: t)
-                    
-            } else {
-                return nil
-            }
-        }
-        else {
+        let payload = Serialisation.getPayload(data)
+        
+        guard let json = NSKeyedUnarchiver.unarchiveObjectWithData(payload) else {
+            
+            print("Failed to unarchive JSON")
             return nil
         }
+        
+        guard let timestamp = json["timestamp"] as? Double,
+            sessionTimestamp = json["sessionTimestamp"] as? Double,
+            reference = json["reference"] as? String,
+            loopLength = json["loopLength"] as? Double,
+            commandRaw = json["command"] as? UInt,
+            command = PerformerMessageCommand(rawValue:commandRaw),
+            muted = json["muted"] as? Bool
+            
+        else {
+            print("Failed to deserialise JSON")
+            return nil
+        }
+        
+        return PerformerMessage(address: "X", timestamp: timestamp, sessionTimestamp: sessionTimestamp, reference: reference, loopLength: loopLength, command: command, muted: muted)
     }
-*/
 }

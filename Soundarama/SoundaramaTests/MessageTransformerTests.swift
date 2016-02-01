@@ -20,11 +20,13 @@ import XCTest
 
 class MessageTransformerTests: XCTestCase {
     
+    var transformer: MessageTransformer!
     var audioStem: AudioStem!
     var audioStem2: AudioStem!
     
     override func setUp() {
         
+        transformer = MessageTransformer(timestamp: 1, sessionTimestamp: 1.1)
         audioStem = AudioStem(name: "x", colour: UIColor.redColor(), category: "y", reference: "z", loopLength: 1.0)
         audioStem2 = AudioStem(name: "a", colour: UIColor.blueColor(), category: "b", reference: "c", loopLength: 2.0)
         super.setUp()
@@ -33,7 +35,9 @@ class MessageTransformerTests: XCTestCase {
     override func tearDown() {
         
         super.tearDown()
+        transformer = nil
         audioStem = nil
+        audioStem2 = nil
     }
 }
 
@@ -59,7 +63,7 @@ extension MessageTransformerTests {
         
         let from = Workspace(identifier: NSUUID().UUIDString, audioStem: nil, performers: Set(), isMuted: false, isSolo: false, isAntiSolo: false)
         let to = from
-        let res = MessageTransformer.transform(Set([to]), toSuite: Set([from]))
+        let res = transformer.transform(Set([to]), toSuite: Set([from]))
         XCTAssertEqual(res.count, 0)
     }
     
@@ -82,7 +86,7 @@ extension MessageTransformerTests {
         let p = "x"
         let from_ws1 = Workspace(identifier: "A", audioStem: audioStem, performers: Set([p]), isMuted: false, isSolo: false, isAntiSolo: false)
         let to_ws1 = Workspace(identifier: "A", audioStem: audioStem, performers: Set([p]), isMuted: false, isSolo: false, isAntiSolo: false)
-        let res = MessageTransformer.transform([from_ws1], toSuite: [to_ws1])
+        let res = transformer.transform([from_ws1], toSuite: [to_ws1])
         XCTAssertEqual(res.count, 0)
     }
 }
@@ -112,7 +116,7 @@ extension MessageTransformerTests {
         let newPerformer = "x"
         let from_ws1 = Workspace(identifier: id, audioStem: nil, performers: Set([]), isMuted: false, isSolo: false, isAntiSolo: false)
         let to_ws1 = Workspace(identifier: id, audioStem: nil, performers: Set([newPerformer]), isMuted: false, isSolo: false, isAntiSolo: false)
-        let res = MessageTransformer.transform([from_ws1], toSuite: [to_ws1])
+        let res = transformer.transform([from_ws1], toSuite: [to_ws1])
         XCTAssertEqual(res.count, 0)
     }
     
@@ -143,7 +147,7 @@ extension MessageTransformerTests {
         let newPerformer = "x"
         let from_ws1 = Workspace(identifier: id, audioStem: nil, performers: Set([]), isMuted: false, isSolo: false, isAntiSolo: false)
         let to_ws1 = Workspace(identifier: id, audioStem: audioStem, performers: Set([newPerformer]), isMuted: false, isSolo: false, isAntiSolo: false)
-        let res = MessageTransformer.transform([from_ws1], toSuite: [to_ws1])
+        let res = transformer.transform([from_ws1], toSuite: [to_ws1])
         XCTAssert(res.count == 1)
         if let msg = res.first {
             XCTAssertEqual(msg.address, newPerformer)
@@ -181,7 +185,7 @@ extension MessageTransformerTests {
         let newPerformer = "x"
         let from_ws1 = Workspace(identifier: id, audioStem: audioStem, performers: Set([]), isMuted: false, isSolo: false, isAntiSolo: false)
         let to_ws1 = Workspace(identifier: id, audioStem: audioStem, performers: Set([newPerformer]), isMuted: true, isSolo: false, isAntiSolo: false)
-        let res = MessageTransformer.transform([from_ws1], toSuite: [to_ws1])
+        let res = transformer.transform([from_ws1], toSuite: [to_ws1])
         XCTAssertEqual(res.count, 1)
         if let msg = res.first {
             XCTAssertTrue(msg.muted)
@@ -219,7 +223,7 @@ extension MessageTransformerTests {
         let to_ws1 = Workspace(identifier: "A", audioStem: audioStem, performers: Set(["x"]), isMuted: false, isSolo: false, isAntiSolo: true)
         let to_ws2 = Workspace(identifier: "B", audioStem: audioStem2, performers: Set(), isMuted: true, isSolo: true, isAntiSolo: false)
         
-        let res = MessageTransformer.transform([from_ws1, from_ws2], toSuite: [to_ws1, to_ws2])
+        let res = transformer.transform([from_ws1, from_ws2], toSuite: [to_ws1, to_ws2])
         
         XCTAssertEqual(res.count, 1)
         if let msg = res.first {
@@ -261,7 +265,7 @@ extension MessageTransformerTests {
         let p = "x"
         let from_ws1 = Workspace(identifier: id, audioStem: audioStem, performers: Set([p]), isMuted: false, isSolo: false, isAntiSolo: false)
         let to_ws1 = Workspace(identifier: id, audioStem: audioStem, performers: Set([]), isMuted: false, isSolo: false, isAntiSolo: false)
-        let res = MessageTransformer.transform([from_ws1], toSuite: [to_ws1])
+        let res = transformer.transform([from_ws1], toSuite: [to_ws1])
         XCTAssertEqual(res.count, 1)
         if let msg = res.first {
             XCTAssert(msg.address == p)
@@ -314,7 +318,7 @@ extension MessageTransformerTests {
         let to_ws2 = Workspace(identifier: id2, audioStem: audioStem2, performers: Set([p]), isMuted: false, isSolo: false, isAntiSolo: false)
         let suite2 = Set([to_ws1, to_ws2])
         
-        let res = MessageTransformer.transform(suite1, toSuite: suite2)
+        let res = transformer.transform(suite1, toSuite: suite2)
         XCTAssertEqual(res.count, 1)
         
         if let msg = res.first {
@@ -360,7 +364,7 @@ extension MessageTransformerTests {
         let to_ws2 = Workspace(identifier: "B", audioStem: audioStem2, performers: Set([pb, pa]), isMuted: false, isSolo: false, isAntiSolo: false)
         let suite2 = Set([to_ws1, to_ws2])
         
-        let res = MessageTransformer.transform(suite1, toSuite: suite2)
+        let res = transformer.transform(suite1, toSuite: suite2)
         XCTAssertEqual(res.count, 1)
         
         if let msg = res.first {
@@ -398,7 +402,7 @@ extension MessageTransformerTests {
         let to_ws = Workspace(identifier: "A", audioStem: audioStem, performers: Set(), isMuted: false, isSolo: false, isAntiSolo: false)
 
         
-        let res = MessageTransformer.transform(Set([from_ws]), toSuite: Set([to_ws]))
+        let res = transformer.transform(Set([from_ws]), toSuite: Set([to_ws]))
         XCTAssertEqual(res.count, 0)
     }
     
@@ -422,7 +426,7 @@ extension MessageTransformerTests {
         let to_ws = Workspace(identifier: "A", audioStem: nil, performers: Set(), isMuted: false, isSolo: false, isAntiSolo: false)
 
         
-        let res = MessageTransformer.transform(Set([from_ws]), toSuite: Set([to_ws]))
+        let res = transformer.transform(Set([from_ws]), toSuite: Set([to_ws]))
         XCTAssertEqual(res.count, 0)
     }
     
@@ -456,7 +460,7 @@ extension MessageTransformerTests {
         let to_ws = Workspace(identifier: "A", audioStem: audioStem, performers: Set([p]), isMuted: false, isSolo: false, isAntiSolo: false)
 
         
-        let res = MessageTransformer.transform(Set([from_ws]), toSuite: Set([to_ws]))
+        let res = transformer.transform(Set([from_ws]), toSuite: Set([to_ws]))
         XCTAssertEqual(res.count, 1)
         if let msg = res.first {
             XCTAssertEqual(msg.address, p)
@@ -497,7 +501,7 @@ extension MessageTransformerTests {
         let to_ws = Workspace(identifier: "A", audioStem: nil, performers: Set([p]), isMuted: false, isSolo: false, isAntiSolo: false)
 
         
-        let res = MessageTransformer.transform(Set([from_ws]), toSuite: Set([to_ws]))
+        let res = transformer.transform(Set([from_ws]), toSuite: Set([to_ws]))
         XCTAssertEqual(res.count, 1)
         if let msg = res.first {
             XCTAssertEqual(msg.address, p)
@@ -552,7 +556,7 @@ extension MessageTransformerTests {
         let to_ws = Workspace(identifier: "A", audioStem: audioStem, performers: Set(ps), isMuted: false, isSolo: false, isAntiSolo: false)
 
         
-        let res = MessageTransformer.transform(Set([from_ws]), toSuite: Set([to_ws]))
+        let res = transformer.transform(Set([from_ws]), toSuite: Set([to_ws]))
         XCTAssertEqual(res.count, 3)
         XCTAssertEqual(res.filter({ $0.address == "x"}).count, 1)
         XCTAssertEqual(res.filter({ $0.address == "y"}).count, 1)
@@ -610,7 +614,7 @@ extension MessageTransformerTests {
         let to_ws = Workspace(identifier: "A", audioStem: nil, performers: Set(ps), isMuted: false, isSolo: false, isAntiSolo: false)
 
         
-        let res = MessageTransformer.transform(Set([from_ws]), toSuite: Set([to_ws]))
+        let res = transformer.transform(Set([from_ws]), toSuite: Set([to_ws]))
         XCTAssertEqual(res.count, 3)
         XCTAssertEqual(res.filter({ $0.address == "x"}).count, 1)
         XCTAssertEqual(res.filter({ $0.address == "y"}).count, 1)
@@ -649,7 +653,7 @@ extension MessageTransformerTests {
         let to_ws = Workspace(identifier: "A", audioStem: audioStem, performers: Set(), isMuted: true, isSolo: false, isAntiSolo: false)
 
         
-        let res = MessageTransformer.transform(Set([from_ws]), toSuite: Set([to_ws]))
+        let res = transformer.transform(Set([from_ws]), toSuite: Set([to_ws]))
         XCTAssertEqual(res.count, 0)
     }
     
@@ -674,7 +678,7 @@ extension MessageTransformerTests {
         let to_ws = Workspace(identifier: "A", audioStem: audioStem, performers: Set(), isMuted: false, isSolo: false, isAntiSolo: false)
 
         
-        let res = MessageTransformer.transform(Set([from_ws]), toSuite: Set([to_ws]))
+        let res = transformer.transform(Set([from_ws]), toSuite: Set([to_ws]))
         XCTAssertEqual(res.count, 0)
     }
     
@@ -706,7 +710,7 @@ extension MessageTransformerTests {
         let to_ws = Workspace(identifier: "A", audioStem: audioStem, performers: Set(["x"]), isMuted: true, isSolo: false, isAntiSolo: false)
 
         
-        let res = MessageTransformer.transform(Set([from_ws]), toSuite: Set([to_ws]))
+        let res = transformer.transform(Set([from_ws]), toSuite: Set([to_ws]))
         XCTAssertEqual(res.count, 1)
         if let msg = res.first {
             XCTAssertEqual(msg.address, "x")
@@ -745,7 +749,7 @@ extension MessageTransformerTests {
         let to_ws = Workspace(identifier: "A", audioStem: audioStem, performers: Set(["x"]), isMuted: false, isSolo: false, isAntiSolo: false)
 
         
-        let res = MessageTransformer.transform(Set([from_ws]), toSuite: Set([to_ws]))
+        let res = transformer.transform(Set([from_ws]), toSuite: Set([to_ws]))
         XCTAssertEqual(res.count, 1)
         if let msg = res.first {
             XCTAssertEqual(msg.address, "x")
@@ -776,7 +780,7 @@ extension MessageTransformerTests {
         let to_ws = Workspace(identifier: "A", audioStem: audioStem, performers: Set(["x","y","z"]), isMuted: true, isSolo: false, isAntiSolo: false)
 
         
-        let res = MessageTransformer.transform(Set([from_ws]), toSuite: Set([to_ws]))
+        let res = transformer.transform(Set([from_ws]), toSuite: Set([to_ws]))
         XCTAssertEqual(res.count, 3)
         XCTAssertEqual(res.filter({$0.address == "x"}).count, 1)
         XCTAssertEqual(res.filter({$0.address == "y"}).count, 1)
@@ -809,7 +813,7 @@ extension MessageTransformerTests {
         let to_ws = Workspace(identifier: "A", audioStem: audioStem, performers: Set(["x","y","z"]), isMuted: false, isSolo: false, isAntiSolo: false)
 
         
-        let res = MessageTransformer.transform(Set([from_ws]), toSuite: Set([to_ws]))
+        let res = transformer.transform(Set([from_ws]), toSuite: Set([to_ws]))
         XCTAssertEqual(res.count, 3)
         XCTAssertEqual(res.filter({$0.address == "x"}).count, 1)
         XCTAssertEqual(res.filter({$0.address == "y"}).count, 1)
@@ -846,7 +850,7 @@ extension MessageTransformerTests {
         
         let to_ws = Workspace(identifier: "A", audioStem: audioStem, performers: Set(), isMuted: false, isSolo: false, isAntiSolo: false)
         
-        let res = MessageTransformer.transform(Set([from_ws]), toSuite: Set([to_ws]))
+        let res = transformer.transform(Set([from_ws]), toSuite: Set([to_ws]))
         
         XCTAssertEqual(res.count, 0)
     }
@@ -870,7 +874,7 @@ extension MessageTransformerTests {
         
         let to_ws = Workspace(identifier: "A", audioStem: audioStem, performers: Set(), isMuted: false, isSolo: false, isAntiSolo: false)
         
-        let res = MessageTransformer.transform(Set([from_ws]), toSuite: Set([to_ws]))
+        let res = transformer.transform(Set([from_ws]), toSuite: Set([to_ws]))
         
         XCTAssertEqual(res.count, 0)
     }
@@ -896,7 +900,7 @@ extension MessageTransformerTests {
         let to_ws = Workspace(identifier: "A", audioStem: audioStem, performers: Set(["x"]), isMuted: false, isSolo: true, isAntiSolo: false)
 
         
-        let res = MessageTransformer.transform(Set([from_ws]), toSuite: Set([to_ws]))
+        let res = transformer.transform(Set([from_ws]), toSuite: Set([to_ws]))
         
         XCTAssertEqual(res.count, 0)
     }
@@ -924,7 +928,7 @@ extension MessageTransformerTests {
         let to_ws1 = Workspace(identifier: "A", audioStem: audioStem, performers: Set(), isMuted: false, isSolo: false, isAntiSolo: false)
         let to_ws2 = Workspace(identifier: "B", audioStem: audioStem, performers: Set(["x"]), isMuted: false, isSolo: true, isAntiSolo: false)
 
-        let res = MessageTransformer.transform(Set([from_ws1, from_ws2]), toSuite: Set([to_ws1, to_ws2]))
+        let res = transformer.transform(Set([from_ws1, from_ws2]), toSuite: Set([to_ws1, to_ws2]))
         
         XCTAssertEqual(res.count, 0)
     }
@@ -961,7 +965,7 @@ extension MessageTransformerTests {
         let to_ws1 = Workspace(identifier: "A", audioStem: audioStem, performers: Set(), isMuted: false, isSolo: true, isAntiSolo: false)
         let to_ws2 = Workspace(identifier: "B", audioStem: audioStem2, performers: Set(["x"]), isMuted: false, isSolo: false, isAntiSolo: true)
 
-        let res = MessageTransformer.transform(Set([from_ws1, from_ws2]), toSuite: Set([to_ws1, to_ws2]))
+        let res = transformer.transform(Set([from_ws1, from_ws2]), toSuite: Set([to_ws1, to_ws2]))
         
         XCTAssertEqual(res.count, 1)
     }

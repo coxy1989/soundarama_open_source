@@ -17,14 +17,10 @@ class AudioStemStore {
     init() {
         
         audioStems = fetchStems()
-        cacheStems(audioStems)
+        audioStemCache = cacheStems(audioStems)
     }
     
     func audioStem(reference: String) -> AudioStem? {
-        
-        if audioStemCache == nil {
-            cacheStems(audioStems)
-        }
         
         return audioStemCache[reference]
     }
@@ -61,7 +57,7 @@ class AudioStemStore {
         
         if let  name = json["Name"].string, colourString = json["Colour"].string, category = json["Category"].string, reference = json["Ref"].string {
             let colour = UIColor(rgba: colourString, defaultColor: UIColor.grayColor())
-            return AudioStem(name: name, colour: colour, category: category, reference: reference, loopLength: 1.85)
+            return AudioStem(name: name, colour: colour, category: category, reference: reference, loopLength: 1.75)
         }
         else {
             return nil

@@ -26,6 +26,8 @@ class PerformerInteractor: PerformerInput {
     
     func start() {
         
+
+        
         connectionAdapter = PerformerConnectionAdapter(connection: endpoint)
         connectionAdapter.delegate = self
         endpoint.connect()
@@ -49,6 +51,8 @@ extension PerformerInteractor: ChristiansProcessDelegate {
     
     func christiansProcessDidSynchronise(local: NSTimeInterval, remote: NSTimeInterval) {
     
+        christiansMap = (local: local, remote: remote)
+        print(christiansMap)
         messageAdapter = ReadableMessageAdapter(readable: endpoint)
         messageAdapter.delegate = self
         messageAdapter.takeMessages()
@@ -57,8 +61,7 @@ extension PerformerInteractor: ChristiansProcessDelegate {
 
 extension PerformerInteractor: ReadableMessageAdapterDelegate {
     
-    /*
-    func didReceiveAudioStemMessage(message: AudioStemMessage) {
+    func didReceivePerformerMessage(message: PerformerMessage) {
         
         guard let cmap = christiansMap, stem = audioStemStore.audioStem(message.reference) else {
             return
@@ -74,15 +77,20 @@ extension PerformerInteractor: ReadableMessageAdapterDelegate {
         }
         
         let waitSecs = Double(nextStartTime) - Double(remoteNow)
+        print("Waiting: \(waitSecs)")
         
-        if message.type == .Stop {
+        if message.command == .Stop {
+            print("INTERACTOR: STOP")
             audioController.stopAudioStem(stem, afterDelay: waitSecs)
         }
-        else if message.type == .Start {
+        else if message.command == .Start {
+            print("INTERACTOR: START")
             audioController.playAudioStem(stem, afterDelay: waitSecs)
         }
         
+        // TODO: Mute Command
+        //TODO: Mute state
+        
         performerOutput.audioStemDidChange(stem)
     }
-*/
 }
