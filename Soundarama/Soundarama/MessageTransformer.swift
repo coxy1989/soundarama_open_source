@@ -31,8 +31,8 @@ class MessageTransformer {
             messages.appendContentsOf(performerRemove(from, to: ws, toSolos: solosTo))
             messages.appendContentsOf(toAudioStem(from, to: ws, toSolos: solosTo))
             messages.appendContentsOf(fromAudioStem(from, to: ws, toSolos: solosTo))
-            messages.appendContentsOf(mute(from, to: ws, toSolos: solosTo))
             messages.appendContentsOf(betweenAudioStems(from, to: ws, toSolos: solosTo))
+            messages.appendContentsOf(mute(from, to: ws, toSolos: solosTo))
         }
 
         return filter(messages)

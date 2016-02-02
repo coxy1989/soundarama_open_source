@@ -68,12 +68,14 @@ extension PerformerInteractor: ReadableMessageAdapterDelegate {
         let delay = calculateDelay(message)
         let audioStem = audioStemStore.audioStem(message.reference)!
         
-        if (message.command == .Start) {
+        switch message.command {
+        case .Start:
             stopAudio(delay)
-            startAudio(audioStem.audioFilePath, afterDelay: delay)
-        }
-        else if message.command == .Stop {
+            startAudio(audioStem.audioFilePath, afterDelay: delay, muted: message.muted)
+        case .Stop:
             stopAudio(delay)
+        case .ToggleMute:
+            toggleMuteAudio(message.muted)
         }
     }
     
@@ -95,13 +97,14 @@ extension PerformerInteractor: ReadableMessageAdapterDelegate {
         return Double(nextStartTime) - Double(remoteNow)
     }
     
-    func startAudio(path: String, afterDelay: NSTimeInterval) {
+    func startAudio(path: String, afterDelay: NSTimeInterval, muted: Bool) {
         
         do {
             let player = try AVAudioPlayer(contentsOfURL: NSURL(fileURLWithPath: path))
             let playTime = player.deviceCurrentTime + afterDelay
             player.playAtTime(playTime)
             player.numberOfLoops = -1
+            player.volume = muted ? 0 : 1
             players.append(player)
             /* newPlayer.delegate = self */
         } catch {
@@ -113,11 +116,19 @@ extension PerformerInteractor: ReadableMessageAdapterDelegate {
         
         let plyrs = players
         let delayTime = dispatch_time(DISPATCH_TIME_NOW, Int64(afterDelay * Double(NSEC_PER_SEC)))
-        dispatch_after(delayTime, dispatch_get_main_queue(), {
+        dispatch_after(delayTime, dispatch_get_main_queue()) {
             for s in plyrs {
                 s.stop()
             }
-        })
+        }
+    }
+    
+    func toggleMuteAudio(isMuted: Bool) {
+        
+        let plyrs = players
+        for s in plyrs {
+            s.volume = isMuted ? 0 : 1
+        }
     }
 }
 

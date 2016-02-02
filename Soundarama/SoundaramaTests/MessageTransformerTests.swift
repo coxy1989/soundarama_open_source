@@ -567,7 +567,7 @@ extension MessageTransformerTests {
         let res = transformer.transform(Set([from_ws]), toSuite: Set([to_ws]))
         XCTAssertEqual(res.count, 1)
         if let m = res.first {
-            
+            XCTAssertEqual(m.reference, audioStem2.reference)
         }
     }
     

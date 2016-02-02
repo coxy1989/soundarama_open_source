@@ -35,16 +35,3 @@ extension DJWireframe {
         return sb.instantiateViewControllerWithIdentifier("DJViewController_iPad") as! DJViewController
     }
 }
-
-    /*
-    func presentDjUI(navigationController: UINavigationController) {
-        self.navigationController = navigationController
-        let vc = djViewController()
-        navigationController.pushViewController(vc, animated: true)
-    }
-    
-    func unpresentDJUI() {
-        
-        navigationController.popViewControllerAnimated(true)
-    }
-*/

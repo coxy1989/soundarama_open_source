@@ -28,7 +28,7 @@ extension DJInteractor: DJInput {
     func start() {
         
         //TODO: handle pro (16), pad(9) phone(4)
-        suiteStore = SuiteStore(number: UIDevice.isPad() ? 16 : 4)
+        suiteStore = SuiteStore(number: UIDevice.isPad() ? 9 : 4)
         djOutput.setSuite(suiteStore.suite)
         djOutput.setAudioStems(audioStemStore.audioStems)
         

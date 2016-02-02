@@ -52,9 +52,6 @@ extension DJPresenter: DJUserInterfaceDelegate {
     func ready() {
         
         input.start()
-        //ui.addPerformer("x")
-        //ui.addPerformer("y")
-        //ui.addPerformer("z")
     }
     
     
