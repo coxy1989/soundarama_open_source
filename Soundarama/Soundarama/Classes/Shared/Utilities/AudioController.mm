@@ -6,6 +6,7 @@
 //  Copyright © 2015 Touchpress Ltd. All rights reserved.
 //
 
+/*
 #import <Foundation/Foundation.h>
 #import "AudioController.h"
 #import <AVFoundation/AVFoundation.h>
@@ -119,3 +120,4 @@ AUGraph _graph;
 }
 
 @end
+*/

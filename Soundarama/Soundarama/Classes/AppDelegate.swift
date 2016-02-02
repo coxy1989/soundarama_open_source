@@ -36,7 +36,7 @@ extension AppDelegate {
         
         do { try AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayback, withOptions: []) }
         catch _ {}
-        VolumeControl.setVolume(1.0)
+      //  VolumeControl.setVolume(1.0)
     }
     
     func appSetup() {

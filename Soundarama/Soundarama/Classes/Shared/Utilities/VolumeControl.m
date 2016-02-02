@@ -6,6 +6,7 @@
 //  Copyright (c) 2015 Touchpress Ltd. All rights reserved.
 //
 
+/*
 #import "VolumeControl.h"
 #import <MediaPlayer/MediaPlayer.h>
 
@@ -22,3 +23,4 @@
 }
 
 @end
+*/

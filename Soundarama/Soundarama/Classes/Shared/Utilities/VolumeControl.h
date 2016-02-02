@@ -6,6 +6,7 @@
 //  Copyright (c) 2015 Touchpress Ltd. All rights reserved.
 //
 
+/*
 #import <Foundation/Foundation.h>
 
 @interface VolumeControl : NSObject
@@ -14,3 +15,4 @@
 + (void)setVolume:(float)volume;
 
 @end
+*/

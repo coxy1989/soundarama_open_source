@@ -6,6 +6,7 @@
 //  Copyright © 2015 Touchpress Ltd. All rights reserved.
 //
 
+/*
 #import <AudioToolbox/AudioToolbox.h>
 
 @interface AudioController : NSObject
@@ -17,3 +18,4 @@
 - (void)stop;
 
 @end
+*/
