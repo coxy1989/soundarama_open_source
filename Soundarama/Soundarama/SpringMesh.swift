@@ -51,17 +51,16 @@ func sumTwoByTwoMatricies (matrix1: [[Double]], matrix2: [[Double]])->[[Double]]
     return [[matrix1[0][0]+matrix2[0][0],matrix1[0][1]+matrix2[0][1]],[matrix1[1][0]+matrix2[1][0],matrix1[1][1]+matrix2[1][1]]]
 }
 
+//specify connections
+//let connections = [[0,1,0,0,0,1,0,1,0,1],[1,0,0,1,1,1,0,0,0,0],[0,0,0,1,1,0,0,0,1,0],[0,1,1,0,1,0,0,0,0,0],[0,1,1,1,0,1,0,0,0,0],[1,1,0,0,1,0,1,0,0,0],[0,0,0,0,0,1,0,0,0,0],[1,0,0,0,0,0,0,0,0,0],[0,0,1,0,0,0,0,0,0,0],[1,0,0,0,0,0,0,0,0,0]]
+//let connections = [[0,1,1,0],[1,0,0,1],[1,0,0,0],[0,1,0,0]]
+let connections = [[0,1,1,1,0,0],[1,0,0,0,1,1],[1,0,0,0,0,0],[1,0,0,0,0,0],[0,1,0,0,0,0],[0,1,0,0,0,0]]
+
+//var allPoints = [0.1, 0.1, 0.2, 0.2, 0.3, 0.3, 0.4, 0.4, 0.5, 0.5, 0.6, 0.6, 0, 4.5, 2.5, 1, 5, 5, 0, 0]
+//var allPoints = [1.0, 5.0, 2.0, 2.0, 0.0, 0.0, 3.0, 3.0]
+var allPoints = [20.0,2.0,22.0,2.0,0.0,0.0,5.0,0.0,0.0,5.0,5.0,5.0]
+
 func makeMesh() {
-    //specify connections
-    //let connections = [[0,1,0,0,0,1,0,1,0,1],[1,0,0,1,1,1,0,0,0,0],[0,0,0,1,1,0,0,0,1,0],[0,1,1,0,1,0,0,0,0,0],[0,1,1,1,0,1,0,0,0,0],[1,1,0,0,1,0,1,0,0,0],[0,0,0,0,0,1,0,0,0,0],[1,0,0,0,0,0,0,0,0,0],[0,0,1,0,0,0,0,0,0,0],[1,0,0,0,0,0,0,0,0,0]]
-    //let connections = [[0,1,1,0],[1,0,0,1],[1,0,0,0],[0,1,0,0]]
-    let connections = [[0,1,1,1,0,0],[1,0,0,0,1,1],[1,0,0,0,0,0],[1,0,0,0,0,0],[0,1,0,0,0,0],[0,1,0,0,0,0]]
-    
-    //var allPoints = [0.1, 0.1, 0.2, 0.2, 0.3, 0.3, 0.4, 0.4, 0.5, 0.5, 0.6, 0.6, 0, 4.5, 2.5, 1, 5, 5, 0, 0]
-    //var allPoints = [1.0, 5.0, 2.0, 2.0, 0.0, 0.0, 3.0, 3.0]
-    var allPoints = [20.0,2.0,22.0,2.0,0.0,0.0,5.0,0.0,0.0,5.0,5.0,5.0]
-    
-    
     //Newton's method!!
     for newton in 0...10 {
         
@@ -179,5 +178,78 @@ func makeMesh() {
             
             return jacobian
         }
+        
+        //    print("\nJacobian:")
+        //    print(makeJacobian())
+        
+        
+        //flatten matrix to turn into array we can invert as a matrix
+        func flattenMatrix(matrix: [[Double]])->[Double] {
+            var flatMatrix = [Double]()
+            for i in 0..<matrix.count {
+                for j in 0..<matrix[i].count {
+                    flatMatrix.append(matrix[i][j])
+                }
+            }
+            return flatMatrix
+        }
+        
+        var movingPoints = allPoints[0..<(2*numberOfMovingPoints)]
+        
+        let flatJacobian = flattenMatrix(makeJacobian())
+        
+        //    print(makeJacobian())
+        
+        let jacobianInverse = invert( flatJacobian )
+        
+        //    print("\njacobian inverse:")
+        //    print(jacobianInverse)
+        
+        let pk = allPoints
+        var fpk = f()
+        for i in 0..<fpk.count {
+            if i >= (2*numberOfMovingPoints) {
+                fpk[i] = 0.0
+            }
+        }
+        
+        //    print("\npk: ")
+        //    print(pk)
+        //    print("\nfpk: ")
+        //    print(fpk)
+        
+        var multipliedMatrix = multiplyMatrixByVector(jacobianInverse, vector: fpk)
+        
+        //    print("\nmultipliedMatrix:")
+        //    print(multipliedMatrix)
+        
+        var negativeMultipliedMatrix = [Double](count: multipliedMatrix.count, repeatedValue: 0.0)
+        for i in 0..<multipliedMatrix.count {
+            negativeMultipliedMatrix[i] = multipliedMatrix[i] * -1
+        }
+        
+        //    print("\nnegativeMultipliedMatrix:")
+        //    print(negativeMultipliedMatrix)
+        
+        
+        var addedMatrix = [Double](count : allPoints.count, repeatedValue : 0.0)
+        
+        vDSP_vaddD(pk, 1, negativeMultipliedMatrix, 1, &addedMatrix, 1, vDSP_Length(allPoints.count))
+        
+        allPoints = addedMatrix
+        print("\nallPoints at end:")
+        print(allPoints)
+        var total = 0.0
+        for sumCount in 0...7 {
+            total += pow(fpk[sumCount],2)
+        }
+        print("\nclose to zero?:")
+        print(sqrt(total))
+        if sqrt(total) < 0.001 {
+            break
+        }
+        
     }
 }
+
+
