@@ -9,6 +9,8 @@
 import Foundation
 import Accelerate
 
+//Outline of method here: https://cs.nyu.edu/~dzorin/numcomp08/springs_notes.pdf
+
 func invert(matrix : [Double]) -> [Double] {
     var inMatrix:[Double]       = matrix
     // Get the dimensions of the matrix. An NxN matrix has N^2
@@ -76,13 +78,25 @@ func makeMesh() {
     for newton in 0...25 {
         
         //find Fij
+//        func fij(i: Int,j: Int)->[Double] {
+//            let pi = [allPoints[2*i],allPoints[(2*i)+1]]
+//            let pj = [allPoints[2*j],allPoints[(2*j)+1]]
+//            if (distanceBetweenPoints(pi, p2: pj) < 0.0000001) {
+//                return [0.0,0.0]
+//            } else {
+//                let scalar = (distanceBetweenPoints(pi, p2: pj)-1) / distanceBetweenPoints(pi, p2: pj)
+//                return multiplyVectorByScalar([pj[0]-pi[0],pj[1]-pi[1]], scalar: scalar)
+//            }
+//        }
+        
+        //Fij with variable spring lenghts
         func fij(i: Int,j: Int)->[Double] {
             let pi = [allPoints[2*i],allPoints[(2*i)+1]]
             let pj = [allPoints[2*j],allPoints[(2*j)+1]]
             if (distanceBetweenPoints(pi, p2: pj) < 0.0000001) {
                 return [0.0,0.0]
             } else {
-                let scalar = (distanceBetweenPoints(pi, p2: pj)-1) / distanceBetweenPoints(pi, p2: pj)
+                let scalar = (distanceBetweenPoints(pi, p2: pj)-Double(connections[i][j])) / distanceBetweenPoints(pi, p2: pj)
                 return multiplyVectorByScalar([pj[0]-pi[0],pj[1]-pi[1]], scalar: scalar)
             }
         }
@@ -109,6 +123,23 @@ func makeMesh() {
         }
         
         //find dFij/dPj (2x2 matrix) to make jacobian matrix
+//        func dFijdPj(i: Int, j: Int)->[[Double]] {
+//            var topLeft = 0.0
+//            var bottomRight = 0.0
+//            var topRight = 0.0
+//            var bottomLeft = 0.0
+//            if (i != j) {
+//                let dSquared = pow(allPoints[2*j]-allPoints[2*i],2)+pow(allPoints[(2*j)+1]-allPoints[(2*i)+1],2)
+//                let dCubed = pow(sqrt(dSquared),3)
+//                topLeft = 1.0 - ((dSquared-pow(allPoints[2*j]-allPoints[2*i],2))/dCubed)
+//                bottomRight = 1.0 - ((dSquared-pow(allPoints[(2*j)+1]-allPoints[(2*i)+1],2))/dCubed)
+//                topRight = ((allPoints[2*j]-allPoints[2*i])*(allPoints[(2*j)+1]-allPoints[(2*i)+1]))/dCubed
+//                bottomLeft = topRight
+//            }
+//            return [[topLeft,topRight],[bottomLeft,bottomRight]]
+//        }
+        
+        //dFijdPj with variable spring lengths!!
         func dFijdPj(i: Int, j: Int)->[[Double]] {
             var topLeft = 0.0
             var bottomRight = 0.0
@@ -117,9 +148,9 @@ func makeMesh() {
             if (i != j) {
                 let dSquared = pow(allPoints[2*j]-allPoints[2*i],2)+pow(allPoints[(2*j)+1]-allPoints[(2*i)+1],2)
                 let dCubed = pow(sqrt(dSquared),3)
-                topLeft = 1.0 - ((dSquared-pow(allPoints[2*j]-allPoints[2*i],2))/dCubed)
-                bottomRight = 1.0 - ((dSquared-pow(allPoints[(2*j)+1]-allPoints[(2*i)+1],2))/dCubed)
-                topRight = ((allPoints[2*j]-allPoints[2*i])*(allPoints[(2*j)+1]-allPoints[(2*i)+1]))/dCubed
+                topLeft = 1.0 - (Double(connections[i][j])*((dSquared-pow(allPoints[2*j]-allPoints[2*i],2))/dCubed))
+                bottomRight = 1.0 - (Double(connections[i][j])*((dSquared-pow(allPoints[(2*j)+1]-allPoints[(2*i)+1],2))/dCubed))
+                topRight = Double(connections[i][j])*(((allPoints[2*j]-allPoints[2*i])*(allPoints[(2*j)+1]-allPoints[(2*i)+1]))/dCubed)
                 bottomLeft = topRight
             }
             return [[topLeft,topRight],[bottomLeft,bottomRight]]
