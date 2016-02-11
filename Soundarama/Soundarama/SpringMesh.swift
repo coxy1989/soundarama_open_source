@@ -55,18 +55,25 @@ func sumTwoByTwoMatricies (matrix1: [[Double]], matrix2: [[Double]])->[[Double]]
 //let connections = [[0,1,0,0,0,1,0,1,0,1],[1,0,0,1,1,1,0,0,0,0],[0,0,0,1,1,0,0,0,1,0],[0,1,1,0,1,0,0,0,0,0],[0,1,1,1,0,1,0,0,0,0],[1,1,0,0,1,0,1,0,0,0],[0,0,0,0,0,1,0,0,0,0],[1,0,0,0,0,0,0,0,0,0],[0,0,1,0,0,0,0,0,0,0],[1,0,0,0,0,0,0,0,0,0]]
 //let connections = [[0,1,1,0],[1,0,0,1],[1,0,0,0],[0,1,0,0]]
 let connections = [[0,1,1,1,0,0],[1,0,0,0,1,1],[1,0,0,0,0,0],[1,0,0,0,0,0],[0,1,0,0,0,0],[0,1,0,0,0,0]]
+//let connections = [[0,1,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0],[1,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0],[0,0,0,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[1,1,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,1,0,0,1,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,1,0,1,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,1,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,1,1,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0],[0,0,0,0,0,0,1,0,0,1,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,1],[0,0,0,0,0,0,0,0,1,0,1,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,1,0,1,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],[0,0,0,0,0,0,0,0,0,1,1,0,0,1,1,1,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,1,0,0,0,0,0,0,0,1,0,0],[0,0,0,0,0,0,0,0,0,1,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,1,1,0,0,0,0,1,1,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,1,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,1,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,1,1,0,0,0,1,0],[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,1,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,1,0],[1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,1,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,1,0,0,0,0],[0,0,0,0,0,0,0,0,1,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0]]
+
+
 
 //var allPoints = [0.1, 0.1, 0.2, 0.2, 0.3, 0.3, 0.4, 0.4, 0.5, 0.5, 0.6, 0.6, 0, 4.5, 2.5, 1, 5, 5, 0, 0]
-//var allPoints = [1.0, 5.0, 2.0, 2.0, 0.0, 0.0, 3.0, 3.0]
-var allPoints = [20.0,2.0,22.0,2.0,0.0,0.0,5.0,0.0,0.0,5.0,5.0,5.0]
+//var allPoints = [1.1, 5.0, 2.0, 2.0, 0.0, 0.0, 3.0, 3.0]
+var allPoints = [20.0,2.0,2.1,2.0,0.0,0.0,5.0,0.0,0.0,5.0,5.0,5.0]
+//var allPoints = [0.0,0.0,0.1,0.1,0.2,0.2,0.3,0.3,0.4,0.4,0.5,0.5,0.6,0.6,0.7,0.7,0.8,0.8,0.9,0.9,1.0,1.0,1.1,1.1,1.2,1.2,1.3,1.3,1.4,1.4,1.5,1.5,1.6,1.6,1.7,1.7,1.8,1.8,1.9,1.9,2.0,2.0,2.1,2.1,4.0,0.0,8.0,5.0,4.0,10.0,0.0,5.0]
+
+
+
+let numberOfPoints = (allPoints.count)/2
+let numberOfFixedPoints = 4
+let numberOfMovingPoints = numberOfPoints-numberOfFixedPoints
+
 
 func makeMesh() {
     //Newton's method!!
-    for newton in 0...10 {
-        
-        let numberOfPoints = (allPoints.count)/2
-        let numberOfFixedPoints = 4
-        let numberOfMovingPoints = numberOfPoints-numberOfFixedPoints
+    for newton in 0...25 {
         
         //find Fij
         func fij(i: Int,j: Int)->[Double] {
@@ -139,48 +146,30 @@ func makeMesh() {
         }
         
         //make jacobian out of 2x2 blocks. size: 2mx2m (2 * numberOfMovingPoints)
+
         func makeJacobian()->[[Double]] {
             var jacobian = Array(count: (2*numberOfPoints), repeatedValue: Array(count: (2*numberOfPoints), repeatedValue: 0.0))
-            for i in 0..<numberOfPoints {
-                for j in 0..<numberOfPoints {
-                    let dFidPjArray = dFidPj(i,j: j)
+            for i in 0..<numberOfMovingPoints {
+                for j in 0..<numberOfMovingPoints {
                     if i==j {
-                        jacobian[2*i][2*j] = -dFidPjArray[0][0]
-                        jacobian[2*i][(2*j)+1] = -dFidPjArray[0][1]
-                        jacobian[(2*i)+1][2*j] = -dFidPjArray[1][0]
-                        jacobian[(2*i)+1][(2*j)+1] = -dFidPjArray[1][1]
+                        jacobian[2*i][2*j] = -dFidPj(i, j: j)[0][0]
+                        jacobian[2*i][(2*j)+1] = -dFidPj(i, j: j)[0][1]
+                        jacobian[(2*i)+1][2*j] = -dFidPj(i, j: j)[1][0]
+                        jacobian[(2*i)+1][(2*j)+1] = -dFidPj(i, j: j)[1][1]
                     } else {
-                        jacobian[2*i][2*j] = dFidPjArray[0][0]
-                        jacobian[2*i][(2*j)+1] = dFidPjArray[0][1]
-                        jacobian[(2*i)+1][2*j] = dFidPjArray[1][0]
-                        jacobian[(2*i)+1][(2*j)+1] = dFidPjArray[1][1]
+                        jacobian[2*i][2*j] = dFidPj(i, j: j)[0][0]
+                        jacobian[2*i][(2*j)+1] = dFidPj(i, j: j)[0][1]
+                        jacobian[(2*i)+1][2*j] = dFidPj(i, j: j)[1][0]
+                        jacobian[(2*i)+1][(2*j)+1] = dFidPj(i, j: j)[1][1]
                     }
                 }
             }
-            for i in ((2*(numberOfMovingPoints-1))+2)..<(2*numberOfPoints) {
-                for j in 0..<(2*numberOfPoints) {
-                    if i==j {
-                        jacobian[i][j] = 1.0
-                    } else {
-                        jacobian[i][j] = 0.0
-                    }
-                }
+            for i in (2*numberOfMovingPoints)..<(2*numberOfPoints) {
+                jacobian[i][i] = 1.0
             }
-            for j in ((2*(numberOfMovingPoints-1))+2)..<(2*numberOfPoints) {
-                for i in 0..<(2*numberOfPoints) {
-                    if i==j {
-                        jacobian[i][j] = 1.0
-                    } else {
-                        jacobian[i][j] = 0.0
-                    }
-                }
-            }
-            
+            print(jacobian)
             return jacobian
         }
-        
-        //    print("\nJacobian:")
-        //    print(makeJacobian())
         
         
         //flatten matrix to turn into array we can invert as a matrix
@@ -193,8 +182,6 @@ func makeMesh() {
             }
             return flatMatrix
         }
-        
-        var movingPoints = allPoints[0..<(2*numberOfMovingPoints)]
         
         let flatJacobian = flattenMatrix(makeJacobian())
         
