@@ -13,6 +13,7 @@
 		420080391C5BCA44009009E8 /* Suite.swift in Sources */ = {isa = PBXBuildFile; fileRef = 420080381C5BCA44009009E8 /* Suite.swift */; };
 		4200803B1C5BD289009009E8 /* SuiteStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4200803A1C5BD289009009E8 /* SuiteStore.swift */; };
 		4200803E1C5BD5A3009009E8 /* UIDevice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4200803D1C5BD5A3009009E8 /* UIDevice.swift */; };
+		4207043E1C7223E7003F6568 /* AVKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4207043D1C7223E7003F6568 /* AVKit.framework */; };
 		420AA6991C55055F00F7BB25 /* DecideStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 420AA6981C55055F00F7BB25 /* DecideStoryboard.storyboard */; };
 		420AA69F1C550B1700F7BB25 /* DecideViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 420AA69E1C550B1700F7BB25 /* DecideViewController.swift */; };
 		420AA6A51C551AB300F7BB25 /* PerformerStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 420AA6A41C551AB300F7BB25 /* PerformerStoryboard.storyboard */; };
@@ -33,6 +34,7 @@
 		4249B59D1C5797920096872D /* ChristiansTimeServer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4249B59C1C5797920096872D /* ChristiansTimeServer.swift */; };
 		4249B59F1C57979E0096872D /* ChristiansProcess.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4249B59E1C57979E0096872D /* ChristiansProcess.swift */; };
 		426A26E31C720BE8003FE38D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 426A26E21C720BE8003FE38D /* AppDelegate.swift */; };
+		426A26E51C721EA5003FE38D /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 426A26E41C721EA5003FE38D /* AVFoundation.framework */; };
 		4280C0D81C5D1A8A00B2C9B3 /* MessageTransformer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4280C0D71C5D1A8A00B2C9B3 /* MessageTransformer.swift */; };
 		4280C0DA1C5D25DC00B2C9B3 /* MessageTransformerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4280C0D91C5D25DC00B2C9B3 /* MessageTransformerTests.swift */; };
 		4280C0DD1C5D4CAD00B2C9B3 /* MessageLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4280C0DC1C5D4CAD00B2C9B3 /* MessageLogger.swift */; };
@@ -106,6 +108,7 @@
 		420080381C5BCA44009009E8 /* Suite.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Suite.swift; sourceTree = "<group>"; };
 		4200803A1C5BD289009009E8 /* SuiteStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SuiteStore.swift; sourceTree = "<group>"; };
 		4200803D1C5BD5A3009009E8 /* UIDevice.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIDevice.swift; sourceTree = "<group>"; };
+		4207043D1C7223E7003F6568 /* AVKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVKit.framework; path = System/Library/Frameworks/AVKit.framework; sourceTree = SDKROOT; };
 		420AA6981C55055F00F7BB25 /* DecideStoryboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = DecideStoryboard.storyboard; sourceTree = "<group>"; };
 		420AA69E1C550B1700F7BB25 /* DecideViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DecideViewController.swift; sourceTree = "<group>"; };
 		420AA6A41C551AB300F7BB25 /* PerformerStoryboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = PerformerStoryboard.storyboard; sourceTree = "<group>"; };
@@ -126,6 +129,7 @@
 		4249B59C1C5797920096872D /* ChristiansTimeServer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChristiansTimeServer.swift; sourceTree = "<group>"; };
 		4249B59E1C57979E0096872D /* ChristiansProcess.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChristiansProcess.swift; sourceTree = "<group>"; };
 		426A26E21C720BE8003FE38D /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AppDelegate.swift; path = Classes/AppDelegate.swift; sourceTree = "<group>"; };
+		426A26E41C721EA5003FE38D /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		4280C0D71C5D1A8A00B2C9B3 /* MessageTransformer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessageTransformer.swift; sourceTree = "<group>"; };
 		4280C0D91C5D25DC00B2C9B3 /* MessageTransformerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessageTransformerTests.swift; sourceTree = "<group>"; };
 		4280C0DC1C5D4CAD00B2C9B3 /* MessageLogger.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessageLogger.swift; sourceTree = "<group>"; };
@@ -189,6 +193,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4207043E1C7223E7003F6568 /* AVKit.framework in Frameworks */,
+				426A26E51C721EA5003FE38D /* AVFoundation.framework in Frameworks */,
 				40875DF9F44294C2A889FBFC /* Pods.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -545,6 +551,8 @@
 		FF8F05C000FBA5897614E1FA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				4207043D1C7223E7003F6568 /* AVKit.framework */,
+				426A26E41C721EA5003FE38D /* AVFoundation.framework */,
 				7A6AF1798DDD888B0BEABD3A /* Pods.framework */,
 			);
 			name = Frameworks;
@@ -608,7 +616,7 @@
 					};
 					E25279C11BF606C8008B4690 = {
 						CreatedOnToolsVersion = 7.1.1;
-						DevelopmentTeam = VM73AJJ5PP;
+						DevelopmentTeam = YL8CTL4C9C;
 					};
 				};
 			};
@@ -911,6 +919,7 @@
 			baseConfigurationReference = 77BC4CC2D47B6C11CBA7895E /* Pods.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "Brand Assets";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = Soundarama/Info.plist;
@@ -918,7 +927,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.touchpress.flv.Soundarama;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "ef6b8628-e46c-4c5c-a6d2-76b003f3d360";
 				SWIFT_OBJC_BRIDGING_HEADER = "Soundarama/Resources/Soundarama-Bridging-Header.h";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -929,6 +938,7 @@
 			baseConfigurationReference = 5A219AD37DBE00A8997FD63D /* Pods.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "Brand Assets";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = Soundarama/Info.plist;
@@ -936,7 +946,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.touchpress.flv.Soundarama;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "ef6b8628-e46c-4c5c-a6d2-76b003f3d360";
 				SWIFT_OBJC_BRIDGING_HEADER = "Soundarama/Resources/Soundarama-Bridging-Header.h";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
