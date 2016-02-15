@@ -32,6 +32,7 @@
 		4249B59B1C5792490096872D /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4249B59A1C5792490096872D /* Message.swift */; };
 		4249B59D1C5797920096872D /* ChristiansTimeServer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4249B59C1C5797920096872D /* ChristiansTimeServer.swift */; };
 		4249B59F1C57979E0096872D /* ChristiansProcess.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4249B59E1C57979E0096872D /* ChristiansProcess.swift */; };
+		426A26E31C720BE8003FE38D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 426A26E21C720BE8003FE38D /* AppDelegate.swift */; };
 		4280C0D81C5D1A8A00B2C9B3 /* MessageTransformer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4280C0D71C5D1A8A00B2C9B3 /* MessageTransformer.swift */; };
 		4280C0DA1C5D25DC00B2C9B3 /* MessageTransformerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4280C0D91C5D25DC00B2C9B3 /* MessageTransformerTests.swift */; };
 		4280C0DD1C5D4CAD00B2C9B3 /* MessageLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4280C0DC1C5D4CAD00B2C9B3 /* MessageLogger.swift */; };
@@ -60,7 +61,7 @@
 		42F90EE81C5D74280010F1C5 /* UIColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42F90EE71C5D74280010F1C5 /* UIColor.swift */; };
 		42F90EEA1C5D74920010F1C5 /* UIFont.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42F90EE91C5D74920010F1C5 /* UIFont.swift */; };
 		42F90EEC1C5E23790010F1C5 /* Set.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42F90EEB1C5E23790010F1C5 /* Set.swift */; };
-		E20B94611C17539C00222A2B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E20B94601C17539C00222A2B /* AppDelegate.swift */; };
+		DFBAD41F1C64C346004C1D47 /* SpringMesh.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFBAD41E1C64C346004C1D47 /* SpringMesh.swift */; };
 		E20B94681C1753B900222A2B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E20B94641C1753B900222A2B /* Assets.xcassets */; };
 		E20B946C1C1753C800222A2B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E20B946A1C1753C800222A2B /* LaunchScreen.storyboard */; };
 		E20B94811C17541E00222A2B /* AudioController.mm in Sources */ = {isa = PBXBuildFile; fileRef = E20B94761C17541E00222A2B /* AudioController.mm */; };
@@ -124,6 +125,7 @@
 		4249B59A1C5792490096872D /* Message.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
 		4249B59C1C5797920096872D /* ChristiansTimeServer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChristiansTimeServer.swift; sourceTree = "<group>"; };
 		4249B59E1C57979E0096872D /* ChristiansProcess.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChristiansProcess.swift; sourceTree = "<group>"; };
+		426A26E21C720BE8003FE38D /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AppDelegate.swift; path = Classes/AppDelegate.swift; sourceTree = "<group>"; };
 		4280C0D71C5D1A8A00B2C9B3 /* MessageTransformer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessageTransformer.swift; sourceTree = "<group>"; };
 		4280C0D91C5D25DC00B2C9B3 /* MessageTransformerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessageTransformerTests.swift; sourceTree = "<group>"; };
 		4280C0DC1C5D4CAD00B2C9B3 /* MessageLogger.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessageLogger.swift; sourceTree = "<group>"; };
@@ -155,7 +157,7 @@
 		5A219AD37DBE00A8997FD63D /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		77BC4CC2D47B6C11CBA7895E /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 		7A6AF1798DDD888B0BEABD3A /* Pods.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		E20B94601C17539C00222A2B /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AppDelegate.swift; path = Classes/AppDelegate.swift; sourceTree = "<group>"; };
+		DFBAD41E1C64C346004C1D47 /* SpringMesh.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpringMesh.swift; sourceTree = "<group>"; };
 		E20B94641C1753B900222A2B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Assets.xcassets; path = Resources/Assets.xcassets; sourceTree = "<group>"; };
 		E20B946B1C1753C800222A2B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Resources/Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		E20B94751C17541E00222A2B /* AudioController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AudioController.h; path = Classes/Shared/Utilities/AudioController.h; sourceTree = "<group>"; };
@@ -352,6 +354,7 @@
 				E25279E01BF61B23008B4690 /* Soundarama-Bridging-Header.h */,
 				E25279D11BF606C8008B4690 /* Info.plist */,
 				42E8BE191C54FB730034F1C8 /* Legacy */,
+				DFBAD41E1C64C346004C1D47 /* SpringMesh.swift */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -423,7 +426,7 @@
 		42E8BE151C54FB440034F1C8 /* App */ = {
 			isa = PBXGroup;
 			children = (
-				E20B94601C17539C00222A2B /* AppDelegate.swift */,
+				426A26E21C720BE8003FE38D /* AppDelegate.swift */,
 				42E8BE1F1C54FF470034F1C8 /* Soundarama.swift */,
 				420080361C5BAD50009009E8 /* SoundaramaDependencies.swift */,
 			);
@@ -716,7 +719,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				42A727AA1C552D9400BFCA47 /* PerformerInteractor.swift in Sources */,
-				E20B94611C17539C00222A2B /* AppDelegate.swift in Sources */,
 				4249B5981C578A5A0096872D /* SearchSocketEndpoint.swift in Sources */,
 				420AA69F1C550B1700F7BB25 /* DecideViewController.swift in Sources */,
 				4280C0DF1C5D522700B2C9B3 /* Int.swift in Sources */,
@@ -739,6 +741,7 @@
 				4249B59D1C5797920096872D /* ChristiansTimeServer.swift in Sources */,
 				421468551C56345700892786 /* TP2P.swift in Sources */,
 				42E49DAE1C58F20D00B9C127 /* SoundZoneCollectionViewCell.swift in Sources */,
+				DFBAD41F1C64C346004C1D47 /* SpringMesh.swift in Sources */,
 				E26EBA981C18A3A000747726 /* SwiftyJSON.swift in Sources */,
 				42AFC6651C55805300AD4B9B /* WriteableMessageAdapter.swift in Sources */,
 				4200803B1C5BD289009009E8 /* SuiteStore.swift in Sources */,
@@ -747,6 +750,7 @@
 				421468661C56831F00892786 /* BroadcastStrategy.swift in Sources */,
 				42E8BE201C54FF470034F1C8 /* Soundarama.swift in Sources */,
 				42A727AC1C552DCA00BFCA47 /* DecideModule.swift in Sources */,
+				426A26E31C720BE8003FE38D /* AppDelegate.swift in Sources */,
 				4280C0D81C5D1A8A00B2C9B3 /* MessageTransformer.swift in Sources */,
 				42A727B21C552E5D00BFCA47 /* DJWireframe.swift in Sources */,
 				420AA6AB1C55288E00F7BB25 /* DecideWireframe.swift in Sources */,
