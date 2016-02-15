@@ -18,8 +18,6 @@ class PerformerViewController: UIViewController, PerformerUserInterface {
         static let NotConnected = "Non Connecté"
     }
     
-    static let timestamp = NSDate().timeIntervalSince1970
-    
     @IBOutlet weak var imageView: UIImageView?
     
     @IBOutlet weak var label: UILabel?
@@ -38,9 +36,37 @@ class PerformerViewController: UIViewController, PerformerUserInterface {
         }
     }
     
-    func setAudioStem(audioStem: AudioStem) {
+    func setColour(colour: UIColor?) {
         
-        view.backgroundColor = audioStem.colour
-        label?.textColor = audioStem.colour
+        imageView?.backgroundColor = colour ?? UIColor.blackColor()
+        label?.textColor = colour ?? UIColor.blackColor()
     }
 }
+
+
+/*
+
+private lazy var backgroundImages: [UIImage] =
+-    {
+-        var images = [UIImage]()
+-        let numberOfImages = 4
+-        for i in 1...numberOfImages
+-        {
+-            let imageFileName = "glitch-\(i).jpg"
+-            images.append(UIImage(named: imageFileName)!)
+-        }
+-        return images
+-    }()
+-    private var backgroundImageIdx = 0
+
+private func progressToNextBackgroundImage()
+-    {
+-        self.backgroundImageIdx++
+-        if (self.backgroundImageIdx > self.backgroundImages.count - 1)
+-        {
+-            self.backgroundImageIdx = 0
+-        }
+-
+-        self.backgroundImageView?.image = self.backgroundImages[self.backgroundImageIdx]
+-    }
+*/

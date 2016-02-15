@@ -15,5 +15,5 @@ protocol PerformerOutput: class {
     
     func connectionStateDidChange(state: ConnectionState)
     
-    func audioStemDidChange(stem: AudioStem)
+    func audioStemDidChange(stem: AudioStem?)
 }

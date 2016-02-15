@@ -27,9 +27,9 @@ extension PerformerPresenter: PerformerOutput {
         ui.setConnectionState(state)
     }
     
-    func audioStemDidChange(stem: AudioStem) {
+    func audioStemDidChange(stem: AudioStem?) {
         
-        ui.setAudioStem(stem)
+        ui.setColour(stem?.colour)
     }
 }
 

@@ -66,36 +66,23 @@ extension PerformerInteractor: ReadableMessageAdapterDelegate {
     func didReceivePerformerMessage(message: PerformerMessage) {
         
         let delay = calculateDelay(message)
-        let audioStem = audioStemStore.audioStem(message.reference)!
         
         switch message.command {
         case .Start:
+            let audioStem = audioStemStore.audioStem(message.reference)!
             stopAudio(delay)
             startAudio(audioStem.audioFilePath, afterDelay: delay, muted: message.muted)
+            performerOutput.audioStemDidChange(audioStem)
         case .Stop:
             stopAudio(delay)
+            performerOutput.audioStemDidChange(nil)
         case .ToggleMute:
             toggleMuteAudio(message.muted)
         }
     }
-    
-    func calculateDelay(message: PerformerMessage) -> NSTimeInterval {
-        
-        let now = NSDate().timeIntervalSince1970
-        let elapsed = now - christiansMap!.local
-        let remoteNow = christiansMap!.remote + elapsed
-        
-        // Calculate `nextStartTime` as a value equal to `timestamp` plus an integer multiple of `loopLength`
-        // +0.1 is to make sure the audio player has enough time to prepare for playback
-        
-        var nextStartTime = message.sessionTimestamp
-        
-        while nextStartTime < remoteNow + 0.1 {
-            nextStartTime += message.loopLength
-        }
-        
-        return Double(nextStartTime) - Double(remoteNow)
-    }
+}
+
+extension PerformerInteractor {
     
     func startAudio(path: String, afterDelay: NSTimeInterval, muted: Bool) {
         
@@ -106,7 +93,6 @@ extension PerformerInteractor: ReadableMessageAdapterDelegate {
             player.numberOfLoops = -1
             player.volume = muted ? 0 : 1
             players.append(player)
-            /* newPlayer.delegate = self */
         } catch {
             print("Error creating AVPlayer")
         }
@@ -129,6 +115,27 @@ extension PerformerInteractor: ReadableMessageAdapterDelegate {
         for s in plyrs {
             s.volume = isMuted ? 0 : 1
         }
+    }
+}
+
+extension PerformerInteractor {
+    
+    func calculateDelay(message: PerformerMessage) -> NSTimeInterval {
+        
+        let now = NSDate().timeIntervalSince1970
+        let elapsed = now - christiansMap!.local
+        let remoteNow = christiansMap!.remote + elapsed
+        
+        // Calculate `nextStartTime` as a value equal to `timestamp` plus an integer multiple of `loopLength`
+        // +0.1 is to make sure the audio player has enough time to prepare for playback
+        
+        var nextStartTime = message.sessionTimestamp
+        
+        while nextStartTime < remoteNow + 0.1 {
+            nextStartTime += message.loopLength
+        }
+        
+        return Double(nextStartTime) - Double(remoteNow)
     }
 }
 
