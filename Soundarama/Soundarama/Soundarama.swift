@@ -6,6 +6,8 @@
 //  Copyright © 2016 Touchpress Ltd. All rights reserved.
 //
 
+/* Injection of internal dependencies */
+
 import UIKit
 
 class Soundarama {
