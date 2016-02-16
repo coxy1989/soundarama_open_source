@@ -7,13 +7,15 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		40875DF9F44294C2A889FBFC /* Pods.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7A6AF1798DDD888B0BEABD3A /* Pods.framework */; };
 		420080261C5A458B009009E8 /* SoundaramaTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 420080251C5A458B009009E8 /* SoundaramaTests.swift */; };
 		420080371C5BAD50009009E8 /* SoundaramaDependencies.swift in Sources */ = {isa = PBXBuildFile; fileRef = 420080361C5BAD50009009E8 /* SoundaramaDependencies.swift */; };
 		420080391C5BCA44009009E8 /* Suite.swift in Sources */ = {isa = PBXBuildFile; fileRef = 420080381C5BCA44009009E8 /* Suite.swift */; };
 		4200803B1C5BD289009009E8 /* SuiteStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4200803A1C5BD289009009E8 /* SuiteStore.swift */; };
 		4200803E1C5BD5A3009009E8 /* UIDevice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4200803D1C5BD5A3009009E8 /* UIDevice.swift */; };
 		4207043E1C7223E7003F6568 /* AVKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4207043D1C7223E7003F6568 /* AVKit.framework */; };
+		420704421C733B49003F6568 /* CocoaAsyncSocket.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4207043F1C733B49003F6568 /* CocoaAsyncSocket.framework */; };
+		420704431C733B49003F6568 /* TouchpressFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 420704401C733B49003F6568 /* TouchpressFoundation.framework */; };
+		420704441C733B49003F6568 /* TouchpressUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 420704411C733B49003F6568 /* TouchpressUI.framework */; };
 		420AA6991C55055F00F7BB25 /* DecideStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 420AA6981C55055F00F7BB25 /* DecideStoryboard.storyboard */; };
 		420AA69F1C550B1700F7BB25 /* DecideViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 420AA69E1C550B1700F7BB25 /* DecideViewController.swift */; };
 		420AA6A51C551AB300F7BB25 /* PerformerStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 420AA6A41C551AB300F7BB25 /* PerformerStoryboard.storyboard */; };
@@ -88,18 +90,6 @@
 		};
 /* End PBXContainerItemProxy section */
 
-/* Begin PBXCopyFilesBuildPhase section */
-		E2527A2F1BF638A9008B4690 /* CopyFiles */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 10;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXCopyFilesBuildPhase section */
-
 /* Begin PBXFileReference section */
 		420080231C5A458B009009E8 /* SoundaramaTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SoundaramaTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		420080251C5A458B009009E8 /* SoundaramaTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SoundaramaTests.swift; sourceTree = "<group>"; };
@@ -109,6 +99,9 @@
 		4200803A1C5BD289009009E8 /* SuiteStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SuiteStore.swift; sourceTree = "<group>"; };
 		4200803D1C5BD5A3009009E8 /* UIDevice.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIDevice.swift; sourceTree = "<group>"; };
 		4207043D1C7223E7003F6568 /* AVKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVKit.framework; path = System/Library/Frameworks/AVKit.framework; sourceTree = SDKROOT; };
+		4207043F1C733B49003F6568 /* CocoaAsyncSocket.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CocoaAsyncSocket.framework; path = ../Carthage/Build/iOS/CocoaAsyncSocket.framework; sourceTree = "<group>"; };
+		420704401C733B49003F6568 /* TouchpressFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = TouchpressFoundation.framework; path = ../Carthage/Build/iOS/TouchpressFoundation.framework; sourceTree = "<group>"; };
+		420704411C733B49003F6568 /* TouchpressUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = TouchpressUI.framework; path = ../Carthage/Build/iOS/TouchpressUI.framework; sourceTree = "<group>"; };
 		420AA6981C55055F00F7BB25 /* DecideStoryboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = DecideStoryboard.storyboard; sourceTree = "<group>"; };
 		420AA69E1C550B1700F7BB25 /* DecideViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DecideViewController.swift; sourceTree = "<group>"; };
 		420AA6A41C551AB300F7BB25 /* PerformerStoryboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = PerformerStoryboard.storyboard; sourceTree = "<group>"; };
@@ -158,9 +151,6 @@
 		42F90EE71C5D74280010F1C5 /* UIColor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIColor.swift; sourceTree = "<group>"; };
 		42F90EE91C5D74920010F1C5 /* UIFont.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIFont.swift; sourceTree = "<group>"; };
 		42F90EEB1C5E23790010F1C5 /* Set.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Set.swift; sourceTree = "<group>"; };
-		5A219AD37DBE00A8997FD63D /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
-		77BC4CC2D47B6C11CBA7895E /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
-		7A6AF1798DDD888B0BEABD3A /* Pods.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		DFBAD41E1C64C346004C1D47 /* SpringMesh.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpringMesh.swift; sourceTree = "<group>"; };
 		E20B94641C1753B900222A2B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Assets.xcassets; path = Resources/Assets.xcassets; sourceTree = "<group>"; };
 		E20B946B1C1753C800222A2B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Resources/Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -193,9 +183,11 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				420704421C733B49003F6568 /* CocoaAsyncSocket.framework in Frameworks */,
+				420704431C733B49003F6568 /* TouchpressFoundation.framework in Frameworks */,
+				420704441C733B49003F6568 /* TouchpressUI.framework in Frameworks */,
 				4207043E1C7223E7003F6568 /* AVKit.framework in Frameworks */,
 				426A26E51C721EA5003FE38D /* AVFoundation.framework in Frameworks */,
-				40875DF9F44294C2A889FBFC /* Pods.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -505,22 +497,12 @@
 			name = Theme;
 			sourceTree = "<group>";
 		};
-		C34F38C4A45FFA16F71BF5A1 /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				77BC4CC2D47B6C11CBA7895E /* Pods.debug.xcconfig */,
-				5A219AD37DBE00A8997FD63D /* Pods.release.xcconfig */,
-			);
-			name = Pods;
-			sourceTree = "<group>";
-		};
 		E25279B91BF606C8008B4690 = {
 			isa = PBXGroup;
 			children = (
 				E25279C41BF606C8008B4690 /* Soundarama */,
 				420080241C5A458B009009E8 /* SoundaramaTests */,
 				E25279C31BF606C8008B4690 /* Products */,
-				C34F38C4A45FFA16F71BF5A1 /* Pods */,
 				FF8F05C000FBA5897614E1FA /* Frameworks */,
 			);
 			sourceTree = "<group>";
@@ -551,9 +533,11 @@
 		FF8F05C000FBA5897614E1FA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				4207043F1C733B49003F6568 /* CocoaAsyncSocket.framework */,
+				420704401C733B49003F6568 /* TouchpressFoundation.framework */,
+				420704411C733B49003F6568 /* TouchpressUI.framework */,
 				4207043D1C7223E7003F6568 /* AVKit.framework */,
 				426A26E41C721EA5003FE38D /* AVFoundation.framework */,
-				7A6AF1798DDD888B0BEABD3A /* Pods.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -583,13 +567,10 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = E25279D41BF606C8008B4690 /* Build configuration list for PBXNativeTarget "Soundarama" */;
 			buildPhases = (
-				AEE2ACA9561B59A153E16D41 /* Check Pods Manifest.lock */,
 				E25279BE1BF606C8008B4690 /* Sources */,
 				E25279BF1BF606C8008B4690 /* Frameworks */,
 				E25279C01BF606C8008B4690 /* Resources */,
-				E2527A2F1BF638A9008B4690 /* CopyFiles */,
-				7E837FEB9687B373D5960E75 /* Embed Pods Frameworks */,
-				9B74FB4FDE99DD67B5F9E735 /* Copy Pods Resources */,
+				420704451C733B53003F6568 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -664,50 +645,21 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		7E837FEB9687B373D5960E75 /* Embed Pods Frameworks */ = {
+		420704451C733B53003F6568 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
+				"$(SRCROOT)/Carthage/Build/iOS/TouchpressFoundation.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/TouchpressUI.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/CocoaAsyncSocket.framework",
 			);
-			name = "Embed Pods Frameworks";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		9B74FB4FDE99DD67B5F9E735 /* Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		AEE2ACA9561B59A153E16D41 /* Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Check Pods Manifest.lock";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
-			showEnvVarsInLog = 0;
+			shellScript = "/usr/local/bin/carthage copy-frameworks";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -916,12 +868,12 @@
 		};
 		E25279D51BF606C8008B4690 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 77BC4CC2D47B6C11CBA7895E /* Pods.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "Brand Assets";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				FRAMEWORK_SEARCH_PATHS = "$(SRCROOT)/Carthage/Build/iOS";
 				INFOPLIST_FILE = Soundarama/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -935,12 +887,12 @@
 		};
 		E25279D61BF606C8008B4690 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 5A219AD37DBE00A8997FD63D /* Pods.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "Brand Assets";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				FRAMEWORK_SEARCH_PATHS = "$(SRCROOT)/Carthage/Build/iOS";
 				INFOPLIST_FILE = Soundarama/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
