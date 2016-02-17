@@ -62,10 +62,10 @@ class AudioLoop {
             return
         }
         
-        let scheduledPlaytime = playtime + currentPlayer.duration
+        let scheduledPlaytime = playtime + 45.0
         player.playAtTime(scheduledPlaytime)
         
-        let looptime = dispatch_time(DISPATCH_TIME_NOW, Int64(currentPlayer.duration * Double(NSEC_PER_SEC)))
+        let looptime = dispatch_time(DISPATCH_TIME_NOW, Int64(45.0 * Double(NSEC_PER_SEC)))
         dispatch_after(looptime, dispatch_get_main_queue()) { [weak self] in
             self?.currentPlayer = self?.scheduledPlayer
             self?.loop(scheduledPlaytime)
