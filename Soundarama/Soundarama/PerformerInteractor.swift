@@ -24,9 +24,7 @@ class PerformerInteractor: PerformerInput {
     
     private var audioStemStore = AudioStemStore()
     
-    private let audioController = PerformerAudioController()
-    
-    private var players: [AVAudioPlayer] = []
+    private var audioloop: AudioLoop?
     
     func start() {
     
@@ -54,7 +52,7 @@ extension PerformerInteractor: ChristiansProcessDelegate {
     func christiansProcessDidSynchronise(local: NSTimeInterval, remote: NSTimeInterval) {
     
         christiansMap = (local: local, remote: remote)
-        print(christiansMap)
+        debugPrint(christiansMap)
         messageAdapter = ReadableMessageAdapter(readable: endpoint)
         messageAdapter.delegate = self
         messageAdapter.takeMessages()
@@ -68,14 +66,17 @@ extension PerformerInteractor: ReadableMessageAdapterDelegate {
         let delay = calculateDelay(message)
         
         switch message.command {
+            
         case .Start:
             let audioStem = audioStemStore.audioStem(message.reference)!
             stopAudio(delay)
             startAudio(audioStem.audioFilePath, afterDelay: delay, muted: message.muted)
             performerOutput.audioStemDidChange(audioStem)
+            
         case .Stop:
             stopAudio(delay)
             performerOutput.audioStemDidChange(nil)
+            
         case .ToggleMute:
             toggleMuteAudio(message.muted)
         }
@@ -86,35 +87,18 @@ extension PerformerInteractor {
     
     func startAudio(path: String, afterDelay: NSTimeInterval, muted: Bool) {
         
-        do {
-            let player = try AVAudioPlayer(contentsOfURL: NSURL(fileURLWithPath: path))
-            let playTime = player.deviceCurrentTime + afterDelay
-            player.playAtTime(playTime)
-            player.numberOfLoops = -1
-            player.volume = muted ? 0 : 1
-            players.append(player)
-        } catch {
-            print("Error creating AVPlayer")
-        }
+        audioloop = AudioLoop(path: path, delay: afterDelay)
+        audioloop!.start()
     }
     
     func stopAudio(afterDelay: NSTimeInterval) {
         
-        let plyrs = players
-        let delayTime = dispatch_time(DISPATCH_TIME_NOW, Int64(afterDelay * Double(NSEC_PER_SEC)))
-        dispatch_after(delayTime, dispatch_get_main_queue()) {
-            for s in plyrs {
-                s.stop()
-            }
-        }
+        audioloop?.stop()
     }
     
     func toggleMuteAudio(isMuted: Bool) {
         
-        let plyrs = players
-        for s in plyrs {
-            s.volume = isMuted ? 0 : 1
-        }
+        audioloop?.toggleMute(isMuted)
     }
 }
 

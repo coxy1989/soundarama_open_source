@@ -35,6 +35,7 @@
 		4249B59B1C5792490096872D /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4249B59A1C5792490096872D /* Message.swift */; };
 		4249B59D1C5797920096872D /* ChristiansTimeServer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4249B59C1C5797920096872D /* ChristiansTimeServer.swift */; };
 		4249B59F1C57979E0096872D /* ChristiansProcess.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4249B59E1C57979E0096872D /* ChristiansProcess.swift */; };
+		425CC3281C74B8F200B39AB5 /* AudioLoop.swift in Sources */ = {isa = PBXBuildFile; fileRef = 425CC3271C74B8F200B39AB5 /* AudioLoop.swift */; };
 		426A26E31C720BE8003FE38D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 426A26E21C720BE8003FE38D /* AppDelegate.swift */; };
 		426A26E51C721EA5003FE38D /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 426A26E41C721EA5003FE38D /* AVFoundation.framework */; };
 		4280C0D81C5D1A8A00B2C9B3 /* MessageTransformer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4280C0D71C5D1A8A00B2C9B3 /* MessageTransformer.swift */; };
@@ -64,7 +65,6 @@
 		42E8BE201C54FF470034F1C8 /* Soundarama.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42E8BE1F1C54FF470034F1C8 /* Soundarama.swift */; };
 		42F90EE81C5D74280010F1C5 /* UIColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42F90EE71C5D74280010F1C5 /* UIColor.swift */; };
 		42F90EEA1C5D74920010F1C5 /* UIFont.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42F90EE91C5D74920010F1C5 /* UIFont.swift */; };
-		42F90EEC1C5E23790010F1C5 /* Set.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42F90EEB1C5E23790010F1C5 /* Set.swift */; };
 		DFBAD41F1C64C346004C1D47 /* SpringMesh.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFBAD41E1C64C346004C1D47 /* SpringMesh.swift */; };
 		E20B94681C1753B900222A2B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E20B94641C1753B900222A2B /* Assets.xcassets */; };
 		E20B946C1C1753C800222A2B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E20B946A1C1753C800222A2B /* LaunchScreen.storyboard */; };
@@ -121,6 +121,7 @@
 		4249B59A1C5792490096872D /* Message.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
 		4249B59C1C5797920096872D /* ChristiansTimeServer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChristiansTimeServer.swift; sourceTree = "<group>"; };
 		4249B59E1C57979E0096872D /* ChristiansProcess.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChristiansProcess.swift; sourceTree = "<group>"; };
+		425CC3271C74B8F200B39AB5 /* AudioLoop.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AudioLoop.swift; sourceTree = "<group>"; };
 		426A26E21C720BE8003FE38D /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AppDelegate.swift; path = Classes/AppDelegate.swift; sourceTree = "<group>"; };
 		426A26E41C721EA5003FE38D /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		4280C0D71C5D1A8A00B2C9B3 /* MessageTransformer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessageTransformer.swift; sourceTree = "<group>"; };
@@ -150,7 +151,6 @@
 		42E8BE1F1C54FF470034F1C8 /* Soundarama.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Soundarama.swift; sourceTree = "<group>"; };
 		42F90EE71C5D74280010F1C5 /* UIColor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIColor.swift; sourceTree = "<group>"; };
 		42F90EE91C5D74920010F1C5 /* UIFont.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIFont.swift; sourceTree = "<group>"; };
-		42F90EEB1C5E23790010F1C5 /* Set.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Set.swift; sourceTree = "<group>"; };
 		DFBAD41E1C64C346004C1D47 /* SpringMesh.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpringMesh.swift; sourceTree = "<group>"; };
 		E20B94641C1753B900222A2B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Assets.xcassets; path = Resources/Assets.xcassets; sourceTree = "<group>"; };
 		E20B946B1C1753C800222A2B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Resources/Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -226,7 +226,6 @@
 			children = (
 				4200803D1C5BD5A3009009E8 /* UIDevice.swift */,
 				4280C0DE1C5D522700B2C9B3 /* Int.swift */,
-				42F90EEB1C5E23790010F1C5 /* Set.swift */,
 			);
 			name = TPKitAdditions;
 			sourceTree = "<group>";
@@ -318,6 +317,33 @@
 			name = Representation;
 			sourceTree = "<group>";
 		};
+		425CC3241C74B84000B39AB5 /* Extras */ = {
+			isa = PBXGroup;
+			children = (
+				4200803C1C5BD595009009E8 /* TPKitAdditions */,
+				425CC3251C74B86300B39AB5 /* Experimental */,
+				42E8BE191C54FB730034F1C8 /* Legacy */,
+				4280C0DB1C5D4C9200B2C9B3 /* Debug */,
+			);
+			name = Extras;
+			sourceTree = "<group>";
+		};
+		425CC3251C74B86300B39AB5 /* Experimental */ = {
+			isa = PBXGroup;
+			children = (
+				DFBAD41E1C64C346004C1D47 /* SpringMesh.swift */,
+			);
+			name = Experimental;
+			sourceTree = "<group>";
+		};
+		425CC3261C74B8A100B39AB5 /* Audio */ = {
+			isa = PBXGroup;
+			children = (
+				425CC3271C74B8F200B39AB5 /* AudioLoop.swift */,
+			);
+			name = Audio;
+			sourceTree = "<group>";
+		};
 		4280C0D61C5D166400B2C9B3 /* Transformation */ = {
 			isa = PBXGroup;
 			children = (
@@ -348,11 +374,8 @@
 		42A55C131C0F2AF400FD6C7D /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				E26EBA971C18A3A000747726 /* SwiftyJSON.swift */,
 				E25279E01BF61B23008B4690 /* Soundarama-Bridging-Header.h */,
 				E25279D11BF606C8008B4690 /* Info.plist */,
-				42E8BE191C54FB730034F1C8 /* Legacy */,
-				DFBAD41E1C64C346004C1D47 /* SpringMesh.swift */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -360,8 +383,6 @@
 		42A727B91C553A7C00BFCA47 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				42B37E931C5FAE1E003DF5A6 /* Audio Player */,
-				4200803C1C5BD595009009E8 /* TPKitAdditions */,
 				4249B5991C5792190096872D /* Representation */,
 				4280C0D61C5D166400B2C9B3 /* Transformation */,
 				42C45A821C57DE5700888EA8 /* Data Store */,
@@ -394,19 +415,12 @@
 			name = Serialisation;
 			sourceTree = "<group>";
 		};
-		42B37E931C5FAE1E003DF5A6 /* Audio Player */ = {
-			isa = PBXGroup;
-			children = (
-				E26EBAB31C199DC000747726 /* PerformerAudioController.swift */,
-			);
-			name = "Audio Player";
-			sourceTree = "<group>";
-		};
 		42C45A821C57DE5700888EA8 /* Data Store */ = {
 			isa = PBXGroup;
 			children = (
 				4200803A1C5BD289009009E8 /* SuiteStore.swift */,
 				42C45A851C57DF2100888EA8 /* AudioStemStore.swift */,
+				E26EBA971C18A3A000747726 /* SwiftyJSON.swift */,
 			);
 			name = "Data Store";
 			sourceTree = "<group>";
@@ -468,6 +482,7 @@
 		42E8BE191C54FB730034F1C8 /* Legacy */ = {
 			isa = PBXGroup;
 			children = (
+				E26EBAB31C199DC000747726 /* PerformerAudioController.swift */,
 				E26EBA991C18A4E600747726 /* UIColor+Hex.swift */,
 				E20B94751C17541E00222A2B /* AudioController.h */,
 				E20B94761C17541E00222A2B /* AudioController.mm */,
@@ -523,9 +538,10 @@
 				42E8BE161C54FB470034F1C8 /* Use Cases */,
 				420AA69A1C550A8000F7BB25 /* UI */,
 				42A727B91C553A7C00BFCA47 /* Model */,
-				4280C0DB1C5D4C9200B2C9B3 /* Debug */,
-				42A55C131C0F2AF400FD6C7D /* Supporting Files */,
+				425CC3261C74B8A100B39AB5 /* Audio */,
 				42A55C121C0F2AE900FD6C7D /* Resources */,
+				42A55C131C0F2AF400FD6C7D /* Supporting Files */,
+				425CC3241C74B84000B39AB5 /* Extras */,
 			);
 			path = Soundarama;
 			sourceTree = "<group>";
@@ -692,7 +708,6 @@
 				42A727A61C552D3800BFCA47 /* PerformerPresenter.swift in Sources */,
 				42C45A861C57DF2100888EA8 /* AudioStemStore.swift in Sources */,
 				42F90EEA1C5D74920010F1C5 /* UIFont.swift in Sources */,
-				42F90EEC1C5E23790010F1C5 /* Set.swift in Sources */,
 				42AFC6631C55802000AD4B9B /* ReadableMessageAdapter.swift in Sources */,
 				4249B5961C578A160096872D /* BroadcastSocketEndpoint.swift in Sources */,
 				421468571C56404C00892786 /* DJUserInterface.swift in Sources */,
@@ -717,6 +732,7 @@
 				42C45A881C58CA8C00888EA8 /* DJViewController.swift in Sources */,
 				42A727A41C552D0200BFCA47 /* PerformerWireframe.swift in Sources */,
 				E26EBA951C18A10A00747726 /* AudioStemsViewController.swift in Sources */,
+				425CC3281C74B8F200B39AB5 /* AudioLoop.swift in Sources */,
 				42A727B41C552E7400BFCA47 /* DJPresenter.swift in Sources */,
 				E26EBA9A1C18A4E600747726 /* UIColor+Hex.swift in Sources */,
 				421468641C567E9600892786 /* SearchStrategy.swift in Sources */,
