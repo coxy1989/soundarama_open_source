@@ -94,6 +94,7 @@ extension PerformerInteractor {
     func stopAudio(afterDelay: NSTimeInterval) {
         
         audioloop?.stop()
+        audioloop = nil
     }
     
     func toggleMuteAudio(isMuted: Bool) {
