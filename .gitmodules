@@ -1,0 +1,6 @@
+[submodule "TouchpressUI"]
+	path = TouchpressUI
+	url = git@github.com:touchpress/TouchpressUI.git
+[submodule "TouchpressFoundation"]
+	path = TouchpressFoundation
+	url = git@github.com:touchpress/TouchpressFoundation.git

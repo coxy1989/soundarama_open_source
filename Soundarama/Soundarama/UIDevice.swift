@@ -8,6 +8,7 @@
 
 import UIKit
 
+/*
 extension UIDevice {
     
     static func isPad() -> Bool {
@@ -15,3 +16,4 @@ extension UIDevice {
         return UIDevice.currentDevice().userInterfaceIdiom == .Pad
     }
 }
+*/

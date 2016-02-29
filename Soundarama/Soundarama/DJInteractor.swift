@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import TouchpressUI
 
 class DJInteractor {
     

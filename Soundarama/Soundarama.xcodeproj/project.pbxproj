@@ -33,12 +33,25 @@
 		4249B59D1C5797920096872D /* ChristiansTimeServer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4249B59C1C5797920096872D /* ChristiansTimeServer.swift */; };
 		4249B59F1C57979E0096872D /* ChristiansProcess.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4249B59E1C57979E0096872D /* ChristiansProcess.swift */; };
 		425CC3281C74B8F200B39AB5 /* AudioLoop.swift in Sources */ = {isa = PBXBuildFile; fileRef = 425CC3271C74B8F200B39AB5 /* AudioLoop.swift */; };
-		426A26E31C720BE8003FE38D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 426A26E21C720BE8003FE38D /* AppDelegate.swift */; };
 		426A26E51C721EA5003FE38D /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 426A26E41C721EA5003FE38D /* AVFoundation.framework */; };
+		42704FC31C84733A004CD00D /* CocoaAsyncSocket.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 42704FC21C84733A004CD00D /* CocoaAsyncSocket.framework */; };
 		4280C0D81C5D1A8A00B2C9B3 /* MessageTransformer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4280C0D71C5D1A8A00B2C9B3 /* MessageTransformer.swift */; };
 		4280C0DA1C5D25DC00B2C9B3 /* MessageTransformerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4280C0D91C5D25DC00B2C9B3 /* MessageTransformerTests.swift */; };
 		4280C0DD1C5D4CAD00B2C9B3 /* MessageLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4280C0DC1C5D4CAD00B2C9B3 /* MessageLogger.swift */; };
 		4280C0DF1C5D522700B2C9B3 /* Int.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4280C0DE1C5D522700B2C9B3 /* Int.swift */; };
+		429EC9571C8475A8002FDBCC /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 429EC9561C8475A8002FDBCC /* AppDelegate.swift */; };
+		429EC9591C8475DB002FDBCC /* AudioStemsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 429EC9581C8475DB002FDBCC /* AudioStemsViewController.swift */; };
+		429EC95B1C84761F002FDBCC /* PerformerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 429EC95A1C84761F002FDBCC /* PerformerView.swift */; };
+		429EC95D1C847628002FDBCC /* SoundZoneView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 429EC95C1C847628002FDBCC /* SoundZoneView.swift */; };
+		429EC95F1C847666002FDBCC /* PerformerAudioController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 429EC95E1C847666002FDBCC /* PerformerAudioController.swift */; };
+		429EC9621C847697002FDBCC /* AudioController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 429EC9611C847697002FDBCC /* AudioController.mm */; };
+		429EC9651C8476A1002FDBCC /* VolumeControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 429EC9641C8476A1002FDBCC /* VolumeControl.m */; };
+		429EC9671C84770C002FDBCC /* SwiftyJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 429EC9661C84770C002FDBCC /* SwiftyJSON.swift */; };
+		429EC9691C847740002FDBCC /* UIColor+Hex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 429EC9681C847740002FDBCC /* UIColor+Hex.swift */; };
+		429EC96B1C847794002FDBCC /* TouchpressUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 429EC96A1C847794002FDBCC /* TouchpressUI.framework */; };
+		429EC96C1C847794002FDBCC /* TouchpressUI.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 429EC96A1C847794002FDBCC /* TouchpressUI.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		429EC96F1C847799002FDBCC /* TouchpressFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 429EC96E1C847799002FDBCC /* TouchpressFoundation.framework */; };
+		429EC9701C847799002FDBCC /* TouchpressFoundation.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 429EC96E1C847799002FDBCC /* TouchpressFoundation.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		42A727A21C552C4800BFCA47 /* DJStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 42A727A11C552C4800BFCA47 /* DJStoryboard.storyboard */; };
 		42A727A41C552D0200BFCA47 /* PerformerWireframe.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42A727A31C552D0200BFCA47 /* PerformerWireframe.swift */; };
 		42A727A61C552D3800BFCA47 /* PerformerPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42A727A51C552D3800BFCA47 /* PerformerPresenter.swift */; };
@@ -65,16 +78,8 @@
 		DFBAD41F1C64C346004C1D47 /* SpringMesh.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFBAD41E1C64C346004C1D47 /* SpringMesh.swift */; };
 		E20B94681C1753B900222A2B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E20B94641C1753B900222A2B /* Assets.xcassets */; };
 		E20B946C1C1753C800222A2B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E20B946A1C1753C800222A2B /* LaunchScreen.storyboard */; };
-		E20B94811C17541E00222A2B /* AudioController.mm in Sources */ = {isa = PBXBuildFile; fileRef = E20B94761C17541E00222A2B /* AudioController.mm */; };
-		E20B94841C17541E00222A2B /* VolumeControl.m in Sources */ = {isa = PBXBuildFile; fileRef = E20B947A1C17541E00222A2B /* VolumeControl.m */; };
-		E20B94931C188BF700222A2B /* SoundZoneView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E20B94921C188BF700222A2B /* SoundZoneView.swift */; };
 		E25F9E0E1C19D7B2001D552F /* Sounds in Resources */ = {isa = PBXBuildFile; fileRef = E25F9E0D1C19D7B2001D552F /* Sounds */; };
-		E26EBA951C18A10A00747726 /* AudioStemsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E26EBA941C18A10A00747726 /* AudioStemsViewController.swift */; };
-		E26EBA981C18A3A000747726 /* SwiftyJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = E26EBA971C18A3A000747726 /* SwiftyJSON.swift */; };
-		E26EBA9A1C18A4E600747726 /* UIColor+Hex.swift in Sources */ = {isa = PBXBuildFile; fileRef = E26EBA991C18A4E600747726 /* UIColor+Hex.swift */; };
 		E26EBAA31C18AF4700747726 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = E26EBAA21C18AF4700747726 /* Localizable.strings */; };
-		E26EBAAB1C18C22200747726 /* PerformerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E26EBAAA1C18C22200747726 /* PerformerView.swift */; };
-		E26EBAB41C199DC000747726 /* PerformerAudioController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E26EBAB31C199DC000747726 /* PerformerAudioController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -86,6 +91,21 @@
 			remoteInfo = Soundarama;
 		};
 /* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		429EC96D1C847794002FDBCC /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				429EC96C1C847794002FDBCC /* TouchpressUI.framework in Embed Frameworks */,
+				429EC9701C847799002FDBCC /* TouchpressFoundation.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		420080231C5A458B009009E8 /* SoundaramaTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SoundaramaTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -116,12 +136,28 @@
 		4249B59C1C5797920096872D /* ChristiansTimeServer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChristiansTimeServer.swift; sourceTree = "<group>"; };
 		4249B59E1C57979E0096872D /* ChristiansProcess.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChristiansProcess.swift; sourceTree = "<group>"; };
 		425CC3271C74B8F200B39AB5 /* AudioLoop.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AudioLoop.swift; sourceTree = "<group>"; };
-		426A26E21C720BE8003FE38D /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AppDelegate.swift; path = Classes/AppDelegate.swift; sourceTree = "<group>"; };
 		426A26E41C721EA5003FE38D /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
+		42704FC21C84733A004CD00D /* CocoaAsyncSocket.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CocoaAsyncSocket.framework; path = Carthage/Build/iOS/CocoaAsyncSocket.framework; sourceTree = "<group>"; };
 		4280C0D71C5D1A8A00B2C9B3 /* MessageTransformer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessageTransformer.swift; sourceTree = "<group>"; };
 		4280C0D91C5D25DC00B2C9B3 /* MessageTransformerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessageTransformerTests.swift; sourceTree = "<group>"; };
 		4280C0DC1C5D4CAD00B2C9B3 /* MessageLogger.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessageLogger.swift; sourceTree = "<group>"; };
 		4280C0DE1C5D522700B2C9B3 /* Int.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Int.swift; sourceTree = "<group>"; };
+		429EC9501C847544002FDBCC /* TouchpressFoundation.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; name = TouchpressFoundation.framework; path = "/Users/jamiecox/Library/Developer/Xcode/DerivedData/Soundarama-farhttzqfpiupbbbjubivppgzixr/Build/Products/Release-iphoneos/TouchpressFoundation.framework"; sourceTree = "<absolute>"; };
+		429EC9531C847557002FDBCC /* TouchpressUI.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; name = TouchpressUI.framework; path = "/Users/jamiecox/Library/Developer/Xcode/DerivedData/Soundarama-farhttzqfpiupbbbjubivppgzixr/Build/Products/Release-iphoneos/TouchpressUI.framework"; sourceTree = "<absolute>"; };
+		429EC9561C8475A8002FDBCC /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		429EC9581C8475DB002FDBCC /* AudioStemsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AudioStemsViewController.swift; sourceTree = "<group>"; };
+		429EC95A1C84761F002FDBCC /* PerformerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PerformerView.swift; sourceTree = "<group>"; };
+		429EC95C1C847628002FDBCC /* SoundZoneView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SoundZoneView.swift; sourceTree = "<group>"; };
+		429EC95E1C847666002FDBCC /* PerformerAudioController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PerformerAudioController.swift; sourceTree = "<group>"; };
+		429EC9601C847697002FDBCC /* AudioController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AudioController.h; sourceTree = "<group>"; };
+		429EC9611C847697002FDBCC /* AudioController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = AudioController.mm; sourceTree = "<group>"; };
+		429EC9631C8476A1002FDBCC /* VolumeControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VolumeControl.h; sourceTree = "<group>"; };
+		429EC9641C8476A1002FDBCC /* VolumeControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VolumeControl.m; sourceTree = "<group>"; };
+		429EC9661C84770C002FDBCC /* SwiftyJSON.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftyJSON.swift; sourceTree = "<group>"; };
+		429EC9681C847740002FDBCC /* UIColor+Hex.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIColor+Hex.swift"; sourceTree = "<group>"; };
+		429EC96A1C847794002FDBCC /* TouchpressUI.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; name = TouchpressUI.framework; path = "/Users/jamiecox/Library/Developer/Xcode/DerivedData/Soundarama-farhttzqfpiupbbbjubivppgzixr/Build/Products/Debug-iphoneos/TouchpressUI.framework"; sourceTree = "<absolute>"; };
+		429EC96E1C847799002FDBCC /* TouchpressFoundation.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; name = TouchpressFoundation.framework; path = "/Users/jamiecox/Library/Developer/Xcode/DerivedData/Soundarama-farhttzqfpiupbbbjubivppgzixr/Build/Products/Debug-iphoneos/TouchpressFoundation.framework"; sourceTree = "<absolute>"; };
+		429EC9711C847800002FDBCC /* Soundarama-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Soundarama-Bridging-Header.h"; sourceTree = "<group>"; };
 		42A727A11C552C4800BFCA47 /* DJStoryboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = DJStoryboard.storyboard; sourceTree = "<group>"; };
 		42A727A31C552D0200BFCA47 /* PerformerWireframe.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PerformerWireframe.swift; sourceTree = "<group>"; };
 		42A727A51C552D3800BFCA47 /* PerformerPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PerformerPresenter.swift; sourceTree = "<group>"; };
@@ -148,21 +184,10 @@
 		DFBAD41E1C64C346004C1D47 /* SpringMesh.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpringMesh.swift; sourceTree = "<group>"; };
 		E20B94641C1753B900222A2B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Assets.xcassets; path = Resources/Assets.xcassets; sourceTree = "<group>"; };
 		E20B946B1C1753C800222A2B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Resources/Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
-		E20B94751C17541E00222A2B /* AudioController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AudioController.h; path = Classes/Shared/Utilities/AudioController.h; sourceTree = "<group>"; };
-		E20B94761C17541E00222A2B /* AudioController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = AudioController.mm; path = Classes/Shared/Utilities/AudioController.mm; sourceTree = "<group>"; };
-		E20B94791C17541E00222A2B /* VolumeControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VolumeControl.h; path = Classes/Shared/Utilities/VolumeControl.h; sourceTree = "<group>"; };
-		E20B947A1C17541E00222A2B /* VolumeControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VolumeControl.m; path = Classes/Shared/Utilities/VolumeControl.m; sourceTree = "<group>"; };
-		E20B94921C188BF700222A2B /* SoundZoneView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SoundZoneView.swift; path = Classes/DJ/Views/SoundZoneView.swift; sourceTree = "<group>"; };
 		E25279C21BF606C8008B4690 /* Soundarama.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Soundarama.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E25279D11BF606C8008B4690 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		E25279E01BF61B23008B4690 /* Soundarama-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "Soundarama-Bridging-Header.h"; path = "Resources/Soundarama-Bridging-Header.h"; sourceTree = "<group>"; };
 		E25F9E0D1C19D7B2001D552F /* Sounds */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Sounds; path = Resources/Sounds; sourceTree = "<group>"; };
-		E26EBA941C18A10A00747726 /* AudioStemsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AudioStemsViewController.swift; path = Classes/DJ/ViewControllers/AudioStemsViewController.swift; sourceTree = "<group>"; };
-		E26EBA971C18A3A000747726 /* SwiftyJSON.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SwiftyJSON.swift; path = Frameworks/SwiftyJSON.swift; sourceTree = "<group>"; };
-		E26EBA991C18A4E600747726 /* UIColor+Hex.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "UIColor+Hex.swift"; path = "Frameworks/UIColor+Hex.swift"; sourceTree = "<group>"; };
 		E26EBAA21C18AF4700747726 /* Localizable.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = Localizable.strings; path = Resources/Localizable.strings; sourceTree = "<group>"; };
-		E26EBAAA1C18C22200747726 /* PerformerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PerformerView.swift; path = Classes/DJ/Views/PerformerView.swift; sourceTree = "<group>"; };
-		E26EBAB31C199DC000747726 /* PerformerAudioController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PerformerAudioController.swift; path = Classes/Performer/Utilities/PerformerAudioController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -177,7 +202,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				429EC96B1C847794002FDBCC /* TouchpressUI.framework in Frameworks */,
+				42704FC31C84733A004CD00D /* CocoaAsyncSocket.framework in Frameworks */,
 				4207043E1C7223E7003F6568 /* AVKit.framework in Frameworks */,
+				429EC96F1C847799002FDBCC /* TouchpressFoundation.framework in Frameworks */,
 				426A26E51C721EA5003FE38D /* AVFoundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -257,7 +285,7 @@
 			children = (
 				421468561C56404C00892786 /* DJUserInterface.swift */,
 				42C45A871C58CA8C00888EA8 /* DJViewController.swift */,
-				E26EBA941C18A10A00747726 /* AudioStemsViewController.swift */,
+				429EC9581C8475DB002FDBCC /* AudioStemsViewController.swift */,
 				42A727A11C552C4800BFCA47 /* DJStoryboard.storyboard */,
 				42E49DAC1C58E4CB00B9C127 /* Views */,
 			);
@@ -365,7 +393,7 @@
 		42A55C131C0F2AF400FD6C7D /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				E25279E01BF61B23008B4690 /* Soundarama-Bridging-Header.h */,
+				429EC9711C847800002FDBCC /* Soundarama-Bridging-Header.h */,
 				E25279D11BF606C8008B4690 /* Info.plist */,
 			);
 			name = "Supporting Files";
@@ -411,7 +439,7 @@
 			children = (
 				4200803A1C5BD289009009E8 /* SuiteStore.swift */,
 				42C45A851C57DF2100888EA8 /* AudioStemStore.swift */,
-				E26EBA971C18A3A000747726 /* SwiftyJSON.swift */,
+				429EC9661C84770C002FDBCC /* SwiftyJSON.swift */,
 			);
 			name = "Data Store";
 			sourceTree = "<group>";
@@ -419,9 +447,9 @@
 		42E49DAC1C58E4CB00B9C127 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				429EC95A1C84761F002FDBCC /* PerformerView.swift */,
+				429EC95C1C847628002FDBCC /* SoundZoneView.swift */,
 				42E49DAD1C58F20D00B9C127 /* SoundZoneCollectionViewCell.swift */,
-				E20B94921C188BF700222A2B /* SoundZoneView.swift */,
-				E26EBAAA1C18C22200747726 /* PerformerView.swift */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -429,7 +457,7 @@
 		42E8BE151C54FB440034F1C8 /* App */ = {
 			isa = PBXGroup;
 			children = (
-				426A26E21C720BE8003FE38D /* AppDelegate.swift */,
+				429EC9561C8475A8002FDBCC /* AppDelegate.swift */,
 				42E8BE1F1C54FF470034F1C8 /* Soundarama.swift */,
 				420080361C5BAD50009009E8 /* SoundaramaDependencies.swift */,
 			);
@@ -473,12 +501,11 @@
 		42E8BE191C54FB730034F1C8 /* Legacy */ = {
 			isa = PBXGroup;
 			children = (
-				E26EBAB31C199DC000747726 /* PerformerAudioController.swift */,
-				E26EBA991C18A4E600747726 /* UIColor+Hex.swift */,
-				E20B94751C17541E00222A2B /* AudioController.h */,
-				E20B94761C17541E00222A2B /* AudioController.mm */,
-				E20B94791C17541E00222A2B /* VolumeControl.h */,
-				E20B947A1C17541E00222A2B /* VolumeControl.m */,
+				429EC9601C847697002FDBCC /* AudioController.h */,
+				429EC9611C847697002FDBCC /* AudioController.mm */,
+				429EC95E1C847666002FDBCC /* PerformerAudioController.swift */,
+				429EC9631C8476A1002FDBCC /* VolumeControl.h */,
+				429EC9641C8476A1002FDBCC /* VolumeControl.m */,
 			);
 			name = Legacy;
 			sourceTree = "<group>";
@@ -499,6 +526,7 @@
 			children = (
 				42F90EE71C5D74280010F1C5 /* UIColor.swift */,
 				42F90EE91C5D74920010F1C5 /* UIFont.swift */,
+				429EC9681C847740002FDBCC /* UIColor+Hex.swift */,
 			);
 			name = Theme;
 			sourceTree = "<group>";
@@ -506,6 +534,8 @@
 		E25279B91BF606C8008B4690 = {
 			isa = PBXGroup;
 			children = (
+				429EC96E1C847799002FDBCC /* TouchpressFoundation.framework */,
+				429EC96A1C847794002FDBCC /* TouchpressUI.framework */,
 				E25279C41BF606C8008B4690 /* Soundarama */,
 				420080241C5A458B009009E8 /* SoundaramaTests */,
 				E25279C31BF606C8008B4690 /* Products */,
@@ -540,6 +570,9 @@
 		FF8F05C000FBA5897614E1FA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				429EC9531C847557002FDBCC /* TouchpressUI.framework */,
+				429EC9501C847544002FDBCC /* TouchpressFoundation.framework */,
+				42704FC21C84733A004CD00D /* CocoaAsyncSocket.framework */,
 				4207043D1C7223E7003F6568 /* AVKit.framework */,
 				426A26E41C721EA5003FE38D /* AVFoundation.framework */,
 			);
@@ -575,6 +608,7 @@
 				E25279BF1BF606C8008B4690 /* Frameworks */,
 				E25279C01BF606C8008B4690 /* Resources */,
 				420704451C733B53003F6568 /* ShellScript */,
+				429EC96D1C847794002FDBCC /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -690,7 +724,6 @@
 				420080371C5BAD50009009E8 /* SoundaramaDependencies.swift in Sources */,
 				42A727BD1C553B8900BFCA47 /* PerformerUserInterface.swift in Sources */,
 				42A727B61C552E8D00BFCA47 /* DJInteractor.swift in Sources */,
-				E20B94841C17541E00222A2B /* VolumeControl.m in Sources */,
 				42A727A61C552D3800BFCA47 /* PerformerPresenter.swift in Sources */,
 				42C45A861C57DF2100888EA8 /* AudioStemStore.swift in Sources */,
 				42F90EEA1C5D74920010F1C5 /* UIFont.swift in Sources */,
@@ -700,10 +733,11 @@
 				42F90EE81C5D74280010F1C5 /* UIColor.swift in Sources */,
 				42AFC6571C554F5A00AD4B9B /* DJUseCase.swift in Sources */,
 				4249B59D1C5797920096872D /* ChristiansTimeServer.swift in Sources */,
+				429EC9671C84770C002FDBCC /* SwiftyJSON.swift in Sources */,
 				421468551C56345700892786 /* TP2P.swift in Sources */,
 				42E49DAE1C58F20D00B9C127 /* SoundZoneCollectionViewCell.swift in Sources */,
+				429EC9591C8475DB002FDBCC /* AudioStemsViewController.swift in Sources */,
 				DFBAD41F1C64C346004C1D47 /* SpringMesh.swift in Sources */,
-				E26EBA981C18A3A000747726 /* SwiftyJSON.swift in Sources */,
 				42AFC6651C55805300AD4B9B /* WriteableMessageAdapter.swift in Sources */,
 				4200803B1C5BD289009009E8 /* SuiteStore.swift in Sources */,
 				4249B59B1C5792490096872D /* Message.swift in Sources */,
@@ -711,30 +745,30 @@
 				421468661C56831F00892786 /* BroadcastStrategy.swift in Sources */,
 				42E8BE201C54FF470034F1C8 /* Soundarama.swift in Sources */,
 				42A727AC1C552DCA00BFCA47 /* DecideModule.swift in Sources */,
-				426A26E31C720BE8003FE38D /* AppDelegate.swift in Sources */,
 				4280C0D81C5D1A8A00B2C9B3 /* MessageTransformer.swift in Sources */,
+				429EC95F1C847666002FDBCC /* PerformerAudioController.swift in Sources */,
+				429EC9571C8475A8002FDBCC /* AppDelegate.swift in Sources */,
 				42A727B21C552E5D00BFCA47 /* DJWireframe.swift in Sources */,
 				420AA6AB1C55288E00F7BB25 /* DecideWireframe.swift in Sources */,
 				42C45A881C58CA8C00888EA8 /* DJViewController.swift in Sources */,
 				42A727A41C552D0200BFCA47 /* PerformerWireframe.swift in Sources */,
-				E26EBA951C18A10A00747726 /* AudioStemsViewController.swift in Sources */,
 				425CC3281C74B8F200B39AB5 /* AudioLoop.swift in Sources */,
 				42A727B41C552E7400BFCA47 /* DJPresenter.swift in Sources */,
-				E26EBA9A1C18A4E600747726 /* UIColor+Hex.swift in Sources */,
+				429EC95B1C84761F002FDBCC /* PerformerView.swift in Sources */,
 				421468641C567E9600892786 /* SearchStrategy.swift in Sources */,
+				429EC9651C8476A1002FDBCC /* VolumeControl.m in Sources */,
 				4249B59F1C57979E0096872D /* ChristiansProcess.swift in Sources */,
 				421468611C56672500892786 /* Serialisation.swift in Sources */,
-				E26EBAAB1C18C22200747726 /* PerformerView.swift in Sources */,
 				420AA6AD1C55296E00F7BB25 /* DecidePresenter.swift in Sources */,
-				E20B94931C188BF700222A2B /* SoundZoneView.swift in Sources */,
 				4280C0DD1C5D4CAD00B2C9B3 /* MessageLogger.swift in Sources */,
 				42A727A81C552D5D00BFCA47 /* PerformerModule.swift in Sources */,
 				4214685A1C56474F00892786 /* PerformerConnectionAdapter.swift in Sources */,
+				429EC9691C847740002FDBCC /* UIColor+Hex.swift in Sources */,
+				429EC9621C847697002FDBCC /* AudioController.mm in Sources */,
 				420080391C5BCA44009009E8 /* Suite.swift in Sources */,
-				E20B94811C17541E00222A2B /* AudioController.mm in Sources */,
-				E26EBAB41C199DC000747726 /* PerformerAudioController.swift in Sources */,
 				420AA6A91C55236F00F7BB25 /* DecideUserInterface.swift in Sources */,
 				42A727AE1C552DDF00BFCA47 /* DecideInteractor.swift in Sources */,
+				429EC95D1C847628002FDBCC /* SoundZoneView.swift in Sources */,
 				4200803E1C5BD5A3009009E8 /* UIDevice.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -875,14 +909,17 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "Brand Assets";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				FRAMEWORK_SEARCH_PATHS = "$(SRCROOT)/Carthage/Build/iOS";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SRCROOT)/Carthage/Build/iOS",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
 				INFOPLIST_FILE = Soundarama/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.touchpress.flv.Soundarama;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "ef6b8628-e46c-4c5c-a6d2-76b003f3d360";
-				SWIFT_OBJC_BRIDGING_HEADER = "Soundarama/Resources/Soundarama-Bridging-Header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "Soundarama/Soundarama-Bridging-Header.h";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -894,14 +931,17 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "Brand Assets";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				FRAMEWORK_SEARCH_PATHS = "$(SRCROOT)/Carthage/Build/iOS";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SRCROOT)/Carthage/Build/iOS",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
 				INFOPLIST_FILE = Soundarama/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.touchpress.flv.Soundarama;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "ef6b8628-e46c-4c5c-a6d2-76b003f3d360";
-				SWIFT_OBJC_BRIDGING_HEADER = "Soundarama/Resources/Soundarama-Bridging-Header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "Soundarama/Soundarama-Bridging-Header.h";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
