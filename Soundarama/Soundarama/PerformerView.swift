@@ -26,3 +26,5 @@ class PerformerView: UIImageView {
         fatalError("init(coder:) has not been implemented")
     }
 }
+
+typealias GroupView = PerformerView

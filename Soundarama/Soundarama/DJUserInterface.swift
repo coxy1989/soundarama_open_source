@@ -16,9 +16,16 @@ protocol DJUserInterface: class {
     
     func setSuite(suite: Suite)
     
+    // TODO: setPerformers(from:Set<> to: Set<>)
     func addPerformer(performer: Performer)
-    
     func removePerformer(performer: Performer)
+    //---
+    
+    func enterGroupingMode()
+    
+    func exitGroupingMode()
+    
+    func changeGroups(fromGroups: Set<Group>, toGroups: Set<Group>)
 }
 
 protocol DJUserInterfaceDelegate: class {
@@ -26,31 +33,46 @@ protocol DJUserInterfaceDelegate: class {
     // TODO: Use Touchpress kit ViewController Methods
     func ready()
     func didRequestTravelBack()
+    //------------
     
-    func didRequestToggleMuteInWorkspace(workspace: Workspace)
+    func didRequestToggleMuteInWorkspace(workspaceID: WorkspaceID)
     
-    func didRequestToggleSoloInWorkspace(workspace: Workspace)
+    func didRequestToggleSoloInWorkspace(workspaceID: WorkspaceID)
     
-    func didRequestAudioStemInWorkspace(audioStem: AudioStem, workspace: Workspace)
+    func didRequestAudioStemInWorkspace(audioStem: AudioStem, workspaceID: WorkspaceID)
     
-    func didRequestAddPerformer(performer: Performer, workspace: Workspace)
+    func didRequestAddPerformer(performer: Performer, workspaceID: WorkspaceID)
     
-    func didRequestRemovePerformer(performer: Performer, workspace: Workspace)
+    func didRequestRemovePerformer(performer: Performer, workspaceID: WorkspaceID)
     
+    func didRequestAddGroup(group: Group, workspaceID: WorkspaceID)
     
-    //func didSelectAudioStemForPerformer(audioStem: AudioStem, performer: Performer, muted: Bool)
+    func didRequestRemoveGroup(group: Group, workspaceID: WorkspaceID)
     
-    //func didDeselectAudioStemForPerformer(performer: Performer)
+    func didRequestCreateGroup(performers: Set<Performer>, groups: Set<Group>)
     
-    //func didChangeMuteState(isMute: Bool, performer: Performer)
+    func didRequestDestroyGroup(group: Group)
     
+    func didRequestToggleGroupingMode()
+
 }
 
-/*
-protocol DJUserInterfaceDataSource: class {
+struct Group: Hashable {
     
-    func numberOfAudioStems() -> Int
+    let members: Set<Performer>
     
-    func audioStemAtIndex(index: Int) -> AudioStem
+    func id() -> Int{
+        
+        return hashValue
+    }
+    
+    var hashValue: Int {
+    
+        return members.sort({ $0 > $1 }).reduce("") { i, p in return i + p }.hashValue
+    }
 }
-*/
+
+func == (lhs: Group, rhs: Group) -> Bool {
+    
+    return lhs.id() == rhs.id()
+}

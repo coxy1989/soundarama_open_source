@@ -9,19 +9,7 @@
 import XCTest
 @testable import Soundarama
 
-class SuiteStoreTests: XCTestCase {
-    
-    override func setUp() {
-        
-        super.setUp()
-    }
-    
-    override func tearDown() {
-        
-        super.tearDown()
-        
-    }
-}
+class SuiteStoreTests: XCTestCase { }
 
 /* Test: Init */
 
@@ -89,7 +77,7 @@ extension SuiteStoreTests {
         let store = SuiteStore(number:0)
         let ws1 = Workspace(identifier: "A", audioStem: nil, performers: Set(), isMuted: false, isSolo: false, isAntiSolo: false)
         store.suite = Set([ws1])
-        store.addPerformer("p", workspace: store.suite.first!)
+        store.addPerformer("p", workspaceID: store.suite.first!.identifier)
         XCTAssertEqual(store.suite.first!.performers, ["p"])
     }
     
@@ -141,7 +129,7 @@ extension SuiteStoreTests {
         let store = SuiteStore(number:0)
         store.suite = Set([ws1, ws2])
         
-        store.addPerformer(p, workspace: ws2)
+        store.addPerformer(p, workspaceID: ws2.identifier)
         let poststate = store.suite
         XCTAssertEqual(poststate.filter({$0.identifier == "A"}).first!.performers.count, 0)
         XCTAssertEqual(poststate.filter({$0.identifier == "B"}).first!.performers, [p])
@@ -184,7 +172,7 @@ extension SuiteStoreTests {
         let store = SuiteStore(number:0)
         store.suite = Set([ws1])
         
-        store.removePerformer(p, workspace: ws1)
+        store.removePerformer(p, workspaceID: ws1.identifier)
         XCTAssertEqual(store.suite.first!.performers.count, 0)
     }
 }
@@ -223,7 +211,7 @@ extension SuiteStoreTests {
         let ws1 = Workspace(identifier: "A", audioStem: nil, performers: Set(), isMuted: false, isSolo: false, isAntiSolo: false)
         let store = SuiteStore(number:0)
         store.suite = Set([ws1])
-        store.setAudioStem(aud, workspace: ws1)
+        store.setAudioStem(aud, workspaceID: ws1.identifier)
         XCTAssertTrue(store.suite.first!.audioStem! == aud)
     }
 }
@@ -261,7 +249,7 @@ extension SuiteStoreTests {
         let ws1 = Workspace(identifier: "A", audioStem: nil, performers: Set(), isMuted: false, isSolo: false, isAntiSolo: false)
         let store = SuiteStore(number:0)
         store.suite = Set([ws1])
-        store.toggleMute(ws1)
+        store.toggleMute(ws1.identifier)
         XCTAssertTrue(store.suite.first!.isMuted)
     }
     
@@ -294,7 +282,7 @@ extension SuiteStoreTests {
         let ws1 = Workspace(identifier: "A", audioStem: nil, performers: Set(), isMuted: true, isSolo: false, isAntiSolo: false)
         let store = SuiteStore(number:0)
         store.suite = Set([ws1])
-        store.toggleMute(ws1)
+        store.toggleMute(ws1.identifier)
         XCTAssertFalse(store.suite.first!.isMuted)
     }
 }
@@ -332,7 +320,7 @@ extension SuiteStoreTests {
         let ws1 = Workspace(identifier: "A", audioStem: nil, performers: Set(), isMuted: false, isSolo: false, isAntiSolo: false)
         let store = SuiteStore(number:0)
         store.suite = Set([ws1])
-        store.toggleSolo(ws1)
+        store.toggleSolo(ws1.identifier)
         XCTAssertTrue(store.suite.first!.isSolo)
     }
     
@@ -365,7 +353,7 @@ extension SuiteStoreTests {
         let ws1 = Workspace(identifier: "A", audioStem: nil, performers: Set(), isMuted: false, isSolo: true, isAntiSolo: false)
         let store = SuiteStore(number:0)
         store.suite = Set([ws1])
-        store.toggleSolo(ws1)
+        store.toggleSolo(ws1.identifier)
         XCTAssertFalse(store.suite.first!.isSolo)
     }
     
@@ -415,7 +403,7 @@ extension SuiteStoreTests {
         let ws2 = Workspace(identifier: "B", audioStem: nil, performers: Set(), isMuted: false, isSolo: false, isAntiSolo: false)
         let store = SuiteStore(number:0)
         store.suite = Set([ws1, ws2])
-        store.toggleSolo(ws1)
+        store.toggleSolo(ws1.identifier)
         let A = store.suite.filter({$0.identifier == "A"}).first!
         XCTAssertTrue(A.isSolo)
         XCTAssertFalse(A.isAntiSolo)
@@ -470,7 +458,7 @@ extension SuiteStoreTests {
         let ws2 = Workspace(identifier: "B", audioStem: nil, performers: Set(), isMuted: false, isSolo: false, isAntiSolo: true)
         let store = SuiteStore(number:0)
         store.suite = Set([ws1, ws2])
-        store.toggleSolo(ws1)
+        store.toggleSolo(ws1.identifier)
         let A = store.suite.filter({$0.identifier == "A"}).first!
         XCTAssertFalse(A.isSolo)
         XCTAssertFalse(A.isAntiSolo)
@@ -542,7 +530,7 @@ extension SuiteStoreTests {
         let ws3 = Workspace(identifier: "C", audioStem: nil, performers: Set(), isMuted: false, isSolo: false, isAntiSolo: true)
         let store = SuiteStore(number:0)
         store.suite = Set([ws1, ws2, ws3])
-        store.toggleSolo(ws1)
+        store.toggleSolo(ws1.identifier)
         let A = store.suite.filter({$0.identifier == "A"}).first!
         XCTAssertFalse(A.isSolo)
         XCTAssertTrue(A.isAntiSolo)

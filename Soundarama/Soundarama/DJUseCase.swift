@@ -12,15 +12,25 @@ protocol DJInput: class {
     
     func stop()
     
-    func requestToggleMuteInWorkspace(workspace: Workspace)
+    func requestToggleMuteInWorkspace(workspaceID: WorkspaceID)
     
-    func requestToggleSoloInWorkspace(workspace: Workspace)
+    func requestToggleSoloInWorkspace(workspaceID: WorkspaceID)
     
-    func requestAudioStemInWorkspace(audioStem: AudioStem, workspace: Workspace)
+    func requestAudioStemInWorkspace(audioStem: AudioStem, workspaceID: WorkspaceID)
     
-    func requestAddPerformerToWorkspace(performer: Performer, workspace: Workspace)
+    func requestAddPerformerToWorkspace(performer: Performer, workspaceID: WorkspaceID)
     
-    func requestRemovePerformerFromWorkspace(performer: Performer, workspace: Workspace)
+    func requestRemovePerformerFromWorkspace(performer: Performer, workspaceID: WorkspaceID)
+    
+    func didRequestAddGroup(group: Group, workspaceID: WorkspaceID)
+    
+    func didRequestRemoveGroup(group: Group, workspaceID: WorkspaceID)
+    
+    func requestCreateGroup(performers: Set<Performer>, groups: Set<Group>)
+    
+    //func requestDestroyGroup(group: Group)
+    
+    //func requestGroupPerformers(performers: Set<Performer>)
 }
 
 protocol DJOutput: class {
@@ -32,4 +42,8 @@ protocol DJOutput: class {
     func addPerformer(performer: Performer)
     
     func removePerformer(performer: Performer)
+    
+//    func groupPerformers(performers: Set<Performer>)
+    
+    func changeGroups(fromGroups: Set<Group>, toGroups: Set<Group>)
 }

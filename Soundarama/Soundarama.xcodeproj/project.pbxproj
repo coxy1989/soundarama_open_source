@@ -45,10 +45,13 @@
 		429EC9651C8476A1002FDBCC /* VolumeControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 429EC9641C8476A1002FDBCC /* VolumeControl.m */; };
 		429EC9671C84770C002FDBCC /* SwiftyJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 429EC9661C84770C002FDBCC /* SwiftyJSON.swift */; };
 		429EC9691C847740002FDBCC /* UIColor+Hex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 429EC9681C847740002FDBCC /* UIColor+Hex.swift */; };
-		429EC9731C8478EA002FDBCC /* TouchpressFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 429EC9721C8478EA002FDBCC /* TouchpressFoundation.framework */; };
-		429EC9741C8478EA002FDBCC /* TouchpressFoundation.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 429EC9721C8478EA002FDBCC /* TouchpressFoundation.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		429EC9771C8478F6002FDBCC /* TouchpressUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 429EC9761C8478F6002FDBCC /* TouchpressUI.framework */; };
-		429EC9781C8478F6002FDBCC /* TouchpressUI.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 429EC9761C8478F6002FDBCC /* TouchpressUI.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		429EC97B1C849A27002FDBCC /* TouchpressFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 429EC97A1C849A27002FDBCC /* TouchpressFoundation.framework */; };
+		429EC97C1C849A27002FDBCC /* TouchpressFoundation.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 429EC97A1C849A27002FDBCC /* TouchpressFoundation.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		429EC97F1C849A2A002FDBCC /* TouchpressUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 429EC97E1C849A2A002FDBCC /* TouchpressUI.framework */; };
+		429EC9801C849A2A002FDBCC /* TouchpressUI.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 429EC97E1C849A2A002FDBCC /* TouchpressUI.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		429EC9821C84B81B002FDBCC /* CocoaAsyncSocket.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 42704FC21C84733A004CD00D /* CocoaAsyncSocket.framework */; };
+		429EC9861C85AECE002FDBCC /* GroupStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 429EC9851C85AECE002FDBCC /* GroupStore.swift */; };
+		429EC9891C85AF9F002FDBCC /* GroupStoreTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 429EC9881C85AF9F002FDBCC /* GroupStoreTests.swift */; };
 		42A727A21C552C4800BFCA47 /* DJStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 42A727A11C552C4800BFCA47 /* DJStoryboard.storyboard */; };
 		42A727A41C552D0200BFCA47 /* PerformerWireframe.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42A727A31C552D0200BFCA47 /* PerformerWireframe.swift */; };
 		42A727A61C552D3800BFCA47 /* PerformerPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42A727A51C552D3800BFCA47 /* PerformerPresenter.swift */; };
@@ -90,14 +93,14 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
-		429EC9751C8478EB002FDBCC /* Embed Frameworks */ = {
+		429EC97D1C849A27002FDBCC /* Embed Frameworks */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				429EC9781C8478F6002FDBCC /* TouchpressUI.framework in Embed Frameworks */,
-				429EC9741C8478EA002FDBCC /* TouchpressFoundation.framework in Embed Frameworks */,
+				429EC9801C849A2A002FDBCC /* TouchpressUI.framework in Embed Frameworks */,
+				429EC97C1C849A27002FDBCC /* TouchpressFoundation.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -149,8 +152,10 @@
 		429EC9661C84770C002FDBCC /* SwiftyJSON.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftyJSON.swift; sourceTree = "<group>"; };
 		429EC9681C847740002FDBCC /* UIColor+Hex.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIColor+Hex.swift"; sourceTree = "<group>"; };
 		429EC9711C847800002FDBCC /* Soundarama-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Soundarama-Bridging-Header.h"; sourceTree = "<group>"; };
-		429EC9721C8478EA002FDBCC /* TouchpressFoundation.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; name = TouchpressFoundation.framework; path = "/Users/jamiecox/Library/Developer/Xcode/DerivedData/Soundarama-farhttzqfpiupbbbjubivppgzixr/Build/Products/Release-iphoneos/TouchpressFoundation.framework"; sourceTree = "<absolute>"; };
-		429EC9761C8478F6002FDBCC /* TouchpressUI.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; name = TouchpressUI.framework; path = "/Users/jamiecox/Library/Developer/Xcode/DerivedData/Soundarama-farhttzqfpiupbbbjubivppgzixr/Build/Products/Release-iphoneos/TouchpressUI.framework"; sourceTree = "<absolute>"; };
+		429EC97A1C849A27002FDBCC /* TouchpressFoundation.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; name = TouchpressFoundation.framework; path = "/Users/jamiecox/Library/Developer/Xcode/DerivedData/Soundarama-farhttzqfpiupbbbjubivppgzixr/Build/Products/Debug-iphoneos/TouchpressFoundation.framework"; sourceTree = "<absolute>"; };
+		429EC97E1C849A2A002FDBCC /* TouchpressUI.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; name = TouchpressUI.framework; path = "/Users/jamiecox/Library/Developer/Xcode/DerivedData/Soundarama-farhttzqfpiupbbbjubivppgzixr/Build/Products/Debug-iphoneos/TouchpressUI.framework"; sourceTree = "<absolute>"; };
+		429EC9851C85AECE002FDBCC /* GroupStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GroupStore.swift; sourceTree = "<group>"; };
+		429EC9881C85AF9F002FDBCC /* GroupStoreTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GroupStoreTests.swift; sourceTree = "<group>"; };
 		42A727A11C552C4800BFCA47 /* DJStoryboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = DJStoryboard.storyboard; sourceTree = "<group>"; };
 		42A727A31C552D0200BFCA47 /* PerformerWireframe.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PerformerWireframe.swift; sourceTree = "<group>"; };
 		42A727A51C552D3800BFCA47 /* PerformerPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PerformerPresenter.swift; sourceTree = "<group>"; };
@@ -188,6 +193,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				429EC9821C84B81B002FDBCC /* CocoaAsyncSocket.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -195,8 +201,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				429EC9771C8478F6002FDBCC /* TouchpressUI.framework in Frameworks */,
-				429EC9731C8478EA002FDBCC /* TouchpressFoundation.framework in Frameworks */,
+				429EC97F1C849A2A002FDBCC /* TouchpressUI.framework in Frameworks */,
+				429EC97B1C849A27002FDBCC /* TouchpressFoundation.framework in Frameworks */,
 				4207043E1C7223E7003F6568 /* AVKit.framework in Frameworks */,
 				426A26E51C721EA5003FE38D /* AVFoundation.framework in Frameworks */,
 			);
@@ -228,6 +234,7 @@
 			children = (
 				4280C0D91C5D25DC00B2C9B3 /* MessageTransformerTests.swift */,
 				42E81E8E1C5E37E100A9FC57 /* SuiteStoreTests.swift */,
+				429EC9881C85AF9F002FDBCC /* GroupStoreTests.swift */,
 			);
 			name = "Test Cases";
 			sourceTree = "<group>";
@@ -361,6 +368,15 @@
 			name = Debug;
 			sourceTree = "<group>";
 		};
+		429EC9871C85AEE0002FDBCC /* Read Stores */ = {
+			isa = PBXGroup;
+			children = (
+				42C45A851C57DF2100888EA8 /* AudioStemStore.swift */,
+				429EC9661C84770C002FDBCC /* SwiftyJSON.swift */,
+			);
+			name = "Read Stores";
+			sourceTree = "<group>";
+		};
 		42A55C121C0F2AE900FD6C7D /* Resources */ = {
 			isa = PBXGroup;
 			children = (
@@ -386,7 +402,8 @@
 			children = (
 				4249B5991C5792190096872D /* Representation */,
 				4280C0D61C5D166400B2C9B3 /* Transformation */,
-				42C45A821C57DE5700888EA8 /* Data Store */,
+				429EC9871C85AEE0002FDBCC /* Read Stores */,
+				42C45A821C57DE5700888EA8 /* Write Stores */,
 				421468581C56473C00892786 /* Connection */,
 				42AFC6661C55806A00AD4B9B /* Serialisation */,
 				421468621C56751600892786 /* Synchronisation */,
@@ -416,14 +433,13 @@
 			name = Serialisation;
 			sourceTree = "<group>";
 		};
-		42C45A821C57DE5700888EA8 /* Data Store */ = {
+		42C45A821C57DE5700888EA8 /* Write Stores */ = {
 			isa = PBXGroup;
 			children = (
+				429EC9851C85AECE002FDBCC /* GroupStore.swift */,
 				4200803A1C5BD289009009E8 /* SuiteStore.swift */,
-				42C45A851C57DF2100888EA8 /* AudioStemStore.swift */,
-				429EC9661C84770C002FDBCC /* SwiftyJSON.swift */,
 			);
-			name = "Data Store";
+			name = "Write Stores";
 			sourceTree = "<group>";
 		};
 		42E49DAC1C58E4CB00B9C127 /* Views */ = {
@@ -550,8 +566,8 @@
 		FF8F05C000FBA5897614E1FA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				429EC9761C8478F6002FDBCC /* TouchpressUI.framework */,
-				429EC9721C8478EA002FDBCC /* TouchpressFoundation.framework */,
+				429EC97E1C849A2A002FDBCC /* TouchpressUI.framework */,
+				429EC97A1C849A27002FDBCC /* TouchpressFoundation.framework */,
 				42704FC21C84733A004CD00D /* CocoaAsyncSocket.framework */,
 				4207043D1C7223E7003F6568 /* AVKit.framework */,
 				426A26E41C721EA5003FE38D /* AVFoundation.framework */,
@@ -569,6 +585,7 @@
 				4200801F1C5A458B009009E8 /* Sources */,
 				420080201C5A458B009009E8 /* Frameworks */,
 				420080211C5A458B009009E8 /* Resources */,
+				429EC9811C84B7AE002FDBCC /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -588,7 +605,7 @@
 				E25279BF1BF606C8008B4690 /* Frameworks */,
 				E25279C01BF606C8008B4690 /* Resources */,
 				420704451C733B53003F6568 /* ShellScript */,
-				429EC9751C8478EB002FDBCC /* Embed Frameworks */,
+				429EC97D1C849A27002FDBCC /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -677,6 +694,20 @@
 			shellPath = /bin/sh;
 			shellScript = "/usr/local/bin/carthage copy-frameworks";
 		};
+		429EC9811C84B7AE002FDBCC /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 12;
+			files = (
+			);
+			inputPaths = (
+				"$(SRCROOT)/Carthage/Build/iOS/CocoaAsyncSocket.framework",
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "/usr/local/bin/carthage copy-frameworks";
+		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -685,6 +716,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				42E81E8F1C5E37E100A9FC57 /* SuiteStoreTests.swift in Sources */,
+				429EC9891C85AF9F002FDBCC /* GroupStoreTests.swift in Sources */,
 				420080261C5A458B009009E8 /* SoundaramaTests.swift in Sources */,
 				4280C0DA1C5D25DC00B2C9B3 /* MessageTransformerTests.swift in Sources */,
 			);
@@ -727,6 +759,7 @@
 				4280C0D81C5D1A8A00B2C9B3 /* MessageTransformer.swift in Sources */,
 				429EC95F1C847666002FDBCC /* PerformerAudioController.swift in Sources */,
 				429EC9571C8475A8002FDBCC /* AppDelegate.swift in Sources */,
+				429EC9861C85AECE002FDBCC /* GroupStore.swift in Sources */,
 				42A727B21C552E5D00BFCA47 /* DJWireframe.swift in Sources */,
 				420AA6AB1C55288E00F7BB25 /* DecideWireframe.swift in Sources */,
 				42C45A881C58CA8C00888EA8 /* DJViewController.swift in Sources */,
@@ -777,6 +810,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
 				INFOPLIST_FILE = SoundaramaTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
@@ -790,6 +827,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
 				INFOPLIST_FILE = SoundaramaTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";

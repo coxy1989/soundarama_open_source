@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9531" systemVersion="15B42" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9531" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
@@ -166,12 +166,22 @@
                                     <action selector="didPressBackButton:" destination="uQ1-Om-b5x" eventType="touchUpInside" id="BZy-Nz-JmZ"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="92l-Uh-h24">
+                                <rect key="frame" x="784" y="0.0" width="240" height="30"/>
+                                <state key="normal" title="Enter Grouping Mode"/>
+                                <connections>
+                                    <action selector="groupingModeButtonWasPressed:" destination="uQ1-Om-b5x" eventType="touchUpInside" id="Yjg-D4-1uo"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="92l-Uh-h24" firstAttribute="top" secondItem="yCS-Yo-hZo" secondAttribute="top" id="3Yo-hN-a5Q"/>
+                            <constraint firstAttribute="trailing" secondItem="92l-Uh-h24" secondAttribute="trailing" id="Adh-ye-YVb"/>
                             <constraint firstAttribute="trailing" secondItem="AKs-S5-nc4" secondAttribute="trailing" id="Auq-s0-rNc"/>
                             <constraint firstItem="AKs-S5-nc4" firstAttribute="top" secondItem="yCS-Yo-hZo" secondAttribute="top" id="Gxd-OD-bYO"/>
                             <constraint firstItem="ouy-Va-85x" firstAttribute="top" secondItem="yCS-Yo-hZo" secondAttribute="top" id="evL-Wx-zO1"/>
+                            <constraint firstItem="92l-Uh-h24" firstAttribute="leading" secondItem="ouy-Va-85x" secondAttribute="trailing" id="f3e-b9-bHz"/>
                             <constraint firstItem="AKs-S5-nc4" firstAttribute="leading" secondItem="ouy-Va-85x" secondAttribute="trailing" id="fYj-UB-fYd"/>
                             <constraint firstItem="3Hb-bt-rZ9" firstAttribute="top" secondItem="AKs-S5-nc4" secondAttribute="bottom" id="gb4-R2-PoT"/>
                             <constraint firstItem="baD-GV-FXh" firstAttribute="top" secondItem="yCS-Yo-hZo" secondAttribute="top" constant="6" id="iMv-s3-6XV"/>
@@ -185,6 +195,7 @@
                     <connections>
                         <outlet property="collectionView" destination="ouy-Va-85x" id="Wde-uO-Lxo"/>
                         <outlet property="devicesTrayView" destination="AKs-S5-nc4" id="WHz-kn-hOz"/>
+                        <outlet property="groupingModeButton" destination="92l-Uh-h24" id="6PB-HZ-wZ5"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bsG-to-w5a" userLabel="First Responder" sceneMemberID="firstResponder"/>

@@ -9,6 +9,7 @@
 import UIKit
 
 typealias Performer = String
+typealias WorkspaceID = String
 
 typealias Suite = Set<Workspace>
 
@@ -26,9 +27,14 @@ func == (lhs: AudioStem, rhs: AudioStem) -> Bool {
     && lhs.loopLength == rhs.loopLength
 }
 
+typealias SuiteState = [WorkspaceState]
+
+typealias WorkspaceState = (identifier: String, isMuted: Bool, isSolo: Bool, colour: UIColor)
+
+
 struct Workspace: Hashable {
     
-    let identifier: String
+    let identifier: WorkspaceID
     let audioStem: AudioStem?
     let performers: Set<Performer>
     let isMuted: Bool

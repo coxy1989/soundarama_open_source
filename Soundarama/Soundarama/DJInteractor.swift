@@ -15,13 +15,15 @@ class DJInteractor {
     
     var endpoint: Endpoint!
     
+    private let suiteStore = SuiteStore(number: UIDevice.isPad() ? 9 : 4)
+    
+    private let groupStore = GroupStore()
+    
     private var adapter: WritableMessageAdapter!
     
     private var christiansTimeServer: ChristiansTimeServer!
     
     private var audioStemStore = AudioStemStore()
-    
-    private var suiteStore: SuiteStore!
 }
 
 extension DJInteractor: DJInput {
@@ -29,7 +31,6 @@ extension DJInteractor: DJInput {
     func start() {
         
         //TODO: handle pro (16), pad(9) phone(4)
-        suiteStore = SuiteStore(number: UIDevice.isPad() ? 9 : 4)
         djOutput.setSuite(suiteStore.suite)
         djOutput.setAudioStems(audioStemStore.audioStems)
         
@@ -46,50 +47,77 @@ extension DJInteractor: DJInput {
         
     }
     
-    func requestToggleMuteInWorkspace(workspace: Workspace) {
+    func requestToggleMuteInWorkspace(workspaceID: WorkspaceID) {
         
         let prestate = suiteStore.suite
-        suiteStore.toggleMute(workspace)
+        suiteStore.toggleMute(workspaceID)
         let poststate = suiteStore.suite
         didChangeSuite(prestate, toSuite: poststate)
         djOutput.setSuite(poststate)
     }
     
-    func requestToggleSoloInWorkspace(workspace: Workspace) {
+    func requestToggleSoloInWorkspace(workspaceID: WorkspaceID) {
         
       let prestate = suiteStore.suite
-        suiteStore.toggleSolo(workspace)
+        suiteStore.toggleSolo(workspaceID)
         let poststate = suiteStore.suite
         didChangeSuite(prestate, toSuite: poststate)
         djOutput.setSuite(poststate)
     }
     
-    func requestAudioStemInWorkspace(audioStem: AudioStem, workspace: Workspace) {
+    func requestAudioStemInWorkspace(audioStem: AudioStem, workspaceID: WorkspaceID) {
         
         let prestate = suiteStore.suite
-        suiteStore.setAudioStem(audioStem, workspace: workspace)
+        suiteStore.setAudioStem(audioStem, workspaceID: workspaceID)
         let poststate = suiteStore.suite
         didChangeSuite(prestate, toSuite: poststate)
         djOutput.setSuite(poststate)
     }
     
-    func requestAddPerformerToWorkspace(performer: Performer, workspace: Workspace) {
+    func requestAddPerformerToWorkspace(performer: Performer, workspaceID: WorkspaceID) {
         
         let prestate = suiteStore.suite
-        suiteStore.addPerformer(performer, workspace: workspace)
+        suiteStore.addPerformer(performer, workspaceID: workspaceID)
         let poststate = suiteStore.suite
         didChangeSuite(prestate, toSuite: poststate)
         djOutput.setSuite(poststate)
     }
     
-    func requestRemovePerformerFromWorkspace(performer: Performer, workspace: Workspace) {
+    func requestRemovePerformerFromWorkspace(performer: Performer, workspaceID: WorkspaceID) {
         
         let prestate = suiteStore.suite
-        suiteStore.removePerformer(performer, workspace: workspace)
+        suiteStore.removePerformer(performer, workspaceID: workspaceID)
         let poststate = suiteStore.suite
         didChangeSuite(prestate, toSuite: poststate)
         djOutput.setSuite(poststate)
     }
+    
+    func didRequestAddGroup(group: Group, workspaceID: WorkspaceID) {
+        
+        for p in group.members {
+            requestAddPerformerToWorkspace(p, workspaceID: workspaceID)
+        }
+    }
+    
+    func didRequestRemoveGroup(group: Group, workspaceID: WorkspaceID) {
+        
+        for p in group.members {
+            requestRemovePerformerFromWorkspace(p, workspaceID: workspaceID)
+        }
+    }
+    
+    func requestCreateGroup(performers: Set<Performer>, groups: Set<Group>) {
+        
+        let prestate = groupStore.groups
+        groupStore.createGroup(performers: performers, groups: groups)
+        let poststate = groupStore.groups
+        djOutput.changeGroups(prestate, toGroups: poststate)
+    }
+    
+    func requestDestroyGroup(group: Group) {
+        
+    }
+
 }
 
 extension DJInteractor: ConnectableDelegate {
@@ -119,3 +147,5 @@ extension DJInteractor {
         }
     }
 }
+
+

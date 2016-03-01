@@ -17,23 +17,32 @@ class SuiteStore {
         suite = emptyWorkspaces(number)
     }
     
-    func addPerformer(performer: Performer, workspace: Workspace) {
+    func addPerformer(performer: Performer, workspaceID: WorkspaceID) {
         
         /* This function enforces the invariant that a given performer may only exist in one workspace at a time */
+        
+        guard let workspace = suite.filter({ $0.identifier == workspaceID }).first else {
+            
+            assert(false, "This is a logical error")
+        }
         
         let prev = suite.filter({ $0 != workspace && $0.performers.contains(performer)})
         assert(prev.count <= 1, "Unrecoverable state violation. A performer can only exist in one workspace")
         if prev.count == 1 {
-            removePerformer(performer, workspace: prev.first!)
+            removePerformer(performer, workspaceID: prev.first!.identifier)
         }
         
-        //print("Adding performer to \(workspace.identifier)")
         let nextWorkspace = workspaceWithAdditionalPerformer(workspace, performer: performer)
         suite.remove(workspace)
         suite.insert(nextWorkspace)
     }
     
-    func removePerformer(performer: Performer, workspace: Workspace) {
+    func removePerformer(performer: Performer, workspaceID: WorkspaceID) {
+        
+        guard let workspace = suite.filter({ $0.identifier == workspaceID }).first else {
+            
+            assert(false, "This is a logical error")
+        }
         
         //print("Removing performer from \(workspace.identifier)")
         let nextWorkspace = workspaceWithoutPerformer(workspace, performer: performer)
@@ -41,24 +50,39 @@ class SuiteStore {
         suite.insert(nextWorkspace)
     }
     
-    func setAudioStem(audioStem: AudioStem, workspace: Workspace) {
+    func setAudioStem(audioStem: AudioStem, workspaceID: WorkspaceID) {
+        
+        guard let workspace = suite.filter({ $0.identifier == workspaceID }).first else {
+            
+            assert(false, "This is a logical error")
+        }
         
         let nextWorkspace = workspaceWithAudioStem(workspace, audioStem: audioStem)
         suite.remove(workspace)
         suite.insert(nextWorkspace)
     }
     
-    func toggleMute(workspace: Workspace) {
+    func toggleMute(workspaceID: WorkspaceID) {
+        
+        guard let workspace = suite.filter({ $0.identifier == workspaceID }).first else {
+            
+            assert(false, "This is a logical error")
+        }
         
         let nextWorkspace = workspaceWithMuteState(workspace, muteState: !workspace.isMuted)
         suite.remove(workspace)
         suite.insert(nextWorkspace)
     }
     
-    func toggleSolo(workspace: Workspace) {
+    func toggleSolo(workspaceID: WorkspaceID) {
         
         /*  This function enforces the invariant that a given workspace with a solo state equal to false has an antiSolo
             state equal to true if there is another workspace in the suite with a solo state of true. */
+        
+        guard let workspace = suite.filter({ $0.identifier == workspaceID }).first else {
+            
+            assert(false, "This is a logical error")
+        }
         
         let otherSolos = suite.filter({ $0 != workspace && $0.isSolo })
         

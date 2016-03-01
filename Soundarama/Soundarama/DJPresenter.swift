@@ -45,6 +45,11 @@ extension DJPresenter: DJOutput {
         
         ui.removePerformer(performer)
     }
+    
+    func changeGroups(fromGroups: Set<Group>, toGroups: Set<Group>) {
+        
+        ui.changeGroups(fromGroups, toGroups: toGroups)
+    }
 }
 
 extension DJPresenter: DJUserInterfaceDelegate {
@@ -52,6 +57,14 @@ extension DJPresenter: DJUserInterfaceDelegate {
     func ready() {
         
         input.start()
+        
+        ui.addPerformer("x")
+        ui.addPerformer("y")
+        ui.addPerformer("z")
+//        ui.addPerformer("b")
+  //      ui.addPerformer("m")
+    //    ui.addPerformer("1")
+      //  ui.addPerformer("2")
     }
     
     
@@ -61,29 +74,52 @@ extension DJPresenter: DJUserInterfaceDelegate {
         input.stop()
     }
     
-    func didRequestToggleMuteInWorkspace(workspace: Workspace) {
+    func didRequestToggleMuteInWorkspace(workspaceID: WorkspaceID) {
         
-        input.requestToggleMuteInWorkspace(workspace)
+        input.requestToggleMuteInWorkspace(workspaceID)
     }
     
-    func didRequestToggleSoloInWorkspace(workspace: Workspace) {
+    func didRequestToggleSoloInWorkspace(workspaceID: WorkspaceID) {
         
-        input.requestToggleSoloInWorkspace(workspace)
+        input.requestToggleSoloInWorkspace(workspaceID)
     }
     
-    func didRequestAudioStemInWorkspace(audioStem: AudioStem, workspace: Workspace) {
+    func didRequestAudioStemInWorkspace(audioStem: AudioStem, workspaceID: WorkspaceID) {
         
-        input.requestAudioStemInWorkspace(audioStem, workspace: workspace)
+        input.requestAudioStemInWorkspace(audioStem, workspaceID: workspaceID)
     }
     
-    func didRequestAddPerformer(performer: Performer, workspace: Workspace) {
+    func didRequestAddPerformer(performer: Performer, workspaceID: WorkspaceID) {
         
-        input.requestAddPerformerToWorkspace(performer, workspace: workspace)
+        input.requestAddPerformerToWorkspace(performer, workspaceID: workspaceID)
     }
     
-    func didRequestRemovePerformer(performer: Performer, workspace: Workspace) {
+    func didRequestRemovePerformer(performer: Performer, workspaceID: WorkspaceID) {
         
-        input.requestRemovePerformerFromWorkspace(performer,workspace: workspace)
+        input.requestRemovePerformerFromWorkspace(performer, workspaceID: workspaceID)
+    }
+    
+    func didRequestAddGroup(group: Group, workspaceID: WorkspaceID) {
+        
+        input.didRequestAddGroup(group, workspaceID: workspaceID)
+    }
+    
+    func didRequestRemoveGroup(group: Group, workspaceID: WorkspaceID) {
+        
+        input.didRequestRemoveGroup(group, workspaceID: workspaceID)
+    }
+    
+    func didRequestCreateGroup(performers: Set<Performer>, groups: Set<Group>) {
+        
+        input.requestCreateGroup(performers, groups: groups)
+    }
+    
+    func didRequestToggleGroupingMode() {
+        
+    }
+    
+    func didRequestDestroyGroup(group: Group) {
+        
     }
 }
 
