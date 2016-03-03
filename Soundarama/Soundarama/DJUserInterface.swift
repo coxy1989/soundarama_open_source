@@ -14,18 +14,27 @@ protocol DJUserInterface: class {
     
     var audioStems:[AudioStem]! { get set }
     
-    func setSuite(suite: Suite)
+    func setUISuite(uiSuite: UISuite)
     
-    // TODO: setPerformers(from:Set<> to: Set<>)
     func addPerformer(performer: Performer)
+    
     func removePerformer(performer: Performer)
-    //---
     
-    func enterGroupingMode()
+    func selectPerformer(performer: Performer)
     
-    func exitGroupingMode()
+    func deselectPerformer(performer: Performer)
     
-    func changeGroups(fromGroups: Set<Group>, toGroups: Set<Group>)
+    func movePerformer(performer: Performer, translation: CGPoint) 
+    
+    func setGroupingMode(on: Bool)
+    
+    func createGroup(groupID: GroupID, sourcePerformers: Set<Performer>, sourceGroupIDs: Set<GroupID>) 
+    
+  //  func createGroup(groupID: GroupID, performers: Set<Performer>, groupIDs: Set<GroupID>)
+    
+//    func destroyGroup(groupID: GroupID, intoPerformers: Set<Performer>)
+    
+    //func changeGroups(fromGroups: Set<Group>, toGroups: Set<Group>)
 }
 
 protocol DJUserInterfaceDelegate: class {
@@ -41,27 +50,38 @@ protocol DJUserInterfaceDelegate: class {
     
     func didRequestAudioStemInWorkspace(audioStem: AudioStem, workspaceID: WorkspaceID)
     
+    func didRequestMovePerformer(performer: Performer, translation: CGPoint)
+    
     func didRequestAddPerformer(performer: Performer, workspaceID: WorkspaceID)
     
-    func didRequestRemovePerformer(performer: Performer, workspaceID: WorkspaceID)
+    func didRequestRemovePerformer(performer: Performer)
     
-    func didRequestAddGroup(group: Group, workspaceID: WorkspaceID)
+    func didRequestSelectPerformer(performer: Performer)
     
-    func didRequestRemoveGroup(group: Group, workspaceID: WorkspaceID)
-    
-    func didRequestCreateGroup(performers: Set<Performer>, groups: Set<Group>)
-    
-    func didRequestDestroyGroup(group: Group)
+    func didRequestDeselectPerformer(performer: Performer)
     
     func didRequestToggleGroupingMode()
+    
+    func didRequestCreateGroup(performers: Set<Performer>, groupIDs: Set<GroupID>)
+    
+//    func didRequestAddGroup(group: GroupID, workspaceID: WorkspaceID)
+    
+ //   func didRequestRemoveGroup(group: GroupID, workspaceID: WorkspaceID)
+    
+  //  func didRequestCreateGroup(performers: Set<Performer>, groups: Set<GroupID>)
+    
+  //  func didRequestDestroyGroup(group: GroupID)
+    
 
 }
+
+typealias GroupID = Int
 
 struct Group: Hashable {
     
     let members: Set<Performer>
     
-    func id() -> Int{
+    func id() -> GroupID {
         
         return hashValue
     }

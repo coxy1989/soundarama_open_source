@@ -29,7 +29,8 @@ class SuiteStore {
         let prev = suite.filter({ $0 != workspace && $0.performers.contains(performer)})
         assert(prev.count <= 1, "Unrecoverable state violation. A performer can only exist in one workspace")
         if prev.count == 1 {
-            removePerformer(performer, workspaceID: prev.first!.identifier)
+            //removePerformer(performer, workspaceID: prev.first!.identifier)
+            removePerformer(performer)
         }
         
         let nextWorkspace = workspaceWithAdditionalPerformer(workspace, performer: performer)
@@ -37,11 +38,20 @@ class SuiteStore {
         suite.insert(nextWorkspace)
     }
     
-    func removePerformer(performer: Performer, workspaceID: WorkspaceID) {
+    func removePerformer(performer: Performer) {
         
+        /*
         guard let workspace = suite.filter({ $0.identifier == workspaceID }).first else {
             
             assert(false, "This is a logical error")
+        }
+*/
+        
+        guard let workspace = suite.filter({ $0.performers.contains(performer)}).first else {
+            
+            //assert(false, "attempted to remove a performer that is not in a workspace.")
+            print("performer has no workspace to be removed from")
+            return
         }
         
         //print("Removing performer from \(workspace.identifier)")

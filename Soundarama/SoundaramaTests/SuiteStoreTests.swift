@@ -172,7 +172,7 @@ extension SuiteStoreTests {
         let store = SuiteStore(number:0)
         store.suite = Set([ws1])
         
-        store.removePerformer(p, workspaceID: ws1.identifier)
+        store.removePerformer(p)
         XCTAssertEqual(store.suite.first!.performers.count, 0)
     }
 }

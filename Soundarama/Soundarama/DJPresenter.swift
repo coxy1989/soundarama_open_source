@@ -31,9 +31,14 @@ extension DJPresenter: DJOutput {
         ui.audioStems = audioStems
     }
     
-    func setSuite(suite: Suite) {
+    func setUISuite(uiSuite: UISuite) {
         
-         ui.setSuite(suite)
+         ui.setUISuite(uiSuite)
+    }
+    
+    func movePerformer(performer: Performer, translation: CGPoint) {
+        
+        ui.movePerformer(performer, translation: translation)
     }
     
     func addPerformer(performer: Performer) {
@@ -46,10 +51,45 @@ extension DJPresenter: DJOutput {
         ui.removePerformer(performer)
     }
     
+    func selectPerformer(performer: Performer) {
+        
+        ui.selectPerformer(performer)
+    }
+    
+    func deselectPerformer(performer: Performer) {
+        
+        ui.deselectPerformer(performer)
+    }
+    
+    func setGroupingMode(on: Bool) {
+        
+        ui.setGroupingMode(on)
+    }
+    
+    func createGroup(groupID: GroupID, sourcePerformers: Set<Performer>, sourceGroupIDs: Set<GroupID>) {
+     
+        ui.createGroup(groupID, sourcePerformers: sourcePerformers, sourceGroupIDs: sourceGroupIDs)
+    }
+    
+    /*
+    func createGroup(group: Group, performers: Set<Performer>, groups: Set<Group>) {
+        
+        ui.createGroup(group, performers: performers, groups: groups)
+    }
+    
+    func destroyGroup(group: Group) {
+     
+        ui.destroyGroup(group)
+    }
+    
+*/
+    /*
     func changeGroups(fromGroups: Set<Group>, toGroups: Set<Group>) {
         
         ui.changeGroups(fromGroups, toGroups: toGroups)
     }
+*/
+
 }
 
 extension DJPresenter: DJUserInterfaceDelegate {
@@ -61,10 +101,10 @@ extension DJPresenter: DJUserInterfaceDelegate {
         ui.addPerformer("x")
         ui.addPerformer("y")
         ui.addPerformer("z")
-//        ui.addPerformer("b")
-  //      ui.addPerformer("m")
-    //    ui.addPerformer("1")
-      //  ui.addPerformer("2")
+        ui.addPerformer("b")
+        ui.addPerformer("m")
+        ui.addPerformer("1")
+        ui.addPerformer("2")
     }
     
     
@@ -94,32 +134,58 @@ extension DJPresenter: DJUserInterfaceDelegate {
         input.requestAddPerformerToWorkspace(performer, workspaceID: workspaceID)
     }
     
-    func didRequestRemovePerformer(performer: Performer, workspaceID: WorkspaceID) {
+    func didRequestRemovePerformer(performer: Performer) {
         
-        input.requestRemovePerformerFromWorkspace(performer, workspaceID: workspaceID)
+        input.requestRemovePerformerFromWorkspace(performer)
     }
     
+    func didRequestMovePerformer(performer: Performer, translation: CGPoint) {
+        
+        input.requestMovePerformer(performer, translation: translation)
+    }
+    
+    func didRequestSelectPerformer(performer: Performer) {
+        
+        input.requestSelectPerformer(performer)
+    }
+    
+    func didRequestDeselectPerformer(performer: Performer) {
+        
+        input.requestDeselectPerformer(performer)
+    }
+    
+    func didRequestToggleGroupingMode() {
+        
+        input.requestToggleGroupingMode()
+    }
+    
+    func didRequestCreateGroup(performers: Set<Performer>, groupIDs: Set<GroupID>) {
+        
+        input.requestCreateGroup(performers, groupIDs: groupIDs)
+    }
+    
+    /*
     func didRequestAddGroup(group: Group, workspaceID: WorkspaceID) {
         
-        input.didRequestAddGroup(group, workspaceID: workspaceID)
+        input.requestAddGroup(group, workspaceID: workspaceID)
     }
     
     func didRequestRemoveGroup(group: Group, workspaceID: WorkspaceID) {
         
-        input.didRequestRemoveGroup(group, workspaceID: workspaceID)
+        input.requestRemoveGroup(group, workspaceID: workspaceID)
     }
     
     func didRequestCreateGroup(performers: Set<Performer>, groups: Set<Group>) {
         
         input.requestCreateGroup(performers, groups: groups)
     }
+    */
     
-    func didRequestToggleGroupingMode() {
-        
-    }
-    
+    /*
     func didRequestDestroyGroup(group: Group) {
-        
+     
+        input.requestDestroyGroup(group)
     }
+*/
 }
 

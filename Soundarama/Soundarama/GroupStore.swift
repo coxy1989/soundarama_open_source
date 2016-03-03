@@ -10,13 +10,19 @@
 
 class GroupStore {
     
+    var groupingMode = false
+    
     var groups: Set<Group> = Set()
     
-    func createGroup(performers p: Set<Performer>, groups g: Set<Group>) {
+    func createGroup(performers p: Set<Performer>, groupIDs g: Set<GroupID>) {
         
         if p.count > 0 && g.count > 0 {
-            groups = Set(groups.filter({ x in !g.contains(x) }))
-            let members = Set(g.reduce(Set()) { i, n in  i.union(n.members) }).union(p)
+            
+            let merged = Set(groups.filter({ x in g.contains(x.id()) }))
+            groups.subtractInPlace(merged)
+//            groups = Set(groups.filter({ x in !g.contains(x.id()) }))
+//            let members = Set(g.reduce(Set()) { i, n in  i.union(n.members) }).union(p)
+            let members = Set(merged.reduce(Set()) { i, n in  i.union(n.members) }).union(p)
             groups.insert(Group(members: members))
         }
         
@@ -25,8 +31,22 @@ class GroupStore {
         }
         
         else if g.count > 1 {
-            groups = Set(groups.filter({ x in !g.contains(x) }))
-            groups.insert(Group(members: g.reduce(Set()) { i, n in  i.union(n.members) }))
+            let merged = Set(groups.filter({ x in g.contains(x.id()) }))
+            groups.subtractInPlace(merged)
+            let members = Set(merged.reduce(Set()) { i, n in  i.union(n.members) })
+            groups.insert(Group(members: members))
+//            groups = Set(groups.filter({ x in !g.contains(x.id()) }))
+//            groups.insert(Group(members: g.reduce(Set()) { i, n in  i.union(n.members) }))
         }
+    }
+    
+    func destroyGroup(group: Group) {
+        
+        groups.remove(group)
+    }
+    
+    func toggleGroupingMode() {
+        
+        groupingMode = !groupingMode
     }
 }

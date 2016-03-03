@@ -12,12 +12,11 @@ class PerformerView: UIImageView {
     
     override init(frame: CGRect) {
         
-        let insetFrame = CGRectInset(frame, -14.0, -14.0)
-        
-        super.init(frame: insetFrame)
+        super.init(frame: frame)
         image = UIImage(named: "icn-phone")
         contentMode = .Center
         sizeToFit()
+        self.frame = CGRectInset(self.frame, -20, -20)
         userInteractionEnabled = true
     }
 

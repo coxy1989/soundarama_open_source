@@ -6,6 +6,9 @@
 //  Copyright © 2016 Touchpress Ltd. All rights reserved.
 //
 
+//hmmm...
+import CoreGraphics
+
 protocol DJInput: class {
     
     func start()
@@ -18,24 +21,32 @@ protocol DJInput: class {
     
     func requestAudioStemInWorkspace(audioStem: AudioStem, workspaceID: WorkspaceID)
     
+    func requestMovePerformer(performer: Performer, translation: CGPoint)
+    
     func requestAddPerformerToWorkspace(performer: Performer, workspaceID: WorkspaceID)
     
-    func requestRemovePerformerFromWorkspace(performer: Performer, workspaceID: WorkspaceID)
+    func requestRemovePerformerFromWorkspace(performer: Performer)
     
-    func didRequestAddGroup(group: Group, workspaceID: WorkspaceID)
+    func requestSelectPerformer(performer: Performer)
     
-    func didRequestRemoveGroup(group: Group, workspaceID: WorkspaceID)
+    func requestDeselectPerformer(performer: Performer)
     
-    func requestCreateGroup(performers: Set<Performer>, groups: Set<Group>)
+    func requestToggleGroupingMode()
     
-    //func requestDestroyGroup(group: Group)
+    func requestCreateGroup(performers: Set<Performer>, groupIDs: Set<GroupID>)
     
-    //func requestGroupPerformers(performers: Set<Performer>)
+//    func requestAddGroup(group: Group, workspaceID: WorkspaceID)
+    
+//    func requestRemoveGroup(group: Group, workspaceID: WorkspaceID)
+    
+    
+//    func requestDestroyGroup(group: Group)
+
 }
 
 protocol DJOutput: class {
 
-    func setSuite(suite: Suite)
+    func setUISuite(uiSuite: UISuite)
     
     func setAudioStems(audioStems: [AudioStem])
     
@@ -43,7 +54,17 @@ protocol DJOutput: class {
     
     func removePerformer(performer: Performer)
     
-//    func groupPerformers(performers: Set<Performer>)
+    func selectPerformer(performer: Performer)
     
-    func changeGroups(fromGroups: Set<Group>, toGroups: Set<Group>)
+    func deselectPerformer(performer: Performer)
+    
+    func movePerformer(performer: Performer, translation: CGPoint)
+    
+    func setGroupingMode(on: Bool)
+    
+    func createGroup(groupID: GroupID, sourcePerformers: Set<Performer>, sourceGroupIDs: Set<GroupID>)
+    
+//    func destroyGroup(group: Group)
+    
+//    func changeGroups(fromGroups: Set<Group>, toGroups: Set<Group>)
 }

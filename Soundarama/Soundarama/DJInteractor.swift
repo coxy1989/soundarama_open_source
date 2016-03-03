@@ -31,8 +31,10 @@ extension DJInteractor: DJInput {
     func start() {
         
         //TODO: handle pro (16), pad(9) phone(4)
-        djOutput.setSuite(suiteStore.suite)
+        
+        djOutput.setUISuite(UISuiteTransformer.transform(suiteStore.suite))
         djOutput.setAudioStems(audioStemStore.audioStems)
+        djOutput.setGroupingMode(false)
         
         christiansTimeServer = ChristiansTimeServer(endpoint: endpoint)
         adapter = WritableMessageAdapter(writeable: endpoint)
@@ -53,16 +55,16 @@ extension DJInteractor: DJInput {
         suiteStore.toggleMute(workspaceID)
         let poststate = suiteStore.suite
         didChangeSuite(prestate, toSuite: poststate)
-        djOutput.setSuite(poststate)
+        djOutput.setUISuite(UISuiteTransformer.transform(poststate))
     }
     
     func requestToggleSoloInWorkspace(workspaceID: WorkspaceID) {
         
-      let prestate = suiteStore.suite
+        let prestate = suiteStore.suite
         suiteStore.toggleSolo(workspaceID)
         let poststate = suiteStore.suite
         didChangeSuite(prestate, toSuite: poststate)
-        djOutput.setSuite(poststate)
+        djOutput.setUISuite(UISuiteTransformer.transform(poststate))
     }
     
     func requestAudioStemInWorkspace(audioStem: AudioStem, workspaceID: WorkspaceID) {
@@ -71,7 +73,12 @@ extension DJInteractor: DJInput {
         suiteStore.setAudioStem(audioStem, workspaceID: workspaceID)
         let poststate = suiteStore.suite
         didChangeSuite(prestate, toSuite: poststate)
-        djOutput.setSuite(poststate)
+        djOutput.setUISuite(UISuiteTransformer.transform(poststate))
+    }
+    
+    func requestMovePerformer(performer: Performer, translation: CGPoint) {
+        
+        djOutput.movePerformer(performer, translation: translation)
     }
     
     func requestAddPerformerToWorkspace(performer: Performer, workspaceID: WorkspaceID) {
@@ -80,44 +87,71 @@ extension DJInteractor: DJInput {
         suiteStore.addPerformer(performer, workspaceID: workspaceID)
         let poststate = suiteStore.suite
         didChangeSuite(prestate, toSuite: poststate)
-        djOutput.setSuite(poststate)
+        djOutput.setUISuite(UISuiteTransformer.transform(poststate))
     }
     
-    func requestRemovePerformerFromWorkspace(performer: Performer, workspaceID: WorkspaceID) {
+    func requestRemovePerformerFromWorkspace(performer: Performer) {
         
         let prestate = suiteStore.suite
-        suiteStore.removePerformer(performer, workspaceID: workspaceID)
+        suiteStore.removePerformer(performer)
         let poststate = suiteStore.suite
         didChangeSuite(prestate, toSuite: poststate)
-        djOutput.setSuite(poststate)
+        djOutput.setUISuite(UISuiteTransformer.transform(poststate))
     }
     
-    func didRequestAddGroup(group: Group, workspaceID: WorkspaceID) {
+    func requestSelectPerformer(performer: Performer) {
+        
+        djOutput.selectPerformer(performer)
+    }
+    
+    func requestDeselectPerformer(performer: Performer) {
+        
+        djOutput.deselectPerformer(performer)
+    }
+    
+    func requestToggleGroupingMode() {
+        
+        groupStore.toggleGroupingMode()
+        djOutput.setGroupingMode(groupStore.groupingMode)
+    }
+    
+    func requestCreateGroup(performers: Set<Performer>, groupIDs: Set<GroupID>) {
+        
+        let prestate = groupStore.groups
+        groupStore.createGroup(performers: performers, groupIDs: groupIDs)
+        let poststate = groupStore.groups        
+        didChangeGroups(prestate, toGroups: poststate)
+    }
+    
+    /*
+    func requestAddGroup(group: Group, workspaceID: WorkspaceID) {
         
         for p in group.members {
             requestAddPerformerToWorkspace(p, workspaceID: workspaceID)
         }
     }
     
-    func didRequestRemoveGroup(group: Group, workspaceID: WorkspaceID) {
+    func requestRemoveGroup(group: Group, workspaceID: WorkspaceID) {
         
         for p in group.members {
             requestRemovePerformerFromWorkspace(p, workspaceID: workspaceID)
         }
     }
-    
-    func requestCreateGroup(performers: Set<Performer>, groups: Set<Group>) {
-        
-        let prestate = groupStore.groups
-        groupStore.createGroup(performers: performers, groups: groups)
-        let poststate = groupStore.groups
-        djOutput.changeGroups(prestate, toGroups: poststate)
-    }
+    */
+
+    /*
+
     
     func requestDestroyGroup(group: Group) {
         
+        let prestate = groupStore.groups
+        groupStore.destroyGroup(group)
+        let poststate = groupStore.groups
+  //      djOutput.changeGroups(prestate, toGroups: poststate)
+        
+        didChangeGroups(prestate, toGroups: poststate)
     }
-
+*/
 }
 
 extension DJInteractor: ConnectableDelegate {
@@ -147,5 +181,49 @@ extension DJInteractor {
         }
     }
 }
+
+extension DJInteractor {
+    
+    func didChangeGroups(fromGroups: Set<Group>, toGroups: Set<Group>) {
+        
+        let outcome = GroupTransformer.transform(fromGroups, toGroups: toGroups)
+        for c in outcome.created {
+        //    djOutput.createGroup(c.group, performers: c.performers, groups: c.groups)
+            djOutput.createGroup(c.groupID, sourcePerformers: c.sourcePerformers, sourceGroupIDs: c.sourceGroupIDs)
+        }
+        for d in outcome.destroyed {
+       //     djOutput.destroyGroup(d)
+            print(d)
+        }
+    }
+        /*
+        for g in toGroups {
+            
+            let merged_groups = fromGroups.filter({ g2 in  g2.members.intersect(g.members).count != 0}).filter({ fromGroups.contains($0) })
+            
+            let from_performers = fromGroups.reduce(Set()) { i, g in return i.union(g.members)}
+            let to_performers = toGroups.reduce(Set()) { i, g in return i.union(g.members)}
+            
+            let merged_performers = to_performers.subtract(from_performers)
+            
+            print("Groups: \(merged_groups)")
+            
+            print("Performers: \(merged_performers)")
+        }
+        
+        for g in fromGroups {
+            
+            let wasMerged = toGroups.filter({ g.members.isSubsetOf($0.members)}).count == 1
+            
+            guard !wasMerged else {
+                return
+            }
+            
+            print("DESTROYED: \(g)")
+        }
+*/
+//    }
+}
+
 
 

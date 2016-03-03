@@ -44,7 +44,7 @@ extension GroupStoreTests {
     func testCreateGroup_null_case() {
         
         let prestate = store.groups
-        store.createGroup(performers: Set([]), groups: Set([]))
+        store.createGroup(performers: Set([]), groupIDs: Set([]))
         let poststate = store.groups
         XCTAssertEqual(poststate.count, 0)
         XCTAssertEqual(prestate, poststate, "Should not create a group")
@@ -53,7 +53,7 @@ extension GroupStoreTests {
     func testCreateGroup_one_performer() {
         
         let prestate = store.groups
-        store.createGroup(performers: Set(["x"]), groups: Set([]))
+        store.createGroup(performers: Set(["x"]), groupIDs: Set([]))
         let poststate = store.groups
         XCTAssertEqual(poststate.count, 0)
         XCTAssertEqual(prestate, poststate, "Should not create a group ")
@@ -62,7 +62,7 @@ extension GroupStoreTests {
     func testCreateGroup_two_performers() {
         
         let input = Set(["x", "y"])
-        store.createGroup(performers: input, groups: Set([]))
+        store.createGroup(performers: input, groupIDs: Set([]))
         let poststate = store.groups
         XCTAssertEqual(poststate.count, 1)
         XCTAssertEqual(poststate.first!.members, input, "Should create one group containing the two performers from the input")
@@ -71,7 +71,7 @@ extension GroupStoreTests {
     func testCreateGroup_three_performers() {
         
         let input = Set(["x", "y", "z"])
-        store.createGroup(performers: input, groups: Set([]))
+        store.createGroup(performers: input, groupIDs: Set([]))
         let poststate = store.groups
         XCTAssertEqual(poststate.count, 1)
         XCTAssertEqual(poststate.first!.members, input, "Should create one group containing the two performers from the input")
@@ -80,7 +80,7 @@ extension GroupStoreTests {
     func testCreateGroup_one_empty_group() {
         
         let input = Set(arrayLiteral: Group(members: Set()))
-        store.createGroup(performers: Set(), groups: input)
+        store.createGroup(performers: Set(), groupIDs: Set(input.map({$0.id()})))
         let poststate = store.groups
         XCTAssertEqual(poststate.count, 0)
     }
@@ -89,7 +89,7 @@ extension GroupStoreTests {
         
         let prestate = store.groups
         let input = Set(arrayLiteral: Group(members: Set(["x", "y"])))
-        store.createGroup(performers: Set(), groups: input)
+        store.createGroup(performers: Set(), groupIDs: Set(input.map({$0.id()})))
         let poststate = store.groups
         XCTAssertEqual(poststate.count, 0)
         XCTAssertEqual(prestate, poststate, "Should mot create a group")
@@ -99,7 +99,7 @@ extension GroupStoreTests {
         
         let prestate = store.groups
         let input = Set(arrayLiteral: Group(members: Set(["x","y","z"])))
-        store.createGroup(performers: Set(), groups: input)
+        store.createGroup(performers: Set(), groupIDs: Set(input.map({$0.id()})))
         let poststate = store.groups
         XCTAssertEqual(poststate.count, 0)
         XCTAssertEqual(prestate, poststate, "Should mot create a group")
@@ -110,7 +110,9 @@ extension GroupStoreTests {
         let group1 = Group(members: Set(["x","y"]))
         let group2 = Group(members: Set(["a","b"]))
         let input = Set([group1, group2])
-        store.createGroup(performers: Set(), groups: input)
+        
+        store.groups = input
+        store.createGroup(performers: Set(), groupIDs: Set(input.map({$0.id()})))
         let poststate = store.groups
         let expected = Set([Group(members: Set(["x", "y", "a", "b"]))])
         
@@ -124,7 +126,9 @@ extension GroupStoreTests {
         let group2 = Group(members: Set(["a","b"]))
         let group3 = Group(members: Set(["1","2"]))
         let input = Set([group1, group2, group3])
-        store.createGroup(performers: Set(), groups: input)
+        
+        store.groups = input
+        store.createGroup(performers: Set(), groupIDs: Set(input.map({$0.id()})))
         let poststate = store.groups
         let expected = Set([Group(members: Set(["x", "y" ,"a", "b", "1", "2"]))])
         
@@ -139,7 +143,7 @@ extension GroupStoreTests {
         let input = Set(arrayLiteral: group1, group2)
         
         store.groups = Set([group1, group2])
-        store.createGroup(performers: Set(), groups: input)
+        store.createGroup(performers: Set(), groupIDs: Set(input.map({$0.id()})))
         
         let poststate = store.groups
         let expected = Set([Group(members: Set(["x", "y", "a", "b"]))])
@@ -156,7 +160,7 @@ extension GroupStoreTests {
         let input = Set(arrayLiteral: group1, group2, group3)
         
         store.groups = Set([group1, group2, group3])
-        store.createGroup(performers: Set(), groups: input)
+        store.createGroup(performers: Set(), groupIDs: Set(input.map({$0.id()})))
         
         let poststate = store.groups
         let expected = Set([Group(members: Set(["x", "y", "a", "b", "1", "2"]))])
@@ -172,8 +176,8 @@ extension GroupStoreTests {
         let input = Set(arrayLiteral: group1, group2)
         
         let preExistingGroup = Group(members: Set(["1","2"]))
-        store.groups = Set([preExistingGroup])
-        store.createGroup(performers: Set(), groups: input)
+        store.groups = Set([preExistingGroup, group1, group2])
+        store.createGroup(performers: Set(), groupIDs: Set(input.map({$0.id()})))
         
         let poststate = store.groups
         let expected = Set([Group(members: Set(["x", "y", "a", "b"])), Group(members: Set(["1", "2"]))])
@@ -187,7 +191,8 @@ extension GroupStoreTests {
         let group1 = Group(members: Set(["x","y"]))
         let performer = "1"
         
-        store.createGroup(performers: Set([performer]), groups: Set([group1]))
+        store.groups = Set([group1])
+        store.createGroup(performers: Set([performer]), groupIDs: Set([group1].map({$0.id()})))
         
         let poststate = store.groups
         let expected = Set([Group(members: Set(["x", "y", "1"]))])
@@ -201,7 +206,8 @@ extension GroupStoreTests {
         let group2 = Group(members: Set(["a","b"]))
         let performer = "1"
         
-        store.createGroup(performers: Set([performer]), groups: Set([group1, group2]))
+        store.groups = Set([group1, group2])
+        store.createGroup(performers: Set([performer]), groupIDs: Set([group1, group2].map({$0.id()})))
         
         let poststate = store.groups
         let expected = Set([Group(members: Set(["x", "y", "1", "a", "b"]))])
@@ -215,7 +221,8 @@ extension GroupStoreTests {
         let group2 = Group(members: Set(["a","b"]))
         let performers = ["1", "2"]
         
-        store.createGroup(performers: Set(performers), groups: Set([group1, group2]))
+        store.groups = Set([group1, group2])
+        store.createGroup(performers: Set(performers), groupIDs: Set([group1, group2].map({$0.id()})))
         
         let poststate = store.groups
         let expected = Set([Group(members: Set(["x", "y", "1", "a", "b", "2"]))])
@@ -231,7 +238,7 @@ extension GroupStoreTests {
         
         store.groups = Set([group1, group2])
         
-        store.createGroup(performers: Set([performer]), groups: Set([group1, group2]))
+        store.createGroup(performers: Set([performer]), groupIDs: Set([group1, group2].map({$0.id()})))
         
         let poststate = store.groups
         let expected = Set([Group(members: Set(["x", "y", "1", "a", "b"]))])
