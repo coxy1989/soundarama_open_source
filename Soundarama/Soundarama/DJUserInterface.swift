@@ -47,7 +47,7 @@ protocol DJUserInterface: class {
 
 protocol DJUserInterfaceDelegate: class {
     
-    // TODO: Use Touchpress kit ViewController Methods
+    // TODO: Use TouchpressUI ViewController Methods
     func ready()
     func didRequestTravelBack()
     //------------
@@ -90,26 +90,4 @@ protocol DJUserInterfaceDelegate: class {
     
     func didRequestRemoveGroupFromWorkspace(groupID: GroupID)
     
-}
-
-typealias GroupID = Int
-
-struct Group: Hashable {
-    
-    let members: Set<Performer>
-    
-    func id() -> GroupID {
-        
-        return hashValue
-    }
-    
-    var hashValue: Int {
-    
-        return members.sort({ $0 > $1 }).reduce("") { i, p in return i + p }.hashValue
-    }
-}
-
-func == (lhs: Group, rhs: Group) -> Bool {
-    
-    return lhs.id() == rhs.id()
 }

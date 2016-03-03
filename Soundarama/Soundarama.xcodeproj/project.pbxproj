@@ -73,6 +73,10 @@
 		42AFC6651C55805300AD4B9B /* WriteableMessageAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42AFC6641C55805300AD4B9B /* WriteableMessageAdapter.swift */; };
 		42C45A861C57DF2100888EA8 /* AudioStemStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42C45A851C57DF2100888EA8 /* AudioStemStore.swift */; };
 		42C45A881C58CA8C00888EA8 /* DJViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42C45A871C58CA8C00888EA8 /* DJViewController.swift */; };
+		42D9F8A01C88A70F0056957B /* Group.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42D9F89F1C88A70F0056957B /* Group.swift */; };
+		42D9F8A21C88A7460056957B /* Workspace.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42D9F8A11C88A7460056957B /* Workspace.swift */; };
+		42D9F8A41C88A7950056957B /* Performer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42D9F8A31C88A7950056957B /* Performer.swift */; };
+		42D9F8A61C88A7AB0056957B /* AudioStem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42D9F8A51C88A7AB0056957B /* AudioStem.swift */; };
 		42E49DAE1C58F20D00B9C127 /* SoundZoneCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42E49DAD1C58F20D00B9C127 /* SoundZoneCollectionViewCell.swift */; };
 		42E81E8F1C5E37E100A9FC57 /* SuiteStoreTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42E81E8E1C5E37E100A9FC57 /* SuiteStoreTests.swift */; };
 		42E8BE201C54FF470034F1C8 /* Soundarama.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42E8BE1F1C54FF470034F1C8 /* Soundarama.swift */; };
@@ -180,6 +184,10 @@
 		42AFC6641C55805300AD4B9B /* WriteableMessageAdapter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WriteableMessageAdapter.swift; sourceTree = "<group>"; };
 		42C45A851C57DF2100888EA8 /* AudioStemStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AudioStemStore.swift; sourceTree = "<group>"; };
 		42C45A871C58CA8C00888EA8 /* DJViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DJViewController.swift; sourceTree = "<group>"; };
+		42D9F89F1C88A70F0056957B /* Group.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Group.swift; sourceTree = "<group>"; };
+		42D9F8A11C88A7460056957B /* Workspace.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Workspace.swift; sourceTree = "<group>"; };
+		42D9F8A31C88A7950056957B /* Performer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Performer.swift; sourceTree = "<group>"; };
+		42D9F8A51C88A7AB0056957B /* AudioStem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AudioStem.swift; sourceTree = "<group>"; };
 		42E49DAD1C58F20D00B9C127 /* SoundZoneCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SoundZoneCollectionViewCell.swift; sourceTree = "<group>"; };
 		42E81E8E1C5E37E100A9FC57 /* SuiteStoreTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SuiteStoreTests.swift; sourceTree = "<group>"; };
 		42E8BE1F1C54FF470034F1C8 /* Soundarama.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Soundarama.swift; sourceTree = "<group>"; };
@@ -328,7 +336,11 @@
 			isa = PBXGroup;
 			children = (
 				420080381C5BCA44009009E8 /* Suite.swift */,
+				42D9F8A11C88A7460056957B /* Workspace.swift */,
+				42D9F8A31C88A7950056957B /* Performer.swift */,
+				42D9F89F1C88A70F0056957B /* Group.swift */,
 				4249B59A1C5792490096872D /* Message.swift */,
+				42D9F8A51C88A7AB0056957B /* AudioStem.swift */,
 			);
 			name = Representation;
 			sourceTree = "<group>";
@@ -752,10 +764,12 @@
 				4249B5961C578A160096872D /* BroadcastSocketEndpoint.swift in Sources */,
 				421468571C56404C00892786 /* DJUserInterface.swift in Sources */,
 				42F90EE81C5D74280010F1C5 /* UIColor.swift in Sources */,
+				42D9F8A41C88A7950056957B /* Performer.swift in Sources */,
 				42AFC6571C554F5A00AD4B9B /* DJUseCase.swift in Sources */,
 				4249B59D1C5797920096872D /* ChristiansTimeServer.swift in Sources */,
 				429EC9671C84770C002FDBCC /* SwiftyJSON.swift in Sources */,
 				421468551C56345700892786 /* TP2P.swift in Sources */,
+				42D9F8A61C88A7AB0056957B /* AudioStem.swift in Sources */,
 				42E49DAE1C58F20D00B9C127 /* SoundZoneCollectionViewCell.swift in Sources */,
 				429EC9591C8475DB002FDBCC /* AudioStemsViewController.swift in Sources */,
 				DFBAD41F1C64C346004C1D47 /* SpringMesh.swift in Sources */,
@@ -772,6 +786,7 @@
 				429EC9571C8475A8002FDBCC /* AppDelegate.swift in Sources */,
 				4273BC611C876708002E9EF9 /* GroupTransformer.swift in Sources */,
 				429EC9861C85AECE002FDBCC /* GroupStore.swift in Sources */,
+				42D9F8A21C88A7460056957B /* Workspace.swift in Sources */,
 				42A727B21C552E5D00BFCA47 /* DJWireframe.swift in Sources */,
 				420AA6AB1C55288E00F7BB25 /* DecideWireframe.swift in Sources */,
 				42C45A881C58CA8C00888EA8 /* DJViewController.swift in Sources */,
@@ -787,6 +802,7 @@
 				4280C0DD1C5D4CAD00B2C9B3 /* MessageLogger.swift in Sources */,
 				42A727A81C552D5D00BFCA47 /* PerformerModule.swift in Sources */,
 				4214685A1C56474F00892786 /* PerformerConnectionAdapter.swift in Sources */,
+				42D9F8A01C88A70F0056957B /* Group.swift in Sources */,
 				429EC9691C847740002FDBCC /* UIColor+Hex.swift in Sources */,
 				429EC9621C847697002FDBCC /* AudioController.mm in Sources */,
 				420080391C5BCA44009009E8 /* Suite.swift in Sources */,

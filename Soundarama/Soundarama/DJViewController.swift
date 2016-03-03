@@ -194,7 +194,6 @@ extension DJViewController: DJUserInterface {
     
     func destroyGroup(groupID: GroupID, intoPerformers: Set<Performer>) {
         
-        print("DESTROY")
         let gv = group_view_map[groupID]!
         let points = CGPoint.vogelSpiral(UInt(intoPerformers.count))
         let performers = Array(intoPerformers)
