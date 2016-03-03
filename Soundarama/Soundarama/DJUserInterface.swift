@@ -24,17 +24,25 @@ protocol DJUserInterface: class {
     
     func deselectPerformer(performer: Performer)
     
-    func movePerformer(performer: Performer, translation: CGPoint) 
+    func movePerformer(performer: Performer, translation: CGPoint)
     
     func setGroupingMode(on: Bool)
     
-    func createGroup(groupID: GroupID, sourcePerformers: Set<Performer>, sourceGroupIDs: Set<GroupID>) 
+    func startLassoo(atPoint: CGPoint)
     
-  //  func createGroup(groupID: GroupID, performers: Set<Performer>, groupIDs: Set<GroupID>)
+    func continueLasoo(toPoint: CGPoint)
     
-//    func destroyGroup(groupID: GroupID, intoPerformers: Set<Performer>)
+    func endLasoo(atPoint: CGPoint)
     
-    //func changeGroups(fromGroups: Set<Group>, toGroups: Set<Group>)
+    func createGroup(groupID: GroupID, sourcePerformers: Set<Performer>, sourceGroupIDs: Set<GroupID>)
+    
+    func destroyGroup(groupID: GroupID, intoPerformers: Set<Performer>)
+    
+    func selectGroup(groupID: GroupID)
+    
+    func deselectGroup(groupID: GroupID)
+    
+    func moveGroup(groupID: GroupID, translation: CGPoint)
 }
 
 protocol DJUserInterfaceDelegate: class {
@@ -50,29 +58,38 @@ protocol DJUserInterfaceDelegate: class {
     
     func didRequestAudioStemInWorkspace(audioStem: AudioStem, workspaceID: WorkspaceID)
     
-    func didRequestMovePerformer(performer: Performer, translation: CGPoint)
+    func didRequestAddPerformerToWorkspace(performer: Performer, workspaceID: WorkspaceID)
     
-    func didRequestAddPerformer(performer: Performer, workspaceID: WorkspaceID)
-    
-    func didRequestRemovePerformer(performer: Performer)
+    func didRequestRemovePerformerFromWorkspace(performer: Performer)
     
     func didRequestSelectPerformer(performer: Performer)
     
     func didRequestDeselectPerformer(performer: Performer)
     
+    func didRequestMovePerformer(performer: Performer, translation: CGPoint)
+    
     func didRequestToggleGroupingMode()
+    
+    func didRequestStartLassoo(atPoint: CGPoint)
+    
+    func didRequestContinueLasoo(toPoint: CGPoint)
+    
+    func didRequestEndLasoo(atPoint: CGPoint)
     
     func didRequestCreateGroup(performers: Set<Performer>, groupIDs: Set<GroupID>)
     
-//    func didRequestAddGroup(group: GroupID, workspaceID: WorkspaceID)
+    func didRequestDestroyGroup(groupID: GroupID)
     
- //   func didRequestRemoveGroup(group: GroupID, workspaceID: WorkspaceID)
+    func didRequestSelectGroup(groupID: GroupID)
     
-  //  func didRequestCreateGroup(performers: Set<Performer>, groups: Set<GroupID>)
+    func didRequestDeselectGroup(groupID: GroupID)
     
-  //  func didRequestDestroyGroup(group: GroupID)
+    func didRequestMoveGroup(groupID: GroupID, translation: CGPoint)
     
-
+    func didRequestAddGroupToWorkspace(groupID: GroupID, workspaceID: WorkspaceID)
+    
+    func didRequestRemoveGroupFromWorkspace(groupID: GroupID)
+    
 }
 
 typealias GroupID = Int

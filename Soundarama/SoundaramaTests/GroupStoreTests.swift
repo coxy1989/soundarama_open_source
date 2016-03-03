@@ -77,22 +77,16 @@ extension GroupStoreTests {
         XCTAssertEqual(poststate.first!.members, input, "Should create one group containing the two performers from the input")
     }
     
-    func testCreateGroup_one_empty_group() {
-        
-        let input = Set(arrayLiteral: Group(members: Set()))
-        store.createGroup(performers: Set(), groupIDs: Set(input.map({$0.id()})))
-        let poststate = store.groups
-        XCTAssertEqual(poststate.count, 0)
-    }
-    
     func testCreateGroup_one_two_performer_group() {
         
-        let prestate = store.groups
         let input = Set(arrayLiteral: Group(members: Set(["x", "y"])))
+        store.groups = input
+        let prestate = store.groups
+        
         store.createGroup(performers: Set(), groupIDs: Set(input.map({$0.id()})))
         let poststate = store.groups
-        XCTAssertEqual(poststate.count, 0)
-        XCTAssertEqual(prestate, poststate, "Should mot create a group")
+        XCTAssertEqual(poststate.count, 1)
+        XCTAssertEqual(prestate, poststate, "Should mot create a new group")
     }
     
     func testCreateGroup_one_three_performer_group() {

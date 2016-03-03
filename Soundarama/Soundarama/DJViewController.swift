@@ -46,9 +46,6 @@ class DJViewController: UIViewController {
     
     private var lassoPath: UIBezierPath?
     
-    //THIS IS PURE EVIL SHIT YOU SHOULD BE ASHAMED OF YOURSELF GET RID OF IT IMMEDIATELY.
-//    private var groupingModeOn = false
-    
     private lazy var lassoShapeLayer: CAShapeLayer = {
         
         let l = CAShapeLayer()
@@ -74,6 +71,7 @@ class DJViewController: UIViewController {
        
         let r = UIPanGestureRecognizer()
         r.addTarget(self, action: Selector("didLassooWithPan:"))
+        r.delegate = self
         return r
     }()
     
@@ -123,22 +121,6 @@ extension DJViewController: DJUserInterface {
     
     func selectPerformer(performer: Performer) {
         
-        /*
-        guard !groupingModeOn else {
-        return
-        }
-        */
-        
-        /*
-        if  pressGesture.state == .Began {
-        viewPanGestureRecognizer.enabled = false
-        }
-        
-        playPerformerViewSelectionAnimation(pressGesture, view: pressGesture.view!)
-        */
-        
-        //playPerformerViewSelectionAnimation(pressGesture, view: pressGesture.view!)
-        
         let v = performer_view_map[performer]!
         playGrowAnimation(v)
     }
@@ -167,15 +149,33 @@ extension DJViewController: DJUserInterface {
             lassoShapeLayer.removeFromSuperlayer()
         }
         
-        //groupingModeOn = on
         groupingModeButton.setTitle(on ? "Exit Grouping Mode" : "Enter Grouping Mode", forState: .Normal)
     }
     
+    func startLassoo(atPoint: CGPoint) {
+        
+        lassoPath = UIBezierPath()
+        lassoPath!.moveToPoint(atPoint)
+    }
+    
+    func continueLasoo(toPoint: CGPoint) {
+        
+        lassoPath?.addLineToPoint(toPoint)
+    }
+    
+    func endLasoo(atPoint: CGPoint) {
+        
+        lassoPath?.addLineToPoint(atPoint)
+        lassoPath?.closePath()
+        delegate.didRequestCreateGroup(lassooedPerformers(), groupIDs: lassooedGroupIDs())
+        lassoPath = nil
+    }
+    
     func createGroup(groupID: GroupID, sourcePerformers: Set<Performer>, sourceGroupIDs: Set<GroupID>) {
-        
+                
         let p_views = Set(performer_view_map.filter() { p, v in sourcePerformers.contains(p) }.map({ $0.1 }))
-        //var g_views = Set<GroupView>()
-        
+        let g_views = Set(group_view_map.filter() { g, v in sourceGroupIDs.contains(g) }.map({ $0.1 }))
+        let views = p_views.union(g_views)
         
         sourcePerformers.forEach() { p in
             let v = performer_view_map[p]!
@@ -183,18 +183,54 @@ extension DJViewController: DJUserInterface {
             view_performer_map[v] = nil
         }
         
-        UIView.animateWithDuration(1, animations: createGroupAnimation(p_views), completion: createGroupAnimationCompletion(p_views, groupID: groupID))
-  
-        /*
-        groupIDs.forEach() { g in
+        sourceGroupIDs.forEach() { g in
             let v = group_view_map[g]!
-            g_views.insert(v)
             group_view_map[g] = nil
             view_group_map[v] = nil
         }
         
-    */
-      //  let sourceViews = p_views.union(g_views)
+        UIView.animateWithDuration(1, animations: createGroupAnimation(views), completion: createGroupAnimationCompletion(views, groupID: groupID))
+    }
+    
+    func destroyGroup(groupID: GroupID, intoPerformers: Set<Performer>) {
+        
+        print("DESTROY")
+        let gv = group_view_map[groupID]!
+        let points = CGPoint.vogelSpiral(UInt(intoPerformers.count))
+        let performers = Array(intoPerformers)
+        for i in 0..<points.count {
+            let pt = points[i]
+            let pr = performers[i]
+            let v = newPerformerView()
+            view_performer_map[v] = pr
+            performer_view_map[pr] = v
+            v.center = gv.center
+            view.addSubview(v)
+            UIView.animateWithDuration(0.5) {
+                
+                let rect = CGRectInset(self.devicesTrayView.frame, 20, 20)
+                v.center = pt.inRelativeCoordinateSpace(gv.center, size: CGSizeMake(75, 75)).inRect(rect)
+            }
+        }
+        gv.removeFromSuperview()
+    }
+    
+    func selectGroup(groupID: GroupID) {
+     
+        let v = group_view_map[groupID]!
+        playGrowAnimation(v)
+    }
+    
+    func deselectGroup(groupID: GroupID) {
+        
+        let v = group_view_map[groupID]!
+        playShrinkAnimation(v)
+    }
+    
+    func moveGroup(groupID: GroupID, translation: CGPoint) {
+     
+        let v = group_view_map[groupID]!
+        v.center = CGPoint(x: v.center.x + translation.x, y: v.center.y + translation.y)
     }
 }
 
@@ -204,26 +240,22 @@ extension DJViewController {
         
         let p = view_performer_map[panGesture.view as! PerformerView]!
         let t = panGesture.translationInView(view)
-        delegate.didRequestMovePerformer(p, translation: t)
-        panGesture.setTranslation(CGPoint.zero, inView: panGesture.view)
-        /*
-        guard !groupingModeOn else {
-            return
-        }
-        */
-
-        /*
-        let performerView = panGesture.view as! PerformerView
-        let performer = view_performer_map[performerView]!
         
-        playPerformerViewSelectionAnimation(panGesture, view: performerView)
-        updatePerformerViewWithPan(panGesture)
-        
-        if (panGesture.state != .Began) && panGesture.state != UIGestureRecognizerState.Changed {
-            userDidPlacePerformer(performer, pointInView: panGesture.locationInView(view))
-            viewPanGestureRecognizer.enabled = true
+        if panGesture.state == .Changed {
+            
+            delegate.didRequestMovePerformer(p, translation: t)
+            panGesture.setTranslation(CGPoint.zero, inView: panGesture.view)
         }
-*/
+        
+        if panGesture.state == .Ended {
+            
+            guard let workspaceID = getWorkspaceIDUnderPanGesture(panGesture) else {
+                delegate.didRequestRemovePerformerFromWorkspace(p)
+                return
+            }
+            
+            delegate.didRequestAddPerformerToWorkspace(p, workspaceID: workspaceID)
+        }
     }
     
     @objc private func didLongPressPerformer(pressGesture: UILongPressGestureRecognizer) {
@@ -242,58 +274,66 @@ extension DJViewController {
 }
 
 extension DJViewController {
- 
-    /*
+    
     @objc private func didPanGroup(panGesture: UIPanGestureRecognizer) {
         
-        guard !groupingModeOn else {
-            return
+        let g = view_group_map[panGesture.view as! PerformerView]!
+        let t = panGesture.translationInView(view)
+        
+        if panGesture.state == .Changed {
+            
+            delegate.didRequestMoveGroup(g, translation: t)
+            panGesture.setTranslation(CGPoint.zero, inView: panGesture.view)
         }
-        let groupView = panGesture.view as! GroupView
         
-        playSelectionAnimation(panGesture, view: groupView)
-        updateViewWithPan(panGesture)
-        
-        if (panGesture.state != .Began) && panGesture.state != UIGestureRecognizerState.Changed {
-            let group = view_group_map[groupView]!
-            userDidPlaceGroup(group, pointInView: panGesture.locationInView(view))
-            viewPanGestureRecognizer.enabled = true
+        if panGesture.state == .Ended {
+            
+            guard let workspaceID = getWorkspaceIDUnderPanGesture(panGesture) else {
+                delegate.didRequestRemoveGroupFromWorkspace(g)
+                return
+            }
+            
+            delegate.didRequestAddGroupToWorkspace(g, workspaceID: workspaceID)
         }
     }
-*/
-    
-    /*
-    @objc private func didLongPressGroup(pressGesture: UILongPressGestureRecognizer) {
-        
-        guard !groupingModeOn else {
-            return
-        }
-        if  pressGesture.state == .Began {
-            viewPanGestureRecognizer.enabled = false
-        }
-        playPerformerViewSelectionAnimation(pressGesture, view: pressGesture.view!)
-    }
-*/
-}
 
+    @objc private func didLongPressGroup(pressGesture: UILongPressGestureRecognizer) {
+
+        let gv = pressGesture.view as! GroupView
+        let g = view_group_map[gv]!
+        
+        if pressGesture.state == .Began {
+            delegate.didRequestSelectGroup(g)
+        }
+        
+        if pressGesture.state == .Ended {
+            delegate.didRequestDeselectGroup(g)
+        }
+    }
+    
+    @objc private func didDoubleTapGroup(tapGesture: UITapGestureRecognizer) {
+    
+        let v = tapGesture.view as! GroupView
+        let g = view_group_map[v]!
+        delegate.didRequestDestroyGroup(g)
+    }
+}
 
 extension DJViewController {
     
-    func userDidPlacePerformer(performer: Performer, pointInView: CGPoint) {
+    func getWorkspaceIDUnderPanGesture(panGesture: UIPanGestureRecognizer) -> WorkspaceID? {
         
-        guard let soundZoneView = getCellUnderPoint(collectionViewPoint: collectionView.convertPoint(pointInView, fromView: view))?.soundZoneView else {
+        guard let soundZoneView = getCellUnderPoint(collectionViewPoint: panGesture.locationInView(collectionView))?.soundZoneView else {
             
-            delegate.didRequestRemovePerformer(performer)
-            return
+            return nil
         }
         
-        guard soundZoneView.pointIsInsideRings(view.convertPoint(pointInView, toView: soundZoneView)) else {
+        guard soundZoneView.pointIsInsideRings(panGesture.locationInView(soundZoneView)) else {
             
-            delegate.didRequestRemovePerformer(performer)
-            return
+            return nil
         }
         
-        delegate.didRequestAddPerformer(performer, workspaceID: zone_workspace_map[soundZoneView]!.workspaceID)
+        return zone_workspace_map[soundZoneView]!.workspaceID
     }
     
     func getCellUnderPoint(collectionViewPoint point: CGPoint) -> SoundZoneCollectionViewCell? {
@@ -310,22 +350,6 @@ extension DJViewController {
 
 extension DJViewController {
     
-    /*
-    private func updatePerformerViewWithPan(panGesture: UIPanGestureRecognizer) {
-        
-        let performerView = panGesture.view as! PerformerView
-        let translation = panGesture.translationInView(view)
-        performerView.center = CGPoint(x: performerView.center.x + translation.x, y: performerView.center.y + translation.y)
-        panGesture.setTranslation(CGPoint.zero, inView: performerView)
-    }
-
-    func playPerformerViewSelectionAnimation(gesture: UIGestureRecognizer, view: UIView) {
-        
-        if gesture.state == .Began { playGrowAnimation(view) }
-        else if gesture.state == .Ended { playShrinkAnimation(view) }
-    }
-*/
-    
     func playGrowAnimation(view: UIView) {
         
         UIView.animateWithDuration(0.3, delay: 0.0, options: .BeginFromCurrentState, animations: {
@@ -340,6 +364,7 @@ extension DJViewController {
 }
 
 extension DJViewController: UIGestureRecognizerDelegate {
+    
     
     func gestureRecognizer(gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWithGestureRecognizer otherGestureRecognizer: UIGestureRecognizer) -> Bool {
         
@@ -412,7 +437,6 @@ extension DJViewController: AudioStemsViewControllerDelegate {
     }
 }
 
-
 extension DJViewController: AudioStemsViewControllerDataSource {
     
     func audioStemAtIndex(index: Int) -> AudioStem {
@@ -430,13 +454,13 @@ extension DJViewController {
     
     func groupViewGestureRecongnizers() -> Set<UIGestureRecognizer> {
         
-        let pan = UIPanGestureRecognizer(target: self, action: Selector("didPanGroup"))
+        let pan = UIPanGestureRecognizer(target: self, action: Selector("didPanGroup:"))
         let longPress = UILongPressGestureRecognizer(target: self, action: "didLongPressGroup:")
         longPress.delegate = self
         longPress.minimumPressDuration = 0.001
         let tap = UITapGestureRecognizer(target: self, action: "didDoubleTapGroup:")
         tap.numberOfTapsRequired = 2
-        return Set([longPress, tap, pan])
+        return Set([longPress, pan, tap])
     }
  
     func newGroupView() -> GroupView {
@@ -445,19 +469,6 @@ extension DJViewController {
         groupViewGestureRecongnizers().forEach({ v.addGestureRecognizer($0) })
         v.backgroundColor = UIColor.greenColor()
         return v
-        
-        /*
-        v.addGestureRecognizer(UIPanGestureRecognizer(target: self, action: "didPanGroup:"))
-        let longPress = UILongPressGestureRecognizer(target: self, action: "didLongPressGroup:")
-        longPress.delegate = self
-        longPress.minimumPressDuration = 0.001
-        v.addGestureRecognizer(longPress)
-        let tgr = UITapGestureRecognizer(target: self, action: "didDoubleTapGroup:")
-        tgr.numberOfTapsRequired = 2
-        v.addGestureRecognizer(tgr)
-        v.backgroundColor = UIColor.greenColor()
-        */
-        //return v
     }
 }
 
@@ -504,9 +515,7 @@ extension DJViewController {
     }
 }
 
-
 extension DJViewController {
-    
     
     @objc func didLassooWithPan(panGesture: UIPanGestureRecognizer) {
         
@@ -515,21 +524,11 @@ extension DJViewController {
         switch panGesture.state {
             
             case .Began:
-                lassoPath = UIBezierPath()
-                lassoPath?.moveToPoint(point)
+                delegate.didRequestStartLassoo(point)
             case .Changed:
-                lassoPath?.addLineToPoint(point)
+                delegate.didRequestContinueLasoo(point)
             case .Ended:
-                lassoPath?.addLineToPoint(point)
-                lassoPath?.closePath()
-                let performers = lassooedPerformers()
-                delegate.didRequestCreateGroup(performers, groupIDs: Set([]))
-                
-                //let groupIDs = lassooedGroupIDs()
-                //let performers = lassooedPerformers()
-                //if groupIDs.count > 0 || performers.count > 0 {
-                //    delegate.didRequestCreateGroup(performers, groupIDs: groupIDs)
-               // }
+                delegate.didRequestEndLasoo(point)
                 lassoPath = nil
             default:
                 return
@@ -538,7 +537,6 @@ extension DJViewController {
         lassoShapeLayer.path = lassoPath?.CGPath
     }
 
-    
     private func lassooedPerformers() -> Set<Performer> {
         
         let p = view_performer_map
@@ -548,7 +546,6 @@ extension DJViewController {
         return Set(p)
     }
     
-   /*
     private func lassooedGroupIDs() -> Set<GroupID> {
         
         let g = view_group_map
@@ -557,7 +554,6 @@ extension DJViewController {
         
         return Set(g)
     }
-*/
 }
 
 extension DJViewController {
@@ -594,93 +590,7 @@ extension DJViewController {
     }
 }
 
-
-/*
-
-    func userDidPlaceGroup(groupID: GroupID, pointInView: CGPoint) {
-    
-        /*
-        let fromWorkspace = workspaces.filter({ $0.performers.contains(group.members.first!)}).first
-        
-        guard let soundZoneView = getCellUnderPoint(collectionViewPoint: collectionView.convertPoint(pointInView, fromView: view))?.soundZoneView else {
-            
-            if let fws = fromWorkspace {
-                delegate.didRequestRemoveGroup(group, workspaceID: fws.identifier)
-            }
-            
-            print("The performer was placed outside the collection view ")
-            return
-        }
-        
-        guard soundZoneView.pointIsInsideRings(view.convertPoint(pointInView, toView: soundZoneView)) else {
-            
-            if let fws = fromWorkspace {
-                delegate.didRequestRemoveGroup(group, workspaceID: fws.identifier)
-            }
-            
-            print("The performer was placed outside the rings of a soundZoneView")
-            return
-        }
-        
-        let toWorkspace = zone_workspace_map[soundZoneView]!
-        
-        guard fromWorkspace != toWorkspace else {
-            
-            print("The performer was moved inside the rings of the soundZoneView it started in")
-            return
-        }
-        
-        print("The performer was placed inside a new soundZoneView")
-        delegate.didRequestAddGroup(group, workspaceID: toWorkspace.identifier)
-        */
-        
-    }
-
-
-*/
-
-/*
 extension DJViewController {
-    
-    @objc func didDoubleTapGroup(tapGesture: UITapGestureRecognizer) {
-    
-        let v = tapGesture.view as! GroupView
-        let g = view_group_map[v]!
-        delegate.didRequestDestroyGroup(g)
-    }
-    
-    @objc private func didPanGroup(panGesture: UIPanGestureRecognizer) {
-        
-        guard !groupingModeOn else {
-            return
-        }
-        let groupView = panGesture.view as! GroupView
-        
-        playSelectionAnimation(panGesture, view: groupView)
-        updateViewWithPan(panGesture)
-        
-        if (panGesture.state != .Began) && panGesture.state != UIGestureRecognizerState.Changed {
-            let group = view_group_map[groupView]!
-            userDidPlaceGroup(group, pointInView: panGesture.locationInView(view))
-            viewPanGestureRecognizer.enabled = true
-        }
-    }
-    
-    @objc private func didLongPressGroup(pressGesture: UILongPressGestureRecognizer) {
-        
-        guard !groupingModeOn else {
-            return
-        }
-        if  pressGesture.state == .Began {
-            viewPanGestureRecognizer.enabled = false
-        }
-        playSelectionAnimation(pressGesture, view: pressGesture.view!)
-    }
-}
-*/
-
-extension DJViewController {
-    
     
     /*
     func transform(point: CGPoint, toPoint:CGPoint) -> CGPoint {

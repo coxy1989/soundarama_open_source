@@ -66,30 +66,45 @@ extension DJPresenter: DJOutput {
         ui.setGroupingMode(on)
     }
     
+    func startLassoo(atPoint: CGPoint) {
+        
+        ui.startLassoo(atPoint)
+    }
+    
+    func continueLasoo(toPoint: CGPoint) {
+        
+        ui.continueLasoo(toPoint)
+    }
+    
+    func endLasoo(atPoint: CGPoint) {
+        
+        ui.endLasoo(atPoint)
+    }
+    
     func createGroup(groupID: GroupID, sourcePerformers: Set<Performer>, sourceGroupIDs: Set<GroupID>) {
      
         ui.createGroup(groupID, sourcePerformers: sourcePerformers, sourceGroupIDs: sourceGroupIDs)
     }
     
-    /*
-    func createGroup(group: Group, performers: Set<Performer>, groups: Set<Group>) {
+    func destroyGroup(groupID: GroupID, intoPerformers: Set<Performer>) {
         
-        ui.createGroup(group, performers: performers, groups: groups)
+        ui.destroyGroup(groupID, intoPerformers: intoPerformers)
     }
     
-    func destroyGroup(group: Group) {
-     
-        ui.destroyGroup(group)
+    func selectGroup(groupID: GroupID) {
+        
+        ui.selectGroup(groupID)
     }
     
-*/
-    /*
-    func changeGroups(fromGroups: Set<Group>, toGroups: Set<Group>) {
+    func deselectGroup(groupID: GroupID) {
         
-        ui.changeGroups(fromGroups, toGroups: toGroups)
+        ui.deselectGroup(groupID)
     }
-*/
-
+    
+    func moveGroup(groupID: GroupID, translation: CGPoint) {
+        
+        ui.moveGroup(groupID, translation: translation)
+    }
 }
 
 extension DJPresenter: DJUserInterfaceDelegate {
@@ -129,12 +144,12 @@ extension DJPresenter: DJUserInterfaceDelegate {
         input.requestAudioStemInWorkspace(audioStem, workspaceID: workspaceID)
     }
     
-    func didRequestAddPerformer(performer: Performer, workspaceID: WorkspaceID) {
+    func didRequestAddPerformerToWorkspace(performer: Performer, workspaceID: WorkspaceID) {
         
         input.requestAddPerformerToWorkspace(performer, workspaceID: workspaceID)
     }
     
-    func didRequestRemovePerformer(performer: Performer) {
+    func didRequestRemovePerformerFromWorkspace(performer: Performer) {
         
         input.requestRemovePerformerFromWorkspace(performer)
     }
@@ -159,9 +174,54 @@ extension DJPresenter: DJUserInterfaceDelegate {
         input.requestToggleGroupingMode()
     }
     
+    func didRequestStartLassoo(atPoint: CGPoint) {
+        
+        input.requestStartLassoo(atPoint)
+    }
+    
+    func didRequestContinueLasoo(toPoint: CGPoint) {
+        
+        input.requestContinueLasoo(toPoint)
+    }
+    
+    func didRequestEndLasoo(atPoint: CGPoint) {
+        
+        input.requestEndLasoo(atPoint)
+    }
+    
     func didRequestCreateGroup(performers: Set<Performer>, groupIDs: Set<GroupID>) {
         
         input.requestCreateGroup(performers, groupIDs: groupIDs)
+    }
+    
+    func didRequestSelectGroup(groupID: GroupID) {
+     
+        input.requestSelectGroup(groupID)
+    }
+    
+    func didRequestDestroyGroup(groupID: GroupID) {
+        
+        input.requestDestroyGroup(groupID)
+    }
+    
+    func didRequestDeselectGroup(groupID: GroupID) {
+        
+        input.requestDeselectGroup(groupID)
+    }
+    
+    func didRequestMoveGroup(groupID: GroupID, translation: CGPoint) {
+        
+        input.requestMoveGroup(groupID, translation: translation)
+    }
+    
+    func didRequestAddGroupToWorkspace(groupID: GroupID, workspaceID: WorkspaceID) {
+     
+        input.requestAddGroup(groupID, workspaceID: workspaceID)
+    }
+    
+    func didRequestRemoveGroupFromWorkspace(groupID: GroupID) {
+        
+        input.requestRemoveGroup(groupID)
     }
     
     /*

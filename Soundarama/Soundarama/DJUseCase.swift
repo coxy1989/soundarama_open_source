@@ -6,7 +6,6 @@
 //  Copyright © 2016 Touchpress Ltd. All rights reserved.
 //
 
-//hmmm...
 import CoreGraphics
 
 protocol DJInput: class {
@@ -33,15 +32,25 @@ protocol DJInput: class {
     
     func requestToggleGroupingMode()
     
+    func requestStartLassoo(atPoint: CGPoint)
+    
+    func requestContinueLasoo(toPoint: CGPoint)
+    
+    func requestEndLasoo(atPoint: CGPoint)
+    
     func requestCreateGroup(performers: Set<Performer>, groupIDs: Set<GroupID>)
     
-//    func requestAddGroup(group: Group, workspaceID: WorkspaceID)
+    func requestDestroyGroup(groupID: GroupID)
     
-//    func requestRemoveGroup(group: Group, workspaceID: WorkspaceID)
+    func requestSelectGroup(groupID: GroupID)
     
+    func requestDeselectGroup(groupID: GroupID)
     
-//    func requestDestroyGroup(group: Group)
-
+    func requestMoveGroup(groupID: GroupID, translation: CGPoint)
+    
+    func requestAddGroup(groupID: GroupID, workspaceID: WorkspaceID)
+    
+    func requestRemoveGroup(groupID: GroupID)
 }
 
 protocol DJOutput: class {
@@ -62,9 +71,19 @@ protocol DJOutput: class {
     
     func setGroupingMode(on: Bool)
     
+    func startLassoo(atPoint: CGPoint)
+    
+    func continueLasoo(toPoint: CGPoint)
+    
+    func endLasoo(atPoint: CGPoint)
+    
     func createGroup(groupID: GroupID, sourcePerformers: Set<Performer>, sourceGroupIDs: Set<GroupID>)
     
-//    func destroyGroup(group: Group)
+    func destroyGroup(groupID: GroupID, intoPerformers: Set<Performer>)
     
-//    func changeGroups(fromGroups: Set<Group>, toGroups: Set<Group>)
+    func selectGroup(groupID: GroupID)
+    
+    func deselectGroup(groupID: GroupID)
+    
+    func moveGroup(groupID: GroupID, translation: CGPoint)
 }
