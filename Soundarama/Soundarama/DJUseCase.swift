@@ -48,9 +48,9 @@ protocol DJInput: class {
     
     func requestMoveGroup(groupID: GroupID, translation: CGPoint)
     
-    func requestAddGroup(groupID: GroupID, workspaceID: WorkspaceID)
+    func requestAddGroupToWorkspace(groupID: GroupID, workspaceID: WorkspaceID)
     
-    func requestRemoveGroup(groupID: GroupID)
+    func requestRemoveGroupFromWorkspace(groupID: GroupID)
 }
 
 protocol DJOutput: class {

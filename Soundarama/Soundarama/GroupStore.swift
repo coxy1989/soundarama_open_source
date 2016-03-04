@@ -25,10 +25,12 @@ class GroupStore {
         }
         
         else if p.count > 1 {
+            
             self.groups.insert(Group(members: p))
         }
         
         else if g.count > 1 {
+            
             let merged = Set(groups.filter({ x in g.contains(x.id()) }))
             groups.subtractInPlace(merged)
             let members = Set(merged.reduce(Set()) { i, n in  i.union(n.members) })

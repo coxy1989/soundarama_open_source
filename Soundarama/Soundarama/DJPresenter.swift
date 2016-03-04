@@ -216,36 +216,12 @@ extension DJPresenter: DJUserInterfaceDelegate {
     
     func didRequestAddGroupToWorkspace(groupID: GroupID, workspaceID: WorkspaceID) {
      
-        input.requestAddGroup(groupID, workspaceID: workspaceID)
+        input.requestAddGroupToWorkspace(groupID, workspaceID: workspaceID)
     }
     
     func didRequestRemoveGroupFromWorkspace(groupID: GroupID) {
         
-        input.requestRemoveGroup(groupID)
+        input.requestRemoveGroupFromWorkspace(groupID)
     }
-    
-    /*
-    func didRequestAddGroup(group: Group, workspaceID: WorkspaceID) {
-        
-        input.requestAddGroup(group, workspaceID: workspaceID)
-    }
-    
-    func didRequestRemoveGroup(group: Group, workspaceID: WorkspaceID) {
-        
-        input.requestRemoveGroup(group, workspaceID: workspaceID)
-    }
-    
-    func didRequestCreateGroup(performers: Set<Performer>, groups: Set<Group>) {
-        
-        input.requestCreateGroup(performers, groups: groups)
-    }
-    */
-    
-    /*
-    func didRequestDestroyGroup(group: Group) {
-     
-        input.requestDestroyGroup(group)
-    }
-*/
 }
 

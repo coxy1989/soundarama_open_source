@@ -176,7 +176,7 @@ extension DJInteractor: DJInput {
         djOutput.moveGroup(groupID, translation: translation)
     }
     
-    func requestAddGroup(groupID: GroupID, workspaceID: WorkspaceID) {
+    func requestAddGroupToWorkspace(groupID: GroupID, workspaceID: WorkspaceID) {
         
         let group = groupStore.groups.filter({ $0.id() == groupID }).first!
         for p in group.members {
@@ -184,7 +184,7 @@ extension DJInteractor: DJInput {
         }
     }
     
-    func requestRemoveGroup(groupID: GroupID) {
+    func requestRemoveGroupFromWorkspace(groupID: GroupID) {
         
         let group = groupStore.groups.filter({ $0.id() == groupID }).first!
         for p in group.members {

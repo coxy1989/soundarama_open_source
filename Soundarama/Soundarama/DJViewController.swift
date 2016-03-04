@@ -97,7 +97,7 @@ extension DJViewController: DJUserInterface {
         }
         
         let pv = newPerformerView()
-        pv.center = newPerformerPoint()
+        pv.center = randomDeviceTrayPoint()
         view.addSubview(pv)
         performer_view_map[performer] = pv
         view_performer_map[pv] = performer
@@ -192,26 +192,34 @@ extension DJViewController: DJUserInterface {
         UIView.animateWithDuration(1, animations: createGroupAnimation(views), completion: createGroupAnimationCompletion(views, groupID: groupID))
     }
     
+    func addPerformerView(point pt: CGPoint, performer per: Performer, performerView vw: PerformerView) {
+        
+            view_performer_map[vw] = per
+            performer_view_map[per] = vw
+            vw.center = pt
+            view.addSubview(vw)
+    }
+    
     func destroyGroup(groupID: GroupID, intoPerformers: Set<Performer>) {
         
         let gv = group_view_map[groupID]!
-        let points = CGPoint.vogelSpiral(UInt(intoPerformers.count))
-        let performers = Array(intoPerformers)
-        for i in 0..<points.count {
-            let pt = points[i]
-            let pr = performers[i]
-            let v = newPerformerView()
-            view_performer_map[v] = pr
-            performer_view_map[pr] = v
-            v.center = gv.center
-            view.addSubview(v)
-            UIView.animateWithDuration(0.5) {
-                
-                let rect = CGRectInset(self.devicesTrayView.frame, 20, 20)
-                v.center = pt.inRelativeCoordinateSpace(gv.center, size: CGSizeMake(75, 75)).inRect(rect)
-            }
+        
+        guard let cell = getCellUnderPoint(collectionViewPoint: collectionView.convertPoint(gv.center, fromView: view)) else {
+            
+            destroyGroupViewInDeviceTray(gv, intoPerformers: intoPerformers)
+            return
         }
-        gv.removeFromSuperview()
+        
+        guard cell.soundZoneView.pointIsInsideRings(cell.soundZoneView.convertPoint(gv.center, fromView: view)) else {
+            
+            destroyGroupViewOutsideSoundZoneView(gv, intoPerformers: intoPerformers)
+            return
+        }
+        
+        /* Animation is occuring inside the rings of a workspace */
+        
+        destroyGroupviewInsideSoundZoneView(gv, soundZoneView: cell.soundZoneView, intoPerformers: intoPerformers)
+        
     }
     
     func selectGroup(groupID: GroupID) {
@@ -230,6 +238,35 @@ extension DJViewController: DJUserInterface {
      
         let v = group_view_map[groupID]!
         v.center = CGPoint(x: v.center.x + translation.x, y: v.center.y + translation.y)
+    }
+}
+
+extension DJViewController {
+    
+    private func getWorkspaceIDUnderPanGesture(panGesture: UIPanGestureRecognizer) -> WorkspaceID? {
+        
+        guard let soundZoneView = getCellUnderPoint(collectionViewPoint: panGesture.locationInView(collectionView))?.soundZoneView else {
+            
+            return nil
+        }
+        
+        guard soundZoneView.pointIsInsideRings(panGesture.locationInView(soundZoneView)) else {
+            
+            return nil
+        }
+        
+        return zone_workspace_map[soundZoneView]!.workspaceID
+    }
+    
+    private func getCellUnderPoint(collectionViewPoint point: CGPoint) -> SoundZoneCollectionViewCell? {
+        
+        let cells = collectionView.visibleCells() as! [SoundZoneCollectionViewCell]
+        for c in cells {
+            if CGRectContainsPoint(c.frame, point) {
+                return c
+            }
+        }
+        return nil
     }
 }
 
@@ -320,42 +357,13 @@ extension DJViewController {
 
 extension DJViewController {
     
-    func getWorkspaceIDUnderPanGesture(panGesture: UIPanGestureRecognizer) -> WorkspaceID? {
-        
-        guard let soundZoneView = getCellUnderPoint(collectionViewPoint: panGesture.locationInView(collectionView))?.soundZoneView else {
-            
-            return nil
-        }
-        
-        guard soundZoneView.pointIsInsideRings(panGesture.locationInView(soundZoneView)) else {
-            
-            return nil
-        }
-        
-        return zone_workspace_map[soundZoneView]!.workspaceID
-    }
-    
-    func getCellUnderPoint(collectionViewPoint point: CGPoint) -> SoundZoneCollectionViewCell? {
-        
-        let cells = collectionView.visibleCells() as! [SoundZoneCollectionViewCell]
-        for c in cells {
-            if CGRectContainsPoint(c.frame, point) {
-                return c
-            }
-        }
-        return nil
-    }
-}
-
-extension DJViewController {
-    
-    func playGrowAnimation(view: UIView) {
+    private func playGrowAnimation(view: UIView) {
         
         UIView.animateWithDuration(0.3, delay: 0.0, options: .BeginFromCurrentState, animations: {
             view.transform = CGAffineTransformMakeScale(1.6, 1.6)}, completion: nil)
     }
     
-    func playShrinkAnimation(view: UIView) {
+    private func playShrinkAnimation(view: UIView) {
         
         UIView.animateWithDuration(0.3, delay: 0.0, options: .BeginFromCurrentState, animations: {
             view.transform = CGAffineTransformIdentity }, completion: nil)
@@ -451,7 +459,7 @@ extension DJViewController: AudioStemsViewControllerDataSource {
 
 extension DJViewController {
     
-    func groupViewGestureRecongnizers() -> Set<UIGestureRecognizer> {
+    private func groupViewGestureRecongnizers() -> Set<UIGestureRecognizer> {
         
         let pan = UIPanGestureRecognizer(target: self, action: Selector("didPanGroup:"))
         let longPress = UILongPressGestureRecognizer(target: self, action: "didLongPressGroup:")
@@ -462,7 +470,7 @@ extension DJViewController {
         return Set([longPress, pan, tap])
     }
  
-    func newGroupView() -> GroupView {
+    private func newGroupView() -> GroupView {
         
         let v = PerformerView(frame: CGRectZero)
         groupViewGestureRecongnizers().forEach({ v.addGestureRecognizer($0) })
@@ -473,7 +481,7 @@ extension DJViewController {
 
 extension DJViewController {
     
-    func performerViewGestureRecognizers() -> Set<UIGestureRecognizer> {
+    private func performerViewGestureRecognizers() -> Set<UIGestureRecognizer> {
         
         let pan = UIPanGestureRecognizer(target: self, action: "didPanPerformer:")
         let longPress = UILongPressGestureRecognizer(target: self, action: "didLongPressPerformer:")
@@ -482,14 +490,14 @@ extension DJViewController {
         return Set([pan, longPress])
     }
     
-    func newPerformerView() -> PerformerView {
+    private func newPerformerView() -> PerformerView {
         
         let v = PerformerView(frame: CGRectZero)
         performerViewGestureRecognizers().forEach({ v.addGestureRecognizer($0) })
         return v
     }
     
-    func newPerformerPoint() -> CGPoint {
+    private func randomDeviceTrayPoint() -> CGPoint {
         
         let devicesAreaRect = CGRectInset(self.devicesTrayView!.frame, 16.0, 60.0)
         return CGPoint(
@@ -501,7 +509,7 @@ extension DJViewController {
 extension DJViewController {
     
     /* TODO: Move this into DJWireframe and call via UI delegate method */
-    func audioStemsViewController() -> UIViewController {
+    private func audioStemsViewController() -> UIViewController {
         
         let vc = AudioStemsViewController(nibName: nil, bundle: nil)
         vc.dataSource = self
@@ -516,7 +524,7 @@ extension DJViewController {
 
 extension DJViewController {
     
-    @objc func didLassooWithPan(panGesture: UIPanGestureRecognizer) {
+    @objc private func didLassooWithPan(panGesture: UIPanGestureRecognizer) {
         
         let point = panGesture.locationInView(view)
         
@@ -557,6 +565,78 @@ extension DJViewController {
 
 extension DJViewController {
     
+    private func destroyGroupViewOutsideSoundZoneView(groupView: GroupView, intoPerformers: Set<Performer>) {
+        
+        intoPerformers.forEach() { performer in
+            
+            let v = newPerformerView()
+            addPerformerView(point: groupView.center, performer: performer, performerView: v)
+            let pt = randomDeviceTrayPoint()
+            UIView.animateWithDuration(0.5) {
+                v.center = pt
+            }
+        }
+        
+        groupView.removeFromSuperview()
+    }
+    
+    private func destroyGroupViewInDeviceTray(groupView: GroupView, intoPerformers: Set<Performer>) {
+        
+        let views = intoPerformers.map({ _ in newPerformerView() })
+        let points = CGPoint.vogelSpiral(UInt(intoPerformers.count))
+        
+        intoPerformers.enumerate().forEach() { index, performer in
+            
+            addPerformerView(point: groupView.center, performer: performer, performerView: views[index])
+            animateDestructionInDeviceTray(views[index], fromCenter: groupView.center, toCenter: points[index])
+        }
+        
+        groupView.removeFromSuperview()
+    }
+    
+    private func destroyGroupviewInsideSoundZoneView(groupView: GroupView, soundZoneView: SoundZoneView, intoPerformers: Set<Performer>) {
+        
+        let views = intoPerformers.map({ _ in newPerformerView() })
+        let points = CGPoint.vogelSpiral(UInt(intoPerformers.count))
+        
+        intoPerformers.enumerate().forEach() { index, performer in
+            
+            addPerformerView(point: groupView.center, performer: performer, performerView: views[index])
+            animateDestructionInSoundZoneView(views[index], soundZoneView: soundZoneView, toCenter: points[index])
+        }
+        
+        groupView.removeFromSuperview()
+    }
+    
+    
+    private func animateDestructionInDeviceTray(performerView: UIView, fromCenter: CGPoint, toCenter: CGPoint) {
+        
+        UIView.animateWithDuration(0.5) { [weak self] in
+            
+            guard let this = self else {
+                return
+            }
+            
+            let rect = CGRectInset(this.devicesTrayView.frame, 20, 20)
+            performerView.center = toCenter.inRelativeCoordinateSpace(fromCenter, size: CGSizeMake(75, 75)).inRect(rect)
+        }
+    }
+    
+    private func animateDestructionInSoundZoneView(performerView: PerformerView, soundZoneView: SoundZoneView, toCenter: CGPoint) {
+        
+        UIView.animateWithDuration(0.5) { [weak self] in
+            
+            guard let this = self else { return }
+            
+            let rect = soundZoneView.convertRect(soundZoneView.frame, toView:this.view)
+            performerView.center = toCenter.inRelativeCoordinateSpace(this.view.convertPoint(soundZoneView.center, fromView: soundZoneView), size: CGSizeMake(75, 75)).inRect(rect)
+        }
+    }
+}
+
+
+extension DJViewController {
+    
     private func createGroupAnimation(sourceViews: Set<UIView>) -> () -> () {
         
         let centroid = CGPoint.centroid(sourceViews.map({ $0.center }))
@@ -588,186 +668,6 @@ extension DJViewController {
         }
     }
 }
-
-extension DJViewController {
-    
-    /*
-    func transform(point: CGPoint, toPoint:CGPoint) -> CGPoint {
-        
-        if !devicesTrayView.frame.contains(toPoint) {
-            
-            if let soundZoneView = getCellUnderPoint(collectionViewPoint: collectionView.convertPoint(toPoint, fromView: view))?.soundZoneView {
-                
-                let radius = soundZoneView.frame.size.width * 0.3
-                let center = soundZoneView.convertPoint(soundZoneView.center, toView: view)
-                let x = point.x + center.x + (point.x * radius)
-                let y = point.y + center.y + (point.y * radius)
-                print(radius)
-                return CGPointMake(x, y)
-            }
-        }
-        
-        
-        let right = view.bounds.width - toPoint.x
-        let permit = CGFloat(100)
-        var xadj: CGFloat = 0
-        
-        if right < permit {
-            xadj = permit - right
-            print("clip right")
-        }
-        
-        let x = point.x + toPoint.x - xadj + (point.x * 75)
-        let y = point.y + toPoint.y + (point.y * 75)
-        
-        return CGPointMake(x, y)
-        
-    }
-*/
-}
-
-    /*
-    
-    func createGroup(groupID: GroupID, performers: Set<Performer>, groupIDs: Set<GroupID>) {
-        
-        var p_views = Set<PerformerView>()
-        var g_views = Set<GroupView>()
-        
-        performers.forEach() { p in
-            let v = performer_view_map[p]!
-            p_views.insert(v)
-            performer_view_map[p] = nil
-            view_performer_map[v] = nil
-        }
-        
-        groupIDs.forEach() { g in
-            let v = group_view_map[g]!
-            g_views.insert(v)
-            group_view_map[g] = nil
-            view_group_map[v] = nil
-        }
-        
-        let sourceViews = p_views.union(g_views)
-        
-        let centroid_x = sourceViews.reduce(0) { return $0 + $1.center.x } / CGFloat(sourceViews.count)
-        let centroid_y = sourceViews.reduce(0) { return $0 + $1.center.y } / CGFloat(sourceViews.count)
-        let centroid = CGPointMake(centroid_x, centroid_y)
-        
-        UIView.animateWithDuration(1, animations: {
-            sourceViews.forEach() { v in v.center = centroid }
-            }) { [weak self]  done in
-                
-                guard let this = self else {
-                    return
-                }
-                
-                sourceViews.forEach() {
-                    v in v.removeFromSuperview()
-                }
-                
-                let v = this.newGroupView()
-                v.center = centroid
-                this.view.addSubview(v)
-                this.view_group_map[v] = groupID
-                this.group_view_map[groupID] = v
-        }
-    }
-    
-    func destroyGroup(groupID: GroupID, intoPerformers: Set<Performer>) {
-        
-        let gv = group_view_map[groupID]!
-        let points = CGPoint.vogelSpiral(UInt(intoPerformers.count))
-        let performers = Array(intoPerformers)
-        for i in 0..<points.count {
-            let pt = points[i]
-            let pr = performers[i]
-            let v = newPerformerView()
-            view_performer_map[v] = pr
-            performer_view_map[pr] = v
-            v.center = gv.center
-            view.addSubview(v)
-            UIView.animateWithDuration(0.5) {
-                
-                let rect = CGRectInset(self.devicesTrayView.frame, 20, 20)
-                v.center = pt.inRelativeCoordinateSpace(gv.center, size: CGSizeMake(75, 75)).inRect(rect)
-            }
-        }
-        gv.removeFromSuperview()
-    }
-*/
-    /*
-    func changeGroups(fromGroups: Set<Group>, toGroups: Set<Group>) {
-        
-        for g in toGroups {
-            
-            let subgroups = group_view_map.filter({ g2, v in  g2.members.intersect(g.members).count != 0})
-            let performers = performer_view_map.filter(){ p, v in g.members.contains(p)}
-            
-            subgroups.forEach() { g, v in
-                group_view_map[g] = nil
-                view_group_map[v] = nil
-            }
-            
-            performers.forEach() { p, v in
-                performer_view_map[p] = nil
-                view_performer_map[v] = nil
-            }
-            
-            let sourceViews = Set(subgroups.map({$1})).union(Set(performers.map({$1})))
-            
-            let centroid_x = sourceViews.reduce(0) { return $0 + $1.center.x } / CGFloat(sourceViews.count)
-            let centroid_y = sourceViews.reduce(0) { return $0 + $1.center.y } / CGFloat(sourceViews.count)
-            let centroid = CGPointMake(centroid_x, centroid_y)
-            
-            UIView.animateWithDuration(1, animations: {
-                sourceViews.forEach() { v in v.center = centroid }
-                }) { [weak self]  done in
-                    
-                    guard let this = self else {
-                        return
-                    }
-                    
-                    sourceViews.forEach() {
-                        v in v.removeFromSuperview()
-                    }
-                    
-                    let v = this.newGroupView()
-                    v.center = centroid
-                    this.view.addSubview(v)
-                    this.view_group_map[v] = g
-                    this.group_view_map[g] = v
-            }
-        }
-        
-        for g in fromGroups {
-            
-            let wasMerged = toGroups.filter({ g.members.isSubsetOf($0.members)}).count == 1
-            
-            guard !wasMerged else {
-                return
-            }
-            
-            let gv = group_view_map[g]!
-            let points = CGPoint.vogelSpiral(UInt(g.members.count))
-            let performers = Array(g.members)
-            for i in 0..<points.count {
-                let pt = points[i]
-                let pr = performers[i]
-                let v = newPerformerView()
-                view_performer_map[v] = pr
-                performer_view_map[pr] = v
-                v.center = gv.center
-                view.addSubview(v)
-                UIView.animateWithDuration(0.5) {
-
-                    let rect = CGRectInset(self.devicesTrayView.frame, 20, 20)
-                    v.center = pt.inRelativeCoordinateSpace(gv.center, size: CGSizeMake(75, 75)).inRect(rect)
-                }
-            }
-                gv.removeFromSuperview()
-        }
-    }
-*/
 
 extension CGPoint {
     
