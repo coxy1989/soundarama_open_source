@@ -240,3 +240,204 @@ extension GroupStoreTests {
         XCTAssertEqual(poststate, expected)
     }
 }
+
+extension GroupStoreTests {
+    
+    /* Test: isValidGroup */
+    
+    func testIsValidGroup_null_case() {
+        
+        let suite = Set([Workspace(identifier: NSUUID().UUIDString, audioStem: nil, performers: [], isMuted: false, isSolo: false, isAntiSolo: false)])
+        
+        let outcome = store.isValidGroup( Set(), groupIDs: Set(), inSuite: suite)
+        XCTAssertFalse(outcome)
+    }
+    
+    func testIsValidGroup_one_performer_not_in_suite() {
+        
+        let suite = Set([Workspace(identifier: NSUUID().UUIDString, audioStem: nil, performers: [], isMuted: false, isSolo: false, isAntiSolo: false)])
+        
+        let outcome = store.isValidGroup( Set(["x"]), groupIDs: Set(), inSuite: suite)
+        
+        XCTAssertFalse(outcome)
+    }
+    
+    func testIsValidGroup_one_performer_existing_in_suite() {
+        
+        let suite = Set([Workspace(identifier: NSUUID().UUIDString, audioStem: nil, performers: ["x"], isMuted: false, isSolo: false, isAntiSolo: false)])
+        
+        let outcome = store.isValidGroup( Set(["x"]), groupIDs: Set(), inSuite: suite)
+        
+        XCTAssertFalse(outcome)
+    }
+    
+    func testIsValidGroup_two_performers_not_in_suite() {
+        
+        let suite = Set([Workspace(identifier: NSUUID().UUIDString, audioStem: nil, performers: [], isMuted: false, isSolo: false, isAntiSolo: false)])
+        
+        let outcome = store.isValidGroup( Set(["x", "y"]), groupIDs: Set(), inSuite: suite)
+        
+        XCTAssertTrue(outcome)
+    }
+    
+    func testIsValidGroup_two_performers_in_suite_in_same_workspace() {
+        
+        let suite = Set([Workspace(identifier: NSUUID().UUIDString, audioStem: nil, performers: ["x", "y"], isMuted: false, isSolo: false, isAntiSolo: false)])
+        
+        let outcome = store.isValidGroup( Set(["x", "y"]), groupIDs: Set(), inSuite: suite)
+        
+        XCTAssertTrue(outcome)
+    }
+
+    func testIsValidGroup_two_performers_in_suite_in_different_workspaces() {
+        
+        let ws1 = Workspace(identifier: NSUUID().UUIDString, audioStem: nil, performers: ["x"], isMuted: false, isSolo: false, isAntiSolo: false)
+        let ws2 = Workspace(identifier: NSUUID().UUIDString, audioStem: nil, performers: ["y"], isMuted: false, isSolo: false, isAntiSolo: false)
+        let suite = Suite([ws1, ws2])
+        
+        let outcome = store.isValidGroup( Set(["x", "y"]), groupIDs: Set(), inSuite: suite)
+        
+        XCTAssertFalse(outcome)
+    }
+    
+    func testIsValidGroup_three_performers_in_suite_in_different_workspaces() {
+        
+        let ws1 = Workspace(identifier: NSUUID().UUIDString, audioStem: nil, performers: ["x"], isMuted: false, isSolo: false, isAntiSolo: false)
+        let ws2 = Workspace(identifier: NSUUID().UUIDString, audioStem: nil, performers: ["y"], isMuted: false, isSolo: false, isAntiSolo: false)
+        let ws3 = Workspace(identifier: NSUUID().UUIDString, audioStem: nil, performers: ["z"], isMuted: false, isSolo: false, isAntiSolo: false)
+        let suite = Suite([ws1, ws2, ws3])
+        
+        let outcome = store.isValidGroup(Set(["x", "y", "z"]), groupIDs: Set(), inSuite: suite)
+        
+        XCTAssertFalse(outcome)
+    }
+    
+    func testIsValidGroup_two_performers_one_in_workspace_one_not() {
+        
+        let suite = Set([Workspace(identifier: NSUUID().UUIDString, audioStem: nil, performers: ["x"], isMuted: false, isSolo: false, isAntiSolo: false)])
+        
+        let outcome = store.isValidGroup( Set(["x", "y"]), groupIDs: Set(), inSuite: suite)
+        
+        XCTAssertFalse(outcome)
+    }
+
+    func testIsValidGroup_two_performers_two_in_workspace_one_not() {
+        
+        let suite = Set([Workspace(identifier: NSUUID().UUIDString, audioStem: nil, performers: ["x", "y"], isMuted: false, isSolo: false, isAntiSolo: false)])
+        
+        let outcome = store.isValidGroup( Set(["x", "y", "z"]), groupIDs: Set(), inSuite: suite)
+        
+        XCTAssertFalse(outcome)
+    }
+    
+    func testIsValidGroup_two_performers_one_in_workspace_two_not() {
+        
+        let suite = Set([Workspace(identifier: NSUUID().UUIDString, audioStem: nil, performers: ["x"], isMuted: false, isSolo: false, isAntiSolo: false)])
+        
+        let outcome = store.isValidGroup( Set(["x", "y", "z"]), groupIDs: Set(), inSuite: suite)
+        
+        XCTAssertFalse(outcome)
+    }
+
+    func testIsValidGroup_one_group_not_in_workspace() {
+        
+        let suite = Set([Workspace(identifier: NSUUID().UUIDString, audioStem: nil, performers: [], isMuted: false, isSolo: false, isAntiSolo: false)])
+        
+        let outcome = store.isValidGroup( Set([]), groupIDs: Set([1]), inSuite: suite)
+        
+        XCTAssertFalse(outcome)
+    }
+    
+    func testIsValidGroup_one_group_in_workspace() {
+        
+        let group = Group(members: Set(["x"]))
+        let suite = Set([Workspace(identifier: NSUUID().UUIDString, audioStem: nil, performers: group.members, isMuted: false, isSolo: false, isAntiSolo: false)])
+        
+        store.groups = Set([group])
+        
+        let outcome = store.isValidGroup( Set([]), groupIDs: Set([group.id()]), inSuite: suite)
+        
+        XCTAssertFalse(outcome)
+    }
+    
+    func testIsValidGroup_one_group_in_workspace_one_not() {
+        
+        let group1 = Group(members: Set(["x", "y"]))
+        let group2 = Group(members: Set(["a", "b"]))
+        let ws1 = Workspace(identifier: NSUUID().UUIDString, audioStem: nil, performers: Set(["x", "y"]), isMuted: false, isSolo: false, isAntiSolo: false)
+        let suite = Set([ws1])
+        
+        store.groups = Set([group1, group2])
+        
+        let outcome = store.isValidGroup( Set([]), groupIDs: Set([group1.id(), group2.id()]), inSuite: suite)
+        
+        XCTAssertFalse(outcome)
+    }
+    
+    func testIsValidGroup_two_groups_in_same_workspace() {
+        
+        let group1 = Group(members: Set(["x", "y"]))
+        let group2 = Group(members: Set(["a", "b"]))
+        let suite = Set([Workspace(identifier: NSUUID().UUIDString, audioStem: nil, performers: Set(["x", "y", "a", "b"]), isMuted: false, isSolo: false, isAntiSolo: false)])
+        
+        store.groups = Set([group1, group2])
+        
+        let outcome = store.isValidGroup( Set([]), groupIDs: Set([group1.id(), group2.id()]), inSuite: suite)
+        
+        XCTAssertTrue(outcome)
+    }
+    
+    func testIsValidGroup_two_groups_in_different_workspaces() {
+        
+        let group1 = Group(members: Set(["x", "y"]))
+        let group2 = Group(members: Set(["a", "b"]))
+        let ws1 = Workspace(identifier: NSUUID().UUIDString, audioStem: nil, performers: Set(["x", "y"]), isMuted: false, isSolo: false, isAntiSolo: false)
+        let ws2 = Workspace(identifier: NSUUID().UUIDString, audioStem: nil, performers: Set(["a", "b"]), isMuted: false, isSolo: false, isAntiSolo: false)
+        let suite = Set([ws1, ws2])
+        
+        store.groups = Set([group1, group2])
+        
+        let outcome = store.isValidGroup( Set([]), groupIDs: Set([group1.id(), group2.id()]), inSuite: suite)
+        
+        XCTAssertFalse(outcome)
+    }
+
+    func testIsValidGroup_one_performer_in_workspace_one_group_not_in_workspace() {
+        
+        let group = Group(members: Set(["x", "y"]))
+        let ws = Workspace(identifier: NSUUID().UUIDString, audioStem: nil, performers: Set(["1"]), isMuted: false, isSolo: false, isAntiSolo: false)
+        let suite = Set([ws])
+        
+        store.groups = Set([group])
+        
+        let outcome = store.isValidGroup( Set(["1"]), groupIDs: Set([group.id()]), inSuite: suite)
+        
+        XCTAssertFalse(outcome)
+    }
+    
+    func testIsValidGroup_one_performer_not_in_workspace_one_group_in_workspace() {
+        
+        let group = Group(members: Set(["x", "y"]))
+        let ws = Workspace(identifier: NSUUID().UUIDString, audioStem: nil, performers: Set(["x", "y"]), isMuted: false, isSolo: false, isAntiSolo: false)
+        let suite = Set([ws])
+        
+        store.groups = Set([group])
+        
+        let outcome = store.isValidGroup( Set(["1"]), groupIDs: Set([group.id()]), inSuite: suite)
+        
+        XCTAssertFalse(outcome)
+    }
+    
+    func testValidGroup_one_performer_one_group_neither_in_workspace() {
+        
+        let group = Group(members: Set(["x", "y"]))
+        let ws = Workspace(identifier: NSUUID().UUIDString, audioStem: nil, performers: Set(), isMuted: false, isSolo: false, isAntiSolo: false)
+        let suite = Set([ws])
+        
+        store.groups = Set()
+        
+        let outcome = store.isValidGroup( Set(["1"]), groupIDs: Set([group.id()]), inSuite: suite)
+        
+        XCTAssertTrue(outcome)
+    }
+}

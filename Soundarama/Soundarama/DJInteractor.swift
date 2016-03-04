@@ -130,7 +130,7 @@ extension DJInteractor: DJInput {
     func requestContinueLasoo(toPoint: CGPoint) {
         
         djOutput.continueLasoo(toPoint)
-    }
+    }   
     
     func requestEndLasoo(atPoint: CGPoint) {
         
@@ -138,6 +138,10 @@ extension DJInteractor: DJInput {
     }
     
     func requestCreateGroup(performers: Set<Performer>, groupIDs: Set<GroupID>) {
+        
+        guard groupStore.isValidGroup(performers, groupIDs: groupIDs, inSuite: suiteStore.suite) else {
+            return
+        }
         
         let prestate = groupStore.groups
         groupStore.createGroup(performers: performers, groupIDs: groupIDs)

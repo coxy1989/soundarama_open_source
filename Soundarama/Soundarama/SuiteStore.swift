@@ -29,7 +29,6 @@ class SuiteStore {
         let prev = suite.filter({ $0 != workspace && $0.performers.contains(performer)})
         assert(prev.count <= 1, "Unrecoverable state violation. A performer can only exist in one workspace")
         if prev.count == 1 {
-            //removePerformer(performer, workspaceID: prev.first!.identifier)
             removePerformer(performer)
         }
         
@@ -40,21 +39,12 @@ class SuiteStore {
     
     func removePerformer(performer: Performer) {
         
-        /*
-        guard let workspace = suite.filter({ $0.identifier == workspaceID }).first else {
-            
-            assert(false, "This is a logical error")
-        }
-*/
-        
         guard let workspace = suite.filter({ $0.performers.contains(performer)}).first else {
             
-            //assert(false, "attempted to remove a performer that is not in a workspace.")
             print("performer has no workspace to be removed from")
             return
         }
         
-        //print("Removing performer from \(workspace.identifier)")
         let nextWorkspace = workspaceWithoutPerformer(workspace, performer: performer)
         suite.remove(workspace)
         suite.insert(nextWorkspace)
@@ -116,7 +106,7 @@ class SuiteStore {
         print("Turned on a solo")
         guard otherSolos.count != 0 else {
             
-            //print("Turned on the only solo")
+            print("Turned on the only solo")
             suite = Set(suite.map({ workspaceWithSoloState($0, soloState: false, antiSoloState: true) }))
             let nextWorkspace = workspaceWithSoloState(workspace, soloState: true, antiSoloState: false)
             suite.remove(workspace)
@@ -124,7 +114,7 @@ class SuiteStore {
             return
         }
         
-        //print("Turned on a solo, but there is at least one other solo")
+        print("Turned on a solo, but there is at least one other solo")
         let nextWorkspace = workspaceWithSoloState(workspace, soloState: true, antiSoloState: false)
         suite.remove(workspace)
         suite.insert(nextWorkspace)
