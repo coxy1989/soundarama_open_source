@@ -33,7 +33,6 @@ extension DJInteractor: DJInput {
         //TODO: handle pro (16), pad(9) phone(4)
         
         djOutput.setUISuite(UISuiteTransformer.transform(suiteStore.suite))
-        djOutput.setAudioStems(audioStemStore.audioStems)
         djOutput.setGroupingMode(false)
         
         christiansTimeServer = ChristiansTimeServer(endpoint: endpoint)
@@ -46,6 +45,11 @@ extension DJInteractor: DJInput {
     func stop() {
         
         endpoint.disconnect()
+    }
+    
+    func getAudioStems() -> Set<UIAudioStem> {
+        
+        return UIAudioStemTransformer.transform(Set(audioStemStore.audioStems))
     }
     
     func requestToggleMuteInWorkspace(workspaceID: WorkspaceID) {
@@ -66,7 +70,12 @@ extension DJInteractor: DJInput {
         djOutput.setUISuite(UISuiteTransformer.transform(poststate))
     }
     
-    func requestAudioStemInWorkspace(audioStem: AudioStem, workspaceID: WorkspaceID) {
+    func requestAudioStemInWorkspace(audioStemID: AudioStemID, workspaceID: WorkspaceID) {
+        
+        guard let audioStem = audioStemStore.audioStem(audioStemID) else {
+            
+            assert(false, "This is a logical error")
+        }
         
         let prestate = suiteStore.suite
         suiteStore.setAudioStem(audioStem, workspaceID: workspaceID)

@@ -30,6 +30,8 @@
 		422EB0551C8D9AF400B27134 /* TouchpressFoundation.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 429EC97A1C849A27002FDBCC /* TouchpressFoundation.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		422EB0571C8D9AF600B27134 /* TouchpressUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 429EC97E1C849A2A002FDBCC /* TouchpressUI.framework */; };
 		422EB0581C8D9AF600B27134 /* TouchpressUI.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 429EC97E1C849A2A002FDBCC /* TouchpressUI.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		422EB05A1C8DBA2200B27134 /* DJAudioStemsPickerUserInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = 422EB0591C8DBA2200B27134 /* DJAudioStemsPickerUserInterface.swift */; };
+		422EB05C1C8DC39500B27134 /* UIAudioStemTransformer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 422EB05B1C8DC39500B27134 /* UIAudioStemTransformer.swift */; };
 		4249B5961C578A160096872D /* BroadcastSocketEndpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4249B5951C578A160096872D /* BroadcastSocketEndpoint.swift */; };
 		4249B5981C578A5A0096872D /* SearchSocketEndpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4249B5971C578A5A0096872D /* SearchSocketEndpoint.swift */; };
 		4249B59B1C5792490096872D /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4249B59A1C5792490096872D /* Message.swift */; };
@@ -136,6 +138,8 @@
 		421468631C567E9600892786 /* SearchStrategy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchStrategy.swift; sourceTree = "<group>"; };
 		421468651C56831F00892786 /* BroadcastStrategy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BroadcastStrategy.swift; sourceTree = "<group>"; };
 		421468671C568EC600892786 /* SocketEndpoint.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SocketEndpoint.swift; sourceTree = "<group>"; };
+		422EB0591C8DBA2200B27134 /* DJAudioStemsPickerUserInterface.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DJAudioStemsPickerUserInterface.swift; sourceTree = "<group>"; };
+		422EB05B1C8DC39500B27134 /* UIAudioStemTransformer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIAudioStemTransformer.swift; sourceTree = "<group>"; };
 		4249B5951C578A160096872D /* BroadcastSocketEndpoint.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BroadcastSocketEndpoint.swift; sourceTree = "<group>"; };
 		4249B5971C578A5A0096872D /* SearchSocketEndpoint.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchSocketEndpoint.swift; sourceTree = "<group>"; };
 		4249B59A1C5792490096872D /* Message.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
@@ -290,6 +294,7 @@
 			children = (
 				421468561C56404C00892786 /* DJUserInterface.swift */,
 				42C45A871C58CA8C00888EA8 /* DJViewController.swift */,
+				422EB0591C8DBA2200B27134 /* DJAudioStemsPickerUserInterface.swift */,
 				429EC9581C8475DB002FDBCC /* AudioStemsViewController.swift */,
 				42A727A11C552C4800BFCA47 /* DJStoryboard.storyboard */,
 				42E49DAC1C58E4CB00B9C127 /* Views */,
@@ -377,6 +382,7 @@
 				4280C0D71C5D1A8A00B2C9B3 /* MessageTransformer.swift */,
 				4273BC601C876708002E9EF9 /* GroupTransformer.swift */,
 				4273BC621C87673C002E9EF9 /* UISuiteTransformer.swift */,
+				422EB05B1C8DC39500B27134 /* UIAudioStemTransformer.swift */,
 			);
 			name = Transformation;
 			sourceTree = "<group>";
@@ -806,6 +812,8 @@
 				429EC9691C847740002FDBCC /* UIColor+Hex.swift in Sources */,
 				429EC9621C847697002FDBCC /* AudioController.mm in Sources */,
 				420080391C5BCA44009009E8 /* Suite.swift in Sources */,
+				422EB05A1C8DBA2200B27134 /* DJAudioStemsPickerUserInterface.swift in Sources */,
+				422EB05C1C8DC39500B27134 /* UIAudioStemTransformer.swift in Sources */,
 				420AA6A91C55236F00F7BB25 /* DecideUserInterface.swift in Sources */,
 				42A727AE1C552DDF00BFCA47 /* DecideInteractor.swift in Sources */,
 				429EC95D1C847628002FDBCC /* SoundZoneView.swift in Sources */,

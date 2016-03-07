@@ -13,11 +13,9 @@ class DJViewController_iPhone: DJViewController { }
 
 class DJViewController_iPad: DJViewController { }
 
-class DJViewController: UIViewController {
+class DJViewController: ViewController {
 
     weak var delegate: DJUserInterfaceDelegate!
-    
-    var audioStems:[AudioStem]!
     
     @IBOutlet weak var groupingModeButton: UIButton!
     
@@ -29,9 +27,7 @@ class DJViewController: UIViewController {
     
     @IBAction func groupingModeButtonWasPressed(sender: AnyObject) { delegate.didRequestToggleGroupingMode() }
     
-    // TODO: Use TouchpressKit ViewController to handle this
-    @IBAction func didPressBackButton(sender: AnyObject) { delegate.didRequestTravelBack() }
-    // -----
+    @IBAction func didPressBackButton(sender: AnyObject) { userInterfaceDelegate?.userInterfaceDidNavigateBack(self) }
     
     private var group_view_map: [GroupID : GroupView] = [ : ]
     
@@ -75,12 +71,6 @@ class DJViewController: UIViewController {
         r.delegate = self
         return r
     }()
-    
-    override func viewDidLoad() {
-        
-        /* TODO: Use TouchpressUI to handle this */
-        delegate.ready()
-    }
 }
 
 extension DJViewController: DJUserInterface {
@@ -477,31 +467,10 @@ extension DJViewController: SoundZoneViewDelegate {
     
     func soundZoneViewDidRequestStemChange(soundZoneView: SoundZoneView) {
         
-        pickingAudioStemForSoundZoneView = soundZoneView
-        self.presentViewController(audioStemsViewController(), animated: true, completion: nil)
-    }
-}
-
-extension DJViewController: AudioStemsViewControllerDelegate {
-    
-    func audioStemsViewControllerDidSelectStem(audioStemsVC: AudioStemsViewController, audioStem: AudioStem) {
-        
-        audioStemsVC.dismissViewControllerAnimated(true, completion: nil)
-        let ws = zone_workspace_map[pickingAudioStemForSoundZoneView]!
-        delegate.didRequestAudioStemInWorkspace(audioStem, workspaceID: ws.workspaceID)
-    }
-}
-
-extension DJViewController: AudioStemsViewControllerDataSource {
-    
-    func audioStemAtIndex(index: Int) -> AudioStem {
-        
-        return audioStems[index]
-    }
-    
-    func numberOfAudioStems() -> Int {
-        
-        return audioStems.count
+        let uiws = zone_workspace_map[soundZoneView]!
+        delegate.didRequestAudioStemChangeInWorkspace(uiws.workspaceID)
+        //pickingAudioStemForSoundZoneView = soundZoneView
+        //self.presentViewController(audioStemsViewController(), animated: true, completion: nil)
     }
 }
 
@@ -551,22 +520,6 @@ extension DJViewController {
         return CGPoint(
                 x: CGFloat(Int.random(Int(devicesAreaRect.minX), max: Int(devicesAreaRect.maxX))),
                 y: CGFloat(Int.random(Int(devicesAreaRect.minY), max: Int(devicesAreaRect.maxY))))
-    }
-}
-
-extension DJViewController {
-    
-    /* TODO: Move this into DJWireframe and call via UI delegate method */
-    private func audioStemsViewController() -> UIViewController {
-        
-        let vc = AudioStemsViewController(nibName: nil, bundle: nil)
-        vc.dataSource = self
-        vc.modalPresentationStyle = .Popover
-        vc.popoverPresentationController?.sourceRect = CGRectMake(CGRectGetMidX(view.bounds), CGRectGetMidY(view.bounds), 0, 0)
-        vc.popoverPresentationController?.sourceView = view
-        vc.popoverPresentationController?.permittedArrowDirections = []
-        vc.delegate = self
-        return vc
     }
 }
 

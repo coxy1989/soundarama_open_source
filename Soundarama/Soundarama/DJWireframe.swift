@@ -12,12 +12,46 @@ class DJWireframe {
     
     weak var djPresenter: DJPresenter!
     
-    func djUserInterface() -> DJUserInterface {
+    private weak var djViewController : DJViewController!
+    
+    private weak var navigationController: UINavigationController!
+    
+    func presentDJUserInterface(navigationController: UINavigationController) {
         
+        self.navigationController = navigationController
         let vc = UIDevice.isPad() ? djViewController_iPad() : djViewController_iPhone()
         djPresenter.ui = vc
         vc.delegate = djPresenter
-        return vc
+        vc.userInterfaceDelegate = djPresenter
+        navigationController.pushViewController(vc, animated: true)
+        djViewController = vc
+    }
+    
+    func dismissDJUserInterface() {
+        
+        navigationController.popViewControllerAnimated(true)
+    }
+    
+    func djAudioStemPickerUserInterface() -> DJAudioStemPickerUserInterface  {
+        
+        return AudioStemsViewController(nibName: nil, bundle: nil)
+    }
+    
+    func presentAudioStemPickerUserInterface(audioStemPickerUserInterface: DJAudioStemPickerUserInterface) {
+        
+        let vc = audioStemPickerUserInterface as! UIViewController
+        let view = djViewController.view
+        vc.modalPresentationStyle = .Popover
+        vc.popoverPresentationController?.sourceRect = CGRectMake(CGRectGetMidX(view.bounds), CGRectGetMidY(view.bounds), 0, 0)
+        vc.popoverPresentationController?.sourceView = view
+        vc.popoverPresentationController?.permittedArrowDirections = []
+        djViewController.presentViewController(vc, animated: true, completion: nil)
+    }
+    
+    func dismissAudioStemPickerUserInterface(audioStemPickerUserInterface: DJAudioStemPickerUserInterface) {
+        
+        let vc = audioStemPickerUserInterface as! UIViewController
+        vc.dismissViewControllerAnimated(true, completion: nil)
     }
 }
 

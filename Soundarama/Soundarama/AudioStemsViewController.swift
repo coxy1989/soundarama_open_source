@@ -9,23 +9,18 @@
 import Foundation
 import UIKit
 
-protocol AudioStemsViewControllerDataSource: class {
+class AudioStemsViewController: UIViewController, DJAudioStemPickerUserInterface {
     
-    func numberOfAudioStems() -> Int
+    weak var delegate: DJAudioStemsPickerUserInterfaceDelegate!
     
-    func audioStemAtIndex(index: Int) -> AudioStem
-}
-
-protocol AudioStemsViewControllerDelegate: class {
+    var identifier: String!
     
-    func audioStemsViewControllerDidSelectStem(audioStemsVC: AudioStemsViewController, audioStem: AudioStem)
-}
-
-class AudioStemsViewController: UIViewController {
+    var audioStems: Set<UIAudioStem> = Set() {
+        
+        didSet { sortedAudioStems = audioStems.sort(){ $0.title > $1.title } }
+    }
     
-    weak var delegate: AudioStemsViewControllerDelegate?
-    
-    weak var dataSource: AudioStemsViewControllerDataSource?
+    var sortedAudioStems: [UIAudioStem] = []
     
     private var navBar: UINavigationBar
     
@@ -75,12 +70,12 @@ extension AudioStemsViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
-        return dataSource?.numberOfAudioStems() ?? 0
+        return audioStems.count
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
-        let stem = dataSource!.audioStemAtIndex(indexPath.row)
+        let stem = sortedAudioStems[indexPath.row]
         var cell = tableView.dequeueReusableCellWithIdentifier("audio-stem-cell")
         
         if (cell == nil) {
@@ -88,9 +83,11 @@ extension AudioStemsViewController: UITableViewDelegate, UITableViewDataSource {
             cell = UITableViewCell(style: UITableViewCellStyle.Subtitle, reuseIdentifier: "audio-stem-cell")
         }
         
-        cell!.textLabel?.text = stem.name
+        //cell!.textLabel?.text = stem.name
+        cell!.textLabel?.text = stem.title
         cell!.textLabel?.font = UIFont.soundaramaSansSerifBookFont(size: 17)
-        cell!.detailTextLabel?.text = stem.category
+//        cell!.detailTextLabel?.text = stem.category
+            cell!.detailTextLabel?.text = stem.subtitle
         cell!.detailTextLabel?.font = UIFont.soundaramaSansSerifBookFont(size: 12)
         cell!.detailTextLabel?.textColor = UIColor.blackColor().colorWithAlphaComponent(0.5)
         
@@ -100,7 +97,8 @@ extension AudioStemsViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         
         tableView.deselectRowAtIndexPath(indexPath, animated: true)
-        delegate?.audioStemsViewControllerDidSelectStem(self, audioStem: dataSource!.audioStemAtIndex(indexPath.row))
+        let audioStemID = sortedAudioStems[indexPath.row].audioStemID
+        delegate?.djAudioStemsUserInterfaceDidSelectStem(self, audioStemID: audioStemID)
     }
     
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {

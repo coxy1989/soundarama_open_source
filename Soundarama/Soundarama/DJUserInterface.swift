@@ -12,8 +12,6 @@ protocol DJUserInterface: class {
     
     weak var delegate: DJUserInterfaceDelegate! { get set }
     
-    var audioStems:[AudioStem]! { get set }
-    
     func setUISuite(uiSuite: UISuite)
     
     func addPerformer(performer: Performer)
@@ -47,16 +45,11 @@ protocol DJUserInterface: class {
 
 protocol DJUserInterfaceDelegate: class {
     
-    // TODO: Use TouchpressUI ViewController Methods
-    func ready()
-    func didRequestTravelBack()
-    //------------
-    
     func didRequestToggleMuteInWorkspace(workspaceID: WorkspaceID)
     
     func didRequestToggleSoloInWorkspace(workspaceID: WorkspaceID)
     
-    func didRequestAudioStemInWorkspace(audioStem: AudioStem, workspaceID: WorkspaceID)
+    func didRequestAudioStemChangeInWorkspace(workspaceID: WorkspaceID)
     
     func didRequestAddPerformerToWorkspace(performer: Performer, workspaceID: WorkspaceID)
     

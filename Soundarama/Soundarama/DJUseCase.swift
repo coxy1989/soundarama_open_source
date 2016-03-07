@@ -14,11 +14,13 @@ protocol DJInput: class {
     
     func stop()
     
+    func getAudioStems() -> Set<UIAudioStem>
+    
     func requestToggleMuteInWorkspace(workspaceID: WorkspaceID)
     
     func requestToggleSoloInWorkspace(workspaceID: WorkspaceID)
     
-    func requestAudioStemInWorkspace(audioStem: AudioStem, workspaceID: WorkspaceID)
+    func requestAudioStemInWorkspace(audioStemID: AudioStemID, workspaceID: WorkspaceID)
     
     func requestMovePerformer(performer: Performer, translation: CGPoint)
     
@@ -56,8 +58,6 @@ protocol DJInput: class {
 protocol DJOutput: class {
 
     func setUISuite(uiSuite: UISuite)
-    
-    func setAudioStems(audioStems: [AudioStem])
     
     func addPerformer(performer: Performer)
     

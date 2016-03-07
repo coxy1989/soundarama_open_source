@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import TouchpressUI
 
 class DJPresenter: DJModule {
     
@@ -14,23 +15,14 @@ class DJPresenter: DJModule {
     weak var ui: DJUserInterface!
     weak var input: DJInput!
     
-    weak var navigationController: UINavigationController!
-    
     func start(navigationController: UINavigationController) {
         
-        self.navigationController = navigationController
-        let ui = djWireframe.djUserInterface()
-        navigationController.pushViewController((ui as! UIViewController), animated: true)
+        djWireframe.presentDJUserInterface(navigationController)
     }
 }
 
 extension DJPresenter: DJOutput {
-    
-    func setAudioStems(audioStems: [AudioStem]) {
         
-        ui.audioStems = audioStems
-    }
-    
     func setUISuite(uiSuite: UISuite) {
         
          ui.setUISuite(uiSuite)
@@ -107,12 +99,11 @@ extension DJPresenter: DJOutput {
     }
 }
 
-extension DJPresenter: DJUserInterfaceDelegate {
+extension DJPresenter: UserInterfaceDelegate {
     
-    func ready() {
+    func userInterfaceDidLoad(userInterface: UserInterface) {
         
         input.start()
-        
         ui.addPerformer("x")
         ui.addPerformer("y")
         ui.addPerformer("z")
@@ -122,12 +113,18 @@ extension DJPresenter: DJUserInterfaceDelegate {
         ui.addPerformer("2")
     }
     
-    
-    func didRequestTravelBack() {
+    func userInterfaceDidNavigateBack(userInterface: UserInterface) {
         
-        navigationController.popViewControllerAnimated(true)
+        djWireframe.dismissDJUserInterface()
         input.stop()
     }
+    
+    func userInterfaceWillAppear(userInterface: UserInterface) {}
+    
+    func userInterfaceDidAppear(userInterface: UserInterface) {}
+}
+
+extension DJPresenter: DJUserInterfaceDelegate {
     
     func didRequestToggleMuteInWorkspace(workspaceID: WorkspaceID) {
         
@@ -139,9 +136,13 @@ extension DJPresenter: DJUserInterfaceDelegate {
         input.requestToggleSoloInWorkspace(workspaceID)
     }
     
-    func didRequestAudioStemInWorkspace(audioStem: AudioStem, workspaceID: WorkspaceID) {
+    func didRequestAudioStemChangeInWorkspace(workspaceID: WorkspaceID) {
         
-        input.requestAudioStemInWorkspace(audioStem, workspaceID: workspaceID)
+        let audioStemPickerUI = djWireframe.djAudioStemPickerUserInterface()
+        audioStemPickerUI.audioStems = input.getAudioStems()
+        audioStemPickerUI.delegate = self
+        audioStemPickerUI.identifier = workspaceID
+        djWireframe.presentAudioStemPickerUserInterface(audioStemPickerUI)
     }
     
     func didRequestAddPerformerToWorkspace(performer: Performer, workspaceID: WorkspaceID) {
@@ -222,6 +223,15 @@ extension DJPresenter: DJUserInterfaceDelegate {
     func didRequestRemoveGroupFromWorkspace(groupID: GroupID) {
         
         input.requestRemoveGroupFromWorkspace(groupID)
+    }
+}
+
+extension DJPresenter: DJAudioStemsPickerUserInterfaceDelegate {
+    
+    func djAudioStemsUserInterfaceDidSelectStem(audioStemUI: DJAudioStemPickerUserInterface, audioStemID: AudioStemID) {
+        
+        djWireframe.dismissAudioStemPickerUserInterface(audioStemUI)
+        input.requestAudioStemInWorkspace(audioStemID, workspaceID: audioStemUI.identifier)
     }
 }
 

@@ -10,8 +10,10 @@ class UISuiteTransformer {
     
     static func transform(suite: Suite) -> UISuite {
     
-        return Set(suite.map({ ws in
+        let uiSuite = suite.map(){ ws in
             UIWorkspace(workspaceID: ws.identifier, title: ws.audioStem?.name, muteSelected: ws.isMuted, soloSelected: ws.isSolo, antiSoloSelected: ws.isAntiSolo, hasAudio: ws.audioStem != nil, color: ws.audioStem?.colour)
-        }))
+        }
+        
+        return Set(uiSuite)
     }
 }
