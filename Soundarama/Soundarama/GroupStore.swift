@@ -14,47 +14,25 @@ class GroupStore {
     
     func isValidGroup(performers: Set<Performer>, groupIDs: Set<GroupID>, inSuite suite: Suite) -> Bool {
         
-        guard performers.count > 1 || groupIDs.count > 1 || performers.count + groupIDs.count == 2 else {
+        guard performers.count + groupIDs.count > 1 else {
+        
             return false
         }
         
+        let grouped_performers = Set(groups.filter({groupIDs.contains($0.id())}).flatMap({$0.members}))
         
-        let workspaces_with_a_performer = Set(suite.filter({ $0.performers.intersect(performers).count > 0 }))
+        let all_performers = grouped_performers.union(performers)
         
-        if workspaces_with_a_performer.count > 1 {
+        let no_workspace = all_performers.filter({ !suite.flatMap({$0.performers}).contains($0) }).count
+        
+        let different_workspaces = suite.filter({ $0.performers.intersect(all_performers).count > 0 }).count
+        
+        if no_workspace > 0 && different_workspaces > 0 {
+            
             return false
         }
         
-        let workspaces_not_containing_all_performers = suite.filter({ $0.performers.intersect(performers).count != performers.count })
-        
-        if workspaces_not_containing_all_performers.count > 0 && workspaces_with_a_performer.count > 0 {
-            return false
-        }
-        
-        let groups_to_group = groups.filter({ groupIDs.contains($0.id()) })
-        let members_of_groups_to_group = groups_to_group.flatMap({$0.members})
-        let workspaces_containing_a_member = suite.filter({ $0.performers.intersect(members_of_groups_to_group).count > 0})
-        
-        if workspaces_containing_a_member.count > 1 {
-            return false
-        }
-        
-        let all_performers_in_workspaces = suite.map({ $0.performers }).flatMap({ $0 })
-        let groups_with_members_not_in_a_workspace = groups_to_group.filter({ !$0.members.isSubsetOf(all_performers_in_workspaces)})
-        
-        if workspaces_containing_a_member.count > 0 && groups_with_members_not_in_a_workspace.count > 0 {
-            return false
-        }
-        
-        if workspaces_with_a_performer.count != 0 && groups_with_members_not_in_a_workspace.count > 0 {
-            return false
-        }
-        
-        let performers_not_in_a_workspace = performers.filter({  })
-        
-        if workspaces_containing_a_member.count != 0
-        
-        return true
+        return (different_workspaces < 2)
     }
     
     func createGroup(performers p: Set<Performer>, groupIDs g: Set<GroupID>) {

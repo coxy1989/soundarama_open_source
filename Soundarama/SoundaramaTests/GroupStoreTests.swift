@@ -245,6 +245,8 @@ extension GroupStoreTests {
     
     /* Test: isValidGroup */
     
+    /* Performers */
+    
     func testIsValidGroup_null_case() {
         
         let suite = Set([Workspace(identifier: NSUUID().UUIDString, audioStem: nil, performers: [], isMuted: false, isSolo: false, isAntiSolo: false)])
@@ -262,7 +264,7 @@ extension GroupStoreTests {
         XCTAssertFalse(outcome)
     }
     
-    func testIsValidGroup_one_performer_existing_in_suite() {
+    func testIsValidGroup_one_performer_in_suite() {
         
         let suite = Set([Workspace(identifier: NSUUID().UUIDString, audioStem: nil, performers: ["x"], isMuted: false, isSolo: false, isAntiSolo: false)])
         
@@ -288,7 +290,7 @@ extension GroupStoreTests {
         
         XCTAssertTrue(outcome)
     }
-
+    
     func testIsValidGroup_two_performers_in_suite_in_different_workspaces() {
         
         let ws1 = Workspace(identifier: NSUUID().UUIDString, audioStem: nil, performers: ["x"], isMuted: false, isSolo: false, isAntiSolo: false)
@@ -320,7 +322,7 @@ extension GroupStoreTests {
         
         XCTAssertFalse(outcome)
     }
-
+    
     func testIsValidGroup_two_performers_two_in_workspace_one_not() {
         
         let suite = Set([Workspace(identifier: NSUUID().UUIDString, audioStem: nil, performers: ["x", "y"], isMuted: false, isSolo: false, isAntiSolo: false)])
@@ -338,7 +340,9 @@ extension GroupStoreTests {
         
         XCTAssertFalse(outcome)
     }
-
+    
+    /* Groups */
+    
     func testIsValidGroup_one_group_not_in_workspace() {
         
         let suite = Set([Workspace(identifier: NSUUID().UUIDString, audioStem: nil, performers: [], isMuted: false, isSolo: false, isAntiSolo: false)])

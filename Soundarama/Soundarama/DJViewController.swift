@@ -189,7 +189,30 @@ extension DJViewController: DJUserInterface {
             view_group_map[v] = nil
         }
         
-        UIView.animateWithDuration(1, animations: createGroupAnimation(views), completion: createGroupAnimationCompletion(views, groupID: groupID))
+        let in_tray = Set(views.filter({ devicesTrayView.frame.contains($0.center) }))
+        
+        if in_tray.count == views.count {
+            
+            /* All the views in the animation are in the devicesTrayView */
+            
+            UIView.animateWithDuration(1, animations: moveViewsToCentroid(views), completion: createGroupAnimationCompletion(views, groupID: groupID))
+        }
+        
+        else if in_tray.count != 0 {
+            
+            /* At least one of the views in the animation is in the devicesTrayView */
+            
+            UIView.animateWithDuration(1, animations: moveViewsToView(views, stationaryView: in_tray.first!), completion: createGroupAnimationCompletion(views, groupID: groupID))
+        }
+        
+        else {
+            
+            /* none of the views in the animation are in the devicesTrayView */
+            
+            let view = g_views.count > 0 ? g_views.first! : views.first!
+            
+            UIView.animateWithDuration(1, animations: moveViewsToView(views, stationaryView: view), completion: createGroupAnimationCompletion(views, groupID: groupID))
+        }
     }
     
     func addPerformerView(point pt: CGPoint, performer per: Performer, performerView vw: PerformerView) {
@@ -206,11 +229,15 @@ extension DJViewController: DJUserInterface {
         
         guard let cell = getCellUnderPoint(collectionViewPoint: collectionView.convertPoint(gv.center, fromView: view)) else {
             
+            /* Animation is occurring in the device tray */
+            
             destroyGroupViewInDeviceTray(gv, intoPerformers: intoPerformers)
             return
         }
         
         guard cell.soundZoneView.pointIsInsideRings(cell.soundZoneView.convertPoint(gv.center, fromView: view)) else {
+            
+            /* Animation is occuring outsize the rings of a workspace */
             
             destroyGroupViewOutsideSoundZoneView(gv, intoPerformers: intoPerformers)
             return
@@ -637,13 +664,22 @@ extension DJViewController {
 
 extension DJViewController {
     
-    private func createGroupAnimation(sourceViews: Set<UIView>) -> () -> () {
+    private func moveViewsToCentroid(sourceViews: Set<UIView>) -> () -> () {
         
         let centroid = CGPoint.centroid(sourceViews.map({ $0.center }))
         
         return {
             sourceViews.forEach() {
                 $0.center = centroid
+            }
+        }
+    }
+    
+    private func moveViewsToView(sourceViews: Set<UIView>, stationaryView: UIView) -> () -> () {
+        
+        return {
+            sourceViews.forEach() {
+                $0.center =  stationaryView.center
             }
         }
     }
