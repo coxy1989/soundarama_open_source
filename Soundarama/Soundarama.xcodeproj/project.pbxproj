@@ -26,6 +26,10 @@
 		421468641C567E9600892786 /* SearchStrategy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 421468631C567E9600892786 /* SearchStrategy.swift */; };
 		421468661C56831F00892786 /* BroadcastStrategy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 421468651C56831F00892786 /* BroadcastStrategy.swift */; };
 		421468681C568EC600892786 /* SocketEndpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 421468671C568EC600892786 /* SocketEndpoint.swift */; };
+		422EB0541C8D9AF400B27134 /* TouchpressFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 429EC97A1C849A27002FDBCC /* TouchpressFoundation.framework */; };
+		422EB0551C8D9AF400B27134 /* TouchpressFoundation.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 429EC97A1C849A27002FDBCC /* TouchpressFoundation.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		422EB0571C8D9AF600B27134 /* TouchpressUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 429EC97E1C849A2A002FDBCC /* TouchpressUI.framework */; };
+		422EB0581C8D9AF600B27134 /* TouchpressUI.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 429EC97E1C849A2A002FDBCC /* TouchpressUI.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		4249B5961C578A160096872D /* BroadcastSocketEndpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4249B5951C578A160096872D /* BroadcastSocketEndpoint.swift */; };
 		4249B5981C578A5A0096872D /* SearchSocketEndpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4249B5971C578A5A0096872D /* SearchSocketEndpoint.swift */; };
 		4249B59B1C5792490096872D /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4249B59A1C5792490096872D /* Message.swift */; };
@@ -48,10 +52,6 @@
 		429EC9651C8476A1002FDBCC /* VolumeControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 429EC9641C8476A1002FDBCC /* VolumeControl.m */; };
 		429EC9671C84770C002FDBCC /* SwiftyJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 429EC9661C84770C002FDBCC /* SwiftyJSON.swift */; };
 		429EC9691C847740002FDBCC /* UIColor+Hex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 429EC9681C847740002FDBCC /* UIColor+Hex.swift */; };
-		429EC97B1C849A27002FDBCC /* TouchpressFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 429EC97A1C849A27002FDBCC /* TouchpressFoundation.framework */; };
-		429EC97C1C849A27002FDBCC /* TouchpressFoundation.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 429EC97A1C849A27002FDBCC /* TouchpressFoundation.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		429EC97F1C849A2A002FDBCC /* TouchpressUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 429EC97E1C849A2A002FDBCC /* TouchpressUI.framework */; };
-		429EC9801C849A2A002FDBCC /* TouchpressUI.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 429EC97E1C849A2A002FDBCC /* TouchpressUI.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		429EC9821C84B81B002FDBCC /* CocoaAsyncSocket.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 42704FC21C84733A004CD00D /* CocoaAsyncSocket.framework */; };
 		429EC9861C85AECE002FDBCC /* GroupStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 429EC9851C85AECE002FDBCC /* GroupStore.swift */; };
 		429EC9891C85AF9F002FDBCC /* GroupStoreTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 429EC9881C85AF9F002FDBCC /* GroupStoreTests.swift */; };
@@ -100,14 +100,14 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
-		429EC97D1C849A27002FDBCC /* Embed Frameworks */ = {
+		422EB0561C8D9AF400B27134 /* Embed Frameworks */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				429EC9801C849A2A002FDBCC /* TouchpressUI.framework in Embed Frameworks */,
-				429EC97C1C849A27002FDBCC /* TouchpressFoundation.framework in Embed Frameworks */,
+				422EB0581C8D9AF600B27134 /* TouchpressUI.framework in Embed Frameworks */,
+				422EB0551C8D9AF400B27134 /* TouchpressFoundation.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -215,8 +215,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				429EC97F1C849A2A002FDBCC /* TouchpressUI.framework in Frameworks */,
-				429EC97B1C849A27002FDBCC /* TouchpressFoundation.framework in Frameworks */,
+				422EB0571C8D9AF600B27134 /* TouchpressUI.framework in Frameworks */,
+				422EB0541C8D9AF400B27134 /* TouchpressFoundation.framework in Frameworks */,
 				4207043E1C7223E7003F6568 /* AVKit.framework in Frameworks */,
 				426A26E51C721EA5003FE38D /* AVFoundation.framework in Frameworks */,
 			);
@@ -626,7 +626,7 @@
 				E25279BF1BF606C8008B4690 /* Frameworks */,
 				E25279C01BF606C8008B4690 /* Resources */,
 				420704451C733B53003F6568 /* ShellScript */,
-				429EC97D1C849A27002FDBCC /* Embed Frameworks */,
+				422EB0561C8D9AF400B27134 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);

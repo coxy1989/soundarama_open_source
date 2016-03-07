@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import TouchpressUI
 
 class DJViewController_iPhone: DJViewController { }
 
@@ -226,6 +227,8 @@ extension DJViewController: DJUserInterface {
     func destroyGroup(groupID: GroupID, intoPerformers: Set<Performer>) {
         
         let gv = group_view_map[groupID]!
+        group_view_map[groupID] = nil
+        view_group_map[gv] = nil
         
         guard let cell = getCellUnderPoint(collectionViewPoint: collectionView.convertPoint(gv.center, fromView: view)) else {
             
@@ -301,7 +304,11 @@ extension DJViewController {
     
     @objc private func didPanPerformer(panGesture: UIPanGestureRecognizer) {
         
-        let p = view_performer_map[panGesture.view as! PerformerView]!
+        guard let p = view_performer_map[panGesture.view as! PerformerView] else {
+            
+            print("Warning. This is an odd state (didPanPerformer:)")
+            return
+        }
         let t = panGesture.translationInView(view)
         
         if panGesture.state == .Changed {
@@ -324,7 +331,12 @@ extension DJViewController {
     @objc private func didLongPressPerformer(pressGesture: UILongPressGestureRecognizer) {
         
         let pv = pressGesture.view as! PerformerView
-        let p = view_performer_map[pv]!
+        
+        guard let p = view_performer_map[pv] else {
+            
+            print("Warning: This is an odd state (didLongPressPerformer:)")
+            return
+        }
         
         if pressGesture.state == .Began {
             delegate.didRequestSelectPerformer(p)
@@ -340,7 +352,12 @@ extension DJViewController {
     
     @objc private func didPanGroup(panGesture: UIPanGestureRecognizer) {
         
-        let g = view_group_map[panGesture.view as! PerformerView]!
+        guard let g = view_group_map[panGesture.view as! PerformerView] else {
+            
+            print("Warning. This is an odd state (didPanGroup:)")
+            return
+        }
+        
         let t = panGesture.translationInView(view)
         
         if panGesture.state == .Changed {
@@ -363,7 +380,11 @@ extension DJViewController {
     @objc private func didLongPressGroup(pressGesture: UILongPressGestureRecognizer) {
 
         let gv = pressGesture.view as! GroupView
-        let g = view_group_map[gv]!
+        guard let g = view_group_map[gv] else {
+            
+            print("Warning. This is an odd state (didLongPressGroup:)")
+            return
+        }
         
         if pressGesture.state == .Began {
             delegate.didRequestSelectGroup(g)
@@ -577,6 +598,7 @@ extension DJViewController {
             .filter() { v, p in(lassoPath!.containsPoint(v.center) )}
             .map() { v, p in return p }
         
+        print("lasooed performers: \(p)")
         return Set(p)
     }
     
@@ -585,7 +607,8 @@ extension DJViewController {
         let g = view_group_map
             .filter() { v, g in  (lassoPath!.containsPoint(v.center))}
             .map() { v, g in return g }
-        
+
+        print("lasooed groups: \(g)")
         return Set(g)
     }
 }
@@ -705,63 +728,3 @@ extension DJViewController {
     }
 }
 
-extension CGPoint {
-    
-    static func centroid(points: [CGPoint]) -> CGPoint {
-        
-        let x = points.reduce(0) { $0 + $1.x } / CGFloat(points.count)
-        let y =  points.reduce(0) { $0 + $1.y } / CGFloat(points.count)
-        return CGPointMake(x, y)
-    }
-    
-    func inRect(rect: CGRect) -> CGPoint {
-        
-        if !rect.contains(self) {
-            
-            var xx = x
-            var yy = y
-            
-            if x < CGRectGetMinX(rect){
-                xx = x + (CGRectGetMinX(rect) - x)
-            }
-                
-            else if x > CGRectGetMaxX(rect) {
-                xx = x - (x - CGRectGetMaxX(rect))
-            }
-            
-            if y < CGRectGetMinY(rect) {
-                yy = y + (CGRectGetMinY(rect) - y)
-            }
-            
-            else if  y > CGRectGetMaxY(rect) {
-                yy =  y - (y - CGRectGetMaxY(rect))
-            }
-        
-            return CGPointMake(xx, yy)
-            
-        }
-        
-        return self
-    }
-    
-    func inRelativeCoordinateSpace(origin: CGPoint, size: CGSize) -> CGPoint {
-        
-        let conv_x = x + origin.x + (x * size.width)
-        let conv_y = y + origin.y + (y * size.height)
-        return CGPointMake(conv_x, conv_y)
-    }
-    
-    static func vogelSpiral(n: UInt) -> [CGPoint] {
-        
-        let golden = M_PI * (3 - sqrt(5))
-        var points: [CGPoint] = []
-        for i in 0..<Int(n) {
-            let theta = Double(i) * golden
-            let r = sqrt(Double(i)) / sqrt(Double(n))
-            let x = CGFloat(r * cos(theta))
-            let y = CGFloat(r * sin(theta))
-            points.append(CGPointMake(x, y))
-        }
-        return points
-    }
-}
