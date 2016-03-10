@@ -21,7 +21,6 @@ func == (lhs: AudioStem, rhs: AudioStem) -> Bool {
 
 struct AudioStem: Hashable {
     
-    let identifier: String
     let name: String
     let colour: UIColor
     let category: String
