@@ -1,0 +1,7 @@
+app_identifier "com.touchpress.Soundarama" # The bundle identifier of your app
+apple_id "hagrid@touchpress.com" # Your Apple email address
+
+team_id "YL8CTL4C9C"  # Developer Portal Team ID
+
+# you can even provide different app identifiers, Apple IDs and team names per lane:
+# More information: https://github.com/fastlane/fastlane/blob/master/docs/Appfile.md

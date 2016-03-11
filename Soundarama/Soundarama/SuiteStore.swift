@@ -24,6 +24,7 @@ class SuiteStore {
         guard let workspace = suite.filter({ $0.identifier == workspaceID }).first else {
             
             assert(false, "This is a logical error")
+            return
         }
         
         let prev = suite.filter({ $0 != workspace && $0.performers.contains(performer)})
@@ -55,6 +56,7 @@ class SuiteStore {
         guard let workspace = suite.filter({ $0.identifier == workspaceID }).first else {
             
             assert(false, "This is a logical error")
+            return
         }
         
         let nextWorkspace = workspaceWithAudioStem(workspace, audioStem: audioStem)
@@ -67,6 +69,7 @@ class SuiteStore {
         guard let workspace = suite.filter({ $0.identifier == workspaceID }).first else {
             
             assert(false, "This is a logical error")
+            return
         }
         
         let nextWorkspace = workspaceWithMuteState(workspace, muteState: !workspace.isMuted)
@@ -82,6 +85,7 @@ class SuiteStore {
         guard let workspace = suite.filter({ $0.identifier == workspaceID }).first else {
             
             assert(false, "This is a logical error")
+            return
         }
         
         let otherSolos = suite.filter({ $0 != workspace && $0.isSolo })

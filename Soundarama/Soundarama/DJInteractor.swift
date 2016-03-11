@@ -75,6 +75,7 @@ extension DJInteractor: DJInput {
         guard let audioStem = audioStemStore.audioStem(audioStemID) else {
             
             assert(false, "This is a logical error")
+            return
         }
         
         let prestate = suiteStore.suite
