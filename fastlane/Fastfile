@@ -54,6 +54,7 @@ platform :ios do
 
   desc "Provision, Build, Test, Archive"
   lane :cibuild do
+    carthage
     match(type: "adhoc")
     scan
     gym(scheme: "Soundarama") # Build your app - more options available
