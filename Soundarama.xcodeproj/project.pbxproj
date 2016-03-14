@@ -26,10 +26,6 @@
 		421468641C567E9600892786 /* SearchStrategy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 421468631C567E9600892786 /* SearchStrategy.swift */; };
 		421468661C56831F00892786 /* BroadcastStrategy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 421468651C56831F00892786 /* BroadcastStrategy.swift */; };
 		421468681C568EC600892786 /* SocketEndpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 421468671C568EC600892786 /* SocketEndpoint.swift */; };
-		422EB0541C8D9AF400B27134 /* TouchpressFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 429EC97A1C849A27002FDBCC /* TouchpressFoundation.framework */; };
-		422EB0551C8D9AF400B27134 /* TouchpressFoundation.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 429EC97A1C849A27002FDBCC /* TouchpressFoundation.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		422EB0571C8D9AF600B27134 /* TouchpressUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 429EC97E1C849A2A002FDBCC /* TouchpressUI.framework */; };
-		422EB0581C8D9AF600B27134 /* TouchpressUI.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 429EC97E1C849A2A002FDBCC /* TouchpressUI.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		422EB05A1C8DBA2200B27134 /* DJAudioStemsPickerUserInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = 422EB0591C8DBA2200B27134 /* DJAudioStemsPickerUserInterface.swift */; };
 		422EB05C1C8DC39500B27134 /* UIAudioStemTransformer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 422EB05B1C8DC39500B27134 /* UIAudioStemTransformer.swift */; };
 		4249B5961C578A160096872D /* BroadcastSocketEndpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4249B5951C578A160096872D /* BroadcastSocketEndpoint.swift */; };
@@ -38,6 +34,9 @@
 		4249B59D1C5797920096872D /* ChristiansTimeServer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4249B59C1C5797920096872D /* ChristiansTimeServer.swift */; };
 		4249B59F1C57979E0096872D /* ChristiansProcess.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4249B59E1C57979E0096872D /* ChristiansProcess.swift */; };
 		425CC3281C74B8F200B39AB5 /* AudioLoop.swift in Sources */ = {isa = PBXBuildFile; fileRef = 425CC3271C74B8F200B39AB5 /* AudioLoop.swift */; };
+		425E638F1C96CA8D000AE77F /* CocoaAsyncSocket.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 425E638C1C96CA8D000AE77F /* CocoaAsyncSocket.framework */; };
+		425E639B1C96CC9E000AE77F /* TouchpressFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 425E63991C96CC9E000AE77F /* TouchpressFoundation.framework */; };
+		425E639C1C96CC9E000AE77F /* TouchpressUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 425E639A1C96CC9E000AE77F /* TouchpressUI.framework */; };
 		426A26E51C721EA5003FE38D /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 426A26E41C721EA5003FE38D /* AVFoundation.framework */; };
 		4273BC611C876708002E9EF9 /* GroupTransformer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4273BC601C876708002E9EF9 /* GroupTransformer.swift */; };
 		4273BC631C87673C002E9EF9 /* UISuiteTransformer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4273BC621C87673C002E9EF9 /* UISuiteTransformer.swift */; };
@@ -54,7 +53,6 @@
 		429EC9651C8476A1002FDBCC /* VolumeControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 429EC9641C8476A1002FDBCC /* VolumeControl.m */; };
 		429EC9671C84770C002FDBCC /* SwiftyJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 429EC9661C84770C002FDBCC /* SwiftyJSON.swift */; };
 		429EC9691C847740002FDBCC /* UIColor+Hex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 429EC9681C847740002FDBCC /* UIColor+Hex.swift */; };
-		429EC9821C84B81B002FDBCC /* CocoaAsyncSocket.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 42704FC21C84733A004CD00D /* CocoaAsyncSocket.framework */; };
 		429EC9861C85AECE002FDBCC /* GroupStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 429EC9851C85AECE002FDBCC /* GroupStore.swift */; };
 		429EC9891C85AF9F002FDBCC /* GroupStoreTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 429EC9881C85AF9F002FDBCC /* GroupStoreTests.swift */; };
 		42A727A21C552C4800BFCA47 /* DJStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 42A727A11C552C4800BFCA47 /* DJStoryboard.storyboard */; };
@@ -108,8 +106,6 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				422EB0581C8D9AF600B27134 /* TouchpressUI.framework in Embed Frameworks */,
-				422EB0551C8D9AF400B27134 /* TouchpressFoundation.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -146,8 +142,10 @@
 		4249B59C1C5797920096872D /* ChristiansTimeServer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChristiansTimeServer.swift; sourceTree = "<group>"; };
 		4249B59E1C57979E0096872D /* ChristiansProcess.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChristiansProcess.swift; sourceTree = "<group>"; };
 		425CC3271C74B8F200B39AB5 /* AudioLoop.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AudioLoop.swift; sourceTree = "<group>"; };
+		425E638C1C96CA8D000AE77F /* CocoaAsyncSocket.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CocoaAsyncSocket.framework; path = Carthage/Build/iOS/CocoaAsyncSocket.framework; sourceTree = "<group>"; };
+		425E63991C96CC9E000AE77F /* TouchpressFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = TouchpressFoundation.framework; path = Carthage/Build/iOS/TouchpressFoundation.framework; sourceTree = "<group>"; };
+		425E639A1C96CC9E000AE77F /* TouchpressUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = TouchpressUI.framework; path = Carthage/Build/iOS/TouchpressUI.framework; sourceTree = "<group>"; };
 		426A26E41C721EA5003FE38D /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
-		42704FC21C84733A004CD00D /* CocoaAsyncSocket.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CocoaAsyncSocket.framework; path = Carthage/Build/iOS/CocoaAsyncSocket.framework; sourceTree = "<group>"; };
 		4273BC601C876708002E9EF9 /* GroupTransformer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GroupTransformer.swift; sourceTree = "<group>"; };
 		4273BC621C87673C002E9EF9 /* UISuiteTransformer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UISuiteTransformer.swift; sourceTree = "<group>"; };
 		4280C0D71C5D1A8A00B2C9B3 /* MessageTransformer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessageTransformer.swift; sourceTree = "<group>"; };
@@ -166,8 +164,6 @@
 		429EC9661C84770C002FDBCC /* SwiftyJSON.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftyJSON.swift; sourceTree = "<group>"; };
 		429EC9681C847740002FDBCC /* UIColor+Hex.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIColor+Hex.swift"; sourceTree = "<group>"; };
 		429EC9711C847800002FDBCC /* Soundarama-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Soundarama-Bridging-Header.h"; sourceTree = "<group>"; };
-		429EC97A1C849A27002FDBCC /* TouchpressFoundation.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; name = TouchpressFoundation.framework; path = "/Users/jamiecox/Library/Developer/Xcode/DerivedData/Soundarama-farhttzqfpiupbbbjubivppgzixr/Build/Products/Debug-iphoneos/TouchpressFoundation.framework"; sourceTree = "<absolute>"; };
-		429EC97E1C849A2A002FDBCC /* TouchpressUI.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; name = TouchpressUI.framework; path = "/Users/jamiecox/Library/Developer/Xcode/DerivedData/Soundarama-farhttzqfpiupbbbjubivppgzixr/Build/Products/Debug-iphoneos/TouchpressUI.framework"; sourceTree = "<absolute>"; };
 		429EC9851C85AECE002FDBCC /* GroupStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GroupStore.swift; sourceTree = "<group>"; };
 		429EC9881C85AF9F002FDBCC /* GroupStoreTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GroupStoreTests.swift; sourceTree = "<group>"; };
 		42A727A11C552C4800BFCA47 /* DJStoryboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = DJStoryboard.storyboard; sourceTree = "<group>"; };
@@ -211,7 +207,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				429EC9821C84B81B002FDBCC /* CocoaAsyncSocket.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -219,10 +214,11 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				422EB0571C8D9AF600B27134 /* TouchpressUI.framework in Frameworks */,
-				422EB0541C8D9AF400B27134 /* TouchpressFoundation.framework in Frameworks */,
 				4207043E1C7223E7003F6568 /* AVKit.framework in Frameworks */,
 				426A26E51C721EA5003FE38D /* AVFoundation.framework in Frameworks */,
+				425E638F1C96CA8D000AE77F /* CocoaAsyncSocket.framework in Frameworks */,
+				425E639B1C96CC9E000AE77F /* TouchpressFoundation.framework in Frameworks */,
+				425E639C1C96CC9E000AE77F /* TouchpressUI.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -593,9 +589,9 @@
 		FF8F05C000FBA5897614E1FA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				429EC97E1C849A2A002FDBCC /* TouchpressUI.framework */,
-				429EC97A1C849A27002FDBCC /* TouchpressFoundation.framework */,
-				42704FC21C84733A004CD00D /* CocoaAsyncSocket.framework */,
+				425E63991C96CC9E000AE77F /* TouchpressFoundation.framework */,
+				425E639A1C96CC9E000AE77F /* TouchpressUI.framework */,
+				425E638C1C96CA8D000AE77F /* CocoaAsyncSocket.framework */,
 				4207043D1C7223E7003F6568 /* AVKit.framework */,
 				426A26E41C721EA5003FE38D /* AVFoundation.framework */,
 			);
@@ -714,6 +710,8 @@
 			);
 			inputPaths = (
 				"$(SRCROOT)/Carthage/Build/iOS/CocoaAsyncSocket.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/TouchpressUI.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/TouchpressFoundation.framework",
 			);
 			outputPaths = (
 			);

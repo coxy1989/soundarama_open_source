@@ -1,6 +1,9 @@
-[submodule "TouchpressUI"]
-	path = TouchpressUI
-	url = git@github.com:touchpress/TouchpressUI.git
-[submodule "TouchpressFoundation"]
-	path = TouchpressFoundation
-	url = git@github.com:touchpress/TouchpressFoundation.git
+[submodule "Carthage/Checkouts/CocoaAsyncSocket"]
+	path = Carthage/Checkouts/CocoaAsyncSocket
+	url = ssh://git@github.com/robbiehanson/CocoaAsyncSocket.git
+[submodule "Carthage/Checkouts/TouchpressFoundation"]
+	path = Carthage/Checkouts/TouchpressFoundation
+	url = ssh://git@github.com/touchpress/TouchpressFoundation.git
+[submodule "Carthage/Checkouts/TouchpressUI"]
+	path = Carthage/Checkouts/TouchpressUI
+	url = ssh://git@github.com/touchpress/TouchpressUI.git

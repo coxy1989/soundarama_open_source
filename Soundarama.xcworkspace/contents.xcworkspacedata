@@ -2,12 +2,12 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "group:TouchpressFoundation/TouchpressFoundation.xcodeproj">
+      location = "group:Carthage/Checkouts/TouchpressUI/TouchpressUI.xcodeproj">
    </FileRef>
    <FileRef
-      location = "group:TouchpressUI/TouchpressUI.xcodeproj">
+      location = "group:Carthage/Checkouts/TouchpressFoundation/TouchpressFoundation.xcodeproj">
    </FileRef>
    <FileRef
-      location = "group:Soundarama/Soundarama.xcodeproj">
+      location = "group:Soundarama.xcodeproj">
    </FileRef>
 </Workspace>
