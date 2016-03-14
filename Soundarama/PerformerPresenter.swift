@@ -22,13 +22,13 @@ class PerformerPresenter: PerformerModule {
 
 extension PerformerPresenter: PerformerOutput {
     
-    func connectionStateDidChange(state: ConnectionState) {
+    func setConnectionState(state: ConnectionState) {
         
         ui.setConnectionState(state)
     }
     
-    func audioStemDidChange(stem: AudioStem?) {
-        
+    func setAudioStem(stem: AudioStem?) {
+    
         ui.setColour(stem?.colour)
     }
 }

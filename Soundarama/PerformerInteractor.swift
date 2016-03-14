@@ -38,7 +38,7 @@ extension PerformerInteractor: PerformerConnectionAdapterDelegate {
     
     func performerConnectionStateDidChange(state: ConnectionState) {
         
-        performerOutput.connectionStateDidChange(state)
+        performerOutput.setConnectionState(state)
         if state == .Connected {
             christiansProcess = ChristiansProcess(endpoint: endpoint)
             christiansProcess!.delegate = self
@@ -71,11 +71,11 @@ extension PerformerInteractor: ReadableMessageAdapterDelegate {
             let audioStem = audioStemStore.audioStem(message.reference)!
             stopAudio(delay)
             startAudio(audioStem.audioFilePath, afterDelay: delay, muted: message.muted)
-            performerOutput.audioStemDidChange(audioStem)
+            performerOutput.setAudioStem(audioStem)
             
         case .Stop:
             stopAudio(delay)
-            performerOutput.audioStemDidChange(nil)
+            performerOutput.setAudioStem(nil)
             
         case .ToggleMute:
             toggleMuteAudio(message.muted)

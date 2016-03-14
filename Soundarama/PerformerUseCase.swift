@@ -13,7 +13,7 @@ protocol PerformerInput: class {
 
 protocol PerformerOutput: class {
     
-    func connectionStateDidChange(state: ConnectionState)
+    func setConnectionState(state: ConnectionState)
     
-    func audioStemDidChange(stem: AudioStem?)
+    func setAudioStem(stem: AudioStem?)
 }
