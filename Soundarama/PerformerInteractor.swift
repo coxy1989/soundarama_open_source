@@ -39,6 +39,7 @@ extension PerformerInteractor: PerformerConnectionAdapterDelegate {
     func performerConnectionStateDidChange(state: ConnectionState) {
         
         performerOutput.setConnectionState(state)
+        
         if state == .Connected {
             christiansProcess = ChristiansProcess(endpoint: endpoint)
             christiansProcess!.delegate = self
@@ -63,7 +64,7 @@ extension PerformerInteractor: ReadableMessageAdapterDelegate {
     
     func didReceivePerformerMessage(message: PerformerMessage) {
         
-        let delay = calculateDelay(message)
+        let delay = ChristiansCalculator.calculateDelay(christiansMap!.remote, localTime: christiansMap!.local, sessionTimestamp: message.sessionTimestamp, loopLength: message.loopLength)
         
         switch message.command {
             
@@ -85,42 +86,21 @@ extension PerformerInteractor: ReadableMessageAdapterDelegate {
 
 extension PerformerInteractor {
     
-    func startAudio(path: String, afterDelay: NSTimeInterval, muted: Bool) {
+    private func startAudio(path: String, afterDelay: NSTimeInterval, muted: Bool) {
         
         audioloop = AudioLoop(path: path, delay: afterDelay)
         audioloop!.start()
     }
     
-    func stopAudio(afterDelay: NSTimeInterval) {
+    private func stopAudio(afterDelay: NSTimeInterval) {
         
         audioloop?.stop()
         audioloop = nil
     }
     
-    func toggleMuteAudio(isMuted: Bool) {
+    private func toggleMuteAudio(isMuted: Bool) {
         
         audioloop?.toggleMute(isMuted)
-    }
-}
-
-extension PerformerInteractor {
-    
-    func calculateDelay(message: PerformerMessage) -> NSTimeInterval {
-        
-        let now = NSDate().timeIntervalSince1970
-        let elapsed = now - christiansMap!.local
-        let remoteNow = christiansMap!.remote + elapsed
-        
-        // Calculate `nextStartTime` as a value equal to `timestamp` plus an integer multiple of `loopLength`
-        // +0.1 is to make sure the audio player has enough time to prepare for playback
-        
-        var nextStartTime = message.sessionTimestamp
-        
-        while nextStartTime < remoteNow + 0.1 {
-            nextStartTime += message.loopLength
-        }
-        
-        return Double(nextStartTime) - Double(remoteNow)
     }
 }
 

@@ -71,6 +71,7 @@
 		42AFC6571C554F5A00AD4B9B /* DJUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42AFC6561C554F5A00AD4B9B /* DJUseCase.swift */; };
 		42AFC6631C55802000AD4B9B /* ReadableMessageAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42AFC6621C55802000AD4B9B /* ReadableMessageAdapter.swift */; };
 		42AFC6651C55805300AD4B9B /* WriteableMessageAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42AFC6641C55805300AD4B9B /* WriteableMessageAdapter.swift */; };
+		42B4F6DB1C96F79E00C755E6 /* ChristiansCalculator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42B4F6DA1C96F79E00C755E6 /* ChristiansCalculator.swift */; };
 		42C45A861C57DF2100888EA8 /* AudioStemStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42C45A851C57DF2100888EA8 /* AudioStemStore.swift */; };
 		42C45A881C58CA8C00888EA8 /* DJViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42C45A871C58CA8C00888EA8 /* DJViewController.swift */; };
 		42D9F8A01C88A70F0056957B /* Group.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42D9F89F1C88A70F0056957B /* Group.swift */; };
@@ -182,6 +183,7 @@
 		42AFC6561C554F5A00AD4B9B /* DJUseCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DJUseCase.swift; sourceTree = "<group>"; };
 		42AFC6621C55802000AD4B9B /* ReadableMessageAdapter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReadableMessageAdapter.swift; sourceTree = "<group>"; };
 		42AFC6641C55805300AD4B9B /* WriteableMessageAdapter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WriteableMessageAdapter.swift; sourceTree = "<group>"; };
+		42B4F6DA1C96F79E00C755E6 /* ChristiansCalculator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChristiansCalculator.swift; sourceTree = "<group>"; };
 		42C45A851C57DF2100888EA8 /* AudioStemStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AudioStemStore.swift; sourceTree = "<group>"; };
 		42C45A871C58CA8C00888EA8 /* DJViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DJViewController.swift; sourceTree = "<group>"; };
 		42D9F89F1C88A70F0056957B /* Group.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Group.swift; sourceTree = "<group>"; };
@@ -311,6 +313,7 @@
 			children = (
 				4249B59C1C5797920096872D /* ChristiansTimeServer.swift */,
 				4249B59E1C57979E0096872D /* ChristiansProcess.swift */,
+				42B4F6DA1C96F79E00C755E6 /* ChristiansCalculator.swift */,
 			);
 			name = Synchronisation;
 			sourceTree = "<group>";
@@ -775,6 +778,7 @@
 				421468551C56345700892786 /* TP2P.swift in Sources */,
 				42D9F8A61C88A7AB0056957B /* AudioStem.swift in Sources */,
 				42E49DAE1C58F20D00B9C127 /* SoundZoneCollectionViewCell.swift in Sources */,
+				42B4F6DB1C96F79E00C755E6 /* ChristiansCalculator.swift in Sources */,
 				429EC9591C8475DB002FDBCC /* AudioStemsViewController.swift in Sources */,
 				DFBAD41F1C64C346004C1D47 /* SpringMesh.swift in Sources */,
 				42AFC6651C55805300AD4B9B /* WriteableMessageAdapter.swift in Sources */,
