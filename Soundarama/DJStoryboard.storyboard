@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9531" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
-        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
     </dependencies>
     <scenes>
@@ -74,6 +73,15 @@
                                     <action selector="didPressBackButton:" destination="oB8-AN-WvL" eventType="touchUpInside" id="Y9q-eq-twX"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OWC-Lw-YI2">
+                                <rect key="frame" x="185.5" y="698" width="43" height="30"/>
+                                <state key="normal" title="Group">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="groupingModeButtonWasPressed:" destination="oB8-AN-WvL" eventType="touchUpInside" id="vMX-mm-bo3"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
@@ -83,8 +91,10 @@
                             <constraint firstItem="ZyW-pL-8UL" firstAttribute="leading" secondItem="VBZ-HG-M8P" secondAttribute="leading" id="Ygx-I6-7O1"/>
                             <constraint firstItem="lOu-zl-DQn" firstAttribute="leading" secondItem="VBZ-HG-M8P" secondAttribute="leading" id="aaH-s7-fTk"/>
                             <constraint firstItem="8Nn-t2-TE3" firstAttribute="top" secondItem="VBZ-HG-M8P" secondAttribute="top" constant="8" id="fFA-4f-JaM"/>
+                            <constraint firstItem="BMF-zI-ckm" firstAttribute="top" secondItem="OWC-Lw-YI2" secondAttribute="bottom" constant="8" id="oB6-nu-sHP"/>
                             <constraint firstAttribute="trailing" secondItem="ZyW-pL-8UL" secondAttribute="trailing" id="oIi-be-Mt7"/>
                             <constraint firstItem="8Nn-t2-TE3" firstAttribute="leading" secondItem="VBZ-HG-M8P" secondAttribute="leading" constant="8" id="or7-Aj-C1f"/>
+                            <constraint firstItem="OWC-Lw-YI2" firstAttribute="centerX" secondItem="VBZ-HG-M8P" secondAttribute="centerX" id="pRP-AQ-z2y"/>
                             <constraint firstAttribute="trailing" secondItem="lOu-zl-DQn" secondAttribute="trailing" id="twA-ZC-2hr"/>
                         </constraints>
                     </view>
@@ -92,6 +102,7 @@
                     <connections>
                         <outlet property="collectionView" destination="ZyW-pL-8UL" id="Jhm-7g-yvh"/>
                         <outlet property="devicesTrayView" destination="lOu-zl-DQn" id="zYo-oO-dKZ"/>
+                        <outlet property="groupingModeButton" destination="OWC-Lw-YI2" id="2lh-qD-RgA"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="6OY-Qq-UV6" userLabel="First Responder" sceneMemberID="firstResponder"/>
