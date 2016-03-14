@@ -41,7 +41,7 @@ extension AppDelegate {
     
     func appSetup() {
         
-        UIApplication.sharedApplication().setStatusBarHidden(true, withAnimation: .None)
+        //UIApplication.sharedApplication().setStatusBarHidden(true, withAnimation: .None)
         UIApplication.sharedApplication().idleTimerDisabled = true
     }
 }
