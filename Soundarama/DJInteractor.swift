@@ -96,6 +96,10 @@ extension DJInteractor: DJInput {
     
     func requestAddPerformerToWorkspace(performer: Performer, workspaceID: WorkspaceID) {
         
+        guard groupStore.groupingMode == false else {
+            return
+        }
+        
         let prestate = suiteStore.suite
         suiteStore.addPerformer(performer, workspaceID: workspaceID)
         let poststate = suiteStore.suite
@@ -104,6 +108,10 @@ extension DJInteractor: DJInput {
     }
     
     func requestRemovePerformerFromWorkspace(performer: Performer) {
+        
+        guard groupStore.groupingMode == false else {
+            return
+        }
         
         let prestate = suiteStore.suite
         suiteStore.removePerformer(performer)
@@ -122,7 +130,7 @@ extension DJInteractor: DJInput {
     }
     
     func requestDeselectPerformer(performer: Performer) {
-        
+                
         djOutput.deselectPerformer(performer)
     }
     

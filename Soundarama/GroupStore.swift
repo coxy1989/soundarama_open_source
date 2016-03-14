@@ -23,16 +23,18 @@ class GroupStore {
         
         let all_performers = grouped_performers.union(performers)
         
-        let no_workspace = all_performers.filter({ !suite.flatMap({$0.performers}).contains($0) }).count
+        let all_performers_in_suite = suite.flatMap({$0.performers})
         
-        let different_workspaces = suite.filter({ $0.performers.intersect(all_performers).count > 0 }).count
+        let no_workspace = all_performers.subtract(Set(all_performers_in_suite))
         
-        if no_workspace > 0 && different_workspaces > 0 {
+        let different_workspaces = suite.filter({ $0.performers.intersect(all_performers).count > 0 })
+        
+        if no_workspace.count > 0 && different_workspaces.count > 0 {
             
             return false
         }
         
-        return (different_workspaces < 2)
+        return (different_workspaces.count < 2)
     }
     
     func createGroup(performers p: Set<Performer>, groupIDs g: Set<GroupID>) {
