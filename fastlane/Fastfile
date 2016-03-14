@@ -54,7 +54,7 @@ platform :ios do
 
   desc "Provision, Build, Test, Archive"
   lane :cibuild do
-    carthage
+    carthage(use_ssh: true)
     match(type: "adhoc")
     scan
     gym(scheme: "Soundarama") # Build your app - more options available
