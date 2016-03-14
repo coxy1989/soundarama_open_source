@@ -32,7 +32,7 @@ protocol DJUserInterface: class {
     
     func endLasoo(atPoint: CGPoint)
     
-    func createGroup(groupID: GroupID, sourcePerformers: Set<Performer>, sourceGroupIDs: Set<GroupID>)
+    func createGroup(groupID: GroupID, groupSize: UInt, sourcePerformers: Set<Performer>, sourceGroupIDs: Set<GroupID>)
     
     func destroyGroup(groupID: GroupID, intoPerformers: Set<Performer>)
     

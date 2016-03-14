@@ -73,9 +73,9 @@ extension DJPresenter: DJOutput {
         ui.endLasoo(atPoint)
     }
     
-    func createGroup(groupID: GroupID, sourcePerformers: Set<Performer>, sourceGroupIDs: Set<GroupID>) {
+    func createGroup(groupID: GroupID, groupSize: UInt, sourcePerformers: Set<Performer>, sourceGroupIDs: Set<GroupID>) {
      
-        ui.createGroup(groupID, sourcePerformers: sourcePerformers, sourceGroupIDs: sourceGroupIDs)
+        ui.createGroup(groupID, groupSize: groupSize, sourcePerformers: sourcePerformers, sourceGroupIDs: sourceGroupIDs)
     }
     
     func destroyGroup(groupID: GroupID, intoPerformers: Set<Performer>) {

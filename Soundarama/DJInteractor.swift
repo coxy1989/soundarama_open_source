@@ -243,7 +243,7 @@ extension DJInteractor {
         
         if let created = outcome.created {
             
-            djOutput.createGroup(created.groupID, sourcePerformers: created.sourcePerformers, sourceGroupIDs: created.sourceGroupIDs)
+            djOutput.createGroup(created.groupID, groupSize: groupStore.getSize(created.groupID)!, sourcePerformers: created.sourcePerformers, sourceGroupIDs: created.sourceGroupIDs)
         }
             
         else if let destroyed = outcome.destroyed {

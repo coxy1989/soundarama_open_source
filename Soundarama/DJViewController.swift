@@ -162,10 +162,10 @@ extension DJViewController: DJUserInterface {
         lassoPath = nil
     }
     
-    func createGroup(groupID: GroupID, sourcePerformers: Set<Performer>, sourceGroupIDs: Set<GroupID>) {
+    func createGroup(groupID: GroupID, groupSize: UInt, sourcePerformers: Set<Performer>, sourceGroupIDs: Set<GroupID>) {
                 
-        let p_views = Set(performer_view_map.filter() { p, v in sourcePerformers.contains(p) }.map({ $0.1 }))
-        let g_views = Set(group_view_map.filter() { g, v in sourceGroupIDs.contains(g) }.map({ $0.1 }))
+        let p_views = Set(performer_view_map.filter() { p, v in sourcePerformers.contains(p) }.map({ $0.1 as UIView }))
+        let g_views = Set(group_view_map.filter() { g, v in sourceGroupIDs.contains(g) }.map({ $0.1 as UIView }))
         let views = p_views.union(g_views)
         
         sourcePerformers.forEach() { p in
@@ -186,14 +186,14 @@ extension DJViewController: DJUserInterface {
             
             /* All the views in the animation are in the devicesTrayView */
             
-            UIView.animateWithDuration(1, animations: moveViewsToCentroid(views), completion: createGroupAnimationCompletion(views, groupID: groupID))
+            UIView.animateWithDuration(1, animations: moveViewsToCentroid(views), completion: createGroupAnimationCompletion(views, groupID: groupID, groupSize: groupSize))
         }
         
         else if in_tray.count != 0 {
             
             /* At least one of the views in the animation is in the devicesTrayView */
             
-            UIView.animateWithDuration(1, animations: moveViewsToView(views, stationaryView: in_tray.first!), completion: createGroupAnimationCompletion(views, groupID: groupID))
+            UIView.animateWithDuration(1, animations: moveViewsToView(views, stationaryView: in_tray.first!), completion: createGroupAnimationCompletion(views, groupID: groupID, groupSize: groupSize))
         }
         
         else {
@@ -202,7 +202,7 @@ extension DJViewController: DJUserInterface {
             
             let view = g_views.count > 0 ? g_views.first! : views.first!
             
-            UIView.animateWithDuration(1, animations: moveViewsToView(views, stationaryView: view), completion: createGroupAnimationCompletion(views, groupID: groupID))
+            UIView.animateWithDuration(1, animations: moveViewsToView(views, stationaryView: view), completion: createGroupAnimationCompletion(views, groupID: groupID, groupSize: groupSize))
         }
     }
     
@@ -342,7 +342,7 @@ extension DJViewController {
     
     @objc private func didPanGroup(panGesture: UIPanGestureRecognizer) {
         
-        guard let g = view_group_map[panGesture.view as! PerformerView] else {
+        guard let g = view_group_map[panGesture.view as! GroupView] else {
             
             print("Warning. This is an odd state (didPanGroup:)")
             return
@@ -469,8 +469,6 @@ extension DJViewController: SoundZoneViewDelegate {
         
         let uiws = zone_workspace_map[soundZoneView]!
         delegate.didRequestAudioStemChangeInWorkspace(uiws.workspaceID)
-        //pickingAudioStemForSoundZoneView = soundZoneView
-        //self.presentViewController(audioStemsViewController(), animated: true, completion: nil)
     }
 }
 
@@ -487,11 +485,11 @@ extension DJViewController {
         return Set([longPress, pan, tap])
     }
  
-    private func newGroupView() -> GroupView {
+    private func newGroupView(size: UInt) -> GroupView {
         
-        let v = PerformerView(frame: CGRectZero)
+        let v = GroupView(frame: CGRectZero)
         groupViewGestureRecongnizers().forEach({ v.addGestureRecognizer($0) })
-        v.backgroundColor = UIColor.greenColor()
+        v.label.text = "\(size)"
         return v
     }
 }
@@ -660,7 +658,7 @@ extension DJViewController {
         }
     }
     
-    private func createGroupAnimationCompletion(sourceViews: Set<UIView>, groupID: GroupID) -> (Bool) -> () {
+    private func createGroupAnimationCompletion(sourceViews: Set<UIView>, groupID: GroupID, groupSize: UInt) -> (Bool) -> () {
         
         return { [weak self] done in
             
@@ -672,7 +670,7 @@ extension DJViewController {
                 v in v.removeFromSuperview()
             }
             
-            let v = this.newGroupView()
+            let v = this.newGroupView(groupSize)
             v.center = CGPoint.centroid(sourceViews.map({ $0.center }))
             this.view.addSubview(v)
             this.view_group_map[v] = groupID

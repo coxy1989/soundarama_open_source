@@ -68,4 +68,9 @@ class GroupStore {
         
         groupingMode = !groupingMode
     }
+    
+    func getSize(groupID: GroupID) -> UInt? {
+        
+        return groups.filter({ $0.id() == groupID }).map({ UInt($0.members.count) }).first
+    }
 }

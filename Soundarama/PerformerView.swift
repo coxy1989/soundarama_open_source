@@ -26,4 +26,32 @@ class PerformerView: UIImageView {
     }
 }
 
-typealias GroupView = PerformerView
+class GroupView: PerformerView {
+    
+    lazy var label: UILabel = {
+        
+        let l = UILabel()
+        l.textColor = UIColor.whiteColor()
+        l.text = "21"
+        l.textAlignment = .Center
+        return l
+    }()
+    
+    override init(frame: CGRect) {
+        
+        super.init(frame: frame)
+        
+        addSubview(label)
+    }
+    
+    override func layoutSubviews() {
+        
+        super.layoutSubviews()
+        
+        label.frame = bounds
+    }
+
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+}
