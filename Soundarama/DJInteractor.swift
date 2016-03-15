@@ -47,11 +47,23 @@ extension DJInteractor: DJInput {
         endpoint.disconnect()
     }
     
-    func getAudioStems() -> Set<UIAudioStem> {
+    func getStemKeys() -> [String] {
         
-        return UIAudioStemTransformer.transform(Set(audioStemStore.audioStems))
+        return AudioStemStore.keys
     }
     
+    func getStemKeyColors() -> [String : UIColor] {
+        
+        return AudioStemStore.colors
+    }
+    
+    func getStemsIndex() -> [String : Set<UIAudioStem>] {
+    
+        var idx: [String : Set<UIAudioStem>] = [ : ]
+        audioStemStore.index.forEach() { idx[$0] = UIAudioStemTransformer.transform($1) }
+        return idx
+    }
+
     func requestToggleMuteInWorkspace(workspaceID: WorkspaceID) {
         
         let prestate = suiteStore.suite

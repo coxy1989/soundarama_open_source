@@ -10,27 +10,50 @@ import UIKit
 
 class AudioStemStore {
     
-    var audioStems: [AudioStem]!
+    var index: [String : Set<AudioStem>]!
     
-    private var audioStemCache: [String : AudioStem]!
+    static let keys = [union] + categories
+    
+    static let colors = ["All" : UIColor.redColor(),
+                        "Bass" : UIColor.greenColor(),
+                        "Instrument" : UIColor.blueColor(),
+                        "Lead" : UIColor.yellowColor(),
+                        "Pad" : UIColor.orangeColor(),
+                        "Rhythm" : UIColor.purpleColor()]
+    
+    private static let union = "All"
+    
+    private static let categories = ["Bass", "Instrument", "Lead", "Pad", "Rhythm"]
+    
+    private var cache: [String : AudioStem]!
     
     init() {
         
-        audioStems = fetchStems()
-        audioStemCache = cacheStems(audioStems)
+        let stems = fetchStems()
+        cache = cacheStems(stems)
+        index = indexStems(stems)
     }
     
     func audioStem(reference: String) -> AudioStem? {
         
-        return audioStemCache[reference]
+        return cache[reference]
+    }
+}
+
+extension AudioStemStore {
+    
+    private func indexStems(stems: [AudioStem]) -> [String : Set<AudioStem>] {
+        
+        var idx: [String : Set<AudioStem>] = [ : ]
+        idx[AudioStemStore.union] = Set(stems)
+        AudioStemStore.categories.forEach() { k in idx[k] = Set(stems.filter({ $0.category == k })) }
+        return idx
     }
     
-    func cacheStems(stems: [AudioStem]) -> [String : AudioStem] {
+    private func cacheStems(stems: [AudioStem]) -> [String : AudioStem] {
         
         var map: [String : AudioStem] = [ : ]
-        for s in stems {
-            map[s.reference] = s
-        }
+        stems.forEach() { s in map[s.reference] = s }
         return map
     }
     

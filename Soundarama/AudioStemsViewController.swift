@@ -6,12 +6,16 @@
 //  Copyright © 2015 Touchpress Ltd. All rights reserved.
 //
 
+
+
+/* Hi! I'm old and shit.. and soon to be deleted! */
+
 import Foundation
 import UIKit
 
-class AudioStemsViewController: UIViewController, DJAudioStemPickerUserInterface {
+class AudioStemsViewController: UIViewController {
     
-    weak var delegate: DJAudioStemsPickerUserInterfaceDelegate!
+    weak var delegate: DJAudioStemPickerUserInterfaceDelegate!
     
     var identifier: String!
     
@@ -83,11 +87,9 @@ extension AudioStemsViewController: UITableViewDelegate, UITableViewDataSource {
             cell = UITableViewCell(style: UITableViewCellStyle.Subtitle, reuseIdentifier: "audio-stem-cell")
         }
         
-        //cell!.textLabel?.text = stem.name
         cell!.textLabel?.text = stem.title
         cell!.textLabel?.font = UIFont.soundaramaSansSerifBookFont(size: 17)
-//        cell!.detailTextLabel?.text = stem.category
-            cell!.detailTextLabel?.text = stem.subtitle
+        cell!.detailTextLabel?.text = stem.subtitle
         cell!.detailTextLabel?.font = UIFont.soundaramaSansSerifBookFont(size: 12)
         cell!.detailTextLabel?.textColor = UIColor.blackColor().colorWithAlphaComponent(0.5)
         
@@ -96,9 +98,9 @@ extension AudioStemsViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         
-        tableView.deselectRowAtIndexPath(indexPath, animated: true)
-        let audioStemID = sortedAudioStems[indexPath.row].audioStemID
-        delegate?.djAudioStemsUserInterfaceDidSelectStem(self, audioStemID: audioStemID)
+        //tableView.deselectRowAtIndexPath(indexPath, animated: true)
+        //let audioStemID = sortedAudioStems[indexPath.row].audioStemID
+        //delegate?.djAudioStemsUserInterfaceDidSelectStem(self, audioStemID: audioStemID)
     }
     
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {

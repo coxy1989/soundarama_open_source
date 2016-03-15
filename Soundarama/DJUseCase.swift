@@ -7,6 +7,7 @@
 //
 
 import CoreGraphics
+import UIKit
 
 protocol DJInput: class {
     
@@ -14,7 +15,11 @@ protocol DJInput: class {
     
     func stop()
     
-    func getAudioStems() -> Set<UIAudioStem>
+    func getStemKeys() -> [String]
+    
+    func getStemKeyColors() -> [String : UIColor]
+    
+    func getStemsIndex() -> [String : Set<UIAudioStem>]
     
     func requestToggleMuteInWorkspace(workspaceID: WorkspaceID)
     

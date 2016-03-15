@@ -43,7 +43,6 @@ class PerformerViewController: UIViewController, PerformerUserInterface {
     }
 }
 
-
 /*
 
 private lazy var backgroundImages: [UIImage] =

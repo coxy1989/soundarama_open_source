@@ -6,16 +6,22 @@
 //  Copyright © 2016 Touchpress Ltd. All rights reserved.
 //
 
-protocol DJAudioStemsPickerUserInterfaceDelegate: class {
+import UIKit
+
+protocol DJAudioStemPickerUserInterfaceDelegate: class {
     
     func djAudioStemsUserInterfaceDidSelectStem(audioStemUI: DJAudioStemPickerUserInterface, audioStemID: AudioStemID)
 }
 
 protocol DJAudioStemPickerUserInterface: class {
     
-    var audioStems: Set<UIAudioStem> { get set }
+    var keys: [String]! { get set }
     
-    var delegate: DJAudioStemsPickerUserInterfaceDelegate! { get set }
+    var colors: [String : UIColor]! { get set }
+    
+    var stemsIndex: [String : Set<UIAudioStem>]! { get set }
+    
+    var delegate: DJAudioStemPickerUserInterfaceDelegate! { get set }
     
     var identifier: String! { get set }
 }

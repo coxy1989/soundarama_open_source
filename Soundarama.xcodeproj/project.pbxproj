@@ -40,6 +40,7 @@
 		426A26E51C721EA5003FE38D /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 426A26E41C721EA5003FE38D /* AVFoundation.framework */; };
 		4273BC611C876708002E9EF9 /* GroupTransformer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4273BC601C876708002E9EF9 /* GroupTransformer.swift */; };
 		4273BC631C87673C002E9EF9 /* UISuiteTransformer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4273BC621C87673C002E9EF9 /* UISuiteTransformer.swift */; };
+		4277FBF41C9729FB0042B051 /* DJAudioStemPickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4277FBF31C9729FB0042B051 /* DJAudioStemPickerViewController.swift */; };
 		4280C0D81C5D1A8A00B2C9B3 /* MessageTransformer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4280C0D71C5D1A8A00B2C9B3 /* MessageTransformer.swift */; };
 		4280C0DA1C5D25DC00B2C9B3 /* MessageTransformerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4280C0D91C5D25DC00B2C9B3 /* MessageTransformerTests.swift */; };
 		4280C0DD1C5D4CAD00B2C9B3 /* MessageLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4280C0DC1C5D4CAD00B2C9B3 /* MessageLogger.swift */; };
@@ -149,6 +150,7 @@
 		426A26E41C721EA5003FE38D /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		4273BC601C876708002E9EF9 /* GroupTransformer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GroupTransformer.swift; sourceTree = "<group>"; };
 		4273BC621C87673C002E9EF9 /* UISuiteTransformer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UISuiteTransformer.swift; sourceTree = "<group>"; };
+		4277FBF31C9729FB0042B051 /* DJAudioStemPickerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DJAudioStemPickerViewController.swift; sourceTree = "<group>"; };
 		4280C0D71C5D1A8A00B2C9B3 /* MessageTransformer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessageTransformer.swift; sourceTree = "<group>"; };
 		4280C0D91C5D25DC00B2C9B3 /* MessageTransformerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessageTransformerTests.swift; sourceTree = "<group>"; };
 		4280C0DC1C5D4CAD00B2C9B3 /* MessageLogger.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessageLogger.swift; sourceTree = "<group>"; };
@@ -290,10 +292,11 @@
 		420AA69D1C550A9500F7BB25 /* DJ */ = {
 			isa = PBXGroup;
 			children = (
+				4277FBF51C972BC50042B051 /* Legacy */,
 				421468561C56404C00892786 /* DJUserInterface.swift */,
 				42C45A871C58CA8C00888EA8 /* DJViewController.swift */,
 				422EB0591C8DBA2200B27134 /* DJAudioStemsPickerUserInterface.swift */,
-				429EC9581C8475DB002FDBCC /* AudioStemsViewController.swift */,
+				4277FBF31C9729FB0042B051 /* DJAudioStemPickerViewController.swift */,
 				42A727A11C552C4800BFCA47 /* DJStoryboard.storyboard */,
 				42E49DAC1C58E4CB00B9C127 /* Views */,
 			);
@@ -373,6 +376,14 @@
 				425CC3271C74B8F200B39AB5 /* AudioLoop.swift */,
 			);
 			name = Audio;
+			sourceTree = "<group>";
+		};
+		4277FBF51C972BC50042B051 /* Legacy */ = {
+			isa = PBXGroup;
+			children = (
+				429EC9581C8475DB002FDBCC /* AudioStemsViewController.swift */,
+			);
+			name = Legacy;
 			sourceTree = "<group>";
 		};
 		4280C0D61C5D166400B2C9B3 /* Transformation */ = {
@@ -808,6 +819,7 @@
 				421468611C56672500892786 /* Serialisation.swift in Sources */,
 				420AA6AD1C55296E00F7BB25 /* DecidePresenter.swift in Sources */,
 				4280C0DD1C5D4CAD00B2C9B3 /* MessageLogger.swift in Sources */,
+				4277FBF41C9729FB0042B051 /* DJAudioStemPickerViewController.swift in Sources */,
 				42A727A81C552D5D00BFCA47 /* PerformerModule.swift in Sources */,
 				4214685A1C56474F00892786 /* PerformerConnectionAdapter.swift in Sources */,
 				42D9F8A01C88A70F0056957B /* Group.swift in Sources */,
