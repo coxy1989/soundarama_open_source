@@ -10,7 +10,9 @@ import UIKit
 
 protocol DJAudioStemPickerUserInterfaceDelegate: class {
     
-    func djAudioStemsUserInterfaceDidSelectStem(audioStemUI: DJAudioStemPickerUserInterface, audioStemID: AudioStemID)
+    func didRequestSelectStem(ui: DJAudioStemPickerUserInterface, audioStemID: AudioStemID)
+    
+    func didRequestSetSelectedKey(ui: DJAudioStemPickerUserInterface, key: String)
 }
 
 protocol DJAudioStemPickerUserInterface: class {
@@ -19,9 +21,11 @@ protocol DJAudioStemPickerUserInterface: class {
     
     var colors: [String : UIColor]! { get set }
     
-    var stemsIndex: [String : Set<UIAudioStem>]! { get set }
+    var stemsIndex: [String : [String : Set<UIAudioStem>]]! { get set }
     
     var delegate: DJAudioStemPickerUserInterfaceDelegate! { get set }
     
     var identifier: String! { get set }
+    
+    func setSelectedKey(key: String)
 }

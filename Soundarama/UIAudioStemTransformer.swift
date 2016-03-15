@@ -10,7 +10,7 @@ struct UIAudioStemTransformer {
     
     static func transform(audioStems: Set<AudioStem>) -> Set<UIAudioStem> {
         
-        let uiStems = audioStems.map() { UIAudioStem(title: $0.name, subtitle: $0.category, audioStemID: $0.reference) }
+        let uiStems = audioStems.map() { UIAudioStem(title: $0.name, subtitle: $0.category, audioStemID: $0.reference, colour: $0.colour) }
      
         return Set(uiStems)
     }

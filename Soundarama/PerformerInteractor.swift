@@ -22,7 +22,7 @@ class PerformerInteractor: PerformerInput {
     
     private var christiansMap: (remote: NSTimeInterval, local: NSTimeInterval)?
     
-    private var audioStemStore = AudioStemStore()
+     private lazy var audioStemStore: AudioStemStore =  { AudioStemStore() } ()
     
     private var audioloop: AudioLoop?
     

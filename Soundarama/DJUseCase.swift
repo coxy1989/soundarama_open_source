@@ -11,15 +11,15 @@ import UIKit
 
 protocol DJInput: class {
     
-    func start()
+    func startDJ()
     
-    func stop()
+    func stopDJ()
     
     func getStemKeys() -> [String]
     
     func getStemKeyColors() -> [String : UIColor]
     
-    func getStemsIndex() -> [String : Set<UIAudioStem>]
+    func getStemsIndex() -> [String : [String : Set<UIAudioStem>]]
     
     func requestToggleMuteInWorkspace(workspaceID: WorkspaceID)
     
@@ -91,4 +91,14 @@ protocol DJOutput: class {
     func deselectGroup(groupID: GroupID)
     
     func moveGroup(groupID: GroupID, translation: CGPoint)
+}
+
+protocol DJAudioStemPickerInput: class {
+    
+    func startDJAudioStemPicker()
+}
+
+protocol DJAudioStemPickerOutput: class {
+    
+    func setSelectedKey(key: String)
 }

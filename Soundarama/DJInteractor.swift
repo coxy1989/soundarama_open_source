@@ -13,6 +13,8 @@ class DJInteractor {
     
     weak var djOutput: DJOutput!
     
+    weak var djAudioStemPickerOutput: DJAudioStemPickerOutput!
+    
     var endpoint: Endpoint!
     
     private let suiteStore = SuiteStore(number: UIDevice.isPad() ? 9 : 4)
@@ -23,12 +25,12 @@ class DJInteractor {
     
     private var christiansTimeServer: ChristiansTimeServer!
     
-    private var audioStemStore = AudioStemStore()
+    private lazy var audioStemStore: AudioStemStore =  { AudioStemStore() } ()
 }
 
 extension DJInteractor: DJInput {
     
-    func start() {
+    func startDJ() {
         
         //TODO: handle pro (16), pad(9) phone(4)
         
@@ -42,7 +44,7 @@ extension DJInteractor: DJInput {
         endpoint.connect()
     }
     
-    func stop() {
+    func stopDJ() {
         
         endpoint.disconnect()
     }
@@ -57,10 +59,17 @@ extension DJInteractor: DJInput {
         return AudioStemStore.colors
     }
     
-    func getStemsIndex() -> [String : Set<UIAudioStem>] {
+    func getStemsIndex() -> [CategoryKey : [SongKey : Set<UIAudioStem>]] {
     
-        var idx: [String : Set<UIAudioStem>] = [ : ]
-        audioStemStore.index.forEach() { idx[$0] = UIAudioStemTransformer.transform($1) }
+        var idx: [String : [String : Set<UIAudioStem>]] = [ : ]
+        
+        audioStemStore.index.forEach() { ck, sm in
+            
+            var songidx: [String : Set<UIAudioStem>] = [ : ]
+            sm.forEach() { sk, stems in songidx[sk] = UIAudioStemTransformer.transform(stems) }
+            idx[ck] = songidx
+        }
+        
         return idx
     }
 
@@ -227,6 +236,14 @@ extension DJInteractor: DJInput {
     }
 }
 
+extension DJInteractor: DJAudioStemPickerInput {
+    
+    func startDJAudioStemPicker() {
+        
+        djAudioStemPickerOutput.setSelectedKey(AudioStemStore.firstKey)
+    }
+}
+
 extension DJInteractor: ConnectableDelegate {
     
     func didConnectToAddress(address: Address) {
@@ -272,6 +289,4 @@ extension DJInteractor {
         }
     }
 }
-
-
 

@@ -8,9 +8,15 @@
 
 import UIKit
 
+typealias CategoryKey = String
+
+typealias SongKey = String
+
 class AudioStemStore {
     
-    var index: [String : Set<AudioStem>]!
+    var index: [CategoryKey : [SongKey : Set<AudioStem>]]!
+    
+    static let firstKey = union
     
     static let keys = [union] + categories
     
@@ -42,11 +48,32 @@ class AudioStemStore {
 
 extension AudioStemStore {
     
-    private func indexStems(stems: [AudioStem]) -> [String : Set<AudioStem>] {
+    private func indexStems(stems: [AudioStem]) -> [CategoryKey : [SongKey : Set<AudioStem>]] {
         
-        var idx: [String : Set<AudioStem>] = [ : ]
-        idx[AudioStemStore.union] = Set(stems)
-        AudioStemStore.categories.forEach() { k in idx[k] = Set(stems.filter({ $0.category == k })) }
+        var idx: [String : [String : Set<AudioStem>]] = [ : ]
+        let songMap = fetchSongs()
+        
+        var songidx: [SongKey : Set<AudioStem>] = [ : ]
+        songMap.forEach() { s, ids in
+            
+            let stems = ids.map() { cache[$0]! }
+            songidx[s] = Set(stems)
+        }
+        
+        idx[AudioStemStore.union] = songidx
+        
+        AudioStemStore.categories.forEach() { c in
+            
+            var songidx: [SongKey : Set<AudioStem>] = [ : ]
+            songMap.forEach() { s, ids in
+                
+                let stems = ids.map() { cache[$0]! }.filter() { $0.category == c }
+                songidx[s] = Set(stems)
+            }
+            
+            idx[c] = songidx
+        }
+        
         return idx
     }
     
@@ -54,6 +81,17 @@ extension AudioStemStore {
         
         var map: [String : AudioStem] = [ : ]
         stems.forEach() { s in map[s.reference] = s }
+        return map
+    }
+    
+    private func fetchSongs() -> [String : Set<AudioStemID>] {
+        
+        var map: [String : Set<AudioStemID>] = [ : ]
+        let jsonPath = NSBundle.mainBundle().pathForResource("AudioStems", ofType: "json", inDirectory: "Sounds")!
+        let data = NSData(contentsOfFile: jsonPath)!
+        let json = JSON(data: data)
+        let songJSON = json["Songs"].dictionary!
+        songJSON.keys.forEach() { k in map[k] = Set(songJSON[k]!.array!.map() { return $0.string! }) }
         return map
     }
     

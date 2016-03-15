@@ -43,6 +43,8 @@ struct UIAudioStem: Hashable {
     let title: String
     let subtitle: String
     let audioStemID: AudioStemID
+    let colour: UIColor
+    
     
     var hashValue: Int {
         

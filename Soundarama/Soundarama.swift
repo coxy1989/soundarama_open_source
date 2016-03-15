@@ -64,8 +64,10 @@ extension Soundarama {
         
         djPresenter.djWireframe = djWireframe
         djWireframe.djPresenter = djPresenter
-        djPresenter.input = djInteractor
+        djPresenter.djInput = djInteractor
+        djPresenter.djAudioStemPickerInput = djInteractor
         djInteractor.djOutput = djPresenter
+        djInteractor.djAudioStemPickerOutput = djPresenter
         djInteractor.endpoint = dependencies.broadcastingEndpoint()
     }
 }

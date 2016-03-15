@@ -33,6 +33,8 @@
 		4249B59B1C5792490096872D /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4249B59A1C5792490096872D /* Message.swift */; };
 		4249B59D1C5797920096872D /* ChristiansTimeServer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4249B59C1C5797920096872D /* ChristiansTimeServer.swift */; };
 		4249B59F1C57979E0096872D /* ChristiansProcess.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4249B59E1C57979E0096872D /* ChristiansProcess.swift */; };
+		425498E31C987F8000793640 /* UnderlinedTextButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 425498E21C987F8000793640 /* UnderlinedTextButton.swift */; };
+		425498E51C987FB500793640 /* TableViewCells.swift in Sources */ = {isa = PBXBuildFile; fileRef = 425498E41C987FB500793640 /* TableViewCells.swift */; };
 		425CC3281C74B8F200B39AB5 /* AudioLoop.swift in Sources */ = {isa = PBXBuildFile; fileRef = 425CC3271C74B8F200B39AB5 /* AudioLoop.swift */; };
 		425E638F1C96CA8D000AE77F /* CocoaAsyncSocket.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 425E638C1C96CA8D000AE77F /* CocoaAsyncSocket.framework */; };
 		425E639B1C96CC9E000AE77F /* TouchpressFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 425E63991C96CC9E000AE77F /* TouchpressFoundation.framework */; };
@@ -143,6 +145,8 @@
 		4249B59A1C5792490096872D /* Message.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
 		4249B59C1C5797920096872D /* ChristiansTimeServer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChristiansTimeServer.swift; sourceTree = "<group>"; };
 		4249B59E1C57979E0096872D /* ChristiansProcess.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChristiansProcess.swift; sourceTree = "<group>"; };
+		425498E21C987F8000793640 /* UnderlinedTextButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UnderlinedTextButton.swift; sourceTree = "<group>"; };
+		425498E41C987FB500793640 /* TableViewCells.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableViewCells.swift; sourceTree = "<group>"; };
 		425CC3271C74B8F200B39AB5 /* AudioLoop.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AudioLoop.swift; sourceTree = "<group>"; };
 		425E638C1C96CA8D000AE77F /* CocoaAsyncSocket.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CocoaAsyncSocket.framework; path = Carthage/Build/iOS/CocoaAsyncSocket.framework; sourceTree = "<group>"; };
 		425E63991C96CC9E000AE77F /* TouchpressFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = TouchpressFoundation.framework; path = Carthage/Build/iOS/TouchpressFoundation.framework; sourceTree = "<group>"; };
@@ -485,6 +489,8 @@
 				429EC95A1C84761F002FDBCC /* PerformerView.swift */,
 				429EC95C1C847628002FDBCC /* SoundZoneView.swift */,
 				42E49DAD1C58F20D00B9C127 /* SoundZoneCollectionViewCell.swift */,
+				425498E21C987F8000793640 /* UnderlinedTextButton.swift */,
+				425498E41C987FB500793640 /* TableViewCells.swift */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -774,6 +780,7 @@
 				42A727B01C552E2800BFCA47 /* DJModule.swift in Sources */,
 				420080371C5BAD50009009E8 /* SoundaramaDependencies.swift in Sources */,
 				42A727BD1C553B8900BFCA47 /* PerformerUserInterface.swift in Sources */,
+				425498E31C987F8000793640 /* UnderlinedTextButton.swift in Sources */,
 				42A727B61C552E8D00BFCA47 /* DJInteractor.swift in Sources */,
 				42A727A61C552D3800BFCA47 /* PerformerPresenter.swift in Sources */,
 				42C45A861C57DF2100888EA8 /* AudioStemStore.swift in Sources */,
@@ -829,6 +836,7 @@
 				422EB05A1C8DBA2200B27134 /* DJAudioStemsPickerUserInterface.swift in Sources */,
 				422EB05C1C8DC39500B27134 /* UIAudioStemTransformer.swift in Sources */,
 				420AA6A91C55236F00F7BB25 /* DecideUserInterface.swift in Sources */,
+				425498E51C987FB500793640 /* TableViewCells.swift in Sources */,
 				42A727AE1C552DDF00BFCA47 /* DecideInteractor.swift in Sources */,
 				429EC95D1C847628002FDBCC /* SoundZoneView.swift in Sources */,
 			);

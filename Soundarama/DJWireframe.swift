@@ -20,7 +20,7 @@ class DJWireframe {
         
         self.navigationController = navigationController
         let vc = UIDevice.isPad() ? djViewController_iPad() : djViewController_iPhone()
-        djPresenter.ui = vc
+        djPresenter.djUI = vc
         vc.delegate = djPresenter
         vc.userInterfaceDelegate = djPresenter
         navigationController.pushViewController(vc, animated: true)
@@ -34,7 +34,11 @@ class DJWireframe {
     
     func djAudioStemPickerUserInterface() -> DJAudioStemPickerUserInterface  {
         
-        return djAudioStemPickerViewController_universal()
+        let vc = djAudioStemPickerViewController_universal()
+        vc.delegate = djPresenter
+        djPresenter.djAudioStemPickerUI = vc
+        vc.userInterfaceDelegate = djPresenter
+        return vc
     }
     
     func presentAudioStemPickerUserInterface(audioStemPickerUserInterface: DJAudioStemPickerUserInterface) {
