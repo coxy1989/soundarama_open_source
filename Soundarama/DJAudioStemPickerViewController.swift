@@ -78,7 +78,7 @@ extension DJAudioStemPickerViewController: UITableViewDataSource {
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
-        let orderedKeys = stemsIndex[lastSelectedKey]!.keys.sort() { $0 > $1 }
+        let orderedKeys = stemsIndex[lastSelectedKey]!.keys.sort() { $0 < $1 }
         let key = orderedKeys[section]
         let stems = stemsIndex[lastSelectedKey]![key]!
         return stems.count
@@ -96,13 +96,13 @@ extension DJAudioStemPickerViewController: UITableViewDataSource {
     
     func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         
-        return 40
+        return 26
     }
     
     func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         
         let c = tableView.dequeueReusableCellWithIdentifier("HeaderCell") as! HeaderCell
-        let orderedKeys = stemsIndex[lastSelectedKey]!.keys.sort() { $0 > $1 }
+        let orderedKeys = stemsIndex[lastSelectedKey]!.keys.sort() { $0 < $1 }
         let key = orderedKeys[section]
         let v = c.contentView
         c.label.text = key
@@ -119,7 +119,7 @@ extension DJAudioStemPickerViewController {
     
     func orderedStems(section: Int) -> [UIAudioStem] {
         
-        let orderedKeys = stemsIndex[lastSelectedKey]!.keys.sort() { $0 > $1 }
+        let orderedKeys = stemsIndex[lastSelectedKey]!.keys.sort() { $0 < $1 }
         let key = orderedKeys[section]
         return stemsIndex[lastSelectedKey]![key]!.sort() {$0.title > $1.title}
     }

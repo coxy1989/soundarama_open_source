@@ -20,12 +20,12 @@ class AudioStemStore {
     
     static let keys = [union] + categories
     
-    static let colors = ["All" : UIColor.redColor(),
-                        "Bass" : UIColor.greenColor(),
-                        "Instrument" : UIColor.blueColor(),
-                        "Lead" : UIColor.yellowColor(),
-                        "Pad" : UIColor.orangeColor(),
-                        "Rhythm" : UIColor.purpleColor()]
+    static let colors = ["All" : UIColor.whiteColor(),
+                        "Bass" : UIColor(rgba: "#6DAABD"),
+                        "Instrument" : UIColor(rgba: "#BD8371"),
+                        "Lead" : UIColor(rgba: "#71BD83"),
+                        "Pad" : UIColor(rgba: "#BD71A2"),
+                        "Rhythm" : UIColor(rgba: "#8371BD")]
     
     private static let union = "All"
     

@@ -34,7 +34,7 @@ class DJWireframe {
     
     func djAudioStemPickerUserInterface() -> DJAudioStemPickerUserInterface  {
         
-        let vc = djAudioStemPickerViewController_universal()
+        let vc = UIDevice.isPad() ? djAudioStemPickerViewController_iPad() : djAudioStemPickerViewController_iPhone()
         vc.delegate = djPresenter
         djPresenter.djAudioStemPickerUI = vc
         vc.userInterfaceDelegate = djPresenter
@@ -73,9 +73,15 @@ extension DJWireframe {
         return sb.instantiateViewControllerWithIdentifier("DJViewController_iPad") as! DJViewController
     }
     
-    private func djAudioStemPickerViewController_universal() -> DJAudioStemPickerViewController {
+    private func djAudioStemPickerViewController_iPhone() -> DJAudioStemPickerViewController {
      
         let sb = UIStoryboard(name: "DJStoryboard", bundle: nil)
-        return sb.instantiateViewControllerWithIdentifier("DJAudioStemPickerViewController") as! DJAudioStemPickerViewController
+        return sb.instantiateViewControllerWithIdentifier("DJAudioStemPickerViewController_iPhone") as! DJAudioStemPickerViewController
+    }
+    
+    private func djAudioStemPickerViewController_iPad() -> DJAudioStemPickerViewController {
+        
+        let sb = UIStoryboard(name: "DJStoryboard", bundle: nil)
+        return sb.instantiateViewControllerWithIdentifier("DJAudioStemPickerViewController_iPad") as! DJAudioStemPickerViewController
     }
 }
