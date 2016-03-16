@@ -14,6 +14,10 @@ class PerformerInteractor: PerformerInput {
     
     var endpoint: Endpoint!
     
+    let compass = Compass(locationManager: LocationService.manager)
+    
+    let altimeter = Altitmeter()
+    
     private var connectionAdapter: PerformerConnectionAdapter!
     
     private var messageAdapter: ReadableMessageAdapter!
@@ -31,6 +35,8 @@ class PerformerInteractor: PerformerInput {
         connectionAdapter = PerformerConnectionAdapter(connection: endpoint)
         connectionAdapter.delegate = self
         endpoint.connect()
+        compass.start() { b in print(b) }
+        altimeter.start() { a in print(a) }
     }
 }
 

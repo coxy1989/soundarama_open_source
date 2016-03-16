@@ -13,11 +13,11 @@ struct TaggedAudioPathStore {
         let altitude = ["HIGH", "MIDDLE", "LOW"]
         let direction = ["0", "1"]
         
-        let north = (0...altitude.count).map() { _ in (name: reference + "_\(direction[0])", tags: Set([direction[0]])) }
-        let south = (0...altitude.count).map() { _ in (name: reference + "_\(direction[1])", tags: Set([direction[1]])) }
+        let north = (0...altitude.count).map() { _ in (name: reference + "_\(direction[0])", tags: Set(["Compass:\(direction[0])"])) }
+        let south = (0...altitude.count).map() { _ in (name: reference + "_\(direction[1])", tags: Set(["Compass:\(direction[1])"])) }
         
-        let north_altitude = zip(north, altitude).map() { (name: $0.0 + "_\($1)", tags: $0.1.union([$1])) }
-        let south_altitude = zip(south, altitude).map() { (name: $0.0 + "_\($1)", tags: $0.1.union([$1])) }
+        let north_altitude = zip(north, altitude).map() { (name: $0.0 + "_\($1)", tags: $0.1.union(["Altitude:\($1)"])) }
+        let south_altitude = zip(south, altitude).map() { (name: $0.0 + "_\($1)", tags: $0.1.union(["Altitude:\($1)"])) }
         let direction_altitude = north_altitude + south_altitude
         
         let tags_paths = direction_altitude.map() { (path: NSBundle.mainBundle().pathForResource($0, ofType: "wav", inDirectory: "Sounds2")!, tags: $1)}
