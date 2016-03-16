@@ -19,7 +19,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var soundarama: Soundarama!
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
-        
+     
+        TaggedAudioPathStore.taggedAudioPaths("Synth")
         audioSetup()
         appSetup()
         window = UIWindow(frame: UIScreen.mainScreen().bounds)
@@ -27,7 +28,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         soundarama.start()
         return true
     }
-    
 }
 
 extension AppDelegate {

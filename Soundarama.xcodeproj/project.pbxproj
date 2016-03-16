@@ -47,6 +47,7 @@
 		4280C0DA1C5D25DC00B2C9B3 /* MessageTransformerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4280C0D91C5D25DC00B2C9B3 /* MessageTransformerTests.swift */; };
 		4280C0DD1C5D4CAD00B2C9B3 /* MessageLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4280C0DC1C5D4CAD00B2C9B3 /* MessageLogger.swift */; };
 		42899B791C886CC600ECA105 /* GroupTransformerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42899B781C886CC600ECA105 /* GroupTransformerTests.swift */; };
+		428A89011C9975DC0070BE7F /* Sounds2 in Resources */ = {isa = PBXBuildFile; fileRef = 428A89001C9975DC0070BE7F /* Sounds2 */; };
 		429EC9571C8475A8002FDBCC /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 429EC9561C8475A8002FDBCC /* AppDelegate.swift */; };
 		429EC9591C8475DB002FDBCC /* AudioStemsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 429EC9581C8475DB002FDBCC /* AudioStemsViewController.swift */; };
 		429EC95B1C84761F002FDBCC /* PerformerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 429EC95A1C84761F002FDBCC /* PerformerView.swift */; };
@@ -74,6 +75,8 @@
 		42AFC6571C554F5A00AD4B9B /* DJUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42AFC6561C554F5A00AD4B9B /* DJUseCase.swift */; };
 		42AFC6631C55802000AD4B9B /* ReadableMessageAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42AFC6621C55802000AD4B9B /* ReadableMessageAdapter.swift */; };
 		42AFC6651C55805300AD4B9B /* WriteableMessageAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42AFC6641C55805300AD4B9B /* WriteableMessageAdapter.swift */; };
+		42B3D1E51C99B0F50065842D /* TaggedAudioPathStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42B3D1E41C99B0F50065842D /* TaggedAudioPathStore.swift */; };
+		42B3D1E71C99B1910065842D /* TaggedAudioPath.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42B3D1E61C99B1910065842D /* TaggedAudioPath.swift */; };
 		42B4F6DB1C96F79E00C755E6 /* ChristiansCalculator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42B4F6DA1C96F79E00C755E6 /* ChristiansCalculator.swift */; };
 		42C45A861C57DF2100888EA8 /* AudioStemStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42C45A851C57DF2100888EA8 /* AudioStemStore.swift */; };
 		42C45A881C58CA8C00888EA8 /* DJViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42C45A871C58CA8C00888EA8 /* DJViewController.swift */; };
@@ -159,6 +162,7 @@
 		4280C0D91C5D25DC00B2C9B3 /* MessageTransformerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessageTransformerTests.swift; sourceTree = "<group>"; };
 		4280C0DC1C5D4CAD00B2C9B3 /* MessageLogger.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessageLogger.swift; sourceTree = "<group>"; };
 		42899B781C886CC600ECA105 /* GroupTransformerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GroupTransformerTests.swift; sourceTree = "<group>"; };
+		428A89001C9975DC0070BE7F /* Sounds2 */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Sounds2; path = Resources/Sounds2; sourceTree = "<group>"; };
 		429EC9561C8475A8002FDBCC /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		429EC9581C8475DB002FDBCC /* AudioStemsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AudioStemsViewController.swift; sourceTree = "<group>"; };
 		429EC95A1C84761F002FDBCC /* PerformerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PerformerView.swift; sourceTree = "<group>"; };
@@ -189,6 +193,8 @@
 		42AFC6561C554F5A00AD4B9B /* DJUseCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DJUseCase.swift; sourceTree = "<group>"; };
 		42AFC6621C55802000AD4B9B /* ReadableMessageAdapter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReadableMessageAdapter.swift; sourceTree = "<group>"; };
 		42AFC6641C55805300AD4B9B /* WriteableMessageAdapter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WriteableMessageAdapter.swift; sourceTree = "<group>"; };
+		42B3D1E41C99B0F50065842D /* TaggedAudioPathStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TaggedAudioPathStore.swift; sourceTree = "<group>"; };
+		42B3D1E61C99B1910065842D /* TaggedAudioPath.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TaggedAudioPath.swift; sourceTree = "<group>"; };
 		42B4F6DA1C96F79E00C755E6 /* ChristiansCalculator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChristiansCalculator.swift; sourceTree = "<group>"; };
 		42C45A851C57DF2100888EA8 /* AudioStemStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AudioStemStore.swift; sourceTree = "<group>"; };
 		42C45A871C58CA8C00888EA8 /* DJViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DJViewController.swift; sourceTree = "<group>"; };
@@ -352,6 +358,7 @@
 				42D9F89F1C88A70F0056957B /* Group.swift */,
 				4249B59A1C5792490096872D /* Message.swift */,
 				42D9F8A51C88A7AB0056957B /* AudioStem.swift */,
+				42B3D1E61C99B1910065842D /* TaggedAudioPath.swift */,
 			);
 			name = Representation;
 			sourceTree = "<group>";
@@ -412,6 +419,7 @@
 		429EC9871C85AEE0002FDBCC /* Read Stores */ = {
 			isa = PBXGroup;
 			children = (
+				42B3D1E41C99B0F50065842D /* TaggedAudioPathStore.swift */,
 				42C45A851C57DF2100888EA8 /* AudioStemStore.swift */,
 				429EC9661C84770C002FDBCC /* SwiftyJSON.swift */,
 			);
@@ -421,10 +429,11 @@
 		42A55C121C0F2AE900FD6C7D /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				E20B946A1C1753C800222A2B /* LaunchScreen.storyboard */,
-				E26EBAA21C18AF4700747726 /* Localizable.strings */,
 				E20B94641C1753B900222A2B /* Assets.xcassets */,
 				E25F9E0D1C19D7B2001D552F /* Sounds */,
+				428A89001C9975DC0070BE7F /* Sounds2 */,
+				E20B946A1C1753C800222A2B /* LaunchScreen.storyboard */,
+				E26EBAA21C18AF4700747726 /* Localizable.strings */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -715,6 +724,7 @@
 				E26EBAA31C18AF4700747726 /* Localizable.strings in Resources */,
 				42A727A21C552C4800BFCA47 /* DJStoryboard.storyboard in Resources */,
 				420AA6991C55055F00F7BB25 /* DecideStoryboard.storyboard in Resources */,
+				428A89011C9975DC0070BE7F /* Sounds2 in Resources */,
 				E25F9E0E1C19D7B2001D552F /* Sounds in Resources */,
 				E20B94681C1753B900222A2B /* Assets.xcassets in Resources */,
 			);
@@ -801,6 +811,7 @@
 				DFBAD41F1C64C346004C1D47 /* SpringMesh.swift in Sources */,
 				42AFC6651C55805300AD4B9B /* WriteableMessageAdapter.swift in Sources */,
 				4200803B1C5BD289009009E8 /* SuiteStore.swift in Sources */,
+				42B3D1E51C99B0F50065842D /* TaggedAudioPathStore.swift in Sources */,
 				4249B59B1C5792490096872D /* Message.swift in Sources */,
 				420AA6A71C551C8600F7BB25 /* PerformerViewController.swift in Sources */,
 				421468661C56831F00892786 /* BroadcastStrategy.swift in Sources */,
@@ -817,6 +828,7 @@
 				420AA6AB1C55288E00F7BB25 /* DecideWireframe.swift in Sources */,
 				42C45A881C58CA8C00888EA8 /* DJViewController.swift in Sources */,
 				42A727A41C552D0200BFCA47 /* PerformerWireframe.swift in Sources */,
+				42B3D1E71C99B1910065842D /* TaggedAudioPath.swift in Sources */,
 				425CC3281C74B8F200B39AB5 /* AudioLoop.swift in Sources */,
 				42A727B41C552E7400BFCA47 /* DJPresenter.swift in Sources */,
 				429EC95B1C84761F002FDBCC /* PerformerView.swift in Sources */,

@@ -71,7 +71,7 @@ extension PerformerInteractor: ReadableMessageAdapterDelegate {
         case .Start:
             let audioStem = audioStemStore.audioStem(message.reference)!
             stopAudio(delay)
-            startAudio(audioStem.audioFilePath, afterDelay: delay, muted: message.muted)
+            //startAudio(audioStem.audioFilePath, afterDelay: delay, muted: message.muted)
             performerOutput.setAudioStem(audioStem)
             
         case .Stop:

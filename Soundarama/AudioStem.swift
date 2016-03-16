@@ -27,11 +27,6 @@ struct AudioStem: Hashable {
     let reference: String /* TODO: Change to 'Identifier' */
     let loopLength: NSTimeInterval
     
-    var audioFilePath: String {
-        
-        return NSBundle.mainBundle().pathForResource(self.reference, ofType: "wav", inDirectory: "Sounds")!
-    }
-    
     var hashValue: Int {
         
         return name.hashValue ^ colour.hashValue ^ category.hashValue ^ reference.hashValue ^ loopLength.hashValue
