@@ -26,6 +26,7 @@
 		421468641C567E9600892786 /* SearchStrategy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 421468631C567E9600892786 /* SearchStrategy.swift */; };
 		421468661C56831F00892786 /* BroadcastStrategy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 421468651C56831F00892786 /* BroadcastStrategy.swift */; };
 		421468681C568EC600892786 /* SocketEndpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 421468671C568EC600892786 /* SocketEndpoint.swift */; };
+		42177FA21C9AAB29008411B0 /* Functional.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42177FA11C9AAB29008411B0 /* Functional.swift */; };
 		422EB05A1C8DBA2200B27134 /* DJAudioStemsPickerUserInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = 422EB0591C8DBA2200B27134 /* DJAudioStemsPickerUserInterface.swift */; };
 		422EB05C1C8DC39500B27134 /* UIAudioStemTransformer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 422EB05B1C8DC39500B27134 /* UIAudioStemTransformer.swift */; };
 		4249B5961C578A160096872D /* BroadcastSocketEndpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4249B5951C578A160096872D /* BroadcastSocketEndpoint.swift */; };
@@ -81,6 +82,7 @@
 		42B3D1EC1C99B7260065842D /* CompassAltitudeVolumeControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42B3D1EB1C99B7260065842D /* CompassAltitudeVolumeControllerTests.swift */; };
 		42B3D1EE1C99CDF00065842D /* Compass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42B3D1ED1C99CDF00065842D /* Compass.swift */; };
 		42B3D1F01C99D7D80065842D /* Altimeter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42B3D1EF1C99D7D80065842D /* Altimeter.swift */; };
+		42B3D1F21C99DDBB0065842D /* MultiAudioLoop.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42B3D1F11C99DDBB0065842D /* MultiAudioLoop.swift */; };
 		42B4F6DB1C96F79E00C755E6 /* ChristiansCalculator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42B4F6DA1C96F79E00C755E6 /* ChristiansCalculator.swift */; };
 		42C45A861C57DF2100888EA8 /* AudioStemStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42C45A851C57DF2100888EA8 /* AudioStemStore.swift */; };
 		42C45A881C58CA8C00888EA8 /* DJViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42C45A871C58CA8C00888EA8 /* DJViewController.swift */; };
@@ -145,6 +147,7 @@
 		421468631C567E9600892786 /* SearchStrategy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchStrategy.swift; sourceTree = "<group>"; };
 		421468651C56831F00892786 /* BroadcastStrategy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BroadcastStrategy.swift; sourceTree = "<group>"; };
 		421468671C568EC600892786 /* SocketEndpoint.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SocketEndpoint.swift; sourceTree = "<group>"; };
+		42177FA11C9AAB29008411B0 /* Functional.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Functional.swift; sourceTree = "<group>"; };
 		422EB0591C8DBA2200B27134 /* DJAudioStemsPickerUserInterface.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DJAudioStemsPickerUserInterface.swift; sourceTree = "<group>"; };
 		422EB05B1C8DC39500B27134 /* UIAudioStemTransformer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIAudioStemTransformer.swift; sourceTree = "<group>"; };
 		4249B5951C578A160096872D /* BroadcastSocketEndpoint.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BroadcastSocketEndpoint.swift; sourceTree = "<group>"; };
@@ -203,6 +206,7 @@
 		42B3D1EB1C99B7260065842D /* CompassAltitudeVolumeControllerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CompassAltitudeVolumeControllerTests.swift; sourceTree = "<group>"; };
 		42B3D1ED1C99CDF00065842D /* Compass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Compass.swift; sourceTree = "<group>"; };
 		42B3D1EF1C99D7D80065842D /* Altimeter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Altimeter.swift; sourceTree = "<group>"; };
+		42B3D1F11C99DDBB0065842D /* MultiAudioLoop.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MultiAudioLoop.swift; sourceTree = "<group>"; };
 		42B4F6DA1C96F79E00C755E6 /* ChristiansCalculator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChristiansCalculator.swift; sourceTree = "<group>"; };
 		42C45A851C57DF2100888EA8 /* AudioStemStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AudioStemStore.swift; sourceTree = "<group>"; };
 		42C45A871C58CA8C00888EA8 /* DJViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DJViewController.swift; sourceTree = "<group>"; };
@@ -340,6 +344,14 @@
 			name = Synchronisation;
 			sourceTree = "<group>";
 		};
+		42177FA01C9AAB0E008411B0 /* TPFoundationToAdd */ = {
+			isa = PBXGroup;
+			children = (
+				42177FA11C9AAB29008411B0 /* Functional.swift */,
+			);
+			name = TPFoundationToAdd;
+			sourceTree = "<group>";
+		};
 		4249B5931C5789E00096872D /* Search */ = {
 			isa = PBXGroup;
 			children = (
@@ -375,6 +387,7 @@
 		425CC3241C74B84000B39AB5 /* Extras */ = {
 			isa = PBXGroup;
 			children = (
+				42177FA01C9AAB0E008411B0 /* TPFoundationToAdd */,
 				425CC3251C74B86300B39AB5 /* Experimental */,
 				42E8BE191C54FB730034F1C8 /* Legacy */,
 				4280C0DB1C5D4C9200B2C9B3 /* Debug */,
@@ -394,6 +407,7 @@
 			isa = PBXGroup;
 			children = (
 				425CC3271C74B8F200B39AB5 /* AudioLoop.swift */,
+				42B3D1F11C99DDBB0065842D /* MultiAudioLoop.swift */,
 			);
 			name = Audio;
 			sourceTree = "<group>";
@@ -810,6 +824,7 @@
 				421468681C568EC600892786 /* SocketEndpoint.swift in Sources */,
 				42A727B01C552E2800BFCA47 /* DJModule.swift in Sources */,
 				420080371C5BAD50009009E8 /* SoundaramaDependencies.swift in Sources */,
+				42B3D1F21C99DDBB0065842D /* MultiAudioLoop.swift in Sources */,
 				42A727BD1C553B8900BFCA47 /* PerformerUserInterface.swift in Sources */,
 				425498E31C987F8000793640 /* UnderlinedTextButton.swift in Sources */,
 				42A727B61C552E8D00BFCA47 /* DJInteractor.swift in Sources */,
@@ -870,6 +885,7 @@
 				420080391C5BCA44009009E8 /* Suite.swift in Sources */,
 				42B3D1F01C99D7D80065842D /* Altimeter.swift in Sources */,
 				422EB05A1C8DBA2200B27134 /* DJAudioStemsPickerUserInterface.swift in Sources */,
+				42177FA21C9AAB29008411B0 /* Functional.swift in Sources */,
 				422EB05C1C8DC39500B27134 /* UIAudioStemTransformer.swift in Sources */,
 				420AA6A91C55236F00F7BB25 /* DecideUserInterface.swift in Sources */,
 				425498E51C987FB500793640 /* TableViewCells.swift in Sources */,
