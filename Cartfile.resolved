@@ -1,3 +1,3 @@
 github "robbiehanson/CocoaAsyncSocket" "7.4.3"
-github "touchpress/TouchpressFoundation" "78323293e427057bc8705f96d31eb97da7a5c704"
-github "touchpress/TouchpressUI" "17d8718c7838ce5fd9d59585b1eae63fdd8028eb"
+github "touchpress/TouchpressFoundation" "e68354d0aa41e8adec3a9bbbd5da2f1226b5da97"
+github "touchpress/TouchpressUI" "bea30cf2058c2cb7832c338767301f6482033fb0"

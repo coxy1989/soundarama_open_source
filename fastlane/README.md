@@ -28,6 +28,11 @@ Deploy a new version to the App Store
 fastlane ios cibuild
 ```
 Provision, Build, Test, Archive
+### ios create
+```
+fastlane ios create
+```
+Create the app
 
 ----
 

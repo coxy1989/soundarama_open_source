@@ -35,7 +35,7 @@ platform :ios do
   desc "Submit a new Beta Build to Apple TestFlight"
   desc "This will also make sure the profile is up to date"
   lane :beta do
-    # match(type: "appstore") # more information: https://codesigning.guide
+    match(type: "appstore") # more information: https://codesigning.guide
     gym(scheme: "Soundarama") # Build your app - more options available
     pilot
 
@@ -59,6 +59,18 @@ platform :ios do
     scan
     gym(scheme: "Soundarama") # Build your app - more options available
   end
+
+  desc "Create the app"
+  lane :create do 
+    produce(
+    username: 'hagrid@touchpress.com',
+    app_identifier: 'com.touchpress.Soundarama',
+    app_name: 'Soundarama',
+    language: 'English',
+    app_version: '1.0',
+    sku: 'TP0060'
+    )
+ end
 
   after_all do |lane|
     # This block is called, only if the executed lane was successful
