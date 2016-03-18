@@ -98,7 +98,6 @@
 		DFBAD41F1C64C346004C1D47 /* SpringMesh.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFBAD41E1C64C346004C1D47 /* SpringMesh.swift */; };
 		E20B94681C1753B900222A2B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E20B94641C1753B900222A2B /* Assets.xcassets */; };
 		E20B946C1C1753C800222A2B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E20B946A1C1753C800222A2B /* LaunchScreen.storyboard */; };
-		E25F9E0E1C19D7B2001D552F /* Sounds in Resources */ = {isa = PBXBuildFile; fileRef = E25F9E0D1C19D7B2001D552F /* Sounds */; };
 		E26EBAA31C18AF4700747726 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = E26EBAA21C18AF4700747726 /* Localizable.strings */; };
 /* End PBXBuildFile section */
 
@@ -224,7 +223,6 @@
 		E20B946B1C1753C800222A2B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Resources/Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		E25279C21BF606C8008B4690 /* Soundarama.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Soundarama.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E25279D11BF606C8008B4690 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		E25F9E0D1C19D7B2001D552F /* Sounds */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Sounds; path = Resources/Sounds; sourceTree = "<group>"; };
 		E26EBAA21C18AF4700747726 /* Localizable.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = Localizable.strings; path = Resources/Localizable.strings; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -453,7 +451,6 @@
 			isa = PBXGroup;
 			children = (
 				E20B94641C1753B900222A2B /* Assets.xcassets */,
-				E25F9E0D1C19D7B2001D552F /* Sounds */,
 				428A89001C9975DC0070BE7F /* Sounds2 */,
 				E20B946A1C1753C800222A2B /* LaunchScreen.storyboard */,
 				E26EBAA21C18AF4700747726 /* Localizable.strings */,
@@ -759,7 +756,6 @@
 				42A727A21C552C4800BFCA47 /* DJStoryboard.storyboard in Resources */,
 				420AA6991C55055F00F7BB25 /* DecideStoryboard.storyboard in Resources */,
 				428A89011C9975DC0070BE7F /* Sounds2 in Resources */,
-				E25F9E0E1C19D7B2001D552F /* Sounds in Resources */,
 				E20B94681C1753B900222A2B /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -9,34 +9,6 @@
 typealias Volume = Float
 typealias Tag = String
 
-struct CompassAltitudeVolumeController {
-    
-    private static let contains_middle: Set<String> -> Bool = { $0.contains(AltitudeTag.Middle.rawValue) }
-    
-    private static let contains_north: Set<String> -> Bool = { $0.contains(CompassTag.North.rawValue) }
-    
-    private static let contains_south: Set<String> -> Bool = { $0.contains(CompassTag.South.rawValue) }
-    
-    static func calculateVolume(paths:Set<TaggedAudioPath>, compassValue: Double, altitudeValue: Double) -> [ TaggedAudioPath :  Volume ]{
-        
-        var ret: [TaggedAudioPath : Volume] = [ : ]
-        
-        let n_mid = paths.filter() { contains_middle($0.tags) && contains_north($0.tags) }
-        
-        let s_mid = paths.filter() { contains_middle($0.tags) && contains_south($0.tags) }
-        
-        let n_transform = (1 - abs(compassValue - 180) / 180)
-        
-        paths.forEach() { ret[$0] = 0 }
-        
-        n_mid.forEach() { ret[$0] =  Float(1 - n_transform) }
-        
-        s_mid.forEach() { ret[$0] = Float(n_transform) }
-        
-        return ret
-    }
-}
-
 enum AltitudeTag: String {
     
     case High = "Altitude:HIGH"
@@ -52,3 +24,117 @@ enum CompassTag: String {
     
     case South = "Compass:SOUTH"
 }
+
+struct CompassAltitudeVolumeController {
+    
+    static let high_lower_limit: Double = 0.25
+    
+    static let high_upper_limit: Double = 0.26
+    
+    static let low_upper_limit: Double = -0.25
+    
+    static let low_lower_limit: Double = -0.26
+    
+    private static let contains_alt: (Set<String>, AltitudeTag) -> Bool = { $0.contains($1.rawValue) }
+    
+    private static let contains_com: (Set<String>, CompassTag) -> Bool = { $0.contains($1.rawValue) }
+
+    static func calculateVolume(paths:Set<TaggedAudioPath>, compassValue: Double, altitudeValue: Double) -> [ TaggedAudioPath :  Volume ]{
+    
+        var ret: [TaggedAudioPath : Volume] = [ : ]
+        
+        interploateCompassHighAltitude(paths, compassValue: compassValue, altitudeValue: altitudeValue).forEach() { ret[$0] = $1 * 0.5 }
+        
+        interploateCompassMiddleAltitude(paths, compassValue: compassValue, altitudeValue: altitudeValue).forEach() { ret[$0] = $1 * 0.5 }
+        
+        interploateCompassLowAltitude(paths, compassValue: compassValue, altitudeValue: altitudeValue).forEach() { ret[$0] = $1 * 0.5 }
+        
+        return ret
+    }
+    
+    private static func interploateCompassHighAltitude(paths:Set<TaggedAudioPath>, compassValue: Double, altitudeValue: Double) -> [ TaggedAudioPath :  Volume ] {
+        
+        var ret: [TaggedAudioPath : Volume] = [ : ]
+        
+        let n_high = paths.filter() { contains_alt($0.tags, .High) && contains_com($0.tags, .North) }
+        
+        let s_high = paths.filter() { contains_alt($0.tags, .High) && contains_com($0.tags, .South) }
+        
+        guard altitudeValue > high_lower_limit else {
+            
+            n_high.forEach() { ret[$0] = 0 }
+            s_high.forEach() { ret[$0] = 0 }
+            return ret
+        }
+        
+        /* Interpolate between 360 == 0, 180 == 1, 90 == 0.5, 270 == 0.5 */
+        
+        let compass_transform = (1 - abs(compassValue - 180) / 180)
+        
+        /* Interpolate between high_lower_limit = 0, high_upper_limit = 1 (> high_upper_limit == 1) */
+        
+        let range = high_upper_limit - high_lower_limit
+        
+        let altitude_transform = min(1, (altitudeValue - high_lower_limit) / range)
+        
+        n_high.forEach() { ret[$0] =  Float( (1 - compass_transform) * altitude_transform) }
+        
+        s_high.forEach() { ret[$0] =  Float( compass_transform * altitude_transform) }
+        
+        return ret
+    }
+    
+    private static func interploateCompassMiddleAltitude(paths:Set<TaggedAudioPath>, compassValue: Double, altitudeValue: Double) -> [ TaggedAudioPath :  Volume ] {
+        
+        var ret: [TaggedAudioPath : Volume] = [ : ]
+        
+        let n_mid = paths.filter() { contains_alt($0.tags, .Middle) && contains_com($0.tags, .North) }
+        
+        let s_mid = paths.filter() { contains_alt($0.tags, .Middle) && contains_com($0.tags, .South) }
+        
+        /* Interpolate between 360 == 0, 180 == 1, 90 == 0.5, 270 == 0.5 */
+        
+        let compass_transform = (1 - abs(compassValue - 180) / 180)
+        
+        n_mid.forEach() { ret[$0] =  Float(1 - compass_transform) }
+        
+        s_mid.forEach() { ret[$0] = Float(compass_transform) }
+        
+        return ret
+    }
+    
+    private static func interploateCompassLowAltitude(paths:Set<TaggedAudioPath>, compassValue: Double, altitudeValue: Double) -> [ TaggedAudioPath :  Volume ] {
+        
+        var ret: [TaggedAudioPath : Volume] = [ : ]
+        
+        let n_low = paths.filter() { contains_alt($0.tags, .Low) && contains_com($0.tags, .North) }
+        
+        let s_low = paths.filter() { contains_alt($0.tags, .Low) && contains_com($0.tags, .South) }
+        
+        guard altitudeValue < low_upper_limit else {
+            
+            n_low.forEach() { ret[$0] = 0 }
+            s_low.forEach() { ret[$0] = 0 }
+            return ret
+        }
+        
+        /* Interpolate between 360 == 0, 180 == 1, 90 == 0.5, 270 == 0.5 */
+        
+        let compass_transform = (1 - abs(compassValue - 180) / 180)
+        
+        /* Interpolate between low_upper_limit = 0, low_lower_limit = 1 (< low_lower_limit == 1) */
+        
+        let range = low_upper_limit - low_lower_limit
+        
+        
+        
+        let altitude_transform = min(1, (abs(altitudeValue) + low_upper_limit) / range)
+        
+        n_low.forEach() { ret[$0] =  Float( (1 - compass_transform) * altitude_transform) }
+        
+        s_low.forEach() { ret[$0] =  Float( compass_transform * altitude_transform) }
+        
+        return ret
+    }
+}
+

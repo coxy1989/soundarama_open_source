@@ -40,7 +40,7 @@ class PerformerInteractor: PerformerInput {
         startInstruments()
         
         let paths = TaggedAudioPathStore.taggedAudioPaths("Synth")
-        startAudio(paths, afterDelay: 1, muted: false)
+        startAudio(paths, afterDelay: 0, muted: false)
     }
 }
 
