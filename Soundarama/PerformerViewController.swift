@@ -42,30 +42,3 @@ class PerformerViewController: UIViewController, PerformerUserInterface {
         label?.textColor = colour ?? UIColor.blackColor()
     }
 }
-
-/*
-
-private lazy var backgroundImages: [UIImage] =
--    {
--        var images = [UIImage]()
--        let numberOfImages = 4
--        for i in 1...numberOfImages
--        {
--            let imageFileName = "glitch-\(i).jpg"
--            images.append(UIImage(named: imageFileName)!)
--        }
--        return images
--    }()
--    private var backgroundImageIdx = 0
-
-private func progressToNextBackgroundImage()
--    {
--        self.backgroundImageIdx++
--        if (self.backgroundImageIdx > self.backgroundImages.count - 1)
--        {
--            self.backgroundImageIdx = 0
--        }
--
--        self.backgroundImageView?.image = self.backgroundImages[self.backgroundImageIdx]
--    }
-*/

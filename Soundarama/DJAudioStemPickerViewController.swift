@@ -54,7 +54,6 @@ class DJAudioStemPickerViewController: ViewController, DJAudioStemPickerUserInte
             let k = keys[idx]
             b.setTitle(k, forState: .Normal)
             b.setTitleColor(colors[k], forState: .Normal)
-            b.setUnderlineColor(UIColor.clearColor())
         }
     }
     

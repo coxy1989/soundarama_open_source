@@ -21,14 +21,17 @@
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="67"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Stems" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="78A-lI-eu0">
-                                        <rect key="frame" x="275.5" y="8" width="49.5" height="25"/>
+                                        <rect key="frame" x="275" y="8" width="49.5" height="25"/>
                                         <fontDescription key="fontDescription" name="Avenir-Roman" family="Avenir" pointSize="18"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aP1-7q-730">
-                                        <rect key="frame" x="8" y="5.5" width="37" height="30"/>
-                                        <state key="normal" title="Done"/>
+                                        <rect key="frame" x="8" y="3" width="30" height="34"/>
+                                        <fontDescription key="fontDescription" name="Avenir-Heavy" family="Avenir" pointSize="16"/>
+                                        <state key="normal" title="X">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
                                         <connections>
                                             <action selector="backButtonWasPressed:" destination="ofg-K2-weq" eventType="touchUpInside" id="ZoR-Ng-n7J"/>
                                         </connections>
@@ -42,7 +45,7 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NC9-DP-ID6" customClass="UnderlinedTextButton" customModule="Soundarama" customModuleProvider="target">
-                                        <rect key="frame" x="132.5" y="33" width="31" height="33"/>
+                                        <rect key="frame" x="132" y="33" width="31" height="33"/>
                                         <fontDescription key="fontDescription" name="Avenir-Roman" family="Avenir" pointSize="15"/>
                                         <state key="normal" title="Bass"/>
                                         <connections>
@@ -50,7 +53,7 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IlJ-yM-EzN" customClass="UnderlinedTextButton" customModule="Soundarama" customModuleProvider="target">
-                                        <rect key="frame" x="211.5" y="33.5" width="52" height="33"/>
+                                        <rect key="frame" x="211" y="33" width="52" height="33"/>
                                         <fontDescription key="fontDescription" name="Avenir-Roman" family="Avenir" pointSize="15"/>
                                         <state key="normal" title="Rhythm"/>
                                         <connections>
@@ -58,21 +61,21 @@
                                         </connections>
                                     </button>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8jV-xI-SNd">
-                                        <rect key="frame" x="85" y="36.5" width="47.5" height="25"/>
+                                        <rect key="frame" x="85" y="37" width="47.5" height="25"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="25" id="35F-YK-4ee"/>
                                         </constraints>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Yx9-MH-OYo">
-                                        <rect key="frame" x="163.5" y="36.5" width="48" height="25"/>
+                                        <rect key="frame" x="163" y="37" width="48" height="25"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="25" id="MB7-7h-u4S"/>
                                         </constraints>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gK2-bV-T4S">
-                                        <rect key="frame" x="263" y="37.5" width="48.5" height="25"/>
+                                        <rect key="frame" x="263" y="37" width="48.5" height="25"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                     </view>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PXP-AJ-eRD" customClass="UnderlinedTextButton" customModule="Soundarama" customModuleProvider="target">
@@ -84,11 +87,11 @@
                                         </connections>
                                     </button>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fHH-KX-swc">
-                                        <rect key="frame" x="384" y="37.5" width="48" height="25"/>
+                                        <rect key="frame" x="384" y="37" width="48" height="25"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                     </view>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LF4-69-uxs" customClass="UnderlinedTextButton" customModule="Soundarama" customModuleProvider="target">
-                                        <rect key="frame" x="432.5" y="33" width="30" height="33"/>
+                                        <rect key="frame" x="432" y="33" width="30" height="33"/>
                                         <fontDescription key="fontDescription" name="Avenir-Roman" family="Avenir" pointSize="15"/>
                                         <state key="normal" title="Pad"/>
                                         <connections>
@@ -96,7 +99,7 @@
                                         </connections>
                                     </button>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="myI-Ow-Ssz">
-                                        <rect key="frame" x="464.5" y="37.5" width="47.5" height="25"/>
+                                        <rect key="frame" x="464" y="37" width="47.5" height="25"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                     </view>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gXe-A3-UBM" customClass="UnderlinedTextButton" customModule="Soundarama" customModuleProvider="target">
@@ -160,7 +163,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Table Section Header" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6Kt-Xl-Ceg">
-                                                    <rect key="frame" x="8" y="5.5" width="110" height="15.5"/>
+                                                    <rect key="frame" x="8" y="5" width="110" height="15.5"/>
                                                     <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                                     <fontDescription key="fontDescription" name="Avenir-Heavy" family="Avenir" pointSize="11"/>
                                                     <color key="textColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
