@@ -18,6 +18,8 @@ class MultiAudioLoop {
     
     private var scheduled_players_map: [Path : AVAudioPlayer] = [ : ]
     
+    private var isMuted = false
+    
     init(paths: Set<String>) {
         
         paths.forEach() { volume_map[$0] = 0 }
@@ -38,91 +40,60 @@ class MultiAudioLoop {
         }
     }
     
-    func loop(player: AVAudioPlayer, path: String, playtime: NSTimeInterval) {
+    func stop() {
+        
+        current_players_map.values.forEach() { $0.stop() }
+        scheduled_players_map.values.forEach() { $0.stop() }
+    }
+    
+    func setMuted(isMuted: Bool) {
+        
+        self.isMuted = isMuted
+        
+        if isMuted == true {
+            
+            current_players_map.values.forEach() { $0.volume = 0 }
+            scheduled_players_map.values.forEach() { $0.volume = 0 }
+        }
+        
+        else {
+            
+            volume_map.forEach() {
+                
+                current_players_map[$0]?.volume = $1
+                scheduled_players_map[$0]?.volume = $1
+            }
+        }
+    }
+    
+    func setVolume(path: String, volume: Float) {
+        
+        volume_map[path] = volume
+        
+        guard isMuted == false else {
+            return
+        }
+        
+        current_players_map[path]?.volume = volume
+        scheduled_players_map[path]?.volume = volume
+    }
+}
+
+extension MultiAudioLoop {
+    
+    private func loop(player: AVAudioPlayer, path: String, playtime: NSTimeInterval) {
         
         let scheduledPlayer = try! AVAudioPlayer(contentsOfURL: NSURL(fileURLWithPath: path))
-        scheduledPlayer.volume = player.volume
         let scheduledPlaytime = playtime + 15.0
+        scheduledPlayer.volume = player.volume
         scheduledPlayer.playAtTime(scheduledPlaytime)
         scheduled_players_map[path] = scheduledPlayer
         
-        let looptime = dispatch_time(DISPATCH_TIME_NOW, Int64(15.0 * Double(NSEC_PER_SEC)))
-        dispatch_after(looptime, dispatch_get_main_queue()) { [weak self] in
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, Int64(15.0 * Double(NSEC_PER_SEC))), dispatch_get_main_queue()) { [weak self] in
             
             self?.scheduled_players_map[path] = nil
             self?.current_players_map[path] = scheduledPlayer
             self?.loop(scheduledPlayer, path: path, playtime: scheduledPlaytime)
         }
     }
-    
-    func setVolume(path: String, volume: Float) {
-        
-        current_players_map[path]?.volume = volume
-        scheduled_players_map[path]?.volume = volume
-        volume_map[path] = volume
-    }
 }
-
-/*
-class MultiAudioLoop {
-    
-    private var pathVolumeMap: [String : Float]
-    
-    private var currentPlayerMap: [String : AVAudioPlayer] = [ : ]
-    
-    private var scheduledPlayerMap: [String : AVAudioPlayer] = [ : ]
-    
-    private var volume = 0
-    
-    init(pathVolumeMap: [String : Float]) {
-        
-        self.pathVolumeMap = pathVolumeMap
-    }
-    
-    func start(afterDelay delay: NSTimeInterval) {
-        
-        let player = try! AVAudioPlayer(contentsOfURL: NSURL(fileURLWithPath: Array(pathVolumeMap.keys).head))
-        let playtime = player.deviceCurrentTime + delay
-        
-        pathVolumeMap.forEach {
-        
-            let player = try! AVAudioPlayer(contentsOfURL: NSURL(fileURLWithPath: $0.0))
-            player.volume = $0.1
-            player.playAtTime(playtime)
-            currentPlayerMap[$0.0] = player
-            loop(player, path: $0.0, playtime: playtime)
-        }
-    }
-    
-    func loop(player: AVAudioPlayer, path: String, playtime: NSTimeInterval) {
-        
-        let scheduledPlayer = try! AVAudioPlayer(contentsOfURL: NSURL(fileURLWithPath: path))
-        scheduledPlayer.volume = player.volume
-        let scheduledPlaytime = playtime + 15.0
-        scheduledPlayer.playAtTime(scheduledPlaytime)
-        scheduledPlayerMap[path] = scheduledPlayer
-        
-        let looptime = dispatch_time(DISPATCH_TIME_NOW, Int64(15.0 * Double(NSEC_PER_SEC)))
-        dispatch_after(looptime, dispatch_get_main_queue()) { [weak self] in
-            
-            self?.scheduledPlayerMap[path] = nil
-            self?.currentPlayerMap[path] = scheduledPlayer
-            self?.loop(scheduledPlayer, path: path, playtime: scheduledPlaytime)
-        }
-    }
-    
-    func setVolume(path: String, volume: Float) {
-        
-        currentPlayerMap[path]?.volume = volume
-        scheduledPlayerMap[path]?.volume = volume
-        pathVolumeMap[path] = volume
-    }
-    
-    //TODO: REMOVE THIS. YOU SHOULD NEVER QUERY THE PLAYER FOR THE VOLUME.
-    
-    func getVolume(path: String) -> Float {
-        
-        return pathVolumeMap[path]!
-    }
-}
-*/

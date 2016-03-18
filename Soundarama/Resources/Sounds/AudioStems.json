@@ -1,0 +1,17 @@
+
+{
+    "Songs" :
+    {
+        "SONG 1" : [ "Synth" ]
+    },
+    
+    "AudioStems" :
+    [
+                    {
+                        "Name" : "Synth Example",
+                        "Colour" : "#6DAABD",
+                        "Category" : "Synth",
+                        "Ref" : "Synth"
+                    }
+    ]
+}

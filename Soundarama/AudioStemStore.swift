@@ -21,7 +21,7 @@ class AudioStemStore {
     static let keys = [union] + categories
     
     static let colors = ["All" : UIColor.whiteColor(),
-                        "Bass" : UIColor(rgba: "#6DAABD"),
+                        "Synth" : UIColor(rgba: "#6DAABD"),
                         "Instrument" : UIColor(rgba: "#BD8371"),
                         "Lead" : UIColor(rgba: "#71BD83"),
                         "Pad" : UIColor(rgba: "#BD71A2"),
@@ -29,7 +29,7 @@ class AudioStemStore {
     
     private static let union = "All"
     
-    private static let categories = ["Bass", "Instrument", "Lead", "Pad", "Rhythm"]
+    private static let categories = ["Synth", "Instrument", "Lead", "Pad", "Rhythm"]
     
     private var cache: [String : AudioStem]!
     

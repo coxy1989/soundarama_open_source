@@ -20,7 +20,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
      
-        TaggedAudioPathStore.taggedAudioPaths("Synth")
         audioSetup()
         appSetup()
         window = UIWindow(frame: UIScreen.mainScreen().bounds)

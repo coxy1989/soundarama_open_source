@@ -20,7 +20,7 @@ struct TaggedAudioPathStore {
         let south_altitude = zip(south, altitude).map() { (name: $0.0 + "_\($1)", tags: $0.1.union(["Altitude:\($1)"])) }
         let direction_altitude = north_altitude + south_altitude
         
-        let tags_paths = direction_altitude.map() { (path: NSBundle.mainBundle().pathForResource($0, ofType: "wav", inDirectory: "Sounds2")!, tags: $1)}
+        let tags_paths = direction_altitude.map() { (path: NSBundle.mainBundle().pathForResource($0, ofType: "wav", inDirectory: "Sounds")!, tags: $1)}
         
         return Set(tags_paths.map() { TaggedAudioPath(tags: $0.tags, path: $0.path, loopLength: 1.875) })
     }

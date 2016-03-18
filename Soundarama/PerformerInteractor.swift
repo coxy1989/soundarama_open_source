@@ -28,8 +28,6 @@ class PerformerInteractor: PerformerInput {
     
      private lazy var audioStemStore: AudioStemStore =  { AudioStemStore() } ()
     
-    //private var audioloop: AudioLoop?
-    
     private var audioloop: (loop: MultiAudioLoop, paths: Set<TaggedAudioPath>)?
     
     func start() {
@@ -38,9 +36,6 @@ class PerformerInteractor: PerformerInput {
         connectionAdapter.delegate = self
         endpoint.connect()
         startInstruments()
-        
-        let paths = TaggedAudioPathStore.taggedAudioPaths("Synth")
-        startAudio(paths, afterDelay: 0, muted: false)
     }
 }
 
@@ -80,25 +75,17 @@ extension PerformerInteractor: ReadableMessageAdapterDelegate {
             
         case .Start:
             
-            let audioStem = audioStemStore.audioStem(message.reference)!
-            performerOutput.setAudioStem(audioStem)
-            
-            let paths = TaggedAudioPathStore.taggedAudioPaths(message.reference)
-            startAudio(paths, afterDelay: delay, muted: message.muted)
-            
-            //stopAudio(delay)
-            //startAudio(audioStem.audioFilePath, afterDelay: delay, muted: message.muted)
-            
-            //let audioStem = audioStemStore.audioStem(message.reference)!
-            //stopAudio(delay)
-            //startAudio(audioStem.audioFilePath, afterDelay: delay, muted: message.muted)
-            //performerOutput.setAudioStem(audioStem)
+            stopAudio(delay)
+            startAudio(TaggedAudioPathStore.taggedAudioPaths(message.reference), afterDelay: delay, muted: message.muted)
+            performerOutput.setAudioStem(audioStemStore.audioStem(message.reference)!)
             
         case .Stop:
+            
             stopAudio(delay)
             performerOutput.setAudioStem(nil)
             
         case .ToggleMute:
+            
             toggleMuteAudio(message.muted)
         }
     }
@@ -111,20 +98,18 @@ extension PerformerInteractor {
         
         audioloop = (MultiAudioLoop(paths: Set(paths.map({$0.path}))), paths)
         audioloop?.loop.start(afterDelay: afterDelay)
-        
-        //audioloop = AudioLoop(path: path, delay: afterDelay)
-        //audioloop!.start()
+        audioloop?.loop.setMuted(muted)
     }
     
     private func stopAudio(afterDelay: NSTimeInterval) {
         
-        //audioloop?.stop()
-        //audioloop = nil
+        audioloop?.loop.stop()
+        audioloop = nil
     }
     
     private func toggleMuteAudio(isMuted: Bool) {
         
-        //audioloop?.toggleMute(isMuted)
+        audioloop?.loop.setMuted(isMuted)
     }
 }
 
@@ -138,53 +123,24 @@ extension PerformerInteractor {
         compass.start() { [weak self] x in
             
             c = x
-            
-            guard a != nil else {
-                return
-            }
-            
-            guard self?.audioloop != nil else {
-                return
-            }
-            
-            let v = CompassAltitudeVolumeController.calculateVolume(self!.audioloop!.paths, compassValue: c!, altitudeValue: a!)
-            v.forEach() { self?.audioloop?.loop.setVolume($0.path, volume: $1) }
+            self?.controlAudioLoopVolume(c, altitudeValue: a)
         }
         
         altimeter.start() { [weak self] y in
             
             a = y
-            guard c != nil else { return }
-            
-            guard self?.audioloop != nil else {
-                return
-            }
-            
-            let v = CompassAltitudeVolumeController.calculateVolume(self!.audioloop!.paths, compassValue: c!, altitudeValue: a!)
-            v.forEach() { self?.audioloop?.loop.setVolume($0.path, volume: $1) }
+            self?.controlAudioLoopVolume(c, altitudeValue: a)
         }
     }
+    
+    func controlAudioLoopVolume(compassValue: Double?, altitudeValue: Double?) {
+        
+        guard let a = altitudeValue, c = compassValue, al = audioloop else {
+            
+            return
+        }
+        
+        let v = CompassAltitudeVolumeController.calculateVolume(al.paths, compassValue: c, altitudeValue: a)
+        v.forEach() { al.loop.setVolume($0.path, volume: $1) }
+    }
 }
-
-extension PerformerInteractor {
-    
-    /*
-    private func startAudio(path: String, afterDelay: NSTimeInterval, muted: Bool) {
-        
-        //audioloop = AudioLoop(path: path, delay: afterDelay)
-        //audioloop!.start()
-    }
-    
-    private func stopAudio(afterDelay: NSTimeInterval) {
-        
-        //audioloop?.stop()
-        //audioloop = nil
-    }
-    
-    private func toggleMuteAudio(isMuted: Bool) {
-        
-        //audioloop?.toggleMute(isMuted)
-    }
-*/
-}
-
