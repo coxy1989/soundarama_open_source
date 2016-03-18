@@ -27,13 +27,13 @@ enum CompassTag: String {
 
 struct CompassAltitudeVolumeController {
     
-    static let high_lower_limit: Double = 0.25
+    static let high_lower_limit: Double = 0.1
     
-    static let high_upper_limit: Double = 0.26
+    static let high_upper_limit: Double = 0.4
     
-    static let low_upper_limit: Double = -0.25
+    static let low_upper_limit: Double = -0.1
     
-    static let low_lower_limit: Double = -0.26
+    static let low_lower_limit: Double = -0.4
     
     private static let contains_alt: (Set<String>, AltitudeTag) -> Bool = { $0.contains($1.rawValue) }
     
@@ -43,11 +43,11 @@ struct CompassAltitudeVolumeController {
     
         var ret: [TaggedAudioPath : Volume] = [ : ]
         
-        interploateCompassHighAltitude(paths, compassValue: compassValue, altitudeValue: altitudeValue).forEach() { ret[$0] = $1 * 0.5 }
+        interploateCompassHighAltitude(paths, compassValue: compassValue, altitudeValue: altitudeValue).forEach() { ret[$0] = $1 }
         
-        interploateCompassMiddleAltitude(paths, compassValue: compassValue, altitudeValue: altitudeValue).forEach() { ret[$0] = $1 * 0.5 }
+        interploateCompassMiddleAltitude(paths, compassValue: compassValue, altitudeValue: altitudeValue).forEach() { ret[$0] = $1 }
         
-        interploateCompassLowAltitude(paths, compassValue: compassValue, altitudeValue: altitudeValue).forEach() { ret[$0] = $1 * 0.5 }
+        interploateCompassLowAltitude(paths, compassValue: compassValue, altitudeValue: altitudeValue).forEach() { ret[$0] = $1 }
         
         return ret
     }
