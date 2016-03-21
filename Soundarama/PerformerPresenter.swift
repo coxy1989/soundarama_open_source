@@ -7,11 +7,14 @@
 //
 
 import UIKit
+import TouchpressUI
 
 class PerformerPresenter: PerformerModule {
     
     weak var performerWireframe: PerformerWireframe!
-    weak var ui: PerformerUserInterface!
+    
+    weak var compassUI: CompassUserInterface!
+    
     weak var input: PerformerInput!
     
     func start(navigationController: UINavigationController) {
@@ -24,19 +27,26 @@ extension PerformerPresenter: PerformerOutput {
     
     func setConnectionState(state: ConnectionState) {
         
-        ui.setConnectionState(state)
+        //ui.setConnectionState(state)
     }
+
     
-    func setAudioStem(stem: AudioStem?) {
-    
-        ui.setColour(stem?.colour)
+    func setCompassValue(value: Double) {
+        
+        compassUI.setCompassValue(value)
     }
 }
 
-extension PerformerPresenter: PerformerUserInterfaceDelegate {
+extension PerformerPresenter: UserInterfaceDelegate {
     
-    func ready() {
+    func userInterfaceDidLoad(userInterface: UserInterface) {
         
         input.start()
     }
+    
+    func userInterfaceWillAppear(userInterface: UserInterface) { }
+    
+    func userInterfaceDidAppear(userInterface: UserInterface) { }
+    
+    func userInterfaceDidNavigateBack(userInterface: UserInterface) { }
 }

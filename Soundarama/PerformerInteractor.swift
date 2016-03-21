@@ -77,12 +77,12 @@ extension PerformerInteractor: ReadableMessageAdapterDelegate {
             
             stopAudio(delay)
             startAudio(TaggedAudioPathStore.taggedAudioPaths(message.reference), afterDelay: delay, muted: message.muted)
-            performerOutput.setAudioStem(audioStemStore.audioStem(message.reference)!)
+            //performerOutput.setAudioStem(audioStemStore.audioStem(message.reference)!)
             
         case .Stop:
             
             stopAudio(delay)
-            performerOutput.setAudioStem(nil)
+            //performerOutput.setAudioStem(nil)
             
         case .ToggleMute:
             
@@ -90,7 +90,6 @@ extension PerformerInteractor: ReadableMessageAdapterDelegate {
         }
     }
 }
-
 
 extension PerformerInteractor {
     
@@ -123,6 +122,7 @@ extension PerformerInteractor {
         compass.start() { [weak self] x in
             
             c = x
+            self?.performerOutput.setCompassValue(x)
             self?.controlAudioLoopVolume(c, altitudeValue: a)
         }
         

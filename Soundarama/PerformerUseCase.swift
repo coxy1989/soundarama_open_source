@@ -15,5 +15,5 @@ protocol PerformerOutput: class {
     
     func setConnectionState(state: ConnectionState)
     
-    func setAudioStem(stem: AudioStem?)
+    func setCompassValue(value: Double)
 }

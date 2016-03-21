@@ -14,19 +14,18 @@ class PerformerWireframe {
     
     func presentPerformerUI(navigationController: UINavigationController) {
         
-        if navigationController.viewControllers.count > 0 {
-            navigationController.pushViewController(performerViewController(), animated: true)
-        } else {
-            navigationController.viewControllers = [performerViewController()]
-        }
+        navigationController.pushViewController(instrumentsViewController(), animated: true)
     }
+}
+
+extension PerformerWireframe {
     
-    func performerViewController() -> UIViewController {
+    private func instrumentsViewController() -> InstrumentsViewController {
         
         let sb = UIStoryboard(name: "PerformerStoryboard", bundle: nil)
-        let vc = sb.instantiateViewControllerWithIdentifier("PerformerViewController") as! PerformerViewController
-        performerPresenter.ui = vc
-        vc.delegate = performerPresenter
+        let vc = sb.instantiateViewControllerWithIdentifier("InstrumentsViewController") as! InstrumentsViewController
+        vc.userInterfaceDelegate = performerPresenter
+        performerPresenter.compassUI = vc
         return vc
     }
 }

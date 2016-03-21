@@ -51,6 +51,41 @@
             </objects>
             <point key="canvasLocation" x="634" y="366"/>
         </scene>
+        <!--Instruments View Controller-->
+        <scene sceneID="u2K-30-vKk">
+            <objects>
+                <viewController storyboardIdentifier="InstrumentsViewController" id="wy5-1H-CP9" customClass="InstrumentsViewController" customModule="Soundarama" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="I6g-cw-orr"/>
+                        <viewControllerLayoutGuide type="bottom" id="aFK-d9-IDY"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="NDe-5A-F7o">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dXO-zq-10v" customClass="CompassView" customModule="Soundarama" customModuleProvider="target">
+                                <rect key="frame" x="150" y="150" width="300" height="300"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="300" id="QDG-QU-sIz"/>
+                                    <constraint firstAttribute="height" constant="300" id="Tdb-mI-zN4"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="dXO-zq-10v" firstAttribute="centerX" secondItem="NDe-5A-F7o" secondAttribute="centerX" id="cjl-cK-vmf"/>
+                            <constraint firstItem="dXO-zq-10v" firstAttribute="centerY" secondItem="NDe-5A-F7o" secondAttribute="centerY" id="xcM-Qg-ghs"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="compassView" destination="dXO-zq-10v" id="qU1-fn-cny"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="2FB-YL-paE" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1340" y="366"/>
+        </scene>
     </scenes>
     <resources>
         <image name="glitch-1" width="768" height="1366"/>
