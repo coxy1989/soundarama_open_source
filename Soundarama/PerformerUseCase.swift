@@ -16,4 +16,6 @@ protocol PerformerOutput: class {
     func setConnectionState(state: ConnectionState)
     
     func setCompassValue(value: Double)
+    
+    func setLevel(level: Level)
 }

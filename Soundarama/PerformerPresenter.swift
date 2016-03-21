@@ -15,6 +15,8 @@ class PerformerPresenter: PerformerModule {
     
     weak var compassUI: CompassUserInterface!
     
+    weak var levelUI: LevelUserInterface!
+    
     weak var input: PerformerInput!
     
     func start(navigationController: UINavigationController) {
@@ -34,6 +36,11 @@ extension PerformerPresenter: PerformerOutput {
     func setCompassValue(value: Double) {
         
         compassUI.setCompassValue(value)
+    }
+    
+    func setLevel(level: Level) {
+        
+        levelUI.setLevel(level)
     }
 }
 

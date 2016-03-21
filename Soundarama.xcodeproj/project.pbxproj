@@ -49,8 +49,16 @@
 		4280C0D81C5D1A8A00B2C9B3 /* MessageTransformer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4280C0D71C5D1A8A00B2C9B3 /* MessageTransformer.swift */; };
 		4280C0DA1C5D25DC00B2C9B3 /* MessageTransformerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4280C0D91C5D25DC00B2C9B3 /* MessageTransformerTests.swift */; };
 		4280C0DD1C5D4CAD00B2C9B3 /* MessageLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4280C0DC1C5D4CAD00B2C9B3 /* MessageLogger.swift */; };
+		42889BF51CA0468B00ACC3B9 /* Flickometer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42889BF41CA0468B00ACC3B9 /* Flickometer.swift */; };
+		42889BF71CA0476C00ACC3B9 /* Direction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42889BF61CA0476C00ACC3B9 /* Direction.swift */; };
+		42889BF91CA047BF00ACC3B9 /* Tags.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42889BF81CA047BF00ACC3B9 /* Tags.swift */; };
 		42899B791C886CC600ECA105 /* GroupTransformerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42899B781C886CC600ECA105 /* GroupTransformerTests.swift */; };
 		428A89011C9975DC0070BE7F /* Sounds in Resources */ = {isa = PBXBuildFile; fileRef = 428A89001C9975DC0070BE7F /* Sounds */; };
+		428AF2A81CA02DA80023FCC9 /* Accelerometer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 428AF2A71CA02DA80023FCC9 /* Accelerometer.swift */; };
+		428AF2AA1CA02F6A0023FCC9 /* CompassAccellerationVolumeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 428AF2A91CA02F6A0023FCC9 /* CompassAccellerationVolumeController.swift */; };
+		428AF2AC1CA0327C0023FCC9 /* ConnectionState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 428AF2AB1CA0327C0023FCC9 /* ConnectionState.swift */; };
+		428AF2AE1CA032BF0023FCC9 /* Level.swift in Sources */ = {isa = PBXBuildFile; fileRef = 428AF2AD1CA032BF0023FCC9 /* Level.swift */; };
+		428AF2B01CA0396F0023FCC9 /* LevelStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 428AF2AF1CA0396F0023FCC9 /* LevelStore.swift */; };
 		429EC9571C8475A8002FDBCC /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 429EC9561C8475A8002FDBCC /* AppDelegate.swift */; };
 		429EC95B1C84761F002FDBCC /* PerformerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 429EC95A1C84761F002FDBCC /* PerformerView.swift */; };
 		429EC95D1C847628002FDBCC /* SoundZoneView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 429EC95C1C847628002FDBCC /* SoundZoneView.swift */; };
@@ -157,8 +165,16 @@
 		4280C0D71C5D1A8A00B2C9B3 /* MessageTransformer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessageTransformer.swift; sourceTree = "<group>"; };
 		4280C0D91C5D25DC00B2C9B3 /* MessageTransformerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessageTransformerTests.swift; sourceTree = "<group>"; };
 		4280C0DC1C5D4CAD00B2C9B3 /* MessageLogger.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessageLogger.swift; sourceTree = "<group>"; };
+		42889BF41CA0468B00ACC3B9 /* Flickometer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Flickometer.swift; sourceTree = "<group>"; };
+		42889BF61CA0476C00ACC3B9 /* Direction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Direction.swift; sourceTree = "<group>"; };
+		42889BF81CA047BF00ACC3B9 /* Tags.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Tags.swift; sourceTree = "<group>"; };
 		42899B781C886CC600ECA105 /* GroupTransformerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GroupTransformerTests.swift; sourceTree = "<group>"; };
 		428A89001C9975DC0070BE7F /* Sounds */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Sounds; path = Resources/Sounds; sourceTree = "<group>"; };
+		428AF2A71CA02DA80023FCC9 /* Accelerometer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Accelerometer.swift; sourceTree = "<group>"; };
+		428AF2A91CA02F6A0023FCC9 /* CompassAccellerationVolumeController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CompassAccellerationVolumeController.swift; sourceTree = "<group>"; };
+		428AF2AB1CA0327C0023FCC9 /* ConnectionState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConnectionState.swift; sourceTree = "<group>"; };
+		428AF2AD1CA032BF0023FCC9 /* Level.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Level.swift; sourceTree = "<group>"; };
+		428AF2AF1CA0396F0023FCC9 /* LevelStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LevelStore.swift; sourceTree = "<group>"; };
 		429EC9561C8475A8002FDBCC /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		429EC95A1C84761F002FDBCC /* PerformerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PerformerView.swift; sourceTree = "<group>"; };
 		429EC95C1C847628002FDBCC /* SoundZoneView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SoundZoneView.swift; sourceTree = "<group>"; };
@@ -376,6 +392,10 @@
 				4249B59A1C5792490096872D /* Message.swift */,
 				42D9F8A51C88A7AB0056957B /* AudioStem.swift */,
 				42B3D1E61C99B1910065842D /* TaggedAudioPath.swift */,
+				428AF2AB1CA0327C0023FCC9 /* ConnectionState.swift */,
+				428AF2AD1CA032BF0023FCC9 /* Level.swift */,
+				42889BF61CA0476C00ACC3B9 /* Direction.swift */,
+				42889BF81CA047BF00ACC3B9 /* Tags.swift */,
 			);
 			name = Representation;
 			sourceTree = "<group>";
@@ -497,9 +517,12 @@
 		42B3D1E81C99B2540065842D /* Instrumentation */ = {
 			isa = PBXGroup;
 			children = (
+				428AF2A91CA02F6A0023FCC9 /* CompassAccellerationVolumeController.swift */,
 				42B3D1E91C99B3130065842D /* CompassAltitudeVolumeController.swift */,
 				42B3D1ED1C99CDF00065842D /* Compass.swift */,
 				42B3D1EF1C99D7D80065842D /* Altimeter.swift */,
+				428AF2A71CA02DA80023FCC9 /* Accelerometer.swift */,
+				42889BF41CA0468B00ACC3B9 /* Flickometer.swift */,
 			);
 			name = Instrumentation;
 			sourceTree = "<group>";
@@ -509,6 +532,7 @@
 			children = (
 				429EC9851C85AECE002FDBCC /* GroupStore.swift */,
 				4200803A1C5BD289009009E8 /* SuiteStore.swift */,
+				428AF2AF1CA0396F0023FCC9 /* LevelStore.swift */,
 			);
 			name = "Write Stores (Memory)";
 			sourceTree = "<group>";
@@ -807,6 +831,7 @@
 				420AA69F1C550B1700F7BB25 /* DecideViewController.swift in Sources */,
 				42A727B81C5537CF00BFCA47 /* PerformerUseCase.swift in Sources */,
 				421468681C568EC600892786 /* SocketEndpoint.swift in Sources */,
+				428AF2AA1CA02F6A0023FCC9 /* CompassAccellerationVolumeController.swift in Sources */,
 				42A727B01C552E2800BFCA47 /* DJModule.swift in Sources */,
 				420080371C5BAD50009009E8 /* SoundaramaDependencies.swift in Sources */,
 				42B3D1F21C99DDBB0065842D /* MultiAudioLoop.swift in Sources */,
@@ -823,7 +848,9 @@
 				42F90EE81C5D74280010F1C5 /* UIColor.swift in Sources */,
 				42D9F8A41C88A7950056957B /* Performer.swift in Sources */,
 				42AFC6571C554F5A00AD4B9B /* DJUseCase.swift in Sources */,
+				428AF2AE1CA032BF0023FCC9 /* Level.swift in Sources */,
 				4249B59D1C5797920096872D /* ChristiansTimeServer.swift in Sources */,
+				428AF2AC1CA0327C0023FCC9 /* ConnectionState.swift in Sources */,
 				429EC9671C84770C002FDBCC /* SwiftyJSON.swift in Sources */,
 				421468551C56345700892786 /* TP2P.swift in Sources */,
 				42D9F8A61C88A7AB0056957B /* AudioStem.swift in Sources */,
@@ -831,10 +858,12 @@
 				42B4F6DB1C96F79E00C755E6 /* ChristiansCalculator.swift in Sources */,
 				DFBAD41F1C64C346004C1D47 /* SpringMesh.swift in Sources */,
 				42AFC6651C55805300AD4B9B /* WriteableMessageAdapter.swift in Sources */,
+				428AF2B01CA0396F0023FCC9 /* LevelStore.swift in Sources */,
 				4200803B1C5BD289009009E8 /* SuiteStore.swift in Sources */,
 				42B3D1EE1C99CDF00065842D /* Compass.swift in Sources */,
 				42B3D1E51C99B0F50065842D /* TaggedAudioPathStore.swift in Sources */,
 				4249B59B1C5792490096872D /* Message.swift in Sources */,
+				428AF2A81CA02DA80023FCC9 /* Accelerometer.swift in Sources */,
 				420AA6A71C551C8600F7BB25 /* PerformerViewController.swift in Sources */,
 				421468661C56831F00892786 /* BroadcastStrategy.swift in Sources */,
 				4273BC631C87673C002E9EF9 /* UISuiteTransformer.swift in Sources */,
@@ -846,12 +875,14 @@
 				4273BC611C876708002E9EF9 /* GroupTransformer.swift in Sources */,
 				429EC9861C85AECE002FDBCC /* GroupStore.swift in Sources */,
 				42D9F8A21C88A7460056957B /* Workspace.swift in Sources */,
+				42889BF71CA0476C00ACC3B9 /* Direction.swift in Sources */,
 				42A727B21C552E5D00BFCA47 /* DJWireframe.swift in Sources */,
 				420AA6AB1C55288E00F7BB25 /* DecideWireframe.swift in Sources */,
 				42C45A881C58CA8C00888EA8 /* DJViewController.swift in Sources */,
 				42A727A41C552D0200BFCA47 /* PerformerWireframe.swift in Sources */,
 				42B3D1EA1C99B3130065842D /* CompassAltitudeVolumeController.swift in Sources */,
 				42B3D1E71C99B1910065842D /* TaggedAudioPath.swift in Sources */,
+				42889BF91CA047BF00ACC3B9 /* Tags.swift in Sources */,
 				425CC3281C74B8F200B39AB5 /* AudioLoop.swift in Sources */,
 				42A727B41C552E7400BFCA47 /* DJPresenter.swift in Sources */,
 				429EC95B1C84761F002FDBCC /* PerformerView.swift in Sources */,
@@ -864,6 +895,7 @@
 				4277FBF41C9729FB0042B051 /* DJAudioStemPickerViewController.swift in Sources */,
 				42A727A81C552D5D00BFCA47 /* PerformerModule.swift in Sources */,
 				4214685A1C56474F00892786 /* PerformerConnectionAdapter.swift in Sources */,
+				42889BF51CA0468B00ACC3B9 /* Flickometer.swift in Sources */,
 				42D9F8A01C88A70F0056957B /* Group.swift in Sources */,
 				429EC9691C847740002FDBCC /* UIColor+Hex.swift in Sources */,
 				429EC9621C847697002FDBCC /* AudioController.mm in Sources */,

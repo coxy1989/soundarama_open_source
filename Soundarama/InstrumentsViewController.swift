@@ -9,6 +9,11 @@
 import UIKit
 import TouchpressUI
 
+protocol LevelUserInterface: class {
+    
+    func setLevel(level: Level)
+}
+
 protocol CompassUserInterface: class {
     
     func setCompassValue(value: Double)
@@ -17,6 +22,36 @@ protocol CompassUserInterface: class {
 class InstrumentsViewController: ViewController {
     
     @IBOutlet weak var compassView: UIView!
+    @IBOutlet weak var highLabel: UILabel!
+    @IBOutlet weak var middleLabel: UILabel!
+    @IBOutlet weak var lowLabel: UILabel!
+}
+
+extension InstrumentsViewController: LevelUserInterface {
+    
+    func setLevel(level: Level) {
+        
+        switch level {
+            
+        case .High:
+            
+            highLabel.hidden = false
+            middleLabel.hidden = true
+            lowLabel.hidden = true
+            
+        case .Middle:
+            
+            highLabel.hidden = true
+            middleLabel.hidden = false
+            lowLabel.hidden = true
+            
+        case .Low:
+            
+            highLabel.hidden = true
+            middleLabel.hidden = true
+            lowLabel.hidden = false
+        }
+    }
 }
 
 extension InstrumentsViewController: CompassUserInterface {

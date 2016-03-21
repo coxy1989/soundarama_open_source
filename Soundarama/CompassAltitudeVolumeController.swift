@@ -7,23 +7,6 @@
 //
 
 typealias Volume = Float
-typealias Tag = String
-
-enum AltitudeTag: String {
-    
-    case High = "Altitude:HIGH"
-    
-    case Middle = "Altitude:MIDDLE"
-    
-    case Low = "Altitude:LOW"
-}
-
-enum CompassTag: String {
-    
-    case North = "Compass:NORTH"
-    
-    case South = "Compass:SOUTH"
-}
 
 struct CompassAltitudeVolumeController {
     

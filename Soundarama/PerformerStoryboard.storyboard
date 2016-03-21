@@ -71,15 +71,42 @@
                                     <constraint firstAttribute="height" constant="300" id="Tdb-mI-zN4"/>
                                 </constraints>
                             </view>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="High" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="X7B-YW-egH">
+                                <rect key="frame" x="282" y="70" width="35.5" height="19.5"/>
+                                <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Middle" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="p0j-Es-kf0">
+                                <rect key="frame" x="274" y="97" width="51.5" height="19.5"/>
+                                <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Low" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mrr-lq-N0w">
+                                <rect key="frame" x="284.5" y="124" width="31" height="19.5"/>
+                                <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="p0j-Es-kf0" firstAttribute="top" secondItem="X7B-YW-egH" secondAttribute="bottom" constant="7.5" id="7d5-Cr-H6L"/>
+                            <constraint firstItem="mrr-lq-N0w" firstAttribute="centerX" secondItem="p0j-Es-kf0" secondAttribute="centerX" id="8Ll-q9-ffi"/>
+                            <constraint firstItem="mrr-lq-N0w" firstAttribute="top" secondItem="p0j-Es-kf0" secondAttribute="bottom" constant="7.5" id="AxV-YQ-JBT"/>
+                            <constraint firstItem="X7B-YW-egH" firstAttribute="centerX" secondItem="NDe-5A-F7o" secondAttribute="centerX" id="Ba7-1d-yab"/>
+                            <constraint firstItem="X7B-YW-egH" firstAttribute="top" secondItem="I6g-cw-orr" secondAttribute="bottom" constant="50" id="OOz-5j-xRI"/>
+                            <constraint firstItem="p0j-Es-kf0" firstAttribute="centerX" secondItem="X7B-YW-egH" secondAttribute="centerX" id="Rfh-aC-Wu6"/>
                             <constraint firstItem="dXO-zq-10v" firstAttribute="centerX" secondItem="NDe-5A-F7o" secondAttribute="centerX" id="cjl-cK-vmf"/>
                             <constraint firstItem="dXO-zq-10v" firstAttribute="centerY" secondItem="NDe-5A-F7o" secondAttribute="centerY" id="xcM-Qg-ghs"/>
                         </constraints>
                     </view>
                     <connections>
                         <outlet property="compassView" destination="dXO-zq-10v" id="qU1-fn-cny"/>
+                        <outlet property="highLabel" destination="X7B-YW-egH" id="63R-NR-ULC"/>
+                        <outlet property="lowLabel" destination="mrr-lq-N0w" id="hyt-ao-KEG"/>
+                        <outlet property="middleLabel" destination="p0j-Es-kf0" id="dC6-pL-qHG"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="2FB-YL-paE" userLabel="First Responder" sceneMemberID="firstResponder"/>

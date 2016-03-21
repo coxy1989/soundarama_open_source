@@ -26,6 +26,7 @@ extension PerformerWireframe {
         let vc = sb.instantiateViewControllerWithIdentifier("InstrumentsViewController") as! InstrumentsViewController
         vc.userInterfaceDelegate = performerPresenter
         performerPresenter.compassUI = vc
+        performerPresenter.levelUI = vc
         return vc
     }
 }

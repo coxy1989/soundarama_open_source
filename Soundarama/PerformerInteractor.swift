@@ -16,7 +16,7 @@ class PerformerInteractor: PerformerInput {
     
     let compass = Compass(locationManager: LocationService.manager)
     
-    let altimeter = Altitmeter()
+    let flickometer = Flickometer(accellerometer: Accellerometer(motionManager: MotionService.manager))
     
     private var connectionAdapter: PerformerConnectionAdapter!
     
@@ -26,7 +26,9 @@ class PerformerInteractor: PerformerInput {
     
     private var christiansMap: (remote: NSTimeInterval, local: NSTimeInterval)?
     
-     private lazy var audioStemStore: AudioStemStore =  { AudioStemStore() } ()
+    private lazy var audioStemStore: AudioStemStore =  { AudioStemStore() } ()
+    
+    private var levelStore = LevelStore()
     
     private var audioloop: (loop: MultiAudioLoop, paths: Set<TaggedAudioPath>)?
     
@@ -36,6 +38,7 @@ class PerformerInteractor: PerformerInput {
         connectionAdapter.delegate = self
         endpoint.connect()
         startInstruments()
+        performerOutput.setLevel(levelStore.getLevel())
     }
 }
 
@@ -114,25 +117,78 @@ extension PerformerInteractor {
 
 extension PerformerInteractor {
     
+    func changeLevel(toLevel: Level) {
+        
+        let prestate = levelStore.getLevel()
+        levelStore.setLevel(toLevel)
+        let poststate = levelStore.getLevel()
+        
+        lockLevelStore(2)
+        didChangeLevel(prestate, toLevel: poststate)
+    }
+    
+    func didChangeLevel(fromLevel: Level, toLevel: Level) {
+        
+        guard fromLevel != toLevel else {
+            return
+        }
+        
+        performerOutput.setLevel(levelStore.getLevel())
+    }
+    
+    func lockLevelStore(duration: NSTimeInterval) {
+        
+        levelStore.lock()
+        
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, Int64((UInt64(duration) * NSEC_PER_SEC))), dispatch_get_main_queue()) { [weak self] in
+            
+            self?.levelStore.unlock()
+        }
+    }
+}
+
+extension PerformerInteractor {
+    
     private func startInstruments() {
         
         var c: Double?
-        var a: Double?
         
-        compass.start() { [weak self] x in
+        compass.start() { [weak self] in
             
-            c = x
-            self?.performerOutput.setCompassValue(x)
-            self?.controlAudioLoopVolume(c, altitudeValue: a)
+            guard let this = self else {
+                
+                return
+            }
+            
+            c = $0
+            this.performerOutput.setCompassValue($0)
+            this.controlAudioLoopVolume($0, level: this.levelStore.getLevel())
         }
         
-        altimeter.start() { [weak self] y in
+        flickometer.start() { [weak self] in
             
-            a = y
-            self?.controlAudioLoopVolume(c, altitudeValue: a)
+            guard let this = self else {
+                
+                return
+            }
+            
+            switch $0 {
+                
+                case .Up: this.changeLevel(this.levelStore.getLevel().levelUp())
+                
+                case .Down: this.changeLevel(this.levelStore.getLevel().levelDown())
+            }
+            
+            this.controlAudioLoopVolume(c, level: this.levelStore.getLevel())
         }
     }
     
+    func controlAudioLoopVolume(compasssValue: Double?, level: Level) {
+        
+        
+    }
+    
+    /*
     func controlAudioLoopVolume(compassValue: Double?, altitudeValue: Double?) {
         
         guard let a = altitudeValue, c = compassValue, al = audioloop else {
@@ -143,4 +199,5 @@ extension PerformerInteractor {
         let v = CompassAltitudeVolumeController.calculateVolume(al.paths, compassValue: c, altitudeValue: a)
         v.forEach() { al.loop.setVolume($0.path, volume: $1) }
     }
+*/
 }

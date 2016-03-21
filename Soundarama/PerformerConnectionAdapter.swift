@@ -6,11 +6,6 @@
 //  Copyright © 2016 Touchpress Ltd. All rights reserved.
 //
 
-enum ConnectionState {
-    
-    case Connected, NotConnected
-}
-
 class PerformerConnectionAdapter: ConnectableDelegate {
     
     weak var delegate: PerformerConnectionAdapterDelegate!
