@@ -39,3 +39,53 @@ class Flickometer {
         }
     }
 }
+
+class Swishometer {
+    
+    let accellerometer: Accellerometer
+    
+    private var values: [Double] = []
+    
+    init(accellerometer: Accellerometer) {
+        
+        self.accellerometer = accellerometer
+    }
+    
+    func start(handler: Direction -> ()) {
+        
+        accellerometer.start() { [weak self] in
+            
+            guard let this = self else {
+                
+                return
+            }
+            
+            this.values.append($0.z)
+            
+            let last40 = this.values.suffix(40)
+            
+            let triggeredDown = last40.filter() { $0 > 0.5 }.count >= 1
+            
+            let triggeredDown2 = last40.map() { $0 > 0 }.filter({ $0 == true}).count >= 40
+            
+            let triggeredUp = last40.filter() { $0 < -0.5 }.count >= 1
+            
+            let triggeredUp2 = last40.map() { $0 < 0 }.filter({ $0 == true}).count >= 40
+            
+            if triggeredDown && triggeredDown2 {
+                
+                handler(.Down)
+            }
+            
+            if triggeredUp && triggeredUp2 {
+                
+                handler(.Up)
+            }
+            
+            if this.values.count > 40 {
+             
+                this.values = Array(last40)
+            }
+        }
+    }
+}

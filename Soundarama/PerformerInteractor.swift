@@ -18,6 +18,8 @@ class PerformerInteractor: PerformerInput {
     
     let flickometer = Flickometer(accellerometer: Accellerometer(motionManager: MotionService.manager))
     
+    let swishometer = Swishometer(accellerometer: Accellerometer(motionManager: MotionService.manager))
+    
     private var connectionAdapter: PerformerConnectionAdapter!
     
     private var messageAdapter: ReadableMessageAdapter!
@@ -39,6 +41,8 @@ class PerformerInteractor: PerformerInput {
         endpoint.connect()
         startInstruments()
         performerOutput.setLevel(levelStore.getLevel())
+        
+        startAudio(TaggedAudioPathStore.taggedAudioPaths("Synth"), afterDelay: 0.2, muted: false)
     }
 }
 
@@ -165,7 +169,7 @@ extension PerformerInteractor {
             this.controlAudioLoopVolume($0, level: this.levelStore.getLevel())
         }
         
-        flickometer.start() { [weak self] in
+        swishometer.start() { [weak self] in
             
             guard let this = self else {
                 
@@ -185,7 +189,13 @@ extension PerformerInteractor {
     
     func controlAudioLoopVolume(compasssValue: Double?, level: Level) {
         
+        guard let c = compasssValue, al = audioloop else {
+            
+            return
+        }
         
+        let v = CompassLevelVolumeController.calculateVolume(al.paths, compassValue: c, level: level)
+        v.forEach() { al.loop.setVolume($0.path, volume: $1) }
     }
     
     /*
