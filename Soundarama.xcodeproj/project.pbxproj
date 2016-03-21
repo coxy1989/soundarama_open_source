@@ -1023,7 +1023,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer: Hagrid Touchpress (9AU83854CK)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Hagrid Touchpress (9AU83854CK)";
 				DEFINES_MODULE = NO;
-				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
+				EMBEDDED_CONTENT_CONTAINS_SWIFT = NO;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SRCROOT)/Carthage/Build/iOS",
@@ -1048,7 +1048,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Touchpress Limited (YL8CTL4C9C)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Touchpress Limited (YL8CTL4C9C)";
 				DEFINES_MODULE = NO;
-				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
+				EMBEDDED_CONTENT_CONTAINS_SWIFT = NO;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SRCROOT)/Carthage/Build/iOS",
