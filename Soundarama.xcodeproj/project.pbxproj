@@ -86,8 +86,8 @@
 		42AFC6651C55805300AD4B9B /* WriteableMessageAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42AFC6641C55805300AD4B9B /* WriteableMessageAdapter.swift */; };
 		42B3D1E51C99B0F50065842D /* TaggedAudioPathStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42B3D1E41C99B0F50065842D /* TaggedAudioPathStore.swift */; };
 		42B3D1E71C99B1910065842D /* TaggedAudioPath.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42B3D1E61C99B1910065842D /* TaggedAudioPath.swift */; };
-		42B3D1EA1C99B3130065842D /* CompassAltitudeVolumeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42B3D1E91C99B3130065842D /* CompassAltitudeVolumeController.swift */; };
-		42B3D1EC1C99B7260065842D /* CompassAltitudeVolumeControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42B3D1EB1C99B7260065842D /* CompassAltitudeVolumeControllerTests.swift */; };
+		42B3D1EA1C99B3130065842D /* CompassLevelVolumeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42B3D1E91C99B3130065842D /* CompassLevelVolumeController.swift */; };
+		42B3D1EC1C99B7260065842D /* CompassLevelVolumeControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42B3D1EB1C99B7260065842D /* CompassLevelVolumeControllerTests.swift */; };
 		42B3D1EE1C99CDF00065842D /* Compass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42B3D1ED1C99CDF00065842D /* Compass.swift */; };
 		42B3D1F01C99D7D80065842D /* Altimeter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42B3D1EF1C99D7D80065842D /* Altimeter.swift */; };
 		42B3D1F21C99DDBB0065842D /* MultiAudioLoop.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42B3D1F11C99DDBB0065842D /* MultiAudioLoop.swift */; };
@@ -204,8 +204,8 @@
 		42AFC6641C55805300AD4B9B /* WriteableMessageAdapter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WriteableMessageAdapter.swift; sourceTree = "<group>"; };
 		42B3D1E41C99B0F50065842D /* TaggedAudioPathStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TaggedAudioPathStore.swift; sourceTree = "<group>"; };
 		42B3D1E61C99B1910065842D /* TaggedAudioPath.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TaggedAudioPath.swift; sourceTree = "<group>"; };
-		42B3D1E91C99B3130065842D /* CompassAltitudeVolumeController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CompassAltitudeVolumeController.swift; sourceTree = "<group>"; };
-		42B3D1EB1C99B7260065842D /* CompassAltitudeVolumeControllerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CompassAltitudeVolumeControllerTests.swift; sourceTree = "<group>"; };
+		42B3D1E91C99B3130065842D /* CompassLevelVolumeController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CompassLevelVolumeController.swift; sourceTree = "<group>"; };
+		42B3D1EB1C99B7260065842D /* CompassLevelVolumeControllerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CompassLevelVolumeControllerTests.swift; sourceTree = "<group>"; };
 		42B3D1ED1C99CDF00065842D /* Compass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Compass.swift; sourceTree = "<group>"; };
 		42B3D1EF1C99D7D80065842D /* Altimeter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Altimeter.swift; sourceTree = "<group>"; };
 		42B3D1F11C99DDBB0065842D /* MultiAudioLoop.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MultiAudioLoop.swift; sourceTree = "<group>"; };
@@ -277,7 +277,7 @@
 				42E81E8E1C5E37E100A9FC57 /* SuiteStoreTests.swift */,
 				429EC9881C85AF9F002FDBCC /* GroupStoreTests.swift */,
 				42899B781C886CC600ECA105 /* GroupTransformerTests.swift */,
-				42B3D1EB1C99B7260065842D /* CompassAltitudeVolumeControllerTests.swift */,
+				42B3D1EB1C99B7260065842D /* CompassLevelVolumeControllerTests.swift */,
 			);
 			name = "Test Cases";
 			sourceTree = "<group>";
@@ -515,7 +515,7 @@
 		42B3D1E81C99B2540065842D /* Instrumentation */ = {
 			isa = PBXGroup;
 			children = (
-				42B3D1E91C99B3130065842D /* CompassAltitudeVolumeController.swift */,
+				42B3D1E91C99B3130065842D /* CompassLevelVolumeController.swift */,
 				42B3D1ED1C99CDF00065842D /* Compass.swift */,
 				42B3D1EF1C99D7D80065842D /* Altimeter.swift */,
 				428AF2A71CA02DA80023FCC9 /* Accelerometer.swift */,
@@ -810,7 +810,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				42B3D1EC1C99B7260065842D /* CompassAltitudeVolumeControllerTests.swift in Sources */,
+				42B3D1EC1C99B7260065842D /* CompassLevelVolumeControllerTests.swift in Sources */,
 				42E81E8F1C5E37E100A9FC57 /* SuiteStoreTests.swift in Sources */,
 				429EC9891C85AF9F002FDBCC /* GroupStoreTests.swift in Sources */,
 				420080261C5A458B009009E8 /* SoundaramaTests.swift in Sources */,
@@ -876,7 +876,7 @@
 				420AA6AB1C55288E00F7BB25 /* DecideWireframe.swift in Sources */,
 				42C45A881C58CA8C00888EA8 /* DJViewController.swift in Sources */,
 				42A727A41C552D0200BFCA47 /* PerformerWireframe.swift in Sources */,
-				42B3D1EA1C99B3130065842D /* CompassAltitudeVolumeController.swift in Sources */,
+				42B3D1EA1C99B3130065842D /* CompassLevelVolumeController.swift in Sources */,
 				42B3D1E71C99B1910065842D /* TaggedAudioPath.swift in Sources */,
 				42889BF91CA047BF00ACC3B9 /* Tags.swift in Sources */,
 				425CC3281C74B8F200B39AB5 /* AudioLoop.swift in Sources */,

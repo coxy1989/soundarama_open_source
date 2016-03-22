@@ -1,5 +1,5 @@
 //
-//  CompassAltitudeVolumeControllerTests.swift
+//  CompassLevelVolumeControllerTests.swift
 //  Soundarama
 //
 //  Created by Jamie Cox on 16/03/2016.
@@ -9,7 +9,7 @@
 import XCTest
 @testable import Soundarama
 
-class CompassAltitudeVolumeControllerTests: XCTestCase {
+class CompassLevelVolumeControllerTests: XCTestCase {
 
     var tagged_paths: Set<TaggedAudioPath>!
     
@@ -45,13 +45,13 @@ class CompassAltitudeVolumeControllerTests: XCTestCase {
     }
 }
 
-extension CompassAltitudeVolumeControllerTests {
+extension CompassLevelVolumeControllerTests {
     
     /* Level == Middle */
     
     func test_compass_north_level_EQ_middle() {
 
-        let ret = CompassAltitudeVolumeController.calculateVolume(tagged_paths, compassValue: 0, level: .Middle)
+        let ret = CompassLevelVolumeController.calculateVolume(tagged_paths, compassValue: 0, level: .Middle)
         
         XCTAssertEqual(ret[north_high], 0)
         XCTAssertEqual(ret[north_low], 0)
@@ -65,7 +65,7 @@ extension CompassAltitudeVolumeControllerTests {
     
     func test_compass_nort_east_level_EQ_middle() {
         
-       let ret = CompassAltitudeVolumeController.calculateVolume(tagged_paths, compassValue: 45, level: .Middle)
+       let ret = CompassLevelVolumeController.calculateVolume(tagged_paths, compassValue: 45, level: .Middle)
         
         XCTAssertEqual(ret[north_high], 0)
         XCTAssertEqual(ret[north_low], 0)
@@ -78,7 +78,7 @@ extension CompassAltitudeVolumeControllerTests {
     
     func test_compass_east_level_EQ_middle() {
         
-        let ret = CompassAltitudeVolumeController.calculateVolume(tagged_paths, compassValue: 90, level: .Middle)
+        let ret = CompassLevelVolumeController.calculateVolume(tagged_paths, compassValue: 90, level: .Middle)
         
         XCTAssertEqual(ret[north_high], 0)
         XCTAssertEqual(ret[north_low], 0)
@@ -91,7 +91,7 @@ extension CompassAltitudeVolumeControllerTests {
     
     func test_compass_south_east_level_EQ_middle() {
         
-        let ret = CompassAltitudeVolumeController.calculateVolume(tagged_paths, compassValue: 135, level: .Middle)
+        let ret = CompassLevelVolumeController.calculateVolume(tagged_paths, compassValue: 135, level: .Middle)
         
         XCTAssertEqual(ret[north_high], 0)
         XCTAssertEqual(ret[north_low], 0)
@@ -104,7 +104,7 @@ extension CompassAltitudeVolumeControllerTests {
     
     func test_compass_south_level_EQ_middle() {
         
-        let ret = CompassAltitudeVolumeController.calculateVolume(tagged_paths, compassValue: 180, level: .Middle)
+        let ret = CompassLevelVolumeController.calculateVolume(tagged_paths, compassValue: 180, level: .Middle)
         
         XCTAssertEqual(ret[north_high], 0)
         XCTAssertEqual(ret[north_low], 0)
@@ -117,7 +117,7 @@ extension CompassAltitudeVolumeControllerTests {
     
     func test_compass_south_west_level_EQ_middle() {
         
-        let ret = CompassAltitudeVolumeController.calculateVolume(tagged_paths, compassValue: 135, level: .Middle)
+        let ret = CompassLevelVolumeController.calculateVolume(tagged_paths, compassValue: 135, level: .Middle)
         
         XCTAssertEqual(ret[north_high], 0)
         XCTAssertEqual(ret[north_low], 0)
@@ -130,7 +130,7 @@ extension CompassAltitudeVolumeControllerTests {
     
     func test_compass_west_level_EQ_middle() {
         
-        let ret = CompassAltitudeVolumeController.calculateVolume(tagged_paths, compassValue: 270, level: .Middle)
+        let ret = CompassLevelVolumeController.calculateVolume(tagged_paths, compassValue: 270, level: .Middle)
         
         XCTAssertEqual(ret[north_high], 0)
         XCTAssertEqual(ret[north_low], 0)
@@ -143,7 +143,7 @@ extension CompassAltitudeVolumeControllerTests {
     
     func test_compass_north_west_level_EQ_middle() {
         
-        let ret = CompassAltitudeVolumeController.calculateVolume(tagged_paths, compassValue: 315, level: .Middle)
+        let ret = CompassLevelVolumeController.calculateVolume(tagged_paths, compassValue: 315, level: .Middle)
         
         XCTAssertEqual(ret[north_high], 0)
         XCTAssertEqual(ret[north_low], 0)
@@ -155,13 +155,13 @@ extension CompassAltitudeVolumeControllerTests {
     }
 }
 
-extension CompassAltitudeVolumeControllerTests {
+extension CompassLevelVolumeControllerTests {
     
     /* Level == High */
     
     func test_compasss_north_level_EQ_high() {
         
-        let ret = CompassAltitudeVolumeController.calculateVolume(tagged_paths, compassValue: 0, level: .High)
+        let ret = CompassLevelVolumeController.calculateVolume(tagged_paths, compassValue: 0, level: .High)
         
         XCTAssertEqual(ret[north_low], 0)
         XCTAssertEqual(ret[south_high], 0)
@@ -174,7 +174,7 @@ extension CompassAltitudeVolumeControllerTests {
     
     func test_compasss_east_level_EQ_high() {
         
-        let ret = CompassAltitudeVolumeController.calculateVolume(tagged_paths, compassValue: 90, level: .High)
+        let ret = CompassLevelVolumeController.calculateVolume(tagged_paths, compassValue: 90, level: .High)
         
         XCTAssertEqual(ret[north_low], 0)
         XCTAssertEqual(ret[south_low], 0)
@@ -187,7 +187,7 @@ extension CompassAltitudeVolumeControllerTests {
     
     func test_compasss_south_altitude_EQ_high() {
         
-        let ret = CompassAltitudeVolumeController.calculateVolume(tagged_paths, compassValue: 180, level: .High)
+        let ret = CompassLevelVolumeController.calculateVolume(tagged_paths, compassValue: 180, level: .High)
         
         XCTAssertEqual(ret[north_high], 0)
         XCTAssertEqual(ret[north_low], 0)
@@ -200,7 +200,7 @@ extension CompassAltitudeVolumeControllerTests {
     
     func test_compasss_west_altitude_EQ_high() {
         
-        let ret = CompassAltitudeVolumeController.calculateVolume(tagged_paths, compassValue: 270, level: .High)
+        let ret = CompassLevelVolumeController.calculateVolume(tagged_paths, compassValue: 270, level: .High)
         
         XCTAssertEqual(ret[north_low], 0)
         XCTAssertEqual(ret[south_low], 0)
@@ -212,13 +212,13 @@ extension CompassAltitudeVolumeControllerTests {
     }
 }
 
-extension CompassAltitudeVolumeControllerTests {
+extension CompassLevelVolumeControllerTests {
     
     /* Level == Low */
     
     func test_compasss_north_level_EQ_low() {
         
-        let ret = CompassAltitudeVolumeController.calculateVolume(tagged_paths, compassValue: 0, level: .Low)
+        let ret = CompassLevelVolumeController.calculateVolume(tagged_paths, compassValue: 0, level: .Low)
         
         XCTAssertEqual(ret[south_high], 0)
         XCTAssertEqual(ret[south_low], 0)
@@ -232,7 +232,7 @@ extension CompassAltitudeVolumeControllerTests {
     
     func test_compasss_east_level_EQ_low() {
         
-        let ret = CompassAltitudeVolumeController.calculateVolume(tagged_paths, compassValue: 90, level: .Low)
+        let ret = CompassLevelVolumeController.calculateVolume(tagged_paths, compassValue: 90, level: .Low)
         
         
         XCTAssertEqual(ret[north_high], 0)
@@ -246,7 +246,7 @@ extension CompassAltitudeVolumeControllerTests {
     
     func test_compasss_south_altitude_EQ_low() {
         
-        let ret = CompassAltitudeVolumeController.calculateVolume(tagged_paths, compassValue: 180, level: .Low)
+        let ret = CompassLevelVolumeController.calculateVolume(tagged_paths, compassValue: 180, level: .Low)
         
         XCTAssertEqual(ret[north_high], 0)
         XCTAssertEqual(ret[north_low], 0)
@@ -259,7 +259,7 @@ extension CompassAltitudeVolumeControllerTests {
     
     func test_compasss_west_altitude_EQ_low() {
         
-        let ret = CompassAltitudeVolumeController.calculateVolume(tagged_paths, compassValue: 270, level: .Low)
+        let ret = CompassLevelVolumeController.calculateVolume(tagged_paths, compassValue: 270, level: .Low)
         
         XCTAssertEqual(ret[north_high], 0)
         XCTAssertEqual(ret[south_high], 0)
