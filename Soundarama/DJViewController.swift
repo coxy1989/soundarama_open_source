@@ -67,7 +67,7 @@ class DJViewController: ViewController {
     private lazy var viewPanGestureRecognizer: UIPanGestureRecognizer = {
        
         let r = UIPanGestureRecognizer()
-        r.addTarget(self, action: Selector("didLassooWithPan:"))
+        r.addTarget(self, action: #selector(DJViewController.didLassooWithPan(_:)))
         r.delegate = self
         return r
     }()
@@ -476,11 +476,11 @@ extension DJViewController {
     
     private func groupViewGestureRecongnizers() -> Set<UIGestureRecognizer> {
         
-        let pan = UIPanGestureRecognizer(target: self, action: Selector("didPanGroup:"))
-        let longPress = UILongPressGestureRecognizer(target: self, action: "didLongPressGroup:")
+        let pan = UIPanGestureRecognizer(target: self, action: #selector(DJViewController.didPanGroup(_:)))
+        let longPress = UILongPressGestureRecognizer(target: self, action: #selector(DJViewController.didLongPressGroup(_:)))
         longPress.delegate = self
         longPress.minimumPressDuration = 0.001
-        let tap = UITapGestureRecognizer(target: self, action: "didDoubleTapGroup:")
+        let tap = UITapGestureRecognizer(target: self, action: #selector(DJViewController.didDoubleTapGroup(_:)))
         tap.numberOfTapsRequired = 2
         return Set([longPress, pan, tap])
     }
@@ -498,8 +498,8 @@ extension DJViewController {
     
     private func performerViewGestureRecognizers() -> Set<UIGestureRecognizer> {
         
-        let pan = UIPanGestureRecognizer(target: self, action: "didPanPerformer:")
-        let longPress = UILongPressGestureRecognizer(target: self, action: "didLongPressPerformer:")
+        let pan = UIPanGestureRecognizer(target: self, action: #selector(DJViewController.didPanPerformer(_:)))
+        let longPress = UILongPressGestureRecognizer(target: self, action: #selector(DJViewController.didLongPressPerformer(_:)))
         longPress.delegate = self
         longPress.minimumPressDuration = 0.001
         return Set([pan, longPress])

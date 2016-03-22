@@ -8,7 +8,7 @@
 
 protocol Butcher {
     
-    typealias T
+    associatedtype T
     
     var head: T { get }
     
