@@ -100,7 +100,7 @@ class SoundZoneView: UIView {
         let b = UIButton()
         b.setImage(UIImage(named: "btn-playlist")?.imageWithRenderingMode(UIImageRenderingMode.AlwaysOriginal), forState: .Normal)
         b.layer.borderWidth = 2.0
-        b.addTarget(self, action: "didPressPlaylistButton:", forControlEvents: .TouchUpInside)
+        b.addTarget(self, action: #selector(SoundZoneView.didPressPlaylistButton), forControlEvents: .TouchUpInside)
         return b
     }()
     
@@ -111,7 +111,7 @@ class SoundZoneView: UIView {
         b.setTitleColor(UIColor.blackColor(), forState: .Normal)
         b.setTitleColor(UIColor.whiteColor().colorWithAlphaComponent(0.5), forState: .Selected)
         b.layer.borderWidth = 2.0
-        b.addTarget(self, action: "didPressMuteButton:", forControlEvents: .TouchUpInside)
+        b.addTarget(self, action: #selector(SoundZoneView.didPressMuteButton), forControlEvents: .TouchUpInside)
         return b
     }()
     
@@ -122,7 +122,7 @@ class SoundZoneView: UIView {
         b.setTitleColor(UIColor.blackColor(), forState: .Normal)
         b.setTitleColor(UIColor.whiteColor().colorWithAlphaComponent(0.5), forState: .Selected)
         b.layer.borderWidth = 2.0
-        b.addTarget(self, action: "didPressSoloButton:", forControlEvents: .TouchUpInside)
+        b.addTarget(self, action: #selector(SoundZoneView.didPressSoloButton), forControlEvents: .TouchUpInside)
         return b
     }()
     
@@ -135,7 +135,7 @@ class SoundZoneView: UIView {
         b.titleLabel?.font = UIFont.soundaramaSansSerifRomanFont(size: 14)
         b.setTitleColor(UIColor.whiteColor(), forState: .Normal)
         b.clipsToBounds = true
-        b.addTarget(self, action: "didPressAddNewStemButton:", forControlEvents: .TouchUpInside)
+        b.addTarget(self, action: #selector(SoundZoneView.didPressAddNewStemButton), forControlEvents: .TouchUpInside)
         return b
     }()
     
@@ -254,22 +254,22 @@ extension SoundZoneView {
 
 extension SoundZoneView {
     
-    @objc private func didPressPlaylistButton(button: UIButton) {
+    @objc private func didPressPlaylistButton() {
         
         delegate?.soundZoneViewDidRequestStemChange(self)
     }
     
-    @objc private func didPressMuteButton(button: UIButton) {
+    @objc private func didPressMuteButton() {
         
         delegate?.soundZoneViewDidChangeMuteState(self)
     }
     
-    @objc private func didPressSoloButton(button: UIButton) {
+    @objc private func didPressSoloButton() {
         
         delegate?.soundZoneViewDidChangeSoloState(self)
     }
     
-    @objc private func didPressAddNewStemButton(button: UIButton) {
+    @objc private func didPressAddNewStemButton() {
         
         delegate?.soundZoneViewDidRequestStemChange(self)
     }
@@ -279,7 +279,7 @@ extension SoundZoneView {
     
     func addControls() {
         
-        let controls = [playlistButton, muteButton, soloButton, titleLabel, addNewStemButton]
+        let controls = [addNewStemButton, playlistButton, muteButton, soloButton, titleLabel]
         for c in controls {
             addSubview(c)
         }
