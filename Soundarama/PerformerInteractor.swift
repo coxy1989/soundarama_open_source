@@ -7,6 +7,7 @@
 //
 
 import AVFoundation
+import UIKit
 
 class PerformerInteractor: PerformerInput {
  
@@ -41,8 +42,6 @@ class PerformerInteractor: PerformerInput {
         endpoint.connect()
         startInstruments()
         performerOutput.setLevel(levelStore.getLevel())
-        
-        startAudio(TaggedAudioPathStore.taggedAudioPaths("Synth"), afterDelay: 0.2, muted: false)
     }
 }
 
@@ -84,12 +83,13 @@ extension PerformerInteractor: ReadableMessageAdapterDelegate {
             
             stopAudio(delay)
             startAudio(TaggedAudioPathStore.taggedAudioPaths(message.reference), afterDelay: delay, muted: message.muted)
-            //performerOutput.setAudioStem(audioStemStore.audioStem(message.reference)!)
+            performerOutput.setColor(audioStemStore.audioStem(message.reference)!.colour)
+            controlAudioLoopVolume(compass.getHeading(), level: levelStore.getLevel())
             
         case .Stop:
             
             stopAudio(delay)
-            //performerOutput.setAudioStem(nil)
+            performerOutput.setColor(UIColor.lightGrayColor())
             
         case .ToggleMute:
             
@@ -169,7 +169,7 @@ extension PerformerInteractor {
             this.controlAudioLoopVolume($0, level: this.levelStore.getLevel())
         }
         
-        swishometer.start() { [weak self] in
+        flickometer.start() { [weak self] in
             
             guard let this = self else {
                 
@@ -197,17 +197,4 @@ extension PerformerInteractor {
         let v = CompassLevelVolumeController.calculateVolume(al.paths, compassValue: c, level: level)
         v.forEach() { al.loop.setVolume($0.path, volume: $1) }
     }
-    
-    /*
-    func controlAudioLoopVolume(compassValue: Double?, altitudeValue: Double?) {
-        
-        guard let a = altitudeValue, c = compassValue, al = audioloop else {
-            
-            return
-        }
-        
-        let v = CompassAltitudeVolumeController.calculateVolume(al.paths, compassValue: c, altitudeValue: a)
-        v.forEach() { al.loop.setVolume($0.path, volume: $1) }
-    }
-*/
 }

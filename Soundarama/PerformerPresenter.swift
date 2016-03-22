@@ -16,6 +16,10 @@ class PerformerPresenter: PerformerModule {
     weak var compassUI: CompassUserInterface!
     
     weak var levelUI: LevelUserInterface!
+   
+    weak var coloredUI: ColoredUserInterface!
+    
+    weak var connectionUI: ConnectionUserInterface!
     
     weak var input: PerformerInput!
     
@@ -29,10 +33,9 @@ extension PerformerPresenter: PerformerOutput {
     
     func setConnectionState(state: ConnectionState) {
         
-        //ui.setConnectionState(state)
+        connectionUI.setConnectionState(state)
     }
 
-    
     func setCompassValue(value: Double) {
         
         compassUI.setCompassValue(value)
@@ -41,6 +44,11 @@ extension PerformerPresenter: PerformerOutput {
     func setLevel(level: Level) {
         
         levelUI.setLevel(level)
+    }
+    
+    func setColor(color: UIColor) {
+        
+        coloredUI.setColor(color)
     }
 }
 

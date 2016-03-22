@@ -27,6 +27,8 @@ extension PerformerWireframe {
         vc.userInterfaceDelegate = performerPresenter
         performerPresenter.compassUI = vc
         performerPresenter.levelUI = vc
+        performerPresenter.coloredUI = vc
+        performerPresenter.connectionUI = vc
         return vc
     }
 }

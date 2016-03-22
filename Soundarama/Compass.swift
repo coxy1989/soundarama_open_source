@@ -15,9 +15,11 @@ class LocationService {
 
 class Compass: NSObject {
     
-    let locationManager: CLLocationManager
+    private let locationManager: CLLocationManager
     
-    var handler: ((heading: Double) -> ())!
+    private var handler: ((heading: Double) -> ())!
+    
+    private var heading: Double!
     
     init(locationManager: CLLocationManager) {
         
@@ -30,12 +32,18 @@ class Compass: NSObject {
         locationManager.delegate = self
         locationManager.startUpdatingHeading()
     }
+    
+    func getHeading() -> Double {
+        
+        return heading
+    }
 }
 
 extension Compass: CLLocationManagerDelegate {
     
     func locationManager(manager: CLLocationManager, didUpdateHeading newHeading: CLHeading) {
         
+        heading = newHeading.trueHeading
         handler(heading: newHeading.trueHeading)
     }
 }

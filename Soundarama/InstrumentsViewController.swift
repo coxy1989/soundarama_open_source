@@ -9,6 +9,16 @@
 import UIKit
 import TouchpressUI
 
+protocol ColoredUserInterface: class {
+    
+    func setColor(color: UIColor)
+}
+
+protocol ConnectionUserInterface: class {
+    
+    func setConnectionState(state: ConnectionState)
+}
+
 protocol LevelUserInterface: class {
     
     func setLevel(level: Level)
@@ -22,9 +32,14 @@ protocol CompassUserInterface: class {
 class InstrumentsViewController: ViewController {
     
     @IBOutlet weak var compassView: UIView!
+    
     @IBOutlet weak var highLabel: UILabel!
+    
     @IBOutlet weak var middleLabel: UILabel!
+    
     @IBOutlet weak var lowLabel: UILabel!
+    
+    @IBOutlet weak var connectionLabel: UILabel!
 }
 
 extension InstrumentsViewController: LevelUserInterface {
@@ -64,5 +79,21 @@ extension InstrumentsViewController: CompassUserInterface {
             
             self?.compassView.transform = CGAffineTransformMakeRotation(radians)
         }
+    }
+}
+
+extension InstrumentsViewController: ColoredUserInterface {
+    
+    func setColor(color: UIColor) {
+        
+        (compassView as! ColoredUserInterface).setColor(color)
+    }
+}
+
+extension InstrumentsViewController: ConnectionUserInterface {
+    
+    func setConnectionState(state: ConnectionState) {
+        
+       connectionLabel.text = state == .Connected ? "Connected" : "Not Connected"
     }
 }

@@ -6,6 +6,8 @@
 //  Copyright © 2016 Touchpress Ltd. All rights reserved.
 //
 
+import UIKit
+
 protocol PerformerInput: class {
     
     func start()
@@ -18,4 +20,6 @@ protocol PerformerOutput: class {
     func setCompassValue(value: Double)
     
     func setLevel(level: Level)
+    
+    func setColor(color: UIColor)
 }

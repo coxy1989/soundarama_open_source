@@ -66,11 +66,11 @@ class Swishometer {
             
             let triggeredDown = last40.filter() { $0 > 0.5 }.count >= 1
             
-            let triggeredDown2 = last40.map() { $0 > 0 }.filter({ $0 == true}).count >= 40
+            let triggeredDown2 = last40.map() { $0 > 0 }.filter({ $0 == true}).count >= 20
             
             let triggeredUp = last40.filter() { $0 < -0.5 }.count >= 1
             
-            let triggeredUp2 = last40.map() { $0 < 0 }.filter({ $0 == true}).count >= 40
+            let triggeredUp2 = last40.map() { $0 < 0 }.filter({ $0 == true}).count >= 20
             
             if triggeredDown && triggeredDown2 {
                 
