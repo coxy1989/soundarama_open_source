@@ -451,6 +451,36 @@ extension DJViewController: UICollectionViewDataSource {
     }
 }
 
+extension DJViewController: UICollectionViewDelegateFlowLayout {
+    
+    func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
+        
+        var w: CGFloat = 0, h: CGFloat = 0
+        
+        if uiWorkspaces.count == 4 {
+        
+            let total_height = view.bounds.size.height - CGRectGetHeight(devicesTrayView.bounds)
+            let total_width = CGRectGetWidth(view.bounds)
+            
+                w = (total_width - 12) * 0.5
+                h = (total_height - 12) * 0.5
+        }
+        
+        else if uiWorkspaces.count == 9 {
+        
+            let total_height = view.bounds.size.height
+            let total_width = CGRectGetWidth(view.bounds) - CGRectGetWidth(devicesTrayView.bounds)
+            
+            w = (total_width - 12) * (1/3)
+            h = (total_height - 12) * (1/3)
+            
+            return CGSizeMake(w,h)
+        }
+    
+        assert(false, "Unsupported UIWorkspace configuration: got \(uiWorkspaces.count), expected 4 or 9")
+    }
+}
+
 extension DJViewController: SoundZoneViewDelegate {
     
     func soundZoneViewDidChangeMuteState(soundZoneView: SoundZoneView) {

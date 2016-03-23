@@ -168,7 +168,6 @@ class SoundZoneView: UIView {
         
         updateWithColor(color)
         
-        
         /* Rings */
         
         let middleSquareSize = min(bounds.width, bounds.height)
