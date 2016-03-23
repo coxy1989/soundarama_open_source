@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9531" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10116" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
@@ -45,7 +45,7 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NC9-DP-ID6" customClass="UnderlinedTextButton" customModule="Soundarama" customModuleProvider="target">
-                                        <rect key="frame" x="132" y="33" width="31" height="33"/>
+                                        <rect key="frame" x="153.5" y="33" width="31" height="33"/>
                                         <fontDescription key="fontDescription" name="Avenir-Roman" family="Avenir" pointSize="15"/>
                                         <state key="normal" title="Bass"/>
                                         <connections>
@@ -53,7 +53,7 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IlJ-yM-EzN" customClass="UnderlinedTextButton" customModule="Soundarama" customModuleProvider="target">
-                                        <rect key="frame" x="211" y="33" width="52" height="33"/>
+                                        <rect key="frame" x="253.5" y="33" width="52" height="33"/>
                                         <fontDescription key="fontDescription" name="Avenir-Roman" family="Avenir" pointSize="15"/>
                                         <state key="normal" title="Rhythm"/>
                                         <connections>
@@ -61,25 +61,25 @@
                                         </connections>
                                     </button>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8jV-xI-SNd">
-                                        <rect key="frame" x="85" y="37" width="47.5" height="25"/>
+                                        <rect key="frame" x="85" y="37" width="69" height="25"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="25" id="35F-YK-4ee"/>
                                         </constraints>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Yx9-MH-OYo">
-                                        <rect key="frame" x="163" y="37" width="48" height="25"/>
+                                        <rect key="frame" x="184.5" y="37" width="69" height="25"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="25" id="MB7-7h-u4S"/>
                                         </constraints>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gK2-bV-T4S">
-                                        <rect key="frame" x="263" y="37" width="48.5" height="25"/>
+                                        <rect key="frame" x="305.5" y="37" width="68.5" height="25"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                     </view>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PXP-AJ-eRD" customClass="UnderlinedTextButton" customModule="Soundarama" customModuleProvider="target">
-                                        <rect key="frame" x="311" y="33" width="73" height="33"/>
+                                        <rect key="frame" x="373.5" y="33" width="73" height="33"/>
                                         <fontDescription key="fontDescription" name="Avenir-Roman" family="Avenir" pointSize="15"/>
                                         <state key="normal" title="Instrument"/>
                                         <connections>
@@ -87,27 +87,15 @@
                                         </connections>
                                     </button>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fHH-KX-swc">
-                                        <rect key="frame" x="384" y="37" width="48" height="25"/>
+                                        <rect key="frame" x="446.5" y="37" width="68.5" height="25"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                     </view>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LF4-69-uxs" customClass="UnderlinedTextButton" customModule="Soundarama" customModuleProvider="target">
-                                        <rect key="frame" x="432" y="33" width="30" height="33"/>
+                                        <rect key="frame" x="515" y="33" width="30" height="33"/>
                                         <fontDescription key="fontDescription" name="Avenir-Roman" family="Avenir" pointSize="15"/>
                                         <state key="normal" title="Pad"/>
                                         <connections>
                                             <action selector="buttonWasPressed:" destination="ofg-K2-weq" eventType="touchUpInside" id="adY-AC-At2"/>
-                                        </connections>
-                                    </button>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="myI-Ow-Ssz">
-                                        <rect key="frame" x="464" y="37" width="47.5" height="25"/>
-                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                    </view>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gXe-A3-UBM" customClass="UnderlinedTextButton" customModule="Soundarama" customModuleProvider="target">
-                                        <rect key="frame" x="512" y="33" width="33" height="33"/>
-                                        <fontDescription key="fontDescription" name="Avenir-Roman" family="Avenir" pointSize="15"/>
-                                        <state key="normal" title="Lead"/>
-                                        <connections>
-                                            <action selector="buttonWasPressed:" destination="ofg-K2-weq" eventType="touchUpInside" id="HH3-oN-KJv"/>
                                         </connections>
                                     </button>
                                 </subviews>
@@ -122,15 +110,12 @@
                                     <constraint firstItem="gK2-bV-T4S" firstAttribute="centerY" secondItem="IlJ-yM-EzN" secondAttribute="centerY" id="AKo-rI-Kbr"/>
                                     <constraint firstItem="gK2-bV-T4S" firstAttribute="leading" secondItem="IlJ-yM-EzN" secondAttribute="trailing" id="B2d-gO-EBR"/>
                                     <constraint firstItem="LF4-69-uxs" firstAttribute="centerY" secondItem="PXP-AJ-eRD" secondAttribute="centerY" id="Cki-7b-Q1U"/>
-                                    <constraint firstItem="myI-Ow-Ssz" firstAttribute="centerY" secondItem="fHH-KX-swc" secondAttribute="centerY" id="F0F-l8-gpp"/>
                                     <constraint firstItem="gK2-bV-T4S" firstAttribute="height" secondItem="Yx9-MH-OYo" secondAttribute="height" id="GiO-nc-5rR"/>
-                                    <constraint firstItem="gXe-A3-UBM" firstAttribute="centerY" secondItem="LF4-69-uxs" secondAttribute="centerY" id="Jke-vb-0HG"/>
                                     <constraint firstItem="fHH-KX-swc" firstAttribute="centerY" secondItem="gK2-bV-T4S" secondAttribute="centerY" id="LZ8-ew-PNC"/>
                                     <constraint firstItem="NC9-DP-ID6" firstAttribute="centerY" secondItem="htU-E3-P8X" secondAttribute="centerY" id="Mu7-Md-drO"/>
-                                    <constraint firstItem="myI-Ow-Ssz" firstAttribute="width" secondItem="fHH-KX-swc" secondAttribute="width" id="NNX-Eb-BIQ"/>
                                     <constraint firstItem="fHH-KX-swc" firstAttribute="height" secondItem="gK2-bV-T4S" secondAttribute="height" id="QG6-WM-Wm6"/>
+                                    <constraint firstAttribute="trailing" secondItem="LF4-69-uxs" secondAttribute="trailing" constant="55" id="R3g-la-KMi"/>
                                     <constraint firstItem="NC9-DP-ID6" firstAttribute="leading" secondItem="8jV-xI-SNd" secondAttribute="trailing" id="R78-MF-eXU"/>
-                                    <constraint firstAttribute="trailing" secondItem="gXe-A3-UBM" secondAttribute="trailing" constant="55" id="WGd-0e-4jS"/>
                                     <constraint firstItem="IlJ-yM-EzN" firstAttribute="centerY" secondItem="htU-E3-P8X" secondAttribute="centerY" id="Xl3-MM-v7b"/>
                                     <constraint firstItem="78A-lI-eu0" firstAttribute="top" secondItem="j3Q-tZ-tgY" secondAttribute="top" constant="8" id="YYc-Un-I1K"/>
                                     <constraint firstItem="Yx9-MH-OYo" firstAttribute="leading" secondItem="NC9-DP-ID6" secondAttribute="trailing" id="dDE-6q-NnO"/>
@@ -138,14 +123,11 @@
                                     <constraint firstItem="fHH-KX-swc" firstAttribute="width" secondItem="gK2-bV-T4S" secondAttribute="width" id="gV9-hW-FOU"/>
                                     <constraint firstItem="PXP-AJ-eRD" firstAttribute="centerY" secondItem="IlJ-yM-EzN" secondAttribute="centerY" id="nDO-md-fWy"/>
                                     <constraint firstItem="aP1-7q-730" firstAttribute="centerY" secondItem="78A-lI-eu0" secondAttribute="centerY" id="owG-uB-Jjy"/>
-                                    <constraint firstItem="myI-Ow-Ssz" firstAttribute="height" secondItem="fHH-KX-swc" secondAttribute="height" id="pZA-u7-1a9"/>
                                     <constraint firstItem="IlJ-yM-EzN" firstAttribute="leading" secondItem="Yx9-MH-OYo" secondAttribute="trailing" id="q8C-gP-eGF"/>
                                     <constraint firstAttribute="height" constant="67" id="rdc-uQ-woj"/>
-                                    <constraint firstItem="gXe-A3-UBM" firstAttribute="leading" secondItem="myI-Ow-Ssz" secondAttribute="trailing" id="rkg-7M-Oeh"/>
                                     <constraint firstItem="Yx9-MH-OYo" firstAttribute="width" secondItem="8jV-xI-SNd" secondAttribute="width" id="see-5o-gcy"/>
                                     <constraint firstItem="htU-E3-P8X" firstAttribute="leading" secondItem="j3Q-tZ-tgY" secondAttribute="leading" constant="55" id="t9a-Ae-k3f"/>
                                     <constraint firstItem="aP1-7q-730" firstAttribute="leading" secondItem="j3Q-tZ-tgY" secondAttribute="leading" constant="8" id="tHx-Mv-aB1"/>
-                                    <constraint firstItem="myI-Ow-Ssz" firstAttribute="leading" secondItem="LF4-69-uxs" secondAttribute="trailing" constant="2" id="veV-1y-XQz"/>
                                     <constraint firstItem="PXP-AJ-eRD" firstAttribute="leading" secondItem="gK2-bV-T4S" secondAttribute="trailing" id="wb6-Xu-uoN"/>
                                     <constraint firstItem="8jV-xI-SNd" firstAttribute="centerY" secondItem="htU-E3-P8X" secondAttribute="centerY" id="zAN-Ix-dEx"/>
                                 </constraints>
@@ -264,7 +246,6 @@
                         <outlet property="button2" destination="IlJ-yM-EzN" id="WdT-nx-RIg"/>
                         <outlet property="button3" destination="PXP-AJ-eRD" id="42f-q4-SDe"/>
                         <outlet property="button4" destination="LF4-69-uxs" id="abf-rh-hj1"/>
-                        <outlet property="button5" destination="gXe-A3-UBM" id="LRn-TH-mNy"/>
                         <outlet property="tableView" destination="RQS-ud-zXM" id="D3B-ck-UJL"/>
                     </connections>
                 </viewController>
@@ -295,22 +276,21 @@
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="536"/>
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="12" minimumInteritemSpacing="0.0" id="vtl-eM-f6R">
-                                    <size key="itemSize" width="189" height="234"/>
+                                    <size key="itemSize" width="189" height="233"/>
                                     <size key="headerReferenceSize" width="0.0" height="0.0"/>
                                     <size key="footerReferenceSize" width="0.0" height="0.0"/>
                                     <inset key="sectionInset" minX="12" minY="28" maxX="12" maxY="28"/>
                                 </collectionViewFlowLayout>
                                 <cells>
                                     <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" restorationIdentifier="cell" reuseIdentifier="cell" id="Tcf-Jb-UxL" customClass="SoundZoneCollectionViewCell" customModule="Soundarama" customModuleProvider="target">
-                                        <rect key="frame" x="12" y="28" width="189" height="234"/>
+                                        <rect key="frame" x="12" y="28" width="189" height="233"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                            <rect key="frame" x="0.0" y="0.0" width="189" height="234"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="189" height="233"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vHc-ff-VDq" customClass="SoundZoneView_TopAligned" customModule="Soundarama" customModuleProvider="target">
-                                                    <rect key="frame" x="0.0" y="0.0" width="189" height="234"/>
-                                                    <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="189" height="233"/>
                                                 </view>
                                             </subviews>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -375,7 +355,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="6OY-Qq-UV6" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1029" y="374"/>
+            <point key="canvasLocation" x="881" y="342"/>
         </scene>
         <!--View Controller i Pad-->
         <scene sceneID="com-Kn-FoV">
@@ -511,7 +491,7 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FCC-Yg-9M9" customClass="UnderlinedTextButton" customModule="Soundarama" customModuleProvider="target">
-                                        <rect key="frame" x="132.5" y="33" width="31" height="33"/>
+                                        <rect key="frame" x="153" y="33" width="31" height="33"/>
                                         <fontDescription key="fontDescription" name="Avenir-Roman" family="Avenir" pointSize="15"/>
                                         <state key="normal" title="Bass"/>
                                         <connections>
@@ -519,7 +499,7 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Aug-ep-k4V" customClass="UnderlinedTextButton" customModule="Soundarama" customModuleProvider="target">
-                                        <rect key="frame" x="211.5" y="33.5" width="52" height="33"/>
+                                        <rect key="frame" x="252.5" y="33.5" width="52" height="33"/>
                                         <fontDescription key="fontDescription" name="Avenir-Roman" family="Avenir" pointSize="15"/>
                                         <state key="normal" title="Rhythm"/>
                                         <connections>
@@ -527,25 +507,25 @@
                                         </connections>
                                     </button>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="J2h-j4-8oM">
-                                        <rect key="frame" x="85" y="36.5" width="47.5" height="25"/>
+                                        <rect key="frame" x="85" y="36.5" width="68" height="25"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="25" id="BaP-su-Uug"/>
                                         </constraints>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kIe-Nn-lls">
-                                        <rect key="frame" x="163.5" y="36.5" width="48" height="25"/>
+                                        <rect key="frame" x="184" y="36.5" width="68.5" height="25"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="25" id="48Q-f3-huj"/>
                                         </constraints>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7zo-Mh-Jxu">
-                                        <rect key="frame" x="262.5" y="37" width="48.5" height="25"/>
+                                        <rect key="frame" x="304.5" y="37" width="68.5" height="25"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                     </view>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MAE-74-00Z" customClass="UnderlinedTextButton" customModule="Soundarama" customModuleProvider="target">
-                                        <rect key="frame" x="311" y="33" width="73" height="33"/>
+                                        <rect key="frame" x="373" y="33" width="73" height="33"/>
                                         <fontDescription key="fontDescription" name="Avenir-Roman" family="Avenir" pointSize="15"/>
                                         <state key="normal" title="Instrument"/>
                                         <connections>
@@ -553,41 +533,27 @@
                                         </connections>
                                     </button>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Q6v-MW-8HN">
-                                        <rect key="frame" x="384" y="37.5" width="48" height="25"/>
+                                        <rect key="frame" x="446" y="37.5" width="68.5" height="25"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                     </view>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7Pi-Oe-YFV" customClass="UnderlinedTextButton" customModule="Soundarama" customModuleProvider="target">
-                                        <rect key="frame" x="432.5" y="33" width="30" height="33"/>
+                                        <rect key="frame" x="515" y="33" width="30" height="33"/>
                                         <fontDescription key="fontDescription" name="Avenir-Roman" family="Avenir" pointSize="15"/>
                                         <state key="normal" title="Pad"/>
                                         <connections>
                                             <action selector="buttonWasPressed:" destination="bna-Ea-wXf" eventType="touchUpInside" id="ZIR-Nz-AhR"/>
                                         </connections>
                                     </button>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="k9Z-N5-R93">
-                                        <rect key="frame" x="464.5" y="37.5" width="47.5" height="25"/>
-                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                    </view>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LeP-wY-1Kw" customClass="UnderlinedTextButton" customModule="Soundarama" customModuleProvider="target">
-                                        <rect key="frame" x="512" y="33" width="33" height="33"/>
-                                        <fontDescription key="fontDescription" name="Avenir-Roman" family="Avenir" pointSize="15"/>
-                                        <state key="normal" title="Lead"/>
-                                        <connections>
-                                            <action selector="buttonWasPressed:" destination="bna-Ea-wXf" eventType="touchUpInside" id="8ZY-vS-jtq"/>
-                                        </connections>
-                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" red="0.16078431369999999" green="0.16078431369999999" blue="0.16078431369999999" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstItem="MAE-74-00Z" firstAttribute="centerY" secondItem="Aug-ep-k4V" secondAttribute="centerY" id="4Cx-WA-qyZ"/>
-                                    <constraint firstItem="k9Z-N5-R93" firstAttribute="height" secondItem="Q6v-MW-8HN" secondAttribute="height" id="6Zv-eb-1uB"/>
                                     <constraint firstItem="7zo-Mh-Jxu" firstAttribute="leading" secondItem="Aug-ep-k4V" secondAttribute="trailing" id="9XQ-ku-GdC"/>
                                     <constraint firstItem="J2h-j4-8oM" firstAttribute="centerY" secondItem="6hh-gs-RLi" secondAttribute="centerY" id="AwR-uT-L5p"/>
                                     <constraint firstItem="6hh-gs-RLi" firstAttribute="leading" secondItem="pjL-GL-iiw" secondAttribute="leading" constant="55" id="Bw7-fw-GOY"/>
                                     <constraint firstItem="Q6v-MW-8HN" firstAttribute="centerY" secondItem="7zo-Mh-Jxu" secondAttribute="centerY" id="Cob-wq-i7n"/>
                                     <constraint firstItem="7zo-Mh-Jxu" firstAttribute="centerY" secondItem="Aug-ep-k4V" secondAttribute="centerY" id="E5h-pW-WGx"/>
                                     <constraint firstItem="7Pi-Oe-YFV" firstAttribute="centerY" secondItem="MAE-74-00Z" secondAttribute="centerY" id="Fuc-uS-36Y"/>
-                                    <constraint firstItem="k9Z-N5-R93" firstAttribute="width" secondItem="Q6v-MW-8HN" secondAttribute="width" id="IaC-ZX-9GQ"/>
                                     <constraint firstItem="0o1-yr-i7Q" firstAttribute="top" secondItem="pjL-GL-iiw" secondAttribute="top" constant="8" id="LAC-TT-jmd"/>
                                     <constraint firstItem="kIe-Nn-lls" firstAttribute="width" secondItem="J2h-j4-8oM" secondAttribute="width" id="LVq-EA-LuE"/>
                                     <constraint firstItem="kIe-Nn-lls" firstAttribute="leading" secondItem="FCC-Yg-9M9" secondAttribute="trailing" id="PN1-HZ-5zt"/>
@@ -595,9 +561,6 @@
                                     <constraint firstItem="MAE-74-00Z" firstAttribute="top" secondItem="0o1-yr-i7Q" secondAttribute="bottom" id="R4I-ZC-wdr"/>
                                     <constraint firstItem="Aug-ep-k4V" firstAttribute="leading" secondItem="kIe-Nn-lls" secondAttribute="trailing" id="RDS-VS-e70"/>
                                     <constraint firstItem="kIe-Nn-lls" firstAttribute="centerY" secondItem="J2h-j4-8oM" secondAttribute="centerY" id="UNq-qY-ItY"/>
-                                    <constraint firstItem="k9Z-N5-R93" firstAttribute="centerY" secondItem="Q6v-MW-8HN" secondAttribute="centerY" id="UTp-gJ-Xpc"/>
-                                    <constraint firstItem="LeP-wY-1Kw" firstAttribute="centerY" secondItem="7Pi-Oe-YFV" secondAttribute="centerY" id="WXE-aX-iQV"/>
-                                    <constraint firstItem="k9Z-N5-R93" firstAttribute="leading" secondItem="7Pi-Oe-YFV" secondAttribute="trailing" constant="2" id="Yts-qO-a2h"/>
                                     <constraint firstItem="Aug-ep-k4V" firstAttribute="centerY" secondItem="6hh-gs-RLi" secondAttribute="centerY" id="Yyl-Iu-u8G"/>
                                     <constraint firstItem="FCC-Yg-9M9" firstAttribute="leading" secondItem="J2h-j4-8oM" secondAttribute="trailing" id="ZZj-nK-Vsu"/>
                                     <constraint firstItem="Q6v-MW-8HN" firstAttribute="width" secondItem="7zo-Mh-Jxu" secondAttribute="width" id="cuQ-l3-tSi"/>
@@ -605,13 +568,12 @@
                                     <constraint firstItem="MAE-74-00Z" firstAttribute="leading" secondItem="7zo-Mh-Jxu" secondAttribute="trailing" id="iDT-Lm-w5h"/>
                                     <constraint firstItem="0o1-yr-i7Q" firstAttribute="centerX" secondItem="pjL-GL-iiw" secondAttribute="centerX" id="lz5-zo-Soe"/>
                                     <constraint firstAttribute="height" constant="67" id="n8o-Q1-Ov0"/>
-                                    <constraint firstAttribute="trailing" secondItem="LeP-wY-1Kw" secondAttribute="trailing" constant="55" id="osj-V0-a3Y"/>
                                     <constraint firstItem="7zo-Mh-Jxu" firstAttribute="height" secondItem="kIe-Nn-lls" secondAttribute="height" id="pGv-Ff-7wC"/>
                                     <constraint firstItem="J2h-j4-8oM" firstAttribute="leading" secondItem="6hh-gs-RLi" secondAttribute="trailing" id="riF-J0-uLJ"/>
-                                    <constraint firstItem="LeP-wY-1Kw" firstAttribute="leading" secondItem="k9Z-N5-R93" secondAttribute="trailing" id="rxP-Ng-1vf"/>
                                     <constraint firstItem="Q6v-MW-8HN" firstAttribute="height" secondItem="7zo-Mh-Jxu" secondAttribute="height" id="v5F-Hn-DAc"/>
                                     <constraint firstItem="FCC-Yg-9M9" firstAttribute="centerY" secondItem="6hh-gs-RLi" secondAttribute="centerY" id="w3H-di-eqC"/>
                                     <constraint firstItem="Q6v-MW-8HN" firstAttribute="leading" secondItem="MAE-74-00Z" secondAttribute="trailing" id="yA5-IF-sQM"/>
+                                    <constraint firstAttribute="trailing" secondItem="7Pi-Oe-YFV" secondAttribute="trailing" constant="55" id="ywd-sc-hTg"/>
                                 </constraints>
                             </view>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="48" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="dw2-HZ-ih0">
@@ -728,7 +690,6 @@
                         <outlet property="button2" destination="Aug-ep-k4V" id="uEA-0U-BxA"/>
                         <outlet property="button3" destination="MAE-74-00Z" id="zJe-vx-wPw"/>
                         <outlet property="button4" destination="7Pi-Oe-YFV" id="R2J-t6-kyt"/>
-                        <outlet property="button5" destination="LeP-wY-1Kw" id="dU9-ZF-skz"/>
                         <outlet property="tableView" destination="dw2-HZ-ih0" id="mzZ-ZW-3Fp"/>
                     </connections>
                 </viewController>

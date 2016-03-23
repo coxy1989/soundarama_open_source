@@ -35,13 +35,11 @@ class DJAudioStemPickerViewController: ViewController, DJAudioStemPickerUserInte
     
     @IBOutlet private weak var button4: UnderlinedTextButton!
     
-    @IBOutlet private weak var button5: UnderlinedTextButton!
-    
     @IBAction func buttonWasPressed(sender: UnderlinedTextButton) { delegate.didRequestSetSelectedKey(self, key: keys[buttons.indexOf(sender)!]) }
     
     private lazy var buttons: [UnderlinedTextButton] = { [unowned self] in
         
-        return [self.button0, self.button1, self.button2, self.button3, self.button4, self.button5]
+        return [self.button0, self.button1, self.button2, self.button3, self.button4]
     }()
     
     private var lastSelectedKey: String!
