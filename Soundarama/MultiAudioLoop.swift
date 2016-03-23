@@ -33,6 +33,7 @@ class MultiAudioLoop {
         volume_map.forEach { p, v in
             
             let player = try! AVAudioPlayer(contentsOfURL: NSURL(fileURLWithPath: p))
+            
             player.volume = v
             player.playAtTime(playtime)
             current_players_map[p] = player
@@ -84,12 +85,12 @@ extension MultiAudioLoop {
     private func loop(player: AVAudioPlayer, path: String, playtime: NSTimeInterval) {
         
         let scheduledPlayer = try! AVAudioPlayer(contentsOfURL: NSURL(fileURLWithPath: path))
-        let scheduledPlaytime = playtime + 15.0
+        let scheduledPlaytime = playtime + 15.6098
         scheduledPlayer.volume = player.volume
         scheduledPlayer.playAtTime(scheduledPlaytime)
         scheduled_players_map[path] = scheduledPlayer
         
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, Int64(15.0 * Double(NSEC_PER_SEC))), dispatch_get_main_queue()) { [weak self] in
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, Int64(15.6098 * Double(NSEC_PER_SEC))), dispatch_get_main_queue()) { [weak self] in
             
             self?.scheduled_players_map[path] = nil
             self?.current_players_map[path] = scheduledPlayer

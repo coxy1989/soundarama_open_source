@@ -321,15 +321,6 @@
                                     <action selector="didPressBackButton:" destination="oB8-AN-WvL" eventType="touchUpInside" id="Y9q-eq-twX"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OWC-Lw-YI2">
-                                <rect key="frame" x="185.5" y="698" width="43" height="30"/>
-                                <state key="normal" title="Group">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="groupingModeButtonWasPressed:" destination="oB8-AN-WvL" eventType="touchUpInside" id="vMX-mm-bo3"/>
-                                </connections>
-                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
@@ -339,10 +330,8 @@
                             <constraint firstItem="ZyW-pL-8UL" firstAttribute="leading" secondItem="VBZ-HG-M8P" secondAttribute="leading" id="Ygx-I6-7O1"/>
                             <constraint firstItem="lOu-zl-DQn" firstAttribute="leading" secondItem="VBZ-HG-M8P" secondAttribute="leading" id="aaH-s7-fTk"/>
                             <constraint firstItem="8Nn-t2-TE3" firstAttribute="top" secondItem="VBZ-HG-M8P" secondAttribute="top" constant="8" id="fFA-4f-JaM"/>
-                            <constraint firstItem="BMF-zI-ckm" firstAttribute="top" secondItem="OWC-Lw-YI2" secondAttribute="bottom" constant="8" id="oB6-nu-sHP"/>
                             <constraint firstAttribute="trailing" secondItem="ZyW-pL-8UL" secondAttribute="trailing" id="oIi-be-Mt7"/>
                             <constraint firstItem="8Nn-t2-TE3" firstAttribute="leading" secondItem="VBZ-HG-M8P" secondAttribute="leading" constant="8" id="or7-Aj-C1f"/>
-                            <constraint firstItem="OWC-Lw-YI2" firstAttribute="centerX" secondItem="VBZ-HG-M8P" secondAttribute="centerX" id="pRP-AQ-z2y"/>
                             <constraint firstAttribute="trailing" secondItem="lOu-zl-DQn" secondAttribute="trailing" id="twA-ZC-2hr"/>
                         </constraints>
                     </view>
@@ -350,7 +339,6 @@
                     <connections>
                         <outlet property="collectionView" destination="ZyW-pL-8UL" id="Jhm-7g-yvh"/>
                         <outlet property="devicesTrayView" destination="lOu-zl-DQn" id="zYo-oO-dKZ"/>
-                        <outlet property="groupingModeButton" destination="OWC-Lw-YI2" id="2lh-qD-RgA"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="6OY-Qq-UV6" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -425,22 +413,12 @@
                                     <action selector="didPressBackButton:" destination="uQ1-Om-b5x" eventType="touchUpInside" id="BZy-Nz-JmZ"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="92l-Uh-h24">
-                                <rect key="frame" x="784" y="0.0" width="240" height="30"/>
-                                <state key="normal" title="Enter Grouping Mode"/>
-                                <connections>
-                                    <action selector="groupingModeButtonWasPressed:" destination="uQ1-Om-b5x" eventType="touchUpInside" id="Yjg-D4-1uo"/>
-                                </connections>
-                            </button>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="92l-Uh-h24" firstAttribute="top" secondItem="yCS-Yo-hZo" secondAttribute="top" id="3Yo-hN-a5Q"/>
-                            <constraint firstAttribute="trailing" secondItem="92l-Uh-h24" secondAttribute="trailing" id="Adh-ye-YVb"/>
                             <constraint firstAttribute="trailing" secondItem="AKs-S5-nc4" secondAttribute="trailing" id="Auq-s0-rNc"/>
                             <constraint firstItem="AKs-S5-nc4" firstAttribute="top" secondItem="yCS-Yo-hZo" secondAttribute="top" id="Gxd-OD-bYO"/>
                             <constraint firstItem="ouy-Va-85x" firstAttribute="top" secondItem="yCS-Yo-hZo" secondAttribute="top" id="evL-Wx-zO1"/>
-                            <constraint firstItem="92l-Uh-h24" firstAttribute="leading" secondItem="ouy-Va-85x" secondAttribute="trailing" id="f3e-b9-bHz"/>
                             <constraint firstItem="AKs-S5-nc4" firstAttribute="leading" secondItem="ouy-Va-85x" secondAttribute="trailing" id="fYj-UB-fYd"/>
                             <constraint firstItem="3Hb-bt-rZ9" firstAttribute="top" secondItem="AKs-S5-nc4" secondAttribute="bottom" id="gb4-R2-PoT"/>
                             <constraint firstItem="baD-GV-FXh" firstAttribute="top" secondItem="yCS-Yo-hZo" secondAttribute="top" constant="6" id="iMv-s3-6XV"/>
@@ -454,7 +432,6 @@
                     <connections>
                         <outlet property="collectionView" destination="ouy-Va-85x" id="Wde-uO-Lxo"/>
                         <outlet property="devicesTrayView" destination="AKs-S5-nc4" id="WHz-kn-hOz"/>
-                        <outlet property="groupingModeButton" destination="92l-Uh-h24" id="6PB-HZ-wZ5"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bsG-to-w5a" userLabel="First Responder" sceneMemberID="firstResponder"/>

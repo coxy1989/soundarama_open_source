@@ -117,7 +117,7 @@ extension AudioStemStore {
         
         if let  name = json["Name"].string, colourString = json["Colour"].string, category = json["Category"].string, reference = json["Ref"].string {
             let colour = UIColor(rgba: colourString, defaultColor: UIColor.grayColor())
-            return AudioStem(name: name, colour: colour, category: category, reference: reference, loopLength: 1.875)
+            return AudioStem(name: name, colour: colour, category: category, reference: reference, loopLength: 1.9512195122)
         }
         else {
             return nil

@@ -35,7 +35,7 @@ extension DJInteractor: DJInput {
         //TODO: handle pro (16), pad(9) phone(4)
         
         djOutput.setUISuite(UISuiteTransformer.transform(suiteStore.suite))
-        djOutput.setGroupingMode(false)
+        djOutput.setGroupingMode(true)
         
         christiansTimeServer = ChristiansTimeServer(endpoint: endpoint)
         adapter = WritableMessageAdapter(writeable: endpoint)

@@ -31,6 +31,8 @@
 		42177FA21C9AAB29008411B0 /* Functional.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42177FA11C9AAB29008411B0 /* Functional.swift */; };
 		422EB05A1C8DBA2200B27134 /* DJAudioStemsPickerUserInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = 422EB0591C8DBA2200B27134 /* DJAudioStemsPickerUserInterface.swift */; };
 		422EB05C1C8DC39500B27134 /* UIAudioStemTransformer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 422EB05B1C8DC39500B27134 /* UIAudioStemTransformer.swift */; };
+		4244598D1CA2EB5F00547B3C /* AGaramondPro-Italic.otf in Resources */ = {isa = PBXBuildFile; fileRef = 4244598B1CA2EB5F00547B3C /* AGaramondPro-Italic.otf */; };
+		4244598E1CA2EB5F00547B3C /* AGaramondPro-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = 4244598C1CA2EB5F00547B3C /* AGaramondPro-Regular.otf */; };
 		4249B5961C578A160096872D /* BroadcastSocketEndpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4249B5951C578A160096872D /* BroadcastSocketEndpoint.swift */; };
 		4249B5981C578A5A0096872D /* SearchSocketEndpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4249B5971C578A5A0096872D /* SearchSocketEndpoint.swift */; };
 		4249B59B1C5792490096872D /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4249B59A1C5792490096872D /* Message.swift */; };
@@ -159,6 +161,8 @@
 		42177FA11C9AAB29008411B0 /* Functional.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Functional.swift; sourceTree = "<group>"; };
 		422EB0591C8DBA2200B27134 /* DJAudioStemsPickerUserInterface.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DJAudioStemsPickerUserInterface.swift; sourceTree = "<group>"; };
 		422EB05B1C8DC39500B27134 /* UIAudioStemTransformer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIAudioStemTransformer.swift; sourceTree = "<group>"; };
+		4244598B1CA2EB5F00547B3C /* AGaramondPro-Italic.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "AGaramondPro-Italic.otf"; path = "Resources/Font/AGaramondPro-Italic.otf"; sourceTree = "<group>"; };
+		4244598C1CA2EB5F00547B3C /* AGaramondPro-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "AGaramondPro-Regular.otf"; path = "Resources/Font/AGaramondPro-Regular.otf"; sourceTree = "<group>"; };
 		4249B5951C578A160096872D /* BroadcastSocketEndpoint.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BroadcastSocketEndpoint.swift; sourceTree = "<group>"; };
 		4249B5971C578A5A0096872D /* SearchSocketEndpoint.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchSocketEndpoint.swift; sourceTree = "<group>"; };
 		4249B59A1C5792490096872D /* Message.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
@@ -439,6 +443,15 @@
 			name = Audio;
 			sourceTree = "<group>";
 		};
+		426A7B421CA2EA5A0031AA10 /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+				4244598B1CA2EB5F00547B3C /* AGaramondPro-Italic.otf */,
+				4244598C1CA2EB5F00547B3C /* AGaramondPro-Regular.otf */,
+			);
+			name = Fonts;
+			sourceTree = "<group>";
+		};
 		4280C0D61C5D166400B2C9B3 /* Transformation */ = {
 			isa = PBXGroup;
 			children = (
@@ -471,6 +484,7 @@
 		42A55C121C0F2AE900FD6C7D /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				426A7B421CA2EA5A0031AA10 /* Fonts */,
 				E20B94641C1753B900222A2B /* Assets.xcassets */,
 				428A89001C9975DC0070BE7F /* Sounds */,
 				E20B946A1C1753C800222A2B /* LaunchScreen.storyboard */,
@@ -493,6 +507,7 @@
 			children = (
 				429EC9871C85AEE0002FDBCC /* Read Stores (Disk) */,
 				42C45A821C57DE5700888EA8 /* Write Stores (Memory) */,
+				425CC3261C74B8A100B39AB5 /* Audio */,
 				42B3D1E81C99B2540065842D /* Instrumentation */,
 				4249B5991C5792190096872D /* Representation */,
 				4280C0D61C5D166400B2C9B3 /* Transformation */,
@@ -662,7 +677,6 @@
 				42E8BE161C54FB470034F1C8 /* Use Cases */,
 				420AA69A1C550A8000F7BB25 /* UI */,
 				42A727B91C553A7C00BFCA47 /* Model */,
-				425CC3261C74B8A100B39AB5 /* Audio */,
 				42A55C121C0F2AE900FD6C7D /* Resources */,
 				42A55C131C0F2AF400FD6C7D /* Supporting Files */,
 				425CC3241C74B84000B39AB5 /* Extras */,
@@ -777,7 +791,9 @@
 				420AA6A51C551AB300F7BB25 /* PerformerStoryboard.storyboard in Resources */,
 				E20B946C1C1753C800222A2B /* LaunchScreen.storyboard in Resources */,
 				E26EBAA31C18AF4700747726 /* Localizable.strings in Resources */,
+				4244598E1CA2EB5F00547B3C /* AGaramondPro-Regular.otf in Resources */,
 				42A727A21C552C4800BFCA47 /* DJStoryboard.storyboard in Resources */,
+				4244598D1CA2EB5F00547B3C /* AGaramondPro-Italic.otf in Resources */,
 				420AA6991C55055F00F7BB25 /* DecideStoryboard.storyboard in Resources */,
 				428A89011C9975DC0070BE7F /* Sounds in Resources */,
 				E20B94681C1753B900222A2B /* Assets.xcassets in Resources */,

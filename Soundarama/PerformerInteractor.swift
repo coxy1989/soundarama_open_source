@@ -42,8 +42,6 @@ class PerformerInteractor: PerformerInput {
         endpoint.connect()
         startInstruments()
         performerOutput.setLevel(levelStore.getLevel())
-        
-        startAudio(TaggedAudioPathStore.taggedAudioPaths("Bass"), afterDelay: 0.5, muted: false)
     }
 }
 

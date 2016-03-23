@@ -17,15 +17,11 @@ class DJViewController: ViewController {
 
     weak var delegate: DJUserInterfaceDelegate!
     
-    @IBOutlet weak var groupingModeButton: UIButton!
-    
     @IBOutlet private weak var collectionView: UICollectionView!
     
     @IBOutlet private weak var devicesTrayView: UIImageView!
     
     private var uiWorkspaces: [UIWorkspace]!
-    
-    @IBAction func groupingModeButtonWasPressed(sender: AnyObject) { delegate.didRequestToggleGroupingMode() }
     
     @IBAction func didPressBackButton(sender: AnyObject) { userInterfaceDelegate?.userInterfaceDidNavigateBack(self) }
     
@@ -139,8 +135,6 @@ extension DJViewController: DJUserInterface {
             view.removeGestureRecognizer(viewPanGestureRecognizer)
             lassoShapeLayer.removeFromSuperlayer()
         }
-        
-        groupingModeButton.setTitle(on ? "Exit Grouping Mode" : "Enter Grouping Mode", forState: .Normal)
     }
     
     func startLassoo(atPoint: CGPoint) {
@@ -464,6 +458,7 @@ extension DJViewController: UICollectionViewDelegateFlowLayout {
             
                 w = (total_width - 12) * 0.5
                 h = (total_height - 12) * 0.5
+                return CGSizeMake(w,h)
         }
         
         else if uiWorkspaces.count == 9 {
