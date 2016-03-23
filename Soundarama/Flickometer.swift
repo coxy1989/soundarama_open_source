@@ -27,12 +27,12 @@ class Flickometer {
                 v = ($0.z - (0.3 * sqrt(pow($0.x, 2) + pow($0.y, 2))))
             }
             
-            if v > 2.5 {
+            if v > 1.5 {
                 
                 handler(.Down)
             }
             
-            if v < -2.5 {
+            if v < -1.5 {
                 
                 handler(.Up)
             }
@@ -62,15 +62,17 @@ class Swishometer {
             
             this.values.append($0.z)
             
-            let last40 = this.values.suffix(40)
+            let last40 = this.values.suffix(20)
             
-            let triggeredDown = last40.filter() { $0 > 0.5 }.count >= 1
+            let triggeredDown = last40.filter() { $0 > 0.25 }.count >= 1
             
-            let triggeredDown2 = last40.map() { $0 > 0 }.filter({ $0 == true}).count >= 20
+            let triggeredDown2 = last40.map() { $0 > 0 }.filter({ $0 == true}).count >= 10
             
-            let triggeredUp = last40.filter() { $0 < -0.5 }.count >= 1
             
-            let triggeredUp2 = last40.map() { $0 < 0 }.filter({ $0 == true}).count >= 20
+            
+            let triggeredUp = last40.filter() { $0 < -0.25 }.count >= 1
+            
+            let triggeredUp2 = last40.map() { $0 < 0 }.filter({ $0 == true}).count >= 10
             
             if triggeredDown && triggeredDown2 {
                 
