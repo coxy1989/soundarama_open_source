@@ -473,6 +473,7 @@ extension DJViewController: UICollectionViewDelegateFlowLayout {
         }
     
         assert(false, "Unsupported UIWorkspace configuration: got \(uiWorkspaces.count), expected 4 or 9")
+        return CGSizeMake(0, 0)
     }
 }
 
