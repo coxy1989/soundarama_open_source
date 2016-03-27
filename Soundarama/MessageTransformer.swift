@@ -8,40 +8,50 @@
 
 class MessageTransformer {
     
-    let timestamp: NSTimeInterval
-    let sessionTimestamp: NSTimeInterval
-    
-    init(timestamp: NSTimeInterval, sessionTimestamp: NSTimeInterval) {
+    static func transform(fromSuite: Suite, toSuite: Suite, timestamp: NSTimeInterval, sessionTimestamp: NSTimeInterval, referenceTimestamps: [String : NSTimeInterval]) -> [Message] {
         
-        self.timestamp = timestamp
-        self.sessionTimestamp = sessionTimestamp
-    }
+        // TODO: SANITY CHECK -> CRASH if any stems without a reference timestamp.
     
-    func transform(fromSuite: Suite, toSuite: Suite) -> [PerformerMessage] {
-    
-        var messages: [PerformerMessage] = []
+        var messages: [Message] = []
         let fromTable = table(fromSuite)
         let solosTo = Set(toSuite.filter({$0.isSolo}))
-        let solosFrom = Set(fromSuite.filter({$0.isSolo}))
+        //let solosFrom = Set(fromSuite.filter({$0.isSolo}))
         
-        for ws in toSuite {
-            let from = fromTable[ws.identifier]!
-            messages.appendContentsOf(solo(from, to: ws, fromSolos: solosFrom, toSolos: solosTo))
-            messages.appendContentsOf(performerAdd(from, to: ws, toSolos: solosTo))
-            messages.appendContentsOf(performerRemove(from, to: ws, toSolos: solosTo))
-            messages.appendContentsOf(toAudioStem(from, to: ws, toSolos: solosTo))
-            messages.appendContentsOf(fromAudioStem(from, to: ws, toSolos: solosTo))
-            messages.appendContentsOf(betweenAudioStems(from, to: ws, toSolos: solosTo))
-            messages.appendContentsOf(mute(from, to: ws, toSolos: solosTo))
+        toSuite.forEach() {
+            
+            let from = fromTable[$0.identifier]!
+            
+            if let msg = addedPerformer(from, to: $0, toSolos: solosTo, timestamp: timestamp, sessionTimestamp: sessionTimestamp, referenceTimestamps: referenceTimestamps) {
+                
+                messages.append(msg)
+            }
+            
+            if let msg = removedPerformer(from, to: $0, toSolos: solosTo) {
+                
+                messages.append(msg)
+            }
+            
+            if let msgs = toAudioStem(from, to: $0, toSolos: solosTo, timestamp: timestamp, sessionTimestamp: sessionTimestamp, referenceTimestamps: referenceTimestamps) {
+                
+                msgs.forEach() { messages.append($0) }
+            }
+            //messages.appendContentsOf(solo(from, to: ws, fromSolos: solosFrom, toSolos: solosTo))
+            //messages.appendContentsOf(performerAdd(from, to: ws, toSolos: solosTo))
+            //messages.appendContentsOf(performerRemove(from, to: ws, toSolos: solosTo))
+            //messages.appendContentsOf(toAudioStem(from, to: ws, toSolos: solosTo))
+            //messages.appendContentsOf(fromAudioStem(from, to: ws, toSolos: solosTo))
+            //messages.appendContentsOf(betweenAudioStems(from, to: ws, toSolos: solosTo))
+            //messages.appendContentsOf(mute(from, to: ws, toSolos: solosTo))
         }
-
-        return filter(messages)
+        
+        return messages
+        //return filter(messages)
     }
 }
 
 extension MessageTransformer {
     
-    private func filter(messages: [PerformerMessage]) -> [PerformerMessage] {
+    private static func filter(messages: [PerformerMessage]) -> [PerformerMessage] {
         
         var ptable: [Performer : PerformerMessage] = [ : ]
         for m in messages {
@@ -57,7 +67,7 @@ extension MessageTransformer {
         return Array(ptable.values)
     }
     
-    private func table(suite: Suite) -> [String : Workspace] {
+    private static func table(suite: Suite) -> [String : Workspace] {
         
         var table: [String : Workspace] = [ : ]
         for ws in suite {
@@ -65,24 +75,86 @@ extension MessageTransformer {
         }
         return table
     }
+    
+    private static func effectiveMute(workspace ws: Workspace, solos s: Set<Workspace>) -> Bool {
+        
+        guard s.count > 0 else {
+            return ws.isMuted
+        }
+        
+        guard s.contains(ws) else {
+            
+            return true
+        }
+        
+        return ws.isMuted
+    }
 }
 
 extension MessageTransformer {
     
-    private func effectiveMute(workspace ws: Workspace, solos s: Set<Workspace>) -> Bool {
+    private static func addedPerformer(from: Workspace, to: Workspace, toSolos: Set<Workspace>, timestamp: NSTimeInterval, sessionTimestamp: NSTimeInterval, referenceTimestamps: [String : NSTimeInterval]) -> StartMessage? {
         
-            guard s.count > 0 else {
-                return ws.isMuted
-            }
+        guard let stem = to.audioStem else {
             
-            guard s.contains(ws) else {
-                
-                return true
-            }
+            return nil
+        }
+        
+        let added = to.performers.subtract(from.performers)
+        
+        guard added.count > 0 else {
             
-            return ws.isMuted
+            return nil
+        }
+        
+        return StartMessage(address: added.first!, timestamp: timestamp, reference: stem.reference, sessionTimestamp: sessionTimestamp, referenceTimestamp: referenceTimestamps[stem.reference]!, muted: effectiveMute(workspace: to, solos: toSolos))
     }
     
+    private static func removedPerformer(from: Workspace, to: Workspace, toSolos: Set<Workspace>) -> StopMessage? {
+        
+        let removed = from.performers.subtract(to.performers)
+        
+        guard let removed_performer = removed.first else {
+            
+            return nil
+        }
+        
+        guard from.audioStem != nil else {
+            
+            return nil
+        }
+        
+        return StopMessage(address: removed_performer)
+    }
+}
+
+extension MessageTransformer {
+    
+    private static func toAudioStem(from: Workspace, to: Workspace, toSolos: Set<Workspace>, timestamp: NSTimeInterval, sessionTimestamp: NSTimeInterval, referenceTimestamps: [String : NSTimeInterval]) -> [StartMessage]? {
+        
+        guard from.audioStem == nil else {
+            
+            return nil
+        }
+        
+        guard let audioStem = to.audioStem else {
+            
+            return nil
+        }
+        
+        return to.performers.map() {
+            
+            StartMessage(address: $0, timestamp: timestamp, reference: audioStem.reference, sessionTimestamp: sessionTimestamp, referenceTimestamp: referenceTimestamps[audioStem.reference]!, muted: effectiveMute(workspace: to, solos: toSolos))
+        }
+        
+        
+      //  return to.performers.map({PerformerMessage(address: $0, timestamp: timestamp, sessionTimestamp: sessionTimestamp, reference: audioStem.reference,loopLength: audioStem.loopLength, command: .Start, muted: effectiveMute(workspace: to, solos: toSolos))})
+    }
+}
+
+/*
+extension MessageTransformer {
+ 
     private func solo(from: Workspace, to: Workspace, fromSolos: Set<Workspace>, toSolos: Set<Workspace>) -> [PerformerMessage] {
         
         guard toSolos.count != fromSolos.count else {
@@ -97,37 +169,6 @@ extension MessageTransformer {
         }
         
         return to.performers.map({ PerformerMessage(address: $0, timestamp: timestamp, sessionTimestamp: sessionTimestamp, reference: to.audioStem!.reference,loopLength: to.audioStem!.loopLength, command: .ToggleMute, muted: to_mut) })
-    }
-    
-    private func performerAdd(from: Workspace, to: Workspace, toSolos: Set<Workspace>) -> [PerformerMessage] {
-        
-        guard let stem = to.audioStem else {
-            return []
-        }
-        
-        let added = to.performers.subtract(from.performers)
-        
-        guard added.count > 0 else {
-            return []
-        }
-        
-        assert(added.count == 1)
-        return [PerformerMessage(address: added.first!, timestamp: timestamp, sessionTimestamp: sessionTimestamp, reference: stem.reference,loopLength: stem.loopLength, command: .Start, muted: effectiveMute(workspace: to, solos: toSolos))]
-    }
-    
-    private func performerRemove(from: Workspace, to: Workspace, toSolos: Set<Workspace>) -> [PerformerMessage] {
-        
-        let removed = from.performers.subtract(to.performers)
-        
-        guard removed.count > 0 else {
-            return []
-        }
-
-        guard let stem = from.audioStem else {
-            return []
-        }
-        
-        return [PerformerMessage(address: removed.first!, timestamp: timestamp, sessionTimestamp: sessionTimestamp, reference: stem.reference,loopLength: stem.loopLength, command: .Stop, muted: effectiveMute(workspace: to, solos: toSolos))]
     }
     
     private func toAudioStem(from: Workspace, to: Workspace, toSolos: Set<Workspace>) -> [PerformerMessage] {
@@ -182,3 +223,4 @@ extension MessageTransformer {
     }
 }
 
+*/

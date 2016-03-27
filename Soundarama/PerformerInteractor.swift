@@ -73,22 +73,29 @@ extension PerformerInteractor: ChristiansProcessDelegate {
 
 extension PerformerInteractor: ReadableMessageAdapterDelegate {
     
+    //NB: Loop length to come from config file.
+    
+    /*
     func didReceivePerformerMessage(message: PerformerMessage) {
         
         let delay = ChristiansCalculator.calculateDelay(christiansMap!.remote, localTime: christiansMap!.local, sessionTimestamp: message.sessionTimestamp, loopLength: message.loopLength)
+        
+        //let time = ChristiansCalculator.calculateReferenceTime(christiansMap!.remote, localTime: christiansMap!.local, referenceTimestamp: <#T##NSTimeInterval#>, length: <#T##NSTimeInterval#>)
         
         switch message.command {
             
         case .Start:
             
             stopAudio(delay)
-            startAudio(TaggedAudioPathStore.taggedAudioPaths(message.reference), afterDelay: delay, muted: message.muted)
+            startAudio(TaggedAudioPathStore.taggedAudioPaths(message.reference), afterDelay: delay, atTime: 0, muted: message.muted)
             performerOutput.setColor(audioStemStore.audioStem(message.reference)!.colour)
             controlAudioLoopVolume(compass.getHeading(), level: levelStore.getLevel())
             
         case .Stop:
             
             stopAudio(delay)
+            
+            //TODO: Color store
             performerOutput.setColor(UIColor.lightGrayColor())
             
         case .ToggleMute:
@@ -96,14 +103,33 @@ extension PerformerInteractor: ReadableMessageAdapterDelegate {
             toggleMuteAudio(message.muted)
         }
     }
+ */
+    
+    func didReceiveStartMessage(startMessage: StartMessage) {
+        
+    }
+    
+    func didReceiveStopMessage(stopMessage: StopMessage) {
+        
+    }
+    
+    func didReceiveMuteMessage() {
+        
+    }
+    
+    func didReceiveUnmuteMessage() {
+        
+    }
 }
 
 extension PerformerInteractor {
     
-    private func startAudio(paths: Set<TaggedAudioPath>, afterDelay: NSTimeInterval, muted: Bool) {
+    private func startAudio(paths: Set<TaggedAudioPath>, afterDelay: NSTimeInterval, atTime: NSTimeInterval, muted: Bool) {
         
-        audioloop = (MultiAudioLoop(paths: Set(paths.map({$0.path}))), paths)
-        audioloop?.loop.start(afterDelay: afterDelay)
+        //TODO: Read `length` from a config file
+        
+        audioloop = (MultiAudioLoop(paths: Set(paths.map({$0.path})), length: 15.6098), paths)
+        audioloop?.loop.start(afterDelay: afterDelay, atTime: atTime)
         audioloop?.loop.setMuted(muted)
     }
     

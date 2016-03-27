@@ -37,28 +37,3 @@ extension WritableMessageAdapter {
         return Serialisation.setPayload(json)
     }
 }
-
-/*
-func writeAudioStemMessage(message: AudioStemMessage, address: Address) {
-
-writeable.writeData(getData(message), address: address)
-}
-*/
-
-/*
-extension WritableMessageAdapter {
-    
-    func getData(message: AudioStemMessage) -> NSData {
-        
-        let d = [
-            "ref" : message.reference,
-            "time" : message.timestamp,
-            "sessionTimestamp" : message.sessionTimestamp,
-            "loopLength" : message.loopLength,
-            "type" : message.type.rawValue
-        ]
-        
-        return Serialisation.setPayload(d)
-    }
-}
-*/

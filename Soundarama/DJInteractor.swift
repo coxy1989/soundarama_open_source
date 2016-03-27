@@ -32,8 +32,6 @@ extension DJInteractor: DJInput {
     
     func startDJ() {
         
-        //TODO: handle pro (16), pad(9) phone(4)
-        
         djOutput.setUISuite(UISuiteTransformer.transform(suiteStore.suite))
         djOutput.setGroupingMode(true)
         
@@ -222,17 +220,13 @@ extension DJInteractor: DJInput {
     func requestAddGroupToWorkspace(groupID: GroupID, workspaceID: WorkspaceID) {
         
         let group = groupStore.groups.filter({ $0.id() == groupID }).first!
-        for p in group.members {
-            requestAddPerformerToWorkspace(p, workspaceID: workspaceID)
-        }
+        group.members.forEach() { requestAddPerformerToWorkspace($0, workspaceID: workspaceID) }
     }
     
     func requestRemoveGroupFromWorkspace(groupID: GroupID) {
         
         let group = groupStore.groups.filter({ $0.id() == groupID }).first!
-        for p in group.members {
-            requestRemovePerformerFromWorkspace(p)
-        }
+        group.members.forEach() { requestRemovePerformerFromWorkspace($0) }
     }
 }
 
@@ -261,14 +255,13 @@ extension DJInteractor {
     
     func didChangeSuite(fromSuite: Suite, toSuite: Suite) {
         
-        let transformer = MessageTransformer(timestamp: NSDate().timeIntervalSince1970, sessionTimestamp: ChristiansTimeServer.timestamp)
-        let messages = transformer.transform(fromSuite, toSuite: toSuite)
+        //let transformer = MessageTransformer(timestamp: NSDate().timeIntervalSince1970, sessionTimestamp: ChristiansTimeServer.timestamp)
         
-        MessageLogger.log(messages)
+        //let messages = transformer.transform(fromSuite, toSuite: toSuite)
         
-        for m in messages {
-            adapter.writeMessage(m)
-        }
+        //MessageLogger.log(messages)
+        
+        //messages.forEach() { adapter.writeMessage($0) }
     }
 }
 

@@ -8,8 +8,15 @@
 
 protocol ReadableMessageAdapterDelegate: class {
     
-    func didReceivePerformerMessage(performerMessage: PerformerMessage)
+   // func didReceivePerformerMessage(performerMessage: PerformerMessage)
 
+    func didReceiveStartMessage(startMessage: StartMessage)
+    
+    func didReceiveStopMessage(stopMessage: StopMessage)
+    
+    func didReceiveMuteMessage()
+    
+    func didReceiveUnmuteMessage()
 }
 
 class ReadableMessageAdapter {
@@ -34,15 +41,25 @@ extension ReadableMessageAdapter: ReadableDelegate {
     
     func didReadData(data: NSData, address: Address) {
     
+        /*
         if let message = deserialize(data) {
             
             print("Success: Deserialised a message: \(message)")
             delegate.didReceivePerformerMessage(message)
         }
         readable.readData(Serialisation.terminator)
+ */
     }
 }
 
+extension ReadableMessageAdapter {
+    
+    func deserialize(data: NSData) {
+        
+    }
+}
+
+/*
 extension ReadableMessageAdapter {
     
     func deserialize(data: NSData) -> PerformerMessage? {
@@ -71,3 +88,4 @@ extension ReadableMessageAdapter {
         return PerformerMessage(address: "X", timestamp: timestamp, sessionTimestamp: sessionTimestamp, reference: reference, loopLength: loopLength, command: command, muted: muted)
     }
 }
+*/

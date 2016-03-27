@@ -31,6 +31,7 @@
 		42177FA21C9AAB29008411B0 /* Functional.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42177FA11C9AAB29008411B0 /* Functional.swift */; };
 		422EB05A1C8DBA2200B27134 /* DJAudioStemsPickerUserInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = 422EB0591C8DBA2200B27134 /* DJAudioStemsPickerUserInterface.swift */; };
 		422EB05C1C8DC39500B27134 /* UIAudioStemTransformer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 422EB05B1C8DC39500B27134 /* UIAudioStemTransformer.swift */; };
+		423709861CA44E4800CC59F9 /* TouchpressFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 423709851CA44E4800CC59F9 /* TouchpressFoundation.framework */; };
 		4244598D1CA2EB5F00547B3C /* AGaramondPro-Italic.otf in Resources */ = {isa = PBXBuildFile; fileRef = 4244598B1CA2EB5F00547B3C /* AGaramondPro-Italic.otf */; };
 		4244598E1CA2EB5F00547B3C /* AGaramondPro-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = 4244598C1CA2EB5F00547B3C /* AGaramondPro-Regular.otf */; };
 		4249B5961C578A160096872D /* BroadcastSocketEndpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4249B5951C578A160096872D /* BroadcastSocketEndpoint.swift */; };
@@ -161,6 +162,7 @@
 		42177FA11C9AAB29008411B0 /* Functional.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Functional.swift; sourceTree = "<group>"; };
 		422EB0591C8DBA2200B27134 /* DJAudioStemsPickerUserInterface.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DJAudioStemsPickerUserInterface.swift; sourceTree = "<group>"; };
 		422EB05B1C8DC39500B27134 /* UIAudioStemTransformer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIAudioStemTransformer.swift; sourceTree = "<group>"; };
+		423709851CA44E4800CC59F9 /* TouchpressFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = TouchpressFoundation.framework; path = "../../Library/Developer/Xcode/DerivedData/Soundarama-farhttzqfpiupbbbjubivppgzixr/Build/Products/Debug-iphonesimulator/TouchpressFoundation.framework"; sourceTree = "<group>"; };
 		4244598B1CA2EB5F00547B3C /* AGaramondPro-Italic.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "AGaramondPro-Italic.otf"; path = "Resources/Font/AGaramondPro-Italic.otf"; sourceTree = "<group>"; };
 		4244598C1CA2EB5F00547B3C /* AGaramondPro-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "AGaramondPro-Regular.otf"; path = "Resources/Font/AGaramondPro-Regular.otf"; sourceTree = "<group>"; };
 		4249B5951C578A160096872D /* BroadcastSocketEndpoint.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BroadcastSocketEndpoint.swift; sourceTree = "<group>"; };
@@ -251,6 +253,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				423709861CA44E4800CC59F9 /* TouchpressFoundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -400,17 +403,17 @@
 		4249B5991C5792190096872D /* Representation */ = {
 			isa = PBXGroup;
 			children = (
-				420080381C5BCA44009009E8 /* Suite.swift */,
-				42D9F8A11C88A7460056957B /* Workspace.swift */,
-				42D9F8A31C88A7950056957B /* Performer.swift */,
-				42D9F89F1C88A70F0056957B /* Group.swift */,
-				4249B59A1C5792490096872D /* Message.swift */,
 				42D9F8A51C88A7AB0056957B /* AudioStem.swift */,
-				42B3D1E61C99B1910065842D /* TaggedAudioPath.swift */,
 				428AF2AB1CA0327C0023FCC9 /* ConnectionState.swift */,
-				428AF2AD1CA032BF0023FCC9 /* Level.swift */,
 				42889BF61CA0476C00ACC3B9 /* Direction.swift */,
+				42D9F89F1C88A70F0056957B /* Group.swift */,
+				428AF2AD1CA032BF0023FCC9 /* Level.swift */,
+				4249B59A1C5792490096872D /* Message.swift */,
+				42D9F8A31C88A7950056957B /* Performer.swift */,
+				420080381C5BCA44009009E8 /* Suite.swift */,
+				42B3D1E61C99B1910065842D /* TaggedAudioPath.swift */,
 				42889BF81CA047BF00ACC3B9 /* Tags.swift */,
+				42D9F8A11C88A7460056957B /* Workspace.swift */,
 			);
 			name = Representation;
 			sourceTree = "<group>";
@@ -508,13 +511,13 @@
 				429EC9871C85AEE0002FDBCC /* Read Stores (Disk) */,
 				42C45A821C57DE5700888EA8 /* Write Stores (Memory) */,
 				425CC3261C74B8A100B39AB5 /* Audio */,
+				42AFC6511C5542DA00AD4B9B /* Communication */,
+				421468581C56473C00892786 /* Connection */,
 				42B3D1E81C99B2540065842D /* Instrumentation */,
 				4249B5991C5792190096872D /* Representation */,
-				4280C0D61C5D166400B2C9B3 /* Transformation */,
-				421468581C56473C00892786 /* Connection */,
 				42AFC6661C55806A00AD4B9B /* Serialisation */,
 				421468621C56751600892786 /* Synchronisation */,
-				42AFC6511C5542DA00AD4B9B /* Communication */,
+				4280C0D61C5D166400B2C9B3 /* Transformation */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -687,6 +690,7 @@
 		FF8F05C000FBA5897614E1FA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				423709851CA44E4800CC59F9 /* TouchpressFoundation.framework */,
 				42F99EA81CA1BC230058F7AC /* TouchpressUI.framework */,
 				42F99EA61CA1BC1E0058F7AC /* TouchpressFoundation.framework */,
 				42F99EA41CA1BC1A0058F7AC /* CocoaAsyncSocket.framework */,
