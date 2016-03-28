@@ -6,7 +6,7 @@
 //  Copyright © 2016 Touchpress Ltd. All rights reserved.
 //
 
-/* Injection of internal dependencies */
+/* Injection of internal VIPER dependencies */
 
 import UIKit
 

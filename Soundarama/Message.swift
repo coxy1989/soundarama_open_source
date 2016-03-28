@@ -29,10 +29,11 @@ struct PerformerMessage {
     
 }
 
-protocol Message  {
+protocol Message {
     
     var type: MessageType { get }
     
+    var address: Address { get }
 }
 
 enum MessageType: String {
@@ -46,9 +47,7 @@ enum MessageType: String {
     case Unmute = "Unmute"
 }
 
-struct StartMessage: Message, Hashable {
-    
-    func x(y: Int) {}
+struct StartMessage: Message {
     
     let type: MessageType = .Start
     
@@ -76,9 +75,7 @@ struct StartMessage: Message, Hashable {
     }
 }
 
-struct StopMessage: Message, Hashable {
-    
-    func x(y: Int) {}
+struct StopMessage: Message {
     
     let type: MessageType = .Stop
     
@@ -91,9 +88,7 @@ struct StopMessage: Message, Hashable {
     }
 }
 
-struct MuteMessage: Message, Hashable {
-    
-    func x(y: Int) {}
+struct MuteMessage: Message {
     
     let type: MessageType = .Mute
     
@@ -105,9 +100,7 @@ struct MuteMessage: Message, Hashable {
     }
 }
 
-struct UnmuteMessage: Message, Hashable {
-    
-    func x(y: Int) {}
+struct UnmuteMessage: Message {
     
     let type: MessageType = .Unmute
     

@@ -15,11 +15,12 @@ class MessageTransformer {
         var messages: [Message] = []
         let fromTable = table(fromSuite)
         let solosTo = Set(toSuite.filter({$0.isSolo}))
-        //let solosFrom = Set(fromSuite.filter({$0.isSolo}))
+        let solosFrom = Set(fromSuite.filter({$0.isSolo}))
         
         toSuite.forEach() {
             
             let from = fromTable[$0.identifier]!
+            
             
             if let msg = addedPerformer(from, to: $0, toSolos: solosTo, timestamp: timestamp, sessionTimestamp: sessionTimestamp, referenceTimestamps: referenceTimestamps) {
                 
@@ -35,7 +36,27 @@ class MessageTransformer {
                 
                 msgs.forEach() { messages.append($0) }
             }
-            //messages.appendContentsOf(solo(from, to: ws, fromSolos: solosFrom, toSolos: solosTo))
+            
+            if let msgs = fromAudioStem(from, to: $0, toSolos: solosTo) {
+                
+                msgs.forEach() { messages.append($0) }
+            }
+            
+            if let msgs = betweenAudioStems(from, to: $0, toSolos: solosTo, timestamp: timestamp, sessionTimestamp: sessionTimestamp, referenceTimestamps: referenceTimestamps) {
+            
+                msgs.forEach() { messages.append($0) }
+            }
+            
+            if let msgs = mute(from, to: $0, toSolos: solosTo) {
+                
+                msgs.forEach() { messages.append($0) }
+            }
+            
+            if let msgs = solo(from, to: $0, fromSolos: solosFrom, toSolos: solosTo) {
+                
+                msgs.forEach() { messages.append($0) }
+            }
+            //messages.appendContentsOf(solo(from , to: ws, fromSolos: solosFrom, toSolos: solosTo))
             //messages.appendContentsOf(performerAdd(from, to: ws, toSolos: solosTo))
             //messages.appendContentsOf(performerRemove(from, to: ws, toSolos: solosTo))
             //messages.appendContentsOf(toAudioStem(from, to: ws, toSolos: solosTo))
@@ -44,19 +65,29 @@ class MessageTransformer {
             //messages.appendContentsOf(mute(from, to: ws, toSolos: solosTo))
         }
         
-        return messages
-        //return filter(messages)
+        return filter(messages)
     }
 }
 
 extension MessageTransformer {
     
-    private static func filter(messages: [PerformerMessage]) -> [PerformerMessage] {
+    
+    private static func filter(messages: [Message]) -> [Message] {
+    
+        let precedence: Message -> Int = {
+            
+            switch  $0.type {
+                case .Start: return 0
+                case .Stop: return 1
+                case .Mute: return 2
+                case .Unmute: return 2
+            }
+        }
         
-        var ptable: [Performer : PerformerMessage] = [ : ]
+        var ptable: [Performer : Message] = [ : ]
         for m in messages {
             if let em = ptable[m.address] {
-                if m.command.rawValue < em.command.rawValue {
+                if precedence(m) < precedence(em) {
                     ptable[m.address] = m
                 }
             } else {
@@ -132,6 +163,7 @@ extension MessageTransformer {
     
     private static func toAudioStem(from: Workspace, to: Workspace, toSolos: Set<Workspace>, timestamp: NSTimeInterval, sessionTimestamp: NSTimeInterval, referenceTimestamps: [String : NSTimeInterval]) -> [StartMessage]? {
         
+        
         guard from.audioStem == nil else {
             
             return nil
@@ -146,9 +178,77 @@ extension MessageTransformer {
             
             StartMessage(address: $0, timestamp: timestamp, reference: audioStem.reference, sessionTimestamp: sessionTimestamp, referenceTimestamp: referenceTimestamps[audioStem.reference]!, muted: effectiveMute(workspace: to, solos: toSolos))
         }
+    }
+    
+    private static func fromAudioStem(from: Workspace, to: Workspace, toSolos: Set<Workspace>) -> [StopMessage]? {
         
+        guard to.audioStem == nil else {
+            return nil
+        }
         
-      //  return to.performers.map({PerformerMessage(address: $0, timestamp: timestamp, sessionTimestamp: sessionTimestamp, reference: audioStem.reference,loopLength: audioStem.loopLength, command: .Start, muted: effectiveMute(workspace: to, solos: toSolos))})
+        guard from.audioStem != nil else {
+            return nil
+        }
+        
+        return to.performers.map() { StopMessage(address: $0)}
+    }
+    
+    private static func betweenAudioStems(from: Workspace, to: Workspace, toSolos: Set<Workspace>, timestamp: NSTimeInterval, sessionTimestamp: NSTimeInterval, referenceTimestamps: [String : NSTimeInterval]) -> [StartMessage]? {
+        
+        guard let toStem = to.audioStem, fromStem = from.audioStem else {
+            return nil
+        }
+        
+        guard toStem.reference != fromStem.reference else {
+            return nil
+        }
+        
+        return to.performers.map() {
+            
+            StartMessage(address: $0, timestamp: timestamp, reference: toStem.reference, sessionTimestamp: sessionTimestamp, referenceTimestamp: referenceTimestamps[toStem.reference]!, muted: effectiveMute(workspace: to, solos: toSolos))
+        }
+    }
+}
+
+extension MessageTransformer {
+    
+    private static func solo(from: Workspace, to: Workspace, fromSolos: Set<Workspace>, toSolos: Set<Workspace>) -> [Message]? {
+        
+        guard toSolos.count != fromSolos.count else {
+            return nil
+        }
+        
+        let from_mut = effectiveMute(workspace: from, solos: fromSolos)
+        let to_mut = effectiveMute(workspace: to, solos: toSolos)
+        
+        guard from_mut != to_mut else {
+            return nil
+        }
+        
+        return to_mut ? to.performers.map() { MuteMessage(address: $0)} : to.performers.map() { UnmuteMessage(address: $0) }
+        
+    }
+    
+    private static func mute(from: Workspace, to: Workspace, toSolos: Set<Workspace>) -> [Message]? {
+        
+        guard from.isMuted != to.isMuted else {
+            return nil
+        }
+        
+        let to_mut = effectiveMute(workspace: to, solos: toSolos)
+        
+        return to_mut ? to.performers.map() { MuteMessage(address: $0) } : to.performers.map() { UnmuteMessage(address: $0)}
+        
+        /*
+        var messages: [Message] = []
+        if from.isMuted != to.isMuted {
+            for p in to.performers {
+                let message = PerformerMessage(address: p, timestamp: timestamp, sessionTimestamp: sessionTimestamp, reference: to.audioStem!.reference,loopLength: to.audioStem!.loopLength, command: .ToggleMute, muted: effectiveMute(workspace: to, solos: toSolos))
+                messages.append(message)
+            }
+        }
+        return messages
+ */
     }
 }
 
@@ -224,3 +324,21 @@ extension MessageTransformer {
 }
 
 */
+
+/*
+ private static func filter(messages: [PerformerMessage]) -> [PerformerMessage] {
+ 
+ var ptable: [Performer : PerformerMessage] = [ : ]
+ for m in messages {
+ if let em = ptable[m.address] {
+ if m.command.rawValue < em.command.rawValue {
+ ptable[m.address] = m
+ }
+ } else {
+ ptable[m.address] = m
+ }
+ }
+ 
+ return Array(ptable.values)
+ }
+ */
