@@ -21,6 +21,8 @@ class DJInteractor {
     
     private let groupStore = GroupStore()
     
+    private let referenceTimestampStore = ReferenceTimestampStore()
+    
     private var christiansTimeServer: ChristiansTimeServer!
     
     private lazy var audioStemStore: AudioStemStore =  { AudioStemStore() } ()
@@ -252,18 +254,34 @@ extension DJInteractor {
     
     func didChangeSuite(fromSuite: Suite, toSuite: Suite) {
         
-        MessageTransformer.transform(fromSuite, toSuite: toSuite, timestamp: NSDate().timeIntervalSince1970, sessionTimestamp: ChristiansTimeServer.timestamp, referenceTimestamps: [ : ])
-        .map() { (addresss: $0.address, data: MessageSerializer.serialize($0)) }
-        .forEach() { endpoint.writeData($0.data, address: $0.addresss) }
+        let outgoing: [(Address, Message)] = DJCommandTransformer.transform(fromSuite, toSuite: toSuite).map() {
+            
+            switch $0.type {
+                
+                case .Start:
         
+                    let cmd = $0 as! DJStartCommand
+                    let unix = NSDate().timeIntervalSince1970
+                    let session_unix = ChristiansTimeServer.timestamp
+                    let reference_unix = referenceTimestampStore.getTimestamp(cmd.reference)
+                    
+                    return ($0.performer, DJMessageTransformer.transform(cmd, timestamp: unix, sessionTimestamp: session_unix, referenceTimestamp: reference_unix))
+                
+                case .Stop:
+                    
+                    return ($0.performer, DJMessageTransformer.transform($0 as! DJStopCommand))
+                
+                case .Mute:
+                    
+                    return ($0.performer, DJMessageTransformer.transform($0 as! DJMuteCommand))
+                
+                case .Unmute:
+                    
+                    return ($0.performer, DJMessageTransformer.transform($0 as! DJUnmuteCommand))
+            }
+        }
         
-        //let transformer = MessageTransformer(timestamp: NSDate().timeIntervalSince1970, sessionTimestamp: ChristiansTimeServer.timestamp)
-        
-        //let messages = transformer.transform(fromSuite, toSuite: toSuite)
-        
-        //MessageLogger.log(messages)
-        
-        //messages.forEach() { adapter.writeMessage($0) }
+        outgoing.forEach() { endpoint.writeData(MessageSerializer.serialize($0.1), address: $0.0) }
     }
 }
 
@@ -284,4 +302,3 @@ extension DJInteractor {
         }
     }
 }
-

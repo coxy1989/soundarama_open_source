@@ -30,7 +30,6 @@ struct MessageSerialisationKeys {
     
     static let type = "Type"
     
-    static let address = "Address"
 }
 
 struct StartMessageSerialisationKeys {

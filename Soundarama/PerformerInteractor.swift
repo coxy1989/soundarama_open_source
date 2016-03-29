@@ -87,10 +87,21 @@ extension PerformerInteractor {
         
         switch message.type {
             
-            case .Start: handleStartMessage(message as! StartMessage)
-            case .Stop: handleStopMessage(message as! StopMessage)
-            case .Mute: handleMuteMessage(message as! MuteMessage)
-            case .Unmute: handleUnmuteMessage(message as! UnmuteMessage)
+            case .Start:
+                
+                handleStartMessage(message as! StartMessage)
+            
+            case .Stop:
+                
+                handleStopMessage(message as! StopMessage)
+            
+            case .Mute:
+                
+                handleMuteMessage(message as! MuteMessage)
+            
+            case .Unmute:
+                
+                handleUnmuteMessage(message as! UnmuteMessage)
         }
     }
     

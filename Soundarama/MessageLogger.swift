@@ -6,6 +6,7 @@
 //  Copyright © 2016 Touchpress Ltd. All rights reserved.
 //
 
+/*
 class MessageLogger {
     
     static func log(messages: [PerformerMessage]) {
@@ -21,3 +22,4 @@ class MessageLogger {
         print("---- End of Message Log ----")
     }
 }
+ */

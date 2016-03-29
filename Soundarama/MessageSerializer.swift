@@ -40,7 +40,6 @@ extension MessageSerializer {
     static func startMessageSerialization(message: StartMessage) -> [String : AnyObject] {
         
         return [ MessageSerialisationKeys.type : message.type.rawValue,
-                 MessageSerialisationKeys.address : message.address,
                  StartMessageSerialisationKeys.timestamp : message.timestamp,
                  StartMessageSerialisationKeys.reference : message.reference,
                  StartMessageSerialisationKeys.sessionTimestamp : message.sessionTimestamp,
@@ -50,20 +49,17 @@ extension MessageSerializer {
     
     static func stopMessageSerialization(message: StopMessage) -> [String : AnyObject] {
         
-         return [ MessageSerialisationKeys.type : message.type.rawValue,
-                  MessageSerialisationKeys.address : message.address ]
+         return [ MessageSerialisationKeys.type : message.type.rawValue ]
     }
     
     static func muteMessageSerialization(message: MuteMessage) -> [String : AnyObject] {
         
-        return [ MessageSerialisationKeys.type : message.type.rawValue,
-                 MessageSerialisationKeys.address : message.address ]
+        return [ MessageSerialisationKeys.type : message.type.rawValue ]
     }
     
     static func unmuteMessageSerialization(message: UnmuteMessage) -> [String : AnyObject] {
         
-        return [ MessageSerialisationKeys.type : message.type.rawValue,
-                 MessageSerialisationKeys.address : message.address ]
+        return [ MessageSerialisationKeys.type : message.type.rawValue ]
     }
 }
 

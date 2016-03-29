@@ -57,9 +57,8 @@ extension MessageTransformerTests {
         
         let from = Workspace(identifier: NSUUID().UUIDString, audioStem: nil, performers: Set(), isMuted: false, isSolo: false, isAntiSolo: false)
         let to = from
+        let res = DJCommandTransformer.transform(Set([to]), toSuite: Set([from]))
         
-    
-        let res = MessageTransformer.transform(Set([to]), toSuite: Set([from]), timestamp: 0, sessionTimestamp: 1, referenceTimestamps: [ : ])
         XCTAssertEqual(res.count, 0)
     }
     
@@ -80,7 +79,8 @@ extension MessageTransformerTests {
         let p = "x"
         let from_ws1 = Workspace(identifier: "A", audioStem: audioStem, performers: Set([p]), isMuted: false, isSolo: false, isAntiSolo: false)
         let to_ws1 = Workspace(identifier: "A", audioStem: audioStem, performers: Set([p]), isMuted: false, isSolo: false, isAntiSolo: false)
-        let res = MessageTransformer.transform([from_ws1], toSuite: [to_ws1], timestamp: 0, sessionTimestamp: 1, referenceTimestamps: [ : ])
+        let res = DJCommandTransformer.transform([from_ws1], toSuite: [to_ws1])
+        
         XCTAssertEqual(res.count, 0)
     }
 }
@@ -108,7 +108,8 @@ extension MessageTransformerTests {
         let newPerformer = "x"
         let from_ws1 = Workspace(identifier: id, audioStem: nil, performers: Set([]), isMuted: false, isSolo: false, isAntiSolo: false)
         let to_ws1 = Workspace(identifier: id, audioStem: nil, performers: Set([newPerformer]), isMuted: false, isSolo: false, isAntiSolo: false)
-        let res = MessageTransformer.transform([from_ws1], toSuite: [to_ws1], timestamp: 0, sessionTimestamp: 1, referenceTimestamps: [ : ])
+        let res = DJCommandTransformer.transform([from_ws1], toSuite: [to_ws1])
+        
         XCTAssertEqual(res.count, 0)
     }
     
@@ -128,13 +129,10 @@ extension MessageTransformerTests {
         let newPerformer = "x"
         let from_ws1 = Workspace(identifier: id, audioStem: nil, performers: Set([]), isMuted: false, isSolo: false, isAntiSolo: false)
         let to_ws1 = Workspace(identifier: id, audioStem: audioStem, performers: Set([newPerformer]), isMuted: false, isSolo: false, isAntiSolo: false)
+        let res = DJCommandTransformer.transform([from_ws1], toSuite: [to_ws1])
+        let expected = DJStartCommand(performer: "x", reference: audioStem.reference, muted: false)
         
-        let result = MessageTransformer.transform([from_ws1], toSuite: [to_ws1], timestamp: 0, sessionTimestamp: 1, referenceTimestamps: [audioStem.reference : 2])
-        
-        let expected = StartMessage(address: "x", timestamp: 0, reference: audioStem.reference, sessionTimestamp: 1, referenceTimestamp: 2, muted: false)
-        
-        
-        XCTAssertTrue(result.first as! StartMessage == expected)
+        XCTAssertTrue(res.first as! DJStartCommand == expected)
     }
     
     
@@ -143,7 +141,7 @@ extension MessageTransformerTests {
         /*
         From:
         
-            [ stem: SOME, performers: [], M: 0, S: 0 ]
+            [ stem: SOME, performers: [], M: 1, S: 0 ]
         
         To:
             [ stem: SOME, performers: ["x"], M: 1, S: 0 ]
@@ -152,21 +150,14 @@ extension MessageTransformerTests {
         
         let id = "A"
         let newPerformer = "x"
-        let from_ws1 = Workspace(identifier: id, audioStem: audioStem, performers: Set([]), isMuted: false, isSolo: false, isAntiSolo: false)
+        let from_ws1 = Workspace(identifier: id, audioStem: audioStem, performers: Set([]), isMuted: true, isSolo: false, isAntiSolo: false)
         let to_ws1 = Workspace(identifier: id, audioStem: audioStem, performers: Set([newPerformer]), isMuted: true, isSolo: false, isAntiSolo: false)
-        let res = MessageTransformer.transform([from_ws1], toSuite: [to_ws1], timestamp: 0, sessionTimestamp: 1, referenceTimestamps: [audioStem.reference : 2])
-        let msg = res.first as! StartMessage
+        let res = DJCommandTransformer.transform([from_ws1], toSuite: [to_ws1])
+        let cmd = res.first as! DJStartCommand
+        let expected = DJStartCommand(performer: "x", reference: audioStem.reference, muted: true)
         
         XCTAssertEqual(res.count, 1)
-        XCTAssert(res.count == 1)
-        XCTAssertEqual(msg.type, MessageType.Start)
-        XCTAssertEqual(msg.address, newPerformer)
-        XCTAssertEqual(msg.timestamp, 0)
-        XCTAssertEqual(msg.sessionTimestamp, 1)
-        XCTAssertEqual(msg.referenceTimestamp, 2)
-        XCTAssertEqual(msg.reference, audioStem.reference)
-        
-        XCTAssertTrue(msg.muted)
+        XCTAssertEqual(expected, cmd)
     }
     
     
@@ -186,22 +177,14 @@ extension MessageTransformerTests {
         
         let from_ws1 = Workspace(identifier: "A", audioStem: audioStem, performers: Set([]), isMuted: false, isSolo: true, isAntiSolo: true)
         let from_ws2 = Workspace(identifier: "B", audioStem: audioStem2, performers: Set([]), isMuted: false, isSolo: true, isAntiSolo: false)
-        
         let to_ws1 = Workspace(identifier: "A", audioStem: audioStem, performers: Set(["x"]), isMuted: false, isSolo: false, isAntiSolo: true)
         let to_ws2 = Workspace(identifier: "B", audioStem: audioStem2, performers: Set(), isMuted: true, isSolo: true, isAntiSolo: false)
-        
-        let res = MessageTransformer.transform([from_ws1, from_ws2], toSuite: [to_ws1, to_ws2], timestamp: 0, sessionTimestamp: 1, referenceTimestamps: [audioStem.reference : 2])
-        let msg = res.first as! StartMessage
+        let res = DJCommandTransformer.transform([from_ws1, from_ws2], toSuite: [to_ws1, to_ws2])
+        let cmd = res.first as! DJStartCommand
+        let expected = DJStartCommand(performer: "x", reference: audioStem.reference, muted: true)
         
         XCTAssertEqual(res.count, 1)
-        XCTAssertEqual(msg.type, MessageType.Start)
-        XCTAssertEqual(msg.address, "x")
-        XCTAssertEqual(msg.timestamp, 0)
-        XCTAssertEqual(msg.sessionTimestamp, 1)
-        XCTAssertEqual(msg.referenceTimestamp, 2)
-        XCTAssertEqual(msg.reference, audioStem.reference)
-        
-        XCTAssertTrue(msg.muted)
+        XCTAssertEqual(cmd, expected)
     }
 }
 
@@ -225,12 +208,12 @@ extension MessageTransformerTests {
         let p = "x"
         let from_ws1 = Workspace(identifier: id, audioStem: audioStem, performers: Set([p]), isMuted: false, isSolo: false, isAntiSolo: false)
         let to_ws1 = Workspace(identifier: id, audioStem: audioStem, performers: Set([]), isMuted: false, isSolo: false, isAntiSolo: false)
-        let res = MessageTransformer.transform([from_ws1], toSuite: [to_ws1], timestamp: 0, sessionTimestamp: 1, referenceTimestamps: [audioStem.reference : 2])
-        let msg = res.first as! StopMessage
+        let res = DJCommandTransformer.transform([from_ws1], toSuite: [to_ws1])
+        let cmd = res.first as! DJStopCommand
+        let expected = DJStopCommand(performer: "x")
         
         XCTAssertEqual(res.count, 1)
-        XCTAssert(msg.type == MessageType.Stop)
-        XCTAssertEqual(msg.address, "x")
+        XCTAssertEqual(cmd, expected)
     }
 }
 
@@ -256,22 +239,16 @@ extension MessageTransformerTests {
         let id1 = "A"
         let id2 = "B"
         let p = "x"
-        
         let from_ws1 = Workspace(identifier: id1, audioStem: audioStem, performers: Set([p]), isMuted: false, isSolo: false, isAntiSolo: false)
         let from_ws2 = Workspace(identifier: id2, audioStem: audioStem2, performers: Set([]), isMuted: false, isSolo: false, isAntiSolo: false)
-        let suite1 = Set([from_ws1, from_ws2])
-        
         let to_ws1 = Workspace(identifier: id1, audioStem: audioStem, performers: Set([]), isMuted: false, isSolo: false, isAntiSolo: false)
         let to_ws2 = Workspace(identifier: id2, audioStem: audioStem2, performers: Set([p]), isMuted: false, isSolo: false, isAntiSolo: false)
-        let suite2 = Set([to_ws1, to_ws2])
+        let res = DJCommandTransformer.transform([from_ws1, from_ws2], toSuite: [to_ws1, to_ws2])
+        let cmd = res.first as! DJStartCommand
+        let expected = DJStartCommand(performer: "x", reference: audioStem2.reference, muted: false)
         
-        let res = MessageTransformer.transform(suite1, toSuite: suite2,timestamp: 0, sessionTimestamp: 1, referenceTimestamps: [audioStem2.reference : 2])
         XCTAssertEqual(res.count, 1)
-        
-        let msg = res.first as! StartMessage
-        XCTAssertTrue(msg.reference == audioStem2.reference)
-        XCTAssertTrue(msg.type == .Start)
-        
+        XCTAssertEqual(cmd, expected)
     }
     
     func testMovedPerformer_toHotOccupiedUnmutedWS_fromHotUnmutedWorkspace() {
@@ -290,23 +267,16 @@ extension MessageTransformerTests {
         
         let pa = "y"
         let pb = "x"
-        
         let from_ws1 = Workspace(identifier: "A", audioStem: audioStem, performers: Set([pa]), isMuted: false, isSolo: false, isAntiSolo: false)
         let from_ws2 = Workspace(identifier: "B", audioStem: audioStem2, performers: Set([pb]), isMuted: false, isSolo: false, isAntiSolo: false)
-        let suite1 = Set([from_ws1, from_ws2])
-        
         let to_ws1 = Workspace(identifier: "A", audioStem: audioStem, performers: Set([]), isMuted: false, isSolo: false, isAntiSolo: false)
         let to_ws2 = Workspace(identifier: "B", audioStem: audioStem2, performers: Set([pb, pa]), isMuted: false, isSolo: false, isAntiSolo: false)
-        let suite2 = Set([to_ws1, to_ws2])
+        let res = DJCommandTransformer.transform([from_ws1, from_ws2], toSuite: [to_ws1, to_ws2])
+        let cmd = res.first as! DJStartCommand
+        let expected = DJStartCommand(performer: pa, reference: audioStem2.reference, muted: false)
         
-        let res = MessageTransformer.transform(suite1, toSuite: suite2, timestamp: 0, sessionTimestamp: 1, referenceTimestamps: [audioStem2.reference : 2])
         XCTAssertEqual(res.count, 1)
-        
-        let msg = res.first as! StartMessage
-        XCTAssertEqual(msg.address, pa)
-        XCTAssertFalse(msg.muted)
-        XCTAssertEqual(msg.reference, audioStem2.reference)
-        XCTAssert(msg.type == .Start)
+        XCTAssertEqual(cmd, expected)
     }
 }
 
@@ -328,11 +298,9 @@ extension MessageTransformerTests {
         */
         
         let from_ws = Workspace(identifier: "A", audioStem: nil, performers: Set(), isMuted: false, isSolo: false, isAntiSolo: false)
-        
         let to_ws = Workspace(identifier: "A", audioStem: audioStem, performers: Set(), isMuted: false, isSolo: false, isAntiSolo: false)
-
+        let res = DJCommandTransformer.transform([from_ws], toSuite: [to_ws])
         
-        let res = MessageTransformer.transform(Set([from_ws]), toSuite: Set([to_ws]), timestamp: 0, sessionTimestamp: 1, referenceTimestamps: [audioStem2.reference : 2])
         XCTAssertEqual(res.count, 0)
     }
     
@@ -349,11 +317,9 @@ extension MessageTransformerTests {
         */
         
         let from_ws = Workspace(identifier: "A", audioStem: audioStem, performers: Set(), isMuted: false, isSolo: false, isAntiSolo: false)
-        
         let to_ws = Workspace(identifier: "A", audioStem: nil, performers: Set(), isMuted: false, isSolo: false, isAntiSolo: false)
-
+        let res = DJCommandTransformer.transform([from_ws], toSuite: [to_ws])
         
-        let res = MessageTransformer.transform(Set([from_ws]), toSuite: Set([to_ws]), timestamp: 0, sessionTimestamp: 1, referenceTimestamps: [audioStem2.reference : 2])
         XCTAssertEqual(res.count, 0)
     }
     
@@ -370,11 +336,8 @@ extension MessageTransformerTests {
         */
         
         let from_ws = Workspace(identifier: "A", audioStem: audioStem, performers: Set(), isMuted: false, isSolo: false, isAntiSolo: false)
-        
         let to_ws = Workspace(identifier: "A", audioStem: audioStem2, performers: Set(), isMuted: false, isSolo: false, isAntiSolo: false)
-
-        
-        let res = MessageTransformer.transform(Set([from_ws]), toSuite: Set([to_ws]), timestamp: 0, sessionTimestamp: 1, referenceTimestamps: [audioStem2.reference : 2])
+        let res = DJCommandTransformer.transform([from_ws], toSuite: [to_ws])
 
         XCTAssertEqual(res.count, 0)
     }
@@ -392,20 +355,14 @@ extension MessageTransformerTests {
         */
         
         let p = "x"
-        
         let from_ws = Workspace(identifier: "A", audioStem: nil, performers: Set([p]), isMuted: false, isSolo: false, isAntiSolo: false)
-        
         let to_ws = Workspace(identifier: "A", audioStem: audioStem, performers: Set([p]), isMuted: false, isSolo: false, isAntiSolo: false)
-
+        let res = DJCommandTransformer.transform([from_ws], toSuite: [to_ws])
+        let cmd = res.first as! DJStartCommand
+        let expected = DJStartCommand(performer: "x", reference: audioStem.reference, muted: false)
         
-        let res = MessageTransformer.transform(Set([from_ws]), toSuite: Set([to_ws]), timestamp: 0, sessionTimestamp: 1, referenceTimestamps: [audioStem.reference : 2])
         XCTAssertEqual(res.count, 1)
-        let msg = res.first as! StartMessage
-        XCTAssertEqual(msg.address, p)
-        XCTAssertFalse(msg.muted)
-        XCTAssertEqual(msg.reference, audioStem.reference)
-        XCTAssert(msg.type == .Start)
-    
+        XCTAssertEqual(cmd, expected)
     }
     
     func testSetAudioStem_onePerformerHotToCold() {
@@ -421,18 +378,14 @@ extension MessageTransformerTests {
         */
         
         let p = "x"
-        
         let from_ws = Workspace(identifier: "A", audioStem: audioStem, performers: Set([p]), isMuted: false, isSolo: false, isAntiSolo: false)
-        
         let to_ws = Workspace(identifier: "A", audioStem: nil, performers: Set([p]), isMuted: false, isSolo: false, isAntiSolo: false)
-
+        let res = DJCommandTransformer.transform([from_ws], toSuite: [to_ws])
+        let cmd = res.first as! DJStopCommand
+        let expect = DJStopCommand(performer: "x")
         
-        let res = MessageTransformer.transform(Set([from_ws]), toSuite: Set([to_ws]), timestamp: 0, sessionTimestamp: 1, referenceTimestamps: [audioStem.reference : 2])
         XCTAssertEqual(res.count, 1)
-        let msg = res.first as! StopMessage
-        XCTAssertEqual(msg.address, p)
-        XCTAssert(msg.type == .Stop)
-
+        XCTAssertEqual(cmd, expect)
     }
     
     func testSetAudioStem_onePerformerHotToHot() {
@@ -448,14 +401,13 @@ extension MessageTransformerTests {
         */
         
         let from_ws = Workspace(identifier: "A", audioStem: audioStem, performers: Set(["x"]), isMuted: false, isSolo: false, isAntiSolo: false)
-        
         let to_ws = Workspace(identifier: "A", audioStem: audioStem2, performers: Set(["x"]), isMuted: false, isSolo: false, isAntiSolo: false)
-
+        let res = DJCommandTransformer.transform([from_ws], toSuite: [to_ws])
+        let cmd = res.first as! DJStartCommand
+        let expect = DJStartCommand(performer: "x", reference: audioStem2.reference, muted: false)
         
-        let res = MessageTransformer.transform(Set([from_ws]), toSuite: Set([to_ws]), timestamp: 0, sessionTimestamp: 1, referenceTimestamps: [audioStem2.reference : 2])
         XCTAssertEqual(res.count, 1)
-        let m = res.first as! StartMessage
-        XCTAssertEqual(m.reference, audioStem2.reference)
+        XCTAssertEqual(expect, cmd)
     }
 
     func testSetAudioStem_manyPerformersColdToHot() {
@@ -471,23 +423,17 @@ extension MessageTransformerTests {
         */
         
         let ps = ["x", "y", "z"]
-        
         let from_ws = Workspace(identifier: "A", audioStem: nil, performers: Set(ps), isMuted: false, isSolo: false, isAntiSolo: false)
-        
         let to_ws = Workspace(identifier: "A", audioStem: audioStem, performers: Set(ps), isMuted: false, isSolo: false, isAntiSolo: false)
-
+        let res = DJCommandTransformer.transform([from_ws], toSuite: [to_ws])
+        let expect_1 = DJStartCommand(performer: "x", reference: audioStem.reference, muted: false)
+        let expect_2 = DJStartCommand(performer: "y", reference: audioStem.reference, muted: false)
+        let expect_3 = DJStartCommand(performer: "z", reference: audioStem.reference, muted: false)
         
-        let res = MessageTransformer.transform(Set([from_ws]), toSuite: Set([to_ws]), timestamp: 0, sessionTimestamp: 1, referenceTimestamps: [audioStem.reference : 2])
         XCTAssertEqual(res.count, 3)
-        XCTAssertEqual(res.filter({ $0.address == "x"}).count, 1)
-        XCTAssertEqual(res.filter({ $0.address == "y"}).count, 1)
-        XCTAssertEqual(res.filter({ $0.address == "z"}).count, 1)
-        for msg in res  {
-            let m = msg as! StartMessage
-            XCTAssertFalse(m.muted)
-            XCTAssertEqual(m.reference, audioStem.reference)
-            XCTAssert(m.type == .Start)
-        }
+        XCTAssertTrue(res.contains( {$0 as? DJStartCommand == expect_1 }))
+        XCTAssertTrue(res.contains( {$0 as? DJStartCommand == expect_2 }))
+        XCTAssertTrue(res.contains( {$0 as? DJStartCommand == expect_3 }))
     }
     
     func testSetAudioStem_manyPerformersHotToCold() {
@@ -503,20 +449,17 @@ extension MessageTransformerTests {
         */
         
         let ps = ["x", "y", "z"]
-        
         let from_ws = Workspace(identifier: "A", audioStem: audioStem, performers: Set(ps), isMuted: false, isSolo: false, isAntiSolo: false)
-        
         let to_ws = Workspace(identifier: "A", audioStem: nil, performers: Set(ps), isMuted: false, isSolo: false, isAntiSolo: false)
-
+        let res = DJCommandTransformer.transform([from_ws], toSuite: [to_ws])
+        let expect_1 = DJStopCommand(performer: "x")
+        let expect_2 = DJStopCommand(performer: "y")
+        let expect_3 = DJStopCommand(performer: "z")
         
-        let res = MessageTransformer.transform(Set([from_ws]), toSuite: Set([to_ws]), timestamp: 0, sessionTimestamp: 1, referenceTimestamps: [audioStem.reference : 2, audioStem2.reference : 2])
         XCTAssertEqual(res.count, 3)
-        XCTAssertEqual(res.filter({ $0.address == "x"}).count, 1)
-        XCTAssertEqual(res.filter({ $0.address == "y"}).count, 1)
-        XCTAssertEqual(res.filter({ $0.address == "z"}).count, 1)
-        for msg in res {
-            XCTAssert((msg as! StopMessage).type == .Stop)
-        }
+        XCTAssertTrue(res.contains( {$0 as? DJStopCommand == expect_1 }))
+        XCTAssertTrue(res.contains( {$0 as? DJStopCommand == expect_2 }))
+        XCTAssertTrue(res.contains( {$0 as? DJStopCommand == expect_3 }))
     }
 }
 
@@ -536,13 +479,10 @@ extension MessageTransformerTests {
         
         */
         
-        
         let from_ws = Workspace(identifier: "A", audioStem: audioStem, performers: Set(), isMuted: false, isSolo: false, isAntiSolo: false)
-        
         let to_ws = Workspace(identifier: "A", audioStem: audioStem, performers: Set(), isMuted: true, isSolo: false, isAntiSolo: false)
-
+        let res = DJCommandTransformer.transform([from_ws], toSuite: [to_ws])
         
-        let res = MessageTransformer.transform(Set([from_ws]), toSuite: Set([to_ws]), timestamp: 0, sessionTimestamp: 1, referenceTimestamps: [audioStem2.reference : 2])
         XCTAssertEqual(res.count, 0)
     }
     
@@ -558,13 +498,10 @@ extension MessageTransformerTests {
         
         */
         
-        
         let from_ws = Workspace(identifier: "A", audioStem: audioStem, performers: Set(), isMuted: true, isSolo: false, isAntiSolo: false)
-        
         let to_ws = Workspace(identifier: "A", audioStem: audioStem, performers: Set(), isMuted: false, isSolo: false, isAntiSolo: false)
-
+        let res = DJCommandTransformer.transform([from_ws], toSuite: [to_ws])
         
-        let res = MessageTransformer.transform(Set([from_ws]), toSuite: Set([to_ws]), timestamp: 0, sessionTimestamp: 1, referenceTimestamps: [audioStem2.reference : 2])
         XCTAssertEqual(res.count, 0)
     }
     
@@ -581,14 +518,13 @@ extension MessageTransformerTests {
         */
         
         let from_ws = Workspace(identifier: "A", audioStem: audioStem, performers: Set(["x"]), isMuted: false, isSolo: false, isAntiSolo: false)
-        
         let to_ws = Workspace(identifier: "A", audioStem: audioStem, performers: Set(["x"]), isMuted: true, isSolo: false, isAntiSolo: false)
-
-        
-        let res = MessageTransformer.transform(Set([from_ws]), toSuite: Set([to_ws]), timestamp: 0, sessionTimestamp: 1, referenceTimestamps: [audioStem2.reference : 2])
+        let res = DJCommandTransformer.transform([from_ws], toSuite: [to_ws])
+        let cmd = res.first as! DJMuteCommand
+        let expect = DJMuteCommand(performer: "x")
+            
         XCTAssertEqual(res.count, 1)
-        let msg = res.first as! MuteMessage
-        XCTAssertEqual(msg.address, "x")
+        XCTAssertEqual(expect, cmd)
     }
     
     func testToggeMute_onToOff_onePerformer() {
@@ -604,15 +540,13 @@ extension MessageTransformerTests {
         */
         
         let from_ws = Workspace(identifier: "A", audioStem: audioStem, performers: Set(["x"]), isMuted: true, isSolo: false, isAntiSolo: false)
-        
         let to_ws = Workspace(identifier: "A", audioStem: audioStem, performers: Set(["x"]), isMuted: false, isSolo: false, isAntiSolo: false)
-
+        let res = DJCommandTransformer.transform([from_ws], toSuite: [to_ws])
+        let cmd = res.first as! DJUnmuteCommand
+        let expect = DJUnmuteCommand(performer: "x")
         
-        let res = MessageTransformer.transform(Set([from_ws]), toSuite: Set([to_ws]), timestamp: 0, sessionTimestamp: 1, referenceTimestamps: [audioStem2.reference : 2])
         XCTAssertEqual(res.count, 1)
-        let msg = res.first as! UnmuteMessage
-        XCTAssertEqual(msg.address, "x")
-        XCTAssertEqual(msg.type, MessageType.Unmute)
+        XCTAssertEqual(expect, cmd)
     }
     
     func testToggeMute_offToOn_manyPerformer() {
@@ -628,18 +562,16 @@ extension MessageTransformerTests {
         */
         
         let from_ws = Workspace(identifier: "A", audioStem: audioStem, performers: Set(["x", "y", "z"]), isMuted: false, isSolo: false, isAntiSolo: false)
-        
         let to_ws = Workspace(identifier: "A", audioStem: audioStem, performers: Set(["x","y","z"]), isMuted: true, isSolo: false, isAntiSolo: false)
-
+        let res = DJCommandTransformer.transform([from_ws], toSuite: [to_ws])
+        let expect_1 = DJMuteCommand(performer: "x")
+        let expect_2 = DJMuteCommand(performer: "y")
+        let expect_3 = DJMuteCommand(performer: "z")
         
-        let res = MessageTransformer.transform(Set([from_ws]), toSuite: Set([to_ws]), timestamp: 0, sessionTimestamp: 1, referenceTimestamps: [audioStem2.reference : 2])
         XCTAssertEqual(res.count, 3)
-        XCTAssertEqual(res.filter({$0.address == "x"}).count, 1)
-        XCTAssertEqual(res.filter({$0.address == "y"}).count, 1)
-        XCTAssertEqual(res.filter({$0.address == "z"}).count, 1)
-        for msg in res {
-            XCTAssertTrue(msg.type == .Mute)
-        }
+        XCTAssertTrue(res.contains( {$0 as? DJMuteCommand == expect_1 }))
+        XCTAssertTrue(res.contains( {$0 as? DJMuteCommand == expect_2 }))
+        XCTAssertTrue(res.contains( {$0 as? DJMuteCommand == expect_3 }))
     }
     
     func testToggeMute_onToOff_manyPerformer() {
@@ -655,18 +587,16 @@ extension MessageTransformerTests {
         */
         
         let from_ws = Workspace(identifier: "A", audioStem: audioStem, performers: Set(["x", "y", "z"]), isMuted: true, isSolo: false, isAntiSolo: false)
-        
         let to_ws = Workspace(identifier: "A", audioStem: audioStem, performers: Set(["x","y","z"]), isMuted: false, isSolo: false, isAntiSolo: false)
-
+        let res = DJCommandTransformer.transform([from_ws], toSuite: [to_ws])
+        let expect_1 = DJUnmuteCommand(performer: "x")
+        let expect_2 = DJUnmuteCommand(performer: "y")
+        let expect_3 = DJUnmuteCommand(performer: "z")
         
-        let res = MessageTransformer.transform(Set([from_ws]), toSuite: Set([to_ws]), timestamp: 0, sessionTimestamp: 1, referenceTimestamps: [audioStem2.reference : 2])
         XCTAssertEqual(res.count, 3)
-        XCTAssertEqual(res.filter({$0.address == "x"}).count, 1)
-        XCTAssertEqual(res.filter({$0.address == "y"}).count, 1)
-        XCTAssertEqual(res.filter({$0.address == "z"}).count, 1)
-        for msg in res  {
-            XCTAssertTrue(msg.type == .Unmute)
-        }
+        XCTAssertTrue(res.contains( {$0 as? DJUnmuteCommand == expect_1 }))
+        XCTAssertTrue(res.contains( {$0 as? DJUnmuteCommand == expect_2 }))
+        XCTAssertTrue(res.contains( {$0 as? DJUnmuteCommand == expect_3 }))
     }
 }
 
@@ -687,10 +617,8 @@ extension MessageTransformerTests {
         */
         
         let from_ws = Workspace(identifier: "A", audioStem: audioStem, performers: Set(), isMuted: true, isSolo: false, isAntiSolo: false)
-        
         let to_ws = Workspace(identifier: "A", audioStem: audioStem, performers: Set(), isMuted: false, isSolo: false, isAntiSolo: false)
-        
-        let res = MessageTransformer.transform(Set([from_ws]), toSuite: Set([to_ws]), timestamp: 0, sessionTimestamp: 1, referenceTimestamps: [audioStem2.reference : 2])
+        let res = DJCommandTransformer.transform([from_ws], toSuite: [to_ws])
         
         XCTAssertEqual(res.count, 0)
     }
@@ -708,10 +636,8 @@ extension MessageTransformerTests {
         */
         
         let from_ws = Workspace(identifier: "A", audioStem: audioStem, performers: Set(), isMuted: true, isSolo: true, isAntiSolo: false)
-        
         let to_ws = Workspace(identifier: "A", audioStem: audioStem, performers: Set(), isMuted: false, isSolo: false, isAntiSolo: false)
-        
-        let res = MessageTransformer.transform(Set([from_ws]), toSuite: Set([to_ws]), timestamp: 0, sessionTimestamp: 1, referenceTimestamps: [audioStem2.reference : 2])
+        let res = DJCommandTransformer.transform([from_ws], toSuite: [to_ws])
         
         XCTAssertEqual(res.count, 0)
     }
@@ -730,11 +656,8 @@ extension MessageTransformerTests {
         */
         
         let from_ws = Workspace(identifier: "A", audioStem: audioStem, performers: Set(["x"]), isMuted: false, isSolo: false, isAntiSolo: false)
-        
         let to_ws = Workspace(identifier: "A", audioStem: audioStem, performers: Set(["x"]), isMuted: false, isSolo: true, isAntiSolo: false)
-
-        
-        let res = MessageTransformer.transform(Set([from_ws]), toSuite: Set([to_ws]), timestamp: 0, sessionTimestamp: 1, referenceTimestamps: [audioStem2.reference : 2])
+        let res = DJCommandTransformer.transform([from_ws], toSuite: [to_ws])
         
         XCTAssertEqual(res.count, 0)
     }
@@ -755,11 +678,9 @@ extension MessageTransformerTests {
         
         let from_ws1 = Workspace(identifier: "A", audioStem: audioStem, performers: Set(), isMuted: false, isSolo: false, isAntiSolo: false)
         let from_ws2 = Workspace(identifier: "B", audioStem: audioStem2, performers: Set(["x"]), isMuted: false, isSolo: false, isAntiSolo: false)
-        
         let to_ws1 = Workspace(identifier: "A", audioStem: audioStem, performers: Set(), isMuted: false, isSolo: false, isAntiSolo: false)
         let to_ws2 = Workspace(identifier: "B", audioStem: audioStem2, performers: Set(["x"]), isMuted: false, isSolo: true, isAntiSolo: false)
-
-        let res = MessageTransformer.transform(Set([from_ws1, from_ws2]), toSuite: Set([to_ws1, to_ws2]), timestamp: 0, sessionTimestamp: 1, referenceTimestamps: [audioStem2.reference : 2])
+        let res = DJCommandTransformer.transform([from_ws1, from_ws2], toSuite: [to_ws1, to_ws2])
         
         XCTAssertEqual(res.count, 0)
     }
@@ -781,13 +702,10 @@ extension MessageTransformerTests {
         
         let from_ws1 = Workspace(identifier: "A", audioStem: audioStem, performers: Set(), isMuted: false, isSolo: false, isAntiSolo: false)
         let from_ws2 = Workspace(identifier: "B", audioStem: audioStem2, performers: Set(["x"]), isMuted: false, isSolo: false, isAntiSolo: false)
-        
         let to_ws1 = Workspace(identifier: "A", audioStem: audioStem, performers: Set(), isMuted: false, isSolo: true, isAntiSolo: false)
         let to_ws2 = Workspace(identifier: "B", audioStem: audioStem2, performers: Set(["x"]), isMuted: false, isSolo: false, isAntiSolo: true)
-
-        let res = MessageTransformer.transform(Set([from_ws1, from_ws2]), toSuite: Set([to_ws1, to_ws2]), timestamp: 0, sessionTimestamp: 1, referenceTimestamps: [audioStem2.reference : 2])
+        let res = DJCommandTransformer.transform([from_ws1, from_ws2], toSuite: [to_ws1, to_ws2])
         
         XCTAssertEqual(res.count, 1)
     }
 }
-

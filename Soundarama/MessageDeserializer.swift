@@ -57,8 +57,7 @@ extension MessageDeserializer {
     
     static func deserialiseStartMessage(json: AnyObject) -> StartMessage? {
         
-        guard let address = json[MessageSerialisationKeys.address] as? String,
-                timestamp = json[StartMessageSerialisationKeys.timestamp] as? Double,
+        guard let timestamp = json[StartMessageSerialisationKeys.timestamp] as? Double,
                 reference = json[StartMessageSerialisationKeys.reference] as?  String,
                 sessionTimestamp = json[StartMessageSerialisationKeys.sessionTimestamp] as? Double,
                 referenceTimestamp = json[StartMessageSerialisationKeys.referenceTimestamp] as? Double,
@@ -67,36 +66,21 @@ extension MessageDeserializer {
             return nil
         }
         
-        return StartMessage(address: address, timestamp: timestamp, reference: reference, sessionTimestamp: sessionTimestamp, referenceTimestamp: referenceTimestamp, muted: muted)
+        return StartMessage(timestamp: timestamp, reference: reference, sessionTimestamp: sessionTimestamp, referenceTimestamp: referenceTimestamp, muted: muted)
     }
     
     static func deserializeStopMessage(json: AnyObject) -> StopMessage? {
         
-        guard let address = json[MessageSerialisationKeys.address] as? String else {
-            
-            return nil
-        }
-        
-        return StopMessage(address: address)
+        return StopMessage()
     }
     
     static func deserializeMuteMessage(json: AnyObject) -> MuteMessage? {
         
-        guard let address = json[MessageSerialisationKeys.address] as? String else {
-            
-            return nil
-        }
-        
-        return MuteMessage(address: address)
+        return MuteMessage()
     }
     
     static func deserializeUnmuteMessage(json: AnyObject) -> UnmuteMessage? {
         
-        guard let address = json[MessageSerialisationKeys.address] as? String else {
-            
-            return nil
-        }
-        
-        return UnmuteMessage(address: address)
+        return UnmuteMessage()
     }
 }

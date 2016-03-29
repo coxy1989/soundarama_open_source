@@ -6,6 +6,7 @@
 //  Copyright © 2016 Touchpress Ltd. All rights reserved.
 //
 
+/*
 enum PerformerMessageCommand: UInt {
     
     case Start = 0, Stop, ToggleMute
@@ -28,12 +29,11 @@ struct PerformerMessage {
     let muted: Bool
     
 }
+ */
 
 protocol Message {
     
     var type: MessageType { get }
-    
-    var address: Address { get }
 }
 
 enum MessageType: String {
@@ -51,8 +51,6 @@ struct StartMessage: Message {
     
     let type: MessageType = .Start
     
-    let address: Address
-    
     let timestamp: NSTimeInterval
     
     let reference: String
@@ -66,7 +64,6 @@ struct StartMessage: Message {
     var hashValue: Int {
         
         return type.hashValue
-            ^ address.hashValue
             ^ timestamp.hashValue
             ^ reference.hashValue
             ^ sessionTimestamp.hashValue
@@ -79,12 +76,9 @@ struct StopMessage: Message {
     
     let type: MessageType = .Stop
     
-    let address: Address
-    
     var hashValue: Int {
         
         return type.hashValue
-            ^ address.hashValue
     }
 }
 
@@ -92,11 +86,9 @@ struct MuteMessage: Message {
     
     let type: MessageType = .Mute
     
-    let address: Address
-    
     var hashValue: Int {
         
-        return type.hashValue ^ address.hashValue
+        return type.hashValue
     }
 }
 
@@ -104,18 +96,15 @@ struct UnmuteMessage: Message {
     
     let type: MessageType = .Unmute
     
-    let address: Address
-    
     var hashValue: Int {
         
-        return type.hashValue ^ address.hashValue
+        return type.hashValue
     }
 }
 
 func == (lhs: StartMessage, rhs: StartMessage) -> Bool {
     
     return lhs.type == rhs.type
-        && lhs.address == rhs.address
         && lhs.timestamp == rhs.timestamp
         && lhs.reference == rhs.reference
         && lhs.sessionTimestamp == rhs.sessionTimestamp
@@ -126,18 +115,15 @@ func == (lhs: StartMessage, rhs: StartMessage) -> Bool {
 func == (lhs: StopMessage, rhs: StopMessage) -> Bool {
     
     return lhs.type == rhs.type
-        && lhs.address == rhs.address
 }
 
 func == (lhs: MuteMessage, rhs: MuteMessage) -> Bool {
     
     return lhs.type == rhs.type
-        && lhs.address == rhs.address
 }
 
 func == (lhs: UnmuteMessage, rhs: UnmuteMessage) -> Bool {
     
     return lhs.type == rhs.type
-        && lhs.address == rhs.address
 }
 
