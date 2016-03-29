@@ -23,8 +23,6 @@ class PerformerInteractor: PerformerInput {
     
     private var connectionAdapter: PerformerConnectionAdapter!
     
-    private var messageAdapter: ReadableMessageAdapter!
-    
     private var christiansProcess: ChristiansProcess?
     
     private var christiansMap: (remote: NSTimeInterval, local: NSTimeInterval)?
@@ -39,6 +37,7 @@ class PerformerInteractor: PerformerInput {
     
         connectionAdapter = PerformerConnectionAdapter(connection: endpoint)
         connectionAdapter.delegate = self
+        endpoint.readableDelegate = self
         endpoint.connect()
         startInstruments()
         performerOutput.setLevel(levelStore.getLevel())
@@ -65,60 +64,65 @@ extension PerformerInteractor: ChristiansProcessDelegate {
     
         christiansMap = (local: local, remote: remote)
         debugPrint(christiansMap)
-        messageAdapter = ReadableMessageAdapter(readable: endpoint)
-        messageAdapter.delegate = self
-        messageAdapter.takeMessages()
+        endpoint.readData(Serialisation.terminator)
     }
 }
 
-extension PerformerInteractor: ReadableMessageAdapterDelegate {
+extension PerformerInteractor: ReadableDelegate {
     
-    //NB: Loop length to come from config file.
+    func didReadData(data: NSData, address: Address) {
+        
+        if let msg = MessageDeserializer.deserialize(data) {
+            
+            handleMessage(msg)
+        }
+        
+        endpoint.readData(Serialisation.terminator)
+    }
+}
+
+extension PerformerInteractor {
     
-    /*
-    func didReceivePerformerMessage(message: PerformerMessage) {
+    func handleMessage(message: Message) {
         
-        let delay = ChristiansCalculator.calculateDelay(christiansMap!.remote, localTime: christiansMap!.local, sessionTimestamp: message.sessionTimestamp, loopLength: message.loopLength)
-        
-        //let time = ChristiansCalculator.calculateReferenceTime(christiansMap!.remote, localTime: christiansMap!.local, referenceTimestamp: <#T##NSTimeInterval#>, length: <#T##NSTimeInterval#>)
-        
-        switch message.command {
+        switch message.type {
             
-        case .Start:
-            
-            stopAudio(delay)
-            startAudio(TaggedAudioPathStore.taggedAudioPaths(message.reference), afterDelay: delay, atTime: 0, muted: message.muted)
-            performerOutput.setColor(audioStemStore.audioStem(message.reference)!.colour)
-            controlAudioLoopVolume(compass.getHeading(), level: levelStore.getLevel())
-            
-        case .Stop:
-            
-            stopAudio(delay)
-            
-            //TODO: Color store
-            performerOutput.setColor(UIColor.lightGrayColor())
-            
-        case .ToggleMute:
-            
-            toggleMuteAudio(message.muted)
+            case .Start: handleStartMessage(message as! StartMessage)
+            case .Stop: handleStopMessage(message as! StopMessage)
+            case .Mute: handleMuteMessage(message as! MuteMessage)
+            case .Unmute: handleUnmuteMessage(message as! UnmuteMessage)
         }
     }
- */
     
-    func didReceiveStartMessage(startMessage: StartMessage) {
+    func handleStartMessage(message: StartMessage) {
+        
+        let tp = TaggedAudioPathStore.taggedAudioPaths(message.reference)
+        let ll = tp.first!.loopLength
+        let delay = ChristiansCalculator.calculateDelay(christiansMap!.remote, localTime: christiansMap!.local, sessionTimestamp: message.sessionTimestamp, loopLength: ll)
+        
+        stopAudio(delay)
+        startAudio(TaggedAudioPathStore.taggedAudioPaths(message.reference), afterDelay: delay, atTime: 0, muted: message.muted)
+        performerOutput.setColor(audioStemStore.audioStem(message.reference)!.colour)
+        controlAudioLoopVolume(compass.getHeading(), level: levelStore.getLevel())
         
     }
     
-    func didReceiveStopMessage(stopMessage: StopMessage) {
+    func handleStopMessage(message: StopMessage) {
         
+        stopAudio(0)
+        
+        /* TODO: Color store */
+        performerOutput.setColor(UIColor.lightGrayColor())
     }
     
-    func didReceiveMuteMessage() {
+    func handleMuteMessage(message: MuteMessage) {
         
+        toggleMuteAudio(true)
     }
     
-    func didReceiveUnmuteMessage() {
+    func handleUnmuteMessage(message: UnmuteMessage) {
         
+        toggleMuteAudio(false)
     }
 }
 
@@ -224,3 +228,56 @@ extension PerformerInteractor {
         v.forEach() { al.loop.setVolume($0.path, volume: $1) }
     }
 }
+
+/*
+extension PerformerInteractor: ReadableMessageAdapterDelegate {
+    
+    //NB: Loop length to come from config file.
+    
+    /*
+    func didReceivePerformerMessage(message: PerformerMessage) {
+        
+        let delay = ChristiansCalculator.calculateDelay(christiansMap!.remote, localTime: christiansMap!.local, sessionTimestamp: message.sessionTimestamp, loopLength: message.loopLength)
+        
+        //let time = ChristiansCalculator.calculateReferenceTime(christiansMap!.remote, localTime: christiansMap!.local, referenceTimestamp: <#T##NSTimeInterval#>, length: <#T##NSTimeInterval#>)
+        
+        switch message.command {
+            
+        case .Start:
+            
+            stopAudio(delay)
+            startAudio(TaggedAudioPathStore.taggedAudioPaths(message.reference), afterDelay: delay, atTime: 0, muted: message.muted)
+            performerOutput.setColor(audioStemStore.audioStem(message.reference)!.colour)
+            controlAudioLoopVolume(compass.getHeading(), level: levelStore.getLevel())
+            
+        case .Stop:
+            
+            stopAudio(delay)
+            
+            //TODO: Color store
+            performerOutput.setColor(UIColor.lightGrayColor())
+            
+        case .ToggleMute:
+            
+            toggleMuteAudio(message.muted)
+        }
+    }
+ */
+    
+    func didReceiveStartMessage(startMessage: StartMessage) {
+        
+    }
+    
+    func didReceiveStopMessage(stopMessage: StopMessage) {
+        
+    }
+    
+    func didReceiveMuteMessage() {
+        
+    }
+    
+    func didReceiveUnmuteMessage() {
+        
+    }
+}
+ */

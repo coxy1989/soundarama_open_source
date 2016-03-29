@@ -21,8 +21,6 @@ class DJInteractor {
     
     private let groupStore = GroupStore()
     
-    private var adapter: WritableMessageAdapter!
-    
     private var christiansTimeServer: ChristiansTimeServer!
     
     private lazy var audioStemStore: AudioStemStore =  { AudioStemStore() } ()
@@ -36,7 +34,6 @@ extension DJInteractor: DJInput {
         djOutput.setGroupingMode(true)
         
         christiansTimeServer = ChristiansTimeServer(endpoint: endpoint)
-        adapter = WritableMessageAdapter(writeable: endpoint)
         
         endpoint.connectionDelegate = self
         endpoint.connect()
@@ -254,6 +251,11 @@ extension DJInteractor: ConnectableDelegate {
 extension DJInteractor {
     
     func didChangeSuite(fromSuite: Suite, toSuite: Suite) {
+        
+        MessageTransformer.transform(fromSuite, toSuite: toSuite, timestamp: NSDate().timeIntervalSince1970, sessionTimestamp: ChristiansTimeServer.timestamp, referenceTimestamps: [ : ])
+        .map() { (addresss: $0.address, data: MessageSerializer.serialize($0)) }
+        .forEach() { endpoint.writeData($0.data, address: $0.addresss) }
+        
         
         //let transformer = MessageTransformer(timestamp: NSDate().timeIntervalSince1970, sessionTimestamp: ChristiansTimeServer.timestamp)
         

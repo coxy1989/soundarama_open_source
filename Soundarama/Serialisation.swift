@@ -25,3 +25,23 @@ struct Serialisation {
         return payload
     }
 }
+
+struct MessageSerialisationKeys {
+    
+    static let type = "Type"
+    
+    static let address = "Address"
+}
+
+struct StartMessageSerialisationKeys {
+    
+    static let timestamp = "Timestamp"
+    
+    static let reference = "Reference"
+    
+    static let sessionTimestamp = "SessionTimestamp"
+    
+    static let referenceTimestamp = "ReferenceTimestamp"
+    
+    static let muted = "Muted"
+}

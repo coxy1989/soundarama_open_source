@@ -6,6 +6,7 @@
 //  Copyright © 2016 Touchpress Ltd. All rights reserved.
 //
 
+/*
 protocol ReadableMessageAdapterDelegate: class {
     
    // func didReceivePerformerMessage(performerMessage: PerformerMessage)
@@ -89,3 +90,4 @@ extension ReadableMessageAdapter {
     }
 }
 */
+ */
