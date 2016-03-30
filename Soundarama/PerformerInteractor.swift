@@ -116,7 +116,7 @@ extension PerformerInteractor {
         let atTime = ChristiansCalculator.calculateReferenceTime(message.timestamp, referenceTimestamp: message.referenceTimestamp, length: 15.6098)
         
         stopAudio(delay)
-        startAudio(TaggedAudioPathStore.taggedAudioPaths(message.reference), afterDelay: delay, atTime: atTime, muted: message.muted)
+        startAudio(TaggedAudioPathStore.taggedAudioPaths(message.reference), afterDelay: delay, atTime: atTime + delay, muted: message.muted)
         performerOutput.setColor(audioStemStore.audioStem(message.reference)!.colour)
         controlAudioLoopVolume(compass.getHeading(), level: levelStore.getLevel())
         
