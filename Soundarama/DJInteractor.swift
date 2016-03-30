@@ -250,26 +250,19 @@ extension DJInteractor: ConnectableDelegate {
 
 extension DJInteractor {
     
-    // TODO: refactor. This function is too long. timestamped messages vs regular messages in Transformer?
-    
     func didChangeSuite(fromSuite: Suite, toSuite: Suite) {
         
-        let outgoing: [(Address, Message)] = DJCommandTransformer.transform(fromSuite, toSuite: toSuite).map() {
+        let commands = DJCommandTransformer.transform(fromSuite, toSuite: toSuite)
+        
+        let messages: [(Address, Message)] = commands.map() {
             
             switch $0.type {
                 
                 case .Start:
-        
-                    let cmd = $0 as! DJStartCommand
-                    let unix = NSDate().timeIntervalSince1970
-                    let session_unix = ChristiansTimeServer.timestamp
-                    var reference_unix = referenceTimestampStore.getTimestamp(cmd.reference)
-                    if reference_unix == nil {
-                        referenceTimestampStore.setTimestamp(unix, reference: cmd.reference)
-                        reference_unix = unix
-                    }
+
+                    let timestamps = getStartTimestamps(($0 as! DJStartCommand).reference)
                     
-                    return ($0.performer, DJMessageTransformer.transform(cmd, timestamp: unix, sessionTimestamp: session_unix, referenceTimestamp: reference_unix!))
+                    return ($0.performer, DJMessageTransformer.transform(($0 as! DJStartCommand), timestamp: timestamps.unix, sessionTimestamp: ChristiansTimeServer.timestamp, referenceTimestamp: timestamps.reference_unix))
                 
                 case .Stop:
                     
@@ -285,10 +278,19 @@ extension DJInteractor {
             }
         }
         
-        outgoing.forEach() {
-            debugPrint($0)
-            endpoint.writeData(MessageSerializer.serialize($0.1), address: $0.0)
+        messages.forEach() { endpoint.writeData(MessageSerializer.serialize($0.1), address: $0.0) }
+    }
+    
+    func getStartTimestamps(reference: String) -> (unix: NSTimeInterval, reference_unix: NSTimeInterval) {
+        
+        let unix = NSDate().timeIntervalSince1970
+        var reference_unix = referenceTimestampStore.getTimestamp(reference)
+        if reference_unix == nil {
+            referenceTimestampStore.setTimestamp(unix, reference: reference)
+            reference_unix = unix
         }
+        
+        return (unix, reference_unix!)
     }
 }
 
