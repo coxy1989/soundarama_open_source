@@ -23,7 +23,6 @@
 		420AA6AD1C55296E00F7BB25 /* DecidePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 420AA6AC1C55296E00F7BB25 /* DecidePresenter.swift */; };
 		421468551C56345700892786 /* TP2P.swift in Sources */ = {isa = PBXBuildFile; fileRef = 421468541C56345700892786 /* TP2P.swift */; };
 		421468571C56404C00892786 /* DJUserInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = 421468561C56404C00892786 /* DJUserInterface.swift */; };
-		4214685A1C56474F00892786 /* PerformerConnectionAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 421468591C56474F00892786 /* PerformerConnectionAdapter.swift */; };
 		421468611C56672500892786 /* Serialisation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 421468601C56672500892786 /* Serialisation.swift */; };
 		421468641C567E9600892786 /* SearchStrategy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 421468631C567E9600892786 /* SearchStrategy.swift */; };
 		421468661C56831F00892786 /* BroadcastStrategy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 421468651C56831F00892786 /* BroadcastStrategy.swift */; };
@@ -159,7 +158,6 @@
 		420AA6AC1C55296E00F7BB25 /* DecidePresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DecidePresenter.swift; sourceTree = "<group>"; };
 		421468541C56345700892786 /* TP2P.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TP2P.swift; sourceTree = "<group>"; };
 		421468561C56404C00892786 /* DJUserInterface.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DJUserInterface.swift; sourceTree = "<group>"; };
-		421468591C56474F00892786 /* PerformerConnectionAdapter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PerformerConnectionAdapter.swift; sourceTree = "<group>"; };
 		421468601C56672500892786 /* Serialisation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Serialisation.swift; sourceTree = "<group>"; };
 		421468631C567E9600892786 /* SearchStrategy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchStrategy.swift; sourceTree = "<group>"; };
 		421468651C56831F00892786 /* BroadcastStrategy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BroadcastStrategy.swift; sourceTree = "<group>"; };
@@ -367,14 +365,6 @@
 			name = DJ;
 			sourceTree = "<group>";
 		};
-		421468581C56473C00892786 /* Connection */ = {
-			isa = PBXGroup;
-			children = (
-				421468591C56474F00892786 /* PerformerConnectionAdapter.swift */,
-			);
-			name = Connection;
-			sourceTree = "<group>";
-		};
 		421468621C56751600892786 /* Synchronisation */ = {
 			isa = PBXGroup;
 			children = (
@@ -517,7 +507,6 @@
 				42C45A821C57DE5700888EA8 /* Stores (Memory) */,
 				425CC3261C74B8A100B39AB5 /* Audio */,
 				42AFC6511C5542DA00AD4B9B /* Communication */,
-				421468581C56473C00892786 /* Connection */,
 				42B3D1E81C99B2540065842D /* Instrumentation */,
 				4249B5991C5792190096872D /* Representation */,
 				42AFC6661C55806A00AD4B9B /* Serialisation */,
@@ -935,7 +924,6 @@
 				4277FBF41C9729FB0042B051 /* DJAudioStemPickerViewController.swift in Sources */,
 				42A727A81C552D5D00BFCA47 /* PerformerModule.swift in Sources */,
 				42C1D2281CAAC5F0005D0347 /* Command.swift in Sources */,
-				4214685A1C56474F00892786 /* PerformerConnectionAdapter.swift in Sources */,
 				42889BF51CA0468B00ACC3B9 /* Flickometer.swift in Sources */,
 				42D9F8A01C88A70F0056957B /* Group.swift in Sources */,
 				429EC9691C847740002FDBCC /* UIColor+Hex.swift in Sources */,

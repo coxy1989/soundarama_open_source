@@ -25,8 +25,6 @@ class PerformerInteractor: PerformerInput {
     
     private let audioConfig: AudioConfiguration = AudioConfiguration.getConfiguration()
     
-    private var connectionAdapter: PerformerConnectionAdapter!
-    
     private var christiansProcess: ChristiansProcess?
     
     private var christiansMap: (remote: NSTimeInterval, local: NSTimeInterval)?
@@ -35,25 +33,26 @@ class PerformerInteractor: PerformerInput {
     
     func start() {
     
-        connectionAdapter = PerformerConnectionAdapter(connection: endpoint)
-        connectionAdapter.delegate = self
+        endpoint.connectionDelegate = self
         endpoint.connect()
         startInstruments()
         performerOutput.setLevel(levelStore.getLevel())
     }
 }
 
-extension PerformerInteractor: PerformerConnectionAdapterDelegate {
+extension PerformerInteractor: ConnectableDelegate {
     
-    func performerConnectionStateDidChange(state: ConnectionState) {
+    func didConnectToAddress(address: Address) {
         
-        performerOutput.setConnectionState(state)
-        
-        if state == .Connected {
-            christiansProcess = ChristiansProcess(endpoint: endpoint)
-            christiansProcess!.delegate = self
-            christiansProcess!.syncronise()
-        }
+        performerOutput.setConnectionState(.Connected)
+        christiansProcess = ChristiansProcess(endpoint: endpoint)
+        christiansProcess!.delegate = self
+        christiansProcess!.syncronise()
+    }
+    
+    func didDisconnectFromAddress(address: Address) {
+     
+        performerOutput.setConnectionState(.NotConnected)
     }
 }
 
@@ -119,8 +118,6 @@ extension PerformerInteractor {
     func handleStopMessage(message: StopMessage) {
         
         stopAudio(0)
-        
-        /* TODO: Color store */
         performerOutput.setColor(UIColor.lightGrayColor())
     }
     
@@ -235,56 +232,3 @@ extension PerformerInteractor {
         v.forEach() { al.loop.setVolume($0.path, volume: $1) }
     }
 }
-
-/*
-extension PerformerInteractor: ReadableMessageAdapterDelegate {
-    
-    //NB: Loop length to come from config file.
-    
-    /*
-    func didReceivePerformerMessage(message: PerformerMessage) {
-        
-        let delay = ChristiansCalculator.calculateDelay(christiansMap!.remote, localTime: christiansMap!.local, sessionTimestamp: message.sessionTimestamp, loopLength: message.loopLength)
-        
-        //let time = ChristiansCalculator.calculateReferenceTime(christiansMap!.remote, localTime: christiansMap!.local, referenceTimestamp: <#T##NSTimeInterval#>, length: <#T##NSTimeInterval#>)
-        
-        switch message.command {
-            
-        case .Start:
-            
-            stopAudio(delay)
-            startAudio(TaggedAudioPathStore.taggedAudioPaths(message.reference), afterDelay: delay, atTime: 0, muted: message.muted)
-            performerOutput.setColor(audioStemStore.audioStem(message.reference)!.colour)
-            controlAudioLoopVolume(compass.getHeading(), level: levelStore.getLevel())
-            
-        case .Stop:
-            
-            stopAudio(delay)
-            
-            //TODO: Color store
-            performerOutput.setColor(UIColor.lightGrayColor())
-            
-        case .ToggleMute:
-            
-            toggleMuteAudio(message.muted)
-        }
-    }
- */
-    
-    func didReceiveStartMessage(startMessage: StartMessage) {
-        
-    }
-    
-    func didReceiveStopMessage(stopMessage: StopMessage) {
-        
-    }
-    
-    func didReceiveMuteMessage() {
-        
-    }
-    
-    func didReceiveUnmuteMessage() {
-        
-    }
-}
- */
