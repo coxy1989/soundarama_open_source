@@ -6,7 +6,7 @@
 //  Copyright © 2016 Touchpress Ltd. All rights reserved.
 //
 
-struct AudioConfiguration {
+struct AudioConfigurationStore {
     
     static func getConfiguration() -> AudioConfiguration {
         
@@ -17,8 +17,4 @@ struct AudioConfiguration {
         let fl = json["audio_file_length"].number!.doubleValue
         return AudioConfiguration(loopLength: ll, audioFileLength: fl)
     }
-    
-    let loopLength: Double
-    
-    let audioFileLength: Double
 }

@@ -17,9 +17,13 @@ class DJPresenter: DJModule {
     
     weak var djAudioStemPickerUI: DJAudioStemPickerUserInterface!
     
+    weak var djBroadcastConfigurationUI: DJBroadcastConfigurationUserInterface!
+    
     weak var djInput: DJInput!
     
     weak var djAudioStemPickerInput: DJAudioStemPickerInput!
+    
+    weak var djBroadcastConfigurationInput: DJBroadcastConfigurationInput!
     
     func start(navigationController: UINavigationController) {
         
@@ -116,7 +120,12 @@ extension DJPresenter: UserInterfaceDelegate {
         
         else if userInterface === djAudioStemPickerUI {
             
-           djAudioStemPickerInput.startDJAudioStemPicker()
+            djAudioStemPickerInput.startDJAudioStemPicker()
+        }
+        
+        else if userInterface === djBroadcastConfigurationUI {
+         
+            djBroadcastConfigurationInput.startBroadcastConfiguration()
         }
     }
     
@@ -140,6 +149,11 @@ extension DJPresenter: UserInterfaceDelegate {
 }
 
 extension DJPresenter: DJUserInterfaceDelegate {
+    
+    func didRequestConfigureBroadcast() {
+        
+       djWireframe.presentBroadcastConfigurationUserInterface()
+    }
     
     func didRequestToggleMuteInWorkspace(workspaceID: WorkspaceID) {
         
@@ -261,6 +275,14 @@ extension DJPresenter: DJAudioStemPickerOutput {
     func setSelectedKey(key: String) {
         
         djAudioStemPickerUI.setSelectedKey(key)
+    }
+}
+
+extension DJPresenter: DJBroadcastConfigurationOutput {
+    
+    func setIdentifiers(identifiers: [String]) {
+        
+        djBroadcastConfigurationUI.setIdentifiers(identifiers)
     }
 }
 

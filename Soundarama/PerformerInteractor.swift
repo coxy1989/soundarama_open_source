@@ -23,7 +23,7 @@ class PerformerInteractor: PerformerInput {
     
     private let levelStore = LevelStore()
     
-    private let audioConfig: AudioConfiguration = AudioConfiguration.getConfiguration()
+    private let audioConfig: AudioConfiguration = AudioConfigurationStore.getConfiguration()
     
     private var christiansProcess: ChristiansProcess?
     
@@ -31,10 +31,16 @@ class PerformerInteractor: PerformerInput {
     
     private var audioloop: (loop: MultiAudioLoop, paths: Set<TaggedAudioPath>)?
     
+    private var t: BroadcastService!
+    
     func start() {
     
-        endpoint.connectionDelegate = self
-        endpoint.connect()
+        t = BroadcastService.broadcasting(NetworkConfiguration.domain, type: NetworkConfiguration.type, name: "Cocksucker", port: Int32(NetworkConfiguration.port), failure: { _ in
+            
+        })
+        
+        //endpoint.connectionDelegate = self
+        //endpoint.connect()
         startInstruments()
         performerOutput.setLevel(levelStore.getLevel())
     }

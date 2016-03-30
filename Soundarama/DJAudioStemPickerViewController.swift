@@ -83,7 +83,7 @@ extension DJAudioStemPickerViewController: UITableViewDataSource {
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
-        let c = tableView.dequeueReusableCellWithIdentifier("TitleCell") as! TitleCell
+        let c = tableView.dequeueReusableCellWithIdentifier("SubtitleCell") as! SubtitleCell
         let stem = audioStem(indexPath)
         c.titleLabel.text = stem.title
         c.subtitleLabel.text = stem.subtitle

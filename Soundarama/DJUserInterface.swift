@@ -45,6 +45,8 @@ protocol DJUserInterface: class {
 
 protocol DJUserInterfaceDelegate: class {
     
+    func didRequestConfigureBroadcast()
+    
     func didRequestToggleMuteInWorkspace(workspaceID: WorkspaceID)
     
     func didRequestToggleSoloInWorkspace(workspaceID: WorkspaceID)

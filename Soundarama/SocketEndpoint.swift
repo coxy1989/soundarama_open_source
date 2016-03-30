@@ -11,7 +11,9 @@ import CocoaAsyncSocket
 class SocketEndpoint: NSObject, Endpoint {
     
     weak var connectionDelegate: ConnectableDelegate!
+    
     weak var readableDelegate: ReadableDelegate!
+    
     weak var writeableDelegate: WriteableDelegate?
     
     static let portTCP: UInt16 = 6565
@@ -19,6 +21,7 @@ class SocketEndpoint: NSObject, Endpoint {
     static let portUDP: UInt16 = 6568
     
     lazy var socket: AsyncSocket = {
+        
         let s = AsyncSocket()
         s.setDelegate(self)
         return s

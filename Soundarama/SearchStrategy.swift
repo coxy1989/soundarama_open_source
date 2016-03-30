@@ -48,7 +48,7 @@ extension SearchStrategy: NSNetServiceBrowserDelegate {
     
     func netServiceBrowser(browser: NSNetServiceBrowser, didNotSearch errorDict: [String : NSNumber]) {
         
-        print("Browser did not search")
+        print("Browser did not search \(errorDict)")
     }
 
     func netServiceBrowser(browser: NSNetServiceBrowser, didRemoveDomain domainString: String, moreComing: Bool) {
@@ -58,7 +58,7 @@ extension SearchStrategy: NSNetServiceBrowserDelegate {
     
     func netServiceBrowser(browser: NSNetServiceBrowser, didFindService service: NSNetService, moreComing: Bool) {
         
-        print("Browser found service")
+        print("Browser found service \(service.name)")
         self.service = service
         self.service?.delegate = self
         self.service?.resolveWithTimeout(5)

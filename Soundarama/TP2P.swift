@@ -6,7 +6,7 @@
 //  Copyright © 2016 Touchpress Ltd. All rights reserved.
 //
 
-/* Representation of one end of a P2P connection */
+/* Representation of one end of a connection */
 
 protocol Endpoint: Connectable, Readable, Writeable { }
 

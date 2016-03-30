@@ -15,15 +15,21 @@ class DJInteractor {
     
     weak var djAudioStemPickerOutput: DJAudioStemPickerOutput!
     
+    weak var djBroadcastConfigurationOutput: DJBroadcastConfigurationOutput!
+    
     var endpoint: Endpoint!
     
     private let suiteStore = SuiteStore(number: UIDevice.isPad() ? 9 : 4)
     
     private let groupStore = GroupStore()
     
+    private let resolvableStore = ResolvableStore()
+    
     private let referenceTimestampStore = ReferenceTimestampStore()
     
     private var christiansTimeServer: ChristiansTimeServer!
+    
+    private var browsingService: BrowseService?
     
     private lazy var audioStemStore: AudioStemStore =  { AudioStemStore() } ()
 }
@@ -35,13 +41,14 @@ extension DJInteractor: DJInput {
         djOutput.setUISuite(UISuiteTransformer.transform(suiteStore.suite))
         djOutput.setGroupingMode(true)
         christiansTimeServer = ChristiansTimeServer(endpoint: endpoint)
-        endpoint.connectionDelegate = self
-        endpoint.connect()
+        //endpoint.connectionDelegate = self
+        //endpoint.connect()
+        
     }
     
     func stopDJ() {
         
-        endpoint.disconnect()
+        //endpoint.disconnect()
     }
     
     func getStemKeys() -> [String] {
@@ -235,6 +242,59 @@ extension DJInteractor: DJAudioStemPickerInput {
     }
 }
 
+extension DJInteractor: DJBroadcastConfigurationInput {
+    
+    func startBroadcastConfiguration() {
+        
+        let found: (String, Resolvable) -> () = { [weak self] in
+            
+            guard let this = self else {
+                
+                return
+            }
+            
+            this.resolvableStore.addResolvable($0)
+            this.djBroadcastConfigurationOutput.setIdentifiers(this.resolvableStore.identifiers())
+        }
+        
+        let lost: (String, Resolvable) -> () = { [weak self] in
+            
+            guard let this = self else {
+                
+                return
+            }
+            
+            this.resolvableStore.removeResolvable($0)
+            this.djBroadcastConfigurationOutput.setIdentifiers(this.resolvableStore.identifiers())
+        }
+        
+        let failed: () -> () = {
+            
+        }
+        
+        browsingService = BrowseService.browsing(NetworkConfiguration.type, domain: NetworkConfiguration.domain, found: found, lost: lost, failed: failed)
+    }
+    
+    func requestBroadcastDJIdentifier(identifier: String) {
+        
+        //TODO: callbacki-ify host
+        
+        /*
+        guard let host = Host.aceptingOnPort(666) else {
+            // output.setBroadcastingState(.Failed)
+            return
+        }
+        
+        let failure: ([String : NSNumber]) -> () = { _ in
+            
+        }
+        
+        BroadcastService.broadcasting("", type: "", name: identifier, port: 666, failure: failure)
+ */
+    }
+    
+}
+
 extension DJInteractor: ConnectableDelegate {
     
     func didConnectToAddress(address: Address) {
@@ -260,7 +320,7 @@ extension DJInteractor {
                 
                 case .Start:
 
-                    let timestamps = getStartTimestamps(($0 as! DJStartCommand).reference)
+                    let timestamps = calculateStartTimestamps(($0 as! DJStartCommand).reference)
                     
                     return ($0.performer, DJMessageTransformer.transform(($0 as! DJStartCommand), timestamp: timestamps.unix, sessionTimestamp: ChristiansTimeServer.timestamp, referenceTimestamp: timestamps.reference_unix))
                 
@@ -281,7 +341,7 @@ extension DJInteractor {
         messages.forEach() { endpoint.writeData(MessageSerializer.serialize($0.1), address: $0.0) }
     }
     
-    func getStartTimestamps(reference: String) -> (unix: NSTimeInterval, reference_unix: NSTimeInterval) {
+    func calculateStartTimestamps(reference: String) -> (unix: NSTimeInterval, reference_unix: NSTimeInterval) {
         
         let unix = NSDate().timeIntervalSince1970
         var reference_unix = referenceTimestampStore.getTimestamp(reference)

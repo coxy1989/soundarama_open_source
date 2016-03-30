@@ -102,3 +102,13 @@ protocol DJAudioStemPickerOutput: class {
     
     func setSelectedKey(key: String)
 }
+
+protocol DJBroadcastConfigurationInput: class {
+    
+    func startBroadcastConfiguration()
+}
+
+protocol DJBroadcastConfigurationOutput: class {
+    
+    func setIdentifiers(identifiers: [String])
+}
