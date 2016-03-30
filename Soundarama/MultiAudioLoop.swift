@@ -20,24 +20,28 @@ class MultiAudioLoop {
     
     private var isMuted = false
     
-    init(paths: Set<String>) {
+    private let length: NSTimeInterval
+    
+    init(paths: Set<String>, length: NSTimeInterval) {
         
+        self.length = length
         paths.forEach() { volume_map[$0] = 0 }
     }
     
-    func start(afterDelay delay: NSTimeInterval) {
+    func start(afterDelay delay: NSTimeInterval, atTime: NSTimeInterval) {
         
         let player = try! AVAudioPlayer(contentsOfURL: NSURL(fileURLWithPath: Array(volume_map.keys).head))
         let playtime = player.deviceCurrentTime + delay
+        player.currentTime = atTime
         
         volume_map.forEach { p, v in
             
             let player = try! AVAudioPlayer(contentsOfURL: NSURL(fileURLWithPath: p))
-            
+            player.currentTime = atTime
             player.volume = v
             player.playAtTime(playtime)
             current_players_map[p] = player
-            loop(player, path: p, playtime: playtime)
+            loop(player, path: p, playtime: playtime, currentTime: atTime)
         }
     }
     
@@ -82,19 +86,19 @@ class MultiAudioLoop {
 
 extension MultiAudioLoop {
     
-    private func loop(player: AVAudioPlayer, path: String, playtime: NSTimeInterval) {
+    private func loop(player: AVAudioPlayer, path: String, playtime: NSTimeInterval, currentTime: NSTimeInterval) {
         
         let scheduledPlayer = try! AVAudioPlayer(contentsOfURL: NSURL(fileURLWithPath: path))
-        let scheduledPlaytime = playtime + 15.6098
+        let scheduledPlaytime = playtime + length - currentTime
         scheduledPlayer.volume = player.volume
         scheduledPlayer.playAtTime(scheduledPlaytime)
         scheduled_players_map[path] = scheduledPlayer
         
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, Int64(15.6098 * Double(NSEC_PER_SEC))), dispatch_get_main_queue()) { [weak self] in
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, Int64((length - currentTime) * Double(NSEC_PER_SEC))), dispatch_get_main_queue()) { [weak self] in
             
             self?.scheduled_players_map[path] = nil
             self?.current_players_map[path] = scheduledPlayer
-            self?.loop(scheduledPlayer, path: path, playtime: scheduledPlaytime)
+            self?.loop(scheduledPlayer, path: path, playtime: scheduledPlaytime, currentTime: 0)
         }
     }
 }

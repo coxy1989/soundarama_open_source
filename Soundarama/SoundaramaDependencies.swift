@@ -6,7 +6,7 @@
 //  Copyright © 2016 Touchpress Ltd. All rights reserved.
 //
 
-/* Inversion of external dependencies */
+/* Inversion of external non-VIPER dependencies */
 
 struct SoundaramaDependencies {
     

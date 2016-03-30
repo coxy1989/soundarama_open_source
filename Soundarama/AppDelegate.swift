@@ -13,7 +13,6 @@ import AVFoundation
 
 class AppDelegate: UIResponder, UIApplicationDelegate {
     
-    // make lazy?
     var window: UIWindow?
     
     var soundarama: Soundarama!

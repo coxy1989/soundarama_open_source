@@ -11,6 +11,7 @@ import CocoaAsyncSocket
 class SearchSocketEndpoint: SocketEndpoint {
     
     private lazy var strategy: SearchStrategy = {
+        
         let s = SearchStrategy()
         s.delegate = self
         return s

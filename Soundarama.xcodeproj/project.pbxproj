@@ -31,6 +31,7 @@
 		42177FA21C9AAB29008411B0 /* Functional.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42177FA11C9AAB29008411B0 /* Functional.swift */; };
 		422EB05A1C8DBA2200B27134 /* DJAudioStemsPickerUserInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = 422EB0591C8DBA2200B27134 /* DJAudioStemsPickerUserInterface.swift */; };
 		422EB05C1C8DC39500B27134 /* UIAudioStemTransformer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 422EB05B1C8DC39500B27134 /* UIAudioStemTransformer.swift */; };
+		423709861CA44E4800CC59F9 /* TouchpressFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 423709851CA44E4800CC59F9 /* TouchpressFoundation.framework */; };
 		4244598D1CA2EB5F00547B3C /* AGaramondPro-Italic.otf in Resources */ = {isa = PBXBuildFile; fileRef = 4244598B1CA2EB5F00547B3C /* AGaramondPro-Italic.otf */; };
 		4244598E1CA2EB5F00547B3C /* AGaramondPro-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = 4244598C1CA2EB5F00547B3C /* AGaramondPro-Regular.otf */; };
 		4249B5961C578A160096872D /* BroadcastSocketEndpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4249B5951C578A160096872D /* BroadcastSocketEndpoint.swift */; };
@@ -45,9 +46,8 @@
 		4273BC611C876708002E9EF9 /* GroupTransformer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4273BC601C876708002E9EF9 /* GroupTransformer.swift */; };
 		4273BC631C87673C002E9EF9 /* UISuiteTransformer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4273BC621C87673C002E9EF9 /* UISuiteTransformer.swift */; };
 		4277FBF41C9729FB0042B051 /* DJAudioStemPickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4277FBF31C9729FB0042B051 /* DJAudioStemPickerViewController.swift */; };
-		4280C0D81C5D1A8A00B2C9B3 /* MessageTransformer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4280C0D71C5D1A8A00B2C9B3 /* MessageTransformer.swift */; };
-		4280C0DA1C5D25DC00B2C9B3 /* MessageTransformerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4280C0D91C5D25DC00B2C9B3 /* MessageTransformerTests.swift */; };
-		4280C0DD1C5D4CAD00B2C9B3 /* MessageLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4280C0DC1C5D4CAD00B2C9B3 /* MessageLogger.swift */; };
+		4280C0D81C5D1A8A00B2C9B3 /* CommandTransformer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4280C0D71C5D1A8A00B2C9B3 /* CommandTransformer.swift */; };
+		4280C0DA1C5D25DC00B2C9B3 /* CommandTransformerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4280C0D91C5D25DC00B2C9B3 /* CommandTransformerTests.swift */; };
 		42889BF51CA0468B00ACC3B9 /* Flickometer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42889BF41CA0468B00ACC3B9 /* Flickometer.swift */; };
 		42889BF71CA0476C00ACC3B9 /* Direction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42889BF61CA0476C00ACC3B9 /* Direction.swift */; };
 		42889BF91CA047BF00ACC3B9 /* Tags.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42889BF81CA047BF00ACC3B9 /* Tags.swift */; };
@@ -82,7 +82,7 @@
 		42A727BD1C553B8900BFCA47 /* PerformerUserInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42A727BC1C553B8900BFCA47 /* PerformerUserInterface.swift */; };
 		42AFC6571C554F5A00AD4B9B /* DJUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42AFC6561C554F5A00AD4B9B /* DJUseCase.swift */; };
 		42AFC6631C55802000AD4B9B /* ReadableMessageAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42AFC6621C55802000AD4B9B /* ReadableMessageAdapter.swift */; };
-		42AFC6651C55805300AD4B9B /* WriteableMessageAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42AFC6641C55805300AD4B9B /* WriteableMessageAdapter.swift */; };
+		42AFC6651C55805300AD4B9B /* MessageSerializer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42AFC6641C55805300AD4B9B /* MessageSerializer.swift */; };
 		42B3D1E51C99B0F50065842D /* TaggedAudioPathStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42B3D1E41C99B0F50065842D /* TaggedAudioPathStore.swift */; };
 		42B3D1E71C99B1910065842D /* TaggedAudioPath.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42B3D1E61C99B1910065842D /* TaggedAudioPath.swift */; };
 		42B3D1EA1C99B3130065842D /* CompassLevelVolumeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42B3D1E91C99B3130065842D /* CompassLevelVolumeController.swift */; };
@@ -91,6 +91,10 @@
 		42B3D1F01C99D7D80065842D /* Altimeter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42B3D1EF1C99D7D80065842D /* Altimeter.swift */; };
 		42B3D1F21C99DDBB0065842D /* MultiAudioLoop.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42B3D1F11C99DDBB0065842D /* MultiAudioLoop.swift */; };
 		42B4F6DB1C96F79E00C755E6 /* ChristiansCalculator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42B4F6DA1C96F79E00C755E6 /* ChristiansCalculator.swift */; };
+		42C1D2241CAA9DCE005D0347 /* MessageDeserializer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42C1D2231CAA9DCE005D0347 /* MessageDeserializer.swift */; };
+		42C1D2261CAAC5CA005D0347 /* MessageTransformer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42C1D2251CAAC5CA005D0347 /* MessageTransformer.swift */; };
+		42C1D2281CAAC5F0005D0347 /* Command.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42C1D2271CAAC5F0005D0347 /* Command.swift */; };
+		42C1D22A1CAACBD5005D0347 /* ReferenceTimestampStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42C1D2291CAACBD5005D0347 /* ReferenceTimestampStore.swift */; };
 		42C45A861C57DF2100888EA8 /* AudioStemStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42C45A851C57DF2100888EA8 /* AudioStemStore.swift */; };
 		42C45A881C58CA8C00888EA8 /* DJViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42C45A871C58CA8C00888EA8 /* DJViewController.swift */; };
 		42D9F8A01C88A70F0056957B /* Group.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42D9F89F1C88A70F0056957B /* Group.swift */; };
@@ -161,6 +165,7 @@
 		42177FA11C9AAB29008411B0 /* Functional.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Functional.swift; sourceTree = "<group>"; };
 		422EB0591C8DBA2200B27134 /* DJAudioStemsPickerUserInterface.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DJAudioStemsPickerUserInterface.swift; sourceTree = "<group>"; };
 		422EB05B1C8DC39500B27134 /* UIAudioStemTransformer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIAudioStemTransformer.swift; sourceTree = "<group>"; };
+		423709851CA44E4800CC59F9 /* TouchpressFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = TouchpressFoundation.framework; path = "../../Library/Developer/Xcode/DerivedData/Soundarama-farhttzqfpiupbbbjubivppgzixr/Build/Products/Debug-iphonesimulator/TouchpressFoundation.framework"; sourceTree = "<group>"; };
 		4244598B1CA2EB5F00547B3C /* AGaramondPro-Italic.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "AGaramondPro-Italic.otf"; path = "Resources/Font/AGaramondPro-Italic.otf"; sourceTree = "<group>"; };
 		4244598C1CA2EB5F00547B3C /* AGaramondPro-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "AGaramondPro-Regular.otf"; path = "Resources/Font/AGaramondPro-Regular.otf"; sourceTree = "<group>"; };
 		4249B5951C578A160096872D /* BroadcastSocketEndpoint.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BroadcastSocketEndpoint.swift; sourceTree = "<group>"; };
@@ -175,9 +180,8 @@
 		4273BC601C876708002E9EF9 /* GroupTransformer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GroupTransformer.swift; sourceTree = "<group>"; };
 		4273BC621C87673C002E9EF9 /* UISuiteTransformer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UISuiteTransformer.swift; sourceTree = "<group>"; };
 		4277FBF31C9729FB0042B051 /* DJAudioStemPickerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DJAudioStemPickerViewController.swift; sourceTree = "<group>"; };
-		4280C0D71C5D1A8A00B2C9B3 /* MessageTransformer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessageTransformer.swift; sourceTree = "<group>"; };
-		4280C0D91C5D25DC00B2C9B3 /* MessageTransformerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessageTransformerTests.swift; sourceTree = "<group>"; };
-		4280C0DC1C5D4CAD00B2C9B3 /* MessageLogger.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessageLogger.swift; sourceTree = "<group>"; };
+		4280C0D71C5D1A8A00B2C9B3 /* CommandTransformer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommandTransformer.swift; sourceTree = "<group>"; };
+		4280C0D91C5D25DC00B2C9B3 /* CommandTransformerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommandTransformerTests.swift; sourceTree = "<group>"; };
 		42889BF41CA0468B00ACC3B9 /* Flickometer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Flickometer.swift; sourceTree = "<group>"; };
 		42889BF61CA0476C00ACC3B9 /* Direction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Direction.swift; sourceTree = "<group>"; };
 		42889BF81CA047BF00ACC3B9 /* Tags.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Tags.swift; sourceTree = "<group>"; };
@@ -215,7 +219,7 @@
 		42A727BC1C553B8900BFCA47 /* PerformerUserInterface.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PerformerUserInterface.swift; sourceTree = "<group>"; };
 		42AFC6561C554F5A00AD4B9B /* DJUseCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DJUseCase.swift; sourceTree = "<group>"; };
 		42AFC6621C55802000AD4B9B /* ReadableMessageAdapter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReadableMessageAdapter.swift; sourceTree = "<group>"; };
-		42AFC6641C55805300AD4B9B /* WriteableMessageAdapter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WriteableMessageAdapter.swift; sourceTree = "<group>"; };
+		42AFC6641C55805300AD4B9B /* MessageSerializer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessageSerializer.swift; sourceTree = "<group>"; };
 		42B3D1E41C99B0F50065842D /* TaggedAudioPathStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TaggedAudioPathStore.swift; sourceTree = "<group>"; };
 		42B3D1E61C99B1910065842D /* TaggedAudioPath.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TaggedAudioPath.swift; sourceTree = "<group>"; };
 		42B3D1E91C99B3130065842D /* CompassLevelVolumeController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CompassLevelVolumeController.swift; sourceTree = "<group>"; };
@@ -224,6 +228,10 @@
 		42B3D1EF1C99D7D80065842D /* Altimeter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Altimeter.swift; sourceTree = "<group>"; };
 		42B3D1F11C99DDBB0065842D /* MultiAudioLoop.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MultiAudioLoop.swift; sourceTree = "<group>"; };
 		42B4F6DA1C96F79E00C755E6 /* ChristiansCalculator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChristiansCalculator.swift; sourceTree = "<group>"; };
+		42C1D2231CAA9DCE005D0347 /* MessageDeserializer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessageDeserializer.swift; sourceTree = "<group>"; };
+		42C1D2251CAAC5CA005D0347 /* MessageTransformer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessageTransformer.swift; sourceTree = "<group>"; };
+		42C1D2271CAAC5F0005D0347 /* Command.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Command.swift; sourceTree = "<group>"; };
+		42C1D2291CAACBD5005D0347 /* ReferenceTimestampStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReferenceTimestampStore.swift; sourceTree = "<group>"; };
 		42C45A851C57DF2100888EA8 /* AudioStemStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AudioStemStore.swift; sourceTree = "<group>"; };
 		42C45A871C58CA8C00888EA8 /* DJViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DJViewController.swift; sourceTree = "<group>"; };
 		42D9F89F1C88A70F0056957B /* Group.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Group.swift; sourceTree = "<group>"; };
@@ -251,6 +259,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				423709861CA44E4800CC59F9 /* TouchpressFoundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -290,7 +299,7 @@
 		420080301C5A461C009009E8 /* Test Cases */ = {
 			isa = PBXGroup;
 			children = (
-				4280C0D91C5D25DC00B2C9B3 /* MessageTransformerTests.swift */,
+				4280C0D91C5D25DC00B2C9B3 /* CommandTransformerTests.swift */,
 				42E81E8E1C5E37E100A9FC57 /* SuiteStoreTests.swift */,
 				429EC9881C85AF9F002FDBCC /* GroupStoreTests.swift */,
 				42899B781C886CC600ECA105 /* GroupTransformerTests.swift */,
@@ -400,17 +409,18 @@
 		4249B5991C5792190096872D /* Representation */ = {
 			isa = PBXGroup;
 			children = (
-				420080381C5BCA44009009E8 /* Suite.swift */,
-				42D9F8A11C88A7460056957B /* Workspace.swift */,
-				42D9F8A31C88A7950056957B /* Performer.swift */,
-				42D9F89F1C88A70F0056957B /* Group.swift */,
-				4249B59A1C5792490096872D /* Message.swift */,
 				42D9F8A51C88A7AB0056957B /* AudioStem.swift */,
-				42B3D1E61C99B1910065842D /* TaggedAudioPath.swift */,
 				428AF2AB1CA0327C0023FCC9 /* ConnectionState.swift */,
-				428AF2AD1CA032BF0023FCC9 /* Level.swift */,
 				42889BF61CA0476C00ACC3B9 /* Direction.swift */,
+				42D9F89F1C88A70F0056957B /* Group.swift */,
+				428AF2AD1CA032BF0023FCC9 /* Level.swift */,
+				4249B59A1C5792490096872D /* Message.swift */,
+				42D9F8A31C88A7950056957B /* Performer.swift */,
+				420080381C5BCA44009009E8 /* Suite.swift */,
+				42B3D1E61C99B1910065842D /* TaggedAudioPath.swift */,
 				42889BF81CA047BF00ACC3B9 /* Tags.swift */,
+				42D9F8A11C88A7460056957B /* Workspace.swift */,
+				42C1D2271CAAC5F0005D0347 /* Command.swift */,
 			);
 			name = Representation;
 			sourceTree = "<group>";
@@ -421,7 +431,6 @@
 				42177FA01C9AAB0E008411B0 /* TPFoundationToAdd */,
 				425CC3251C74B86300B39AB5 /* Experimental */,
 				42E8BE191C54FB730034F1C8 /* Legacy */,
-				4280C0DB1C5D4C9200B2C9B3 /* Debug */,
 			);
 			name = Extras;
 			sourceTree = "<group>";
@@ -455,30 +464,23 @@
 		4280C0D61C5D166400B2C9B3 /* Transformation */ = {
 			isa = PBXGroup;
 			children = (
-				4280C0D71C5D1A8A00B2C9B3 /* MessageTransformer.swift */,
+				4280C0D71C5D1A8A00B2C9B3 /* CommandTransformer.swift */,
 				4273BC601C876708002E9EF9 /* GroupTransformer.swift */,
-				4273BC621C87673C002E9EF9 /* UISuiteTransformer.swift */,
+				42C1D2251CAAC5CA005D0347 /* MessageTransformer.swift */,
 				422EB05B1C8DC39500B27134 /* UIAudioStemTransformer.swift */,
+				4273BC621C87673C002E9EF9 /* UISuiteTransformer.swift */,
 			);
 			name = Transformation;
 			sourceTree = "<group>";
 		};
-		4280C0DB1C5D4C9200B2C9B3 /* Debug */ = {
-			isa = PBXGroup;
-			children = (
-				4280C0DC1C5D4CAD00B2C9B3 /* MessageLogger.swift */,
-			);
-			name = Debug;
-			sourceTree = "<group>";
-		};
-		429EC9871C85AEE0002FDBCC /* Read Stores (Disk) */ = {
+		429EC9871C85AEE0002FDBCC /* Stores (Disk) */ = {
 			isa = PBXGroup;
 			children = (
 				42C45A851C57DF2100888EA8 /* AudioStemStore.swift */,
 				42B3D1E41C99B0F50065842D /* TaggedAudioPathStore.swift */,
 				429EC9661C84770C002FDBCC /* SwiftyJSON.swift */,
 			);
-			name = "Read Stores (Disk)";
+			name = "Stores (Disk)";
 			sourceTree = "<group>";
 		};
 		42A55C121C0F2AE900FD6C7D /* Resources */ = {
@@ -505,16 +507,16 @@
 		42A727B91C553A7C00BFCA47 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				429EC9871C85AEE0002FDBCC /* Read Stores (Disk) */,
-				42C45A821C57DE5700888EA8 /* Write Stores (Memory) */,
+				429EC9871C85AEE0002FDBCC /* Stores (Disk) */,
+				42C45A821C57DE5700888EA8 /* Stores (Memory) */,
 				425CC3261C74B8A100B39AB5 /* Audio */,
+				42AFC6511C5542DA00AD4B9B /* Communication */,
+				421468581C56473C00892786 /* Connection */,
 				42B3D1E81C99B2540065842D /* Instrumentation */,
 				4249B5991C5792190096872D /* Representation */,
-				4280C0D61C5D166400B2C9B3 /* Transformation */,
-				421468581C56473C00892786 /* Connection */,
 				42AFC6661C55806A00AD4B9B /* Serialisation */,
 				421468621C56751600892786 /* Synchronisation */,
-				42AFC6511C5542DA00AD4B9B /* Communication */,
+				4280C0D61C5D166400B2C9B3 /* Transformation */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -534,8 +536,8 @@
 			isa = PBXGroup;
 			children = (
 				421468601C56672500892786 /* Serialisation.swift */,
-				42AFC6621C55802000AD4B9B /* ReadableMessageAdapter.swift */,
-				42AFC6641C55805300AD4B9B /* WriteableMessageAdapter.swift */,
+				42C1D2231CAA9DCE005D0347 /* MessageDeserializer.swift */,
+				42AFC6641C55805300AD4B9B /* MessageSerializer.swift */,
 			);
 			name = Serialisation;
 			sourceTree = "<group>";
@@ -552,14 +554,15 @@
 			name = Instrumentation;
 			sourceTree = "<group>";
 		};
-		42C45A821C57DE5700888EA8 /* Write Stores (Memory) */ = {
+		42C45A821C57DE5700888EA8 /* Stores (Memory) */ = {
 			isa = PBXGroup;
 			children = (
 				429EC9851C85AECE002FDBCC /* GroupStore.swift */,
 				4200803A1C5BD289009009E8 /* SuiteStore.swift */,
 				428AF2AF1CA0396F0023FCC9 /* LevelStore.swift */,
+				42C1D2291CAACBD5005D0347 /* ReferenceTimestampStore.swift */,
 			);
-			name = "Write Stores (Memory)";
+			name = "Stores (Memory)";
 			sourceTree = "<group>";
 		};
 		42E49DAC1C58E4CB00B9C127 /* Views */ = {
@@ -621,6 +624,7 @@
 		42E8BE191C54FB730034F1C8 /* Legacy */ = {
 			isa = PBXGroup;
 			children = (
+				42AFC6621C55802000AD4B9B /* ReadableMessageAdapter.swift */,
 				429EC9601C847697002FDBCC /* AudioController.h */,
 				429EC9611C847697002FDBCC /* AudioController.mm */,
 				429EC95E1C847666002FDBCC /* PerformerAudioController.swift */,
@@ -687,6 +691,7 @@
 		FF8F05C000FBA5897614E1FA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				423709851CA44E4800CC59F9 /* TouchpressFoundation.framework */,
 				42F99EA81CA1BC230058F7AC /* TouchpressUI.framework */,
 				42F99EA61CA1BC1E0058F7AC /* TouchpressFoundation.framework */,
 				42F99EA41CA1BC1A0058F7AC /* CocoaAsyncSocket.framework */,
@@ -845,7 +850,7 @@
 				429EC9891C85AF9F002FDBCC /* GroupStoreTests.swift in Sources */,
 				420080261C5A458B009009E8 /* SoundaramaTests.swift in Sources */,
 				42899B791C886CC600ECA105 /* GroupTransformerTests.swift in Sources */,
-				4280C0DA1C5D25DC00B2C9B3 /* MessageTransformerTests.swift in Sources */,
+				4280C0DA1C5D25DC00B2C9B3 /* CommandTransformerTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -867,6 +872,7 @@
 				42A727B61C552E8D00BFCA47 /* DJInteractor.swift in Sources */,
 				42A727A61C552D3800BFCA47 /* PerformerPresenter.swift in Sources */,
 				42C45A861C57DF2100888EA8 /* AudioStemStore.swift in Sources */,
+				42C1D22A1CAACBD5005D0347 /* ReferenceTimestampStore.swift in Sources */,
 				42F90EEA1C5D74920010F1C5 /* UIFont.swift in Sources */,
 				42AFC6631C55802000AD4B9B /* ReadableMessageAdapter.swift in Sources */,
 				4249B5961C578A160096872D /* BroadcastSocketEndpoint.swift in Sources */,
@@ -883,7 +889,7 @@
 				42E49DAE1C58F20D00B9C127 /* SoundZoneCollectionViewCell.swift in Sources */,
 				42B4F6DB1C96F79E00C755E6 /* ChristiansCalculator.swift in Sources */,
 				DFBAD41F1C64C346004C1D47 /* SpringMesh.swift in Sources */,
-				42AFC6651C55805300AD4B9B /* WriteableMessageAdapter.swift in Sources */,
+				42AFC6651C55805300AD4B9B /* MessageSerializer.swift in Sources */,
 				428AF2B01CA0396F0023FCC9 /* LevelStore.swift in Sources */,
 				4200803B1C5BD289009009E8 /* SuiteStore.swift in Sources */,
 				42B3D1EE1C99CDF00065842D /* Compass.swift in Sources */,
@@ -895,7 +901,7 @@
 				4273BC631C87673C002E9EF9 /* UISuiteTransformer.swift in Sources */,
 				42E8BE201C54FF470034F1C8 /* Soundarama.swift in Sources */,
 				42A727AC1C552DCA00BFCA47 /* DecideModule.swift in Sources */,
-				4280C0D81C5D1A8A00B2C9B3 /* MessageTransformer.swift in Sources */,
+				4280C0D81C5D1A8A00B2C9B3 /* CommandTransformer.swift in Sources */,
 				429EC95F1C847666002FDBCC /* PerformerAudioController.swift in Sources */,
 				429EC9571C8475A8002FDBCC /* AppDelegate.swift in Sources */,
 				4273BC611C876708002E9EF9 /* GroupTransformer.swift in Sources */,
@@ -912,14 +918,15 @@
 				425CC3281C74B8F200B39AB5 /* AudioLoop.swift in Sources */,
 				42A727B41C552E7400BFCA47 /* DJPresenter.swift in Sources */,
 				429EC95B1C84761F002FDBCC /* PerformerView.swift in Sources */,
+				42C1D2261CAAC5CA005D0347 /* MessageTransformer.swift in Sources */,
 				421468641C567E9600892786 /* SearchStrategy.swift in Sources */,
 				429EC9651C8476A1002FDBCC /* VolumeControl.m in Sources */,
 				4249B59F1C57979E0096872D /* ChristiansProcess.swift in Sources */,
 				421468611C56672500892786 /* Serialisation.swift in Sources */,
 				420AA6AD1C55296E00F7BB25 /* DecidePresenter.swift in Sources */,
-				4280C0DD1C5D4CAD00B2C9B3 /* MessageLogger.swift in Sources */,
 				4277FBF41C9729FB0042B051 /* DJAudioStemPickerViewController.swift in Sources */,
 				42A727A81C552D5D00BFCA47 /* PerformerModule.swift in Sources */,
+				42C1D2281CAAC5F0005D0347 /* Command.swift in Sources */,
 				4214685A1C56474F00892786 /* PerformerConnectionAdapter.swift in Sources */,
 				42889BF51CA0468B00ACC3B9 /* Flickometer.swift in Sources */,
 				42D9F8A01C88A70F0056957B /* Group.swift in Sources */,
@@ -930,6 +937,7 @@
 				422EB05A1C8DBA2200B27134 /* DJAudioStemsPickerUserInterface.swift in Sources */,
 				42177FA21C9AAB29008411B0 /* Functional.swift in Sources */,
 				422EB05C1C8DC39500B27134 /* UIAudioStemTransformer.swift in Sources */,
+				42C1D2241CAA9DCE005D0347 /* MessageDeserializer.swift in Sources */,
 				420AA6A91C55236F00F7BB25 /* DecideUserInterface.swift in Sources */,
 				425498E51C987FB500793640 /* TableViewCells.swift in Sources */,
 				4207563C1CA00E0400A4666A /* CompassView.swift in Sources */,

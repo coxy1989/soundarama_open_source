@@ -21,7 +21,7 @@ class DJInteractor {
     
     private let groupStore = GroupStore()
     
-    private var adapter: WritableMessageAdapter!
+    private let referenceTimestampStore = ReferenceTimestampStore()
     
     private var christiansTimeServer: ChristiansTimeServer!
     
@@ -32,13 +32,10 @@ extension DJInteractor: DJInput {
     
     func startDJ() {
         
-        //TODO: handle pro (16), pad(9) phone(4)
-        
         djOutput.setUISuite(UISuiteTransformer.transform(suiteStore.suite))
         djOutput.setGroupingMode(true)
         
         christiansTimeServer = ChristiansTimeServer(endpoint: endpoint)
-        adapter = WritableMessageAdapter(writeable: endpoint)
         
         endpoint.connectionDelegate = self
         endpoint.connect()
@@ -222,17 +219,13 @@ extension DJInteractor: DJInput {
     func requestAddGroupToWorkspace(groupID: GroupID, workspaceID: WorkspaceID) {
         
         let group = groupStore.groups.filter({ $0.id() == groupID }).first!
-        for p in group.members {
-            requestAddPerformerToWorkspace(p, workspaceID: workspaceID)
-        }
+        group.members.forEach() { requestAddPerformerToWorkspace($0, workspaceID: workspaceID) }
     }
     
     func requestRemoveGroupFromWorkspace(groupID: GroupID) {
         
         let group = groupStore.groups.filter({ $0.id() == groupID }).first!
-        for p in group.members {
-            requestRemovePerformerFromWorkspace(p)
-        }
+        group.members.forEach() { requestRemovePerformerFromWorkspace($0) }
     }
 }
 
@@ -261,13 +254,40 @@ extension DJInteractor {
     
     func didChangeSuite(fromSuite: Suite, toSuite: Suite) {
         
-        let transformer = MessageTransformer(timestamp: NSDate().timeIntervalSince1970, sessionTimestamp: ChristiansTimeServer.timestamp)
-        let messages = transformer.transform(fromSuite, toSuite: toSuite)
+        let outgoing: [(Address, Message)] = DJCommandTransformer.transform(fromSuite, toSuite: toSuite).map() {
+            
+            switch $0.type {
+                
+                case .Start:
         
-        MessageLogger.log(messages)
+                    let cmd = $0 as! DJStartCommand
+                    let unix = NSDate().timeIntervalSince1970
+                    let session_unix = ChristiansTimeServer.timestamp
+                    var reference_unix = referenceTimestampStore.getTimestamp(cmd.reference)
+                    if reference_unix == nil {
+                        referenceTimestampStore.setTimestamp(unix, reference: cmd.reference)
+                        reference_unix = unix
+                    }
+                    
+                    return ($0.performer, DJMessageTransformer.transform(cmd, timestamp: unix, sessionTimestamp: session_unix, referenceTimestamp: reference_unix!))
+                
+                case .Stop:
+                    
+                    return ($0.performer, DJMessageTransformer.transform($0 as! DJStopCommand))
+                
+                case .Mute:
+                    
+                    return ($0.performer, DJMessageTransformer.transform($0 as! DJMuteCommand))
+                
+                case .Unmute:
+                    
+                    return ($0.performer, DJMessageTransformer.transform($0 as! DJUnmuteCommand))
+            }
+        }
         
-        for m in messages {
-            adapter.writeMessage(m)
+        outgoing.forEach() {
+            debugPrint($0)
+            endpoint.writeData(MessageSerializer.serialize($0.1), address: $0.0)
         }
     }
 }
@@ -289,4 +309,3 @@ extension DJInteractor {
         }
     }
 }
-

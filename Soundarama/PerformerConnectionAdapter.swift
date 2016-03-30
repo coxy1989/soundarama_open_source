@@ -6,6 +6,8 @@
 //  Copyright © 2016 Touchpress Ltd. All rights reserved.
 //
 
+/* Is this indirection really necessary? .. the interactor knows about `Connectable` anyway. */
+
 class PerformerConnectionAdapter: ConnectableDelegate {
     
     weak var delegate: PerformerConnectionAdapterDelegate!
