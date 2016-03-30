@@ -48,7 +48,6 @@
 		4277FBF41C9729FB0042B051 /* DJAudioStemPickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4277FBF31C9729FB0042B051 /* DJAudioStemPickerViewController.swift */; };
 		4280C0D81C5D1A8A00B2C9B3 /* CommandTransformer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4280C0D71C5D1A8A00B2C9B3 /* CommandTransformer.swift */; };
 		4280C0DA1C5D25DC00B2C9B3 /* CommandTransformerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4280C0D91C5D25DC00B2C9B3 /* CommandTransformerTests.swift */; };
-		4280C0DD1C5D4CAD00B2C9B3 /* MessageLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4280C0DC1C5D4CAD00B2C9B3 /* MessageLogger.swift */; };
 		42889BF51CA0468B00ACC3B9 /* Flickometer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42889BF41CA0468B00ACC3B9 /* Flickometer.swift */; };
 		42889BF71CA0476C00ACC3B9 /* Direction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42889BF61CA0476C00ACC3B9 /* Direction.swift */; };
 		42889BF91CA047BF00ACC3B9 /* Tags.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42889BF81CA047BF00ACC3B9 /* Tags.swift */; };
@@ -183,7 +182,6 @@
 		4277FBF31C9729FB0042B051 /* DJAudioStemPickerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DJAudioStemPickerViewController.swift; sourceTree = "<group>"; };
 		4280C0D71C5D1A8A00B2C9B3 /* CommandTransformer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommandTransformer.swift; sourceTree = "<group>"; };
 		4280C0D91C5D25DC00B2C9B3 /* CommandTransformerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommandTransformerTests.swift; sourceTree = "<group>"; };
-		4280C0DC1C5D4CAD00B2C9B3 /* MessageLogger.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessageLogger.swift; sourceTree = "<group>"; };
 		42889BF41CA0468B00ACC3B9 /* Flickometer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Flickometer.swift; sourceTree = "<group>"; };
 		42889BF61CA0476C00ACC3B9 /* Direction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Direction.swift; sourceTree = "<group>"; };
 		42889BF81CA047BF00ACC3B9 /* Tags.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Tags.swift; sourceTree = "<group>"; };
@@ -433,7 +431,6 @@
 				42177FA01C9AAB0E008411B0 /* TPFoundationToAdd */,
 				425CC3251C74B86300B39AB5 /* Experimental */,
 				42E8BE191C54FB730034F1C8 /* Legacy */,
-				4280C0DB1C5D4C9200B2C9B3 /* Debug */,
 			);
 			name = Extras;
 			sourceTree = "<group>";
@@ -474,14 +471,6 @@
 				4273BC621C87673C002E9EF9 /* UISuiteTransformer.swift */,
 			);
 			name = Transformation;
-			sourceTree = "<group>";
-		};
-		4280C0DB1C5D4C9200B2C9B3 /* Debug */ = {
-			isa = PBXGroup;
-			children = (
-				4280C0DC1C5D4CAD00B2C9B3 /* MessageLogger.swift */,
-			);
-			name = Debug;
 			sourceTree = "<group>";
 		};
 		429EC9871C85AEE0002FDBCC /* Stores (Disk) */ = {
@@ -935,7 +924,6 @@
 				4249B59F1C57979E0096872D /* ChristiansProcess.swift in Sources */,
 				421468611C56672500892786 /* Serialisation.swift in Sources */,
 				420AA6AD1C55296E00F7BB25 /* DecidePresenter.swift in Sources */,
-				4280C0DD1C5D4CAD00B2C9B3 /* MessageLogger.swift in Sources */,
 				4277FBF41C9729FB0042B051 /* DJAudioStemPickerViewController.swift in Sources */,
 				42A727A81C552D5D00BFCA47 /* PerformerModule.swift in Sources */,
 				42C1D2281CAAC5F0005D0347 /* Command.swift in Sources */,

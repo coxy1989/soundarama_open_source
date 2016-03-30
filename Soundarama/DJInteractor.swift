@@ -263,9 +263,13 @@ extension DJInteractor {
                     let cmd = $0 as! DJStartCommand
                     let unix = NSDate().timeIntervalSince1970
                     let session_unix = ChristiansTimeServer.timestamp
-                    let reference_unix = referenceTimestampStore.getTimestamp(cmd.reference)
+                    var reference_unix = referenceTimestampStore.getTimestamp(cmd.reference)
+                    if reference_unix == nil {
+                        referenceTimestampStore.setTimestamp(unix, reference: cmd.reference)
+                        reference_unix = unix
+                    }
                     
-                    return ($0.performer, DJMessageTransformer.transform(cmd, timestamp: unix, sessionTimestamp: session_unix, referenceTimestamp: reference_unix))
+                    return ($0.performer, DJMessageTransformer.transform(cmd, timestamp: unix, sessionTimestamp: session_unix, referenceTimestamp: reference_unix!))
                 
                 case .Stop:
                     
@@ -281,7 +285,10 @@ extension DJInteractor {
             }
         }
         
-        outgoing.forEach() { endpoint.writeData(MessageSerializer.serialize($0.1), address: $0.0) }
+        outgoing.forEach() {
+            debugPrint($0)
+            endpoint.writeData(MessageSerializer.serialize($0.1), address: $0.0)
+        }
     }
 }
 

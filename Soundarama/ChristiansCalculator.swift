@@ -26,8 +26,14 @@ struct ChristiansCalculator {
         return Double(nextStartTime) - Double(remoteNow)
     }
     
-    static func calculateReferenceTime(remoteTime: NSTimeInterval, localTime: NSTimeInterval, referenceTimestamp: NSTimeInterval, length: NSTimeInterval) -> NSTimeInterval {
+    static func calculateReferenceTime(timestamp: NSTimeInterval, referenceTimestamp: NSTimeInterval, length: NSTimeInterval) -> NSTimeInterval {
         
+        let elapsed = timestamp - referenceTimestamp
+        let modulus = elapsed % length
+        debugPrint("reference modulus: \(modulus)")
+        return modulus
+        
+        /*
         let now = NSDate().timeIntervalSince1970
         let elapsed = now - localTime
         let remoteNow = remoteTime + elapsed
@@ -35,5 +41,6 @@ struct ChristiansCalculator {
         let modulus = referenceDuration % length
         debugPrint("reference modulus: \(modulus)")
         return modulus
+ */
     }
 }

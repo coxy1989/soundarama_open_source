@@ -37,7 +37,6 @@ class PerformerInteractor: PerformerInput {
     
         connectionAdapter = PerformerConnectionAdapter(connection: endpoint)
         connectionAdapter.delegate = self
-        endpoint.readableDelegate = self
         endpoint.connect()
         startInstruments()
         performerOutput.setLevel(levelStore.getLevel())
@@ -65,6 +64,8 @@ extension PerformerInteractor: ChristiansProcessDelegate {
         christiansMap = (local: local, remote: remote)
         debugPrint(christiansMap)
         endpoint.readData(Serialisation.terminator)
+        
+        endpoint.readableDelegate = self
     }
 }
 
@@ -111,8 +112,11 @@ extension PerformerInteractor {
         let ll = tp.first!.loopLength
         let delay = ChristiansCalculator.calculateDelay(christiansMap!.remote, localTime: christiansMap!.local, sessionTimestamp: message.sessionTimestamp, loopLength: ll)
         
+        //TODO: Read `length` from a config file
+        let atTime = ChristiansCalculator.calculateReferenceTime(message.timestamp, referenceTimestamp: message.referenceTimestamp, length: 15.6098)
+        
         stopAudio(delay)
-        startAudio(TaggedAudioPathStore.taggedAudioPaths(message.reference), afterDelay: delay, atTime: 0, muted: message.muted)
+        startAudio(TaggedAudioPathStore.taggedAudioPaths(message.reference), afterDelay: delay, atTime: atTime, muted: message.muted)
         performerOutput.setColor(audioStemStore.audioStem(message.reference)!.colour)
         controlAudioLoopVolume(compass.getHeading(), level: levelStore.getLevel())
         

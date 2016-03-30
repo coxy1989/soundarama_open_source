@@ -12,18 +12,13 @@ class ReferenceTimestampStore {
     
     private var timestamps: [Reference : NSTimeInterval] = [ : ]
     
-    func getTimestamp(reference: Reference) -> NSTimeInterval {
+    func getTimestamp(reference: Reference) -> NSTimeInterval? {
         
-        if let existing = timestamps[reference] {
-            
-            return existing
-        }
+        return timestamps[reference]
+    }
+    
+    func setTimestamp(timestamp: NSTimeInterval, reference: Reference) {
         
-        else {
-            
-            let timestamp = NSDate().timeIntervalSince1970
-            timestamps[reference] = timestamp
-            return timestamp
-        }
+        timestamps[reference] = timestamp
     }
 }
