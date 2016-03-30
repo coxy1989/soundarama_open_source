@@ -22,6 +22,7 @@ struct TaggedAudioPathStore {
         
         let tags_paths = direction_altitude.map() { (path: NSBundle.mainBundle().pathForResource($0, ofType: "wav", inDirectory: "Sounds")!, tags: $1)}
         
+        
         return Set(tags_paths.map() { TaggedAudioPath(tags: $0.tags, path: $0.path, loopLength: 1.9512195122) })
     }
 }

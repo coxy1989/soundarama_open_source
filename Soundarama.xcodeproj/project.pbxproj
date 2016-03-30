@@ -95,6 +95,8 @@
 		42C1D2261CAAC5CA005D0347 /* MessageTransformer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42C1D2251CAAC5CA005D0347 /* MessageTransformer.swift */; };
 		42C1D2281CAAC5F0005D0347 /* Command.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42C1D2271CAAC5F0005D0347 /* Command.swift */; };
 		42C1D22A1CAACBD5005D0347 /* ReferenceTimestampStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42C1D2291CAACBD5005D0347 /* ReferenceTimestampStore.swift */; };
+		42C1D22C1CABD2AE005D0347 /* AudioConfigStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42C1D22B1CABD2AE005D0347 /* AudioConfigStore.swift */; };
+		42C1D22E1CABD704005D0347 /* AudioConfigurationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42C1D22D1CABD704005D0347 /* AudioConfigurationTests.swift */; };
 		42C45A861C57DF2100888EA8 /* AudioStemStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42C45A851C57DF2100888EA8 /* AudioStemStore.swift */; };
 		42C45A881C58CA8C00888EA8 /* DJViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42C45A871C58CA8C00888EA8 /* DJViewController.swift */; };
 		42D9F8A01C88A70F0056957B /* Group.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42D9F89F1C88A70F0056957B /* Group.swift */; };
@@ -232,6 +234,8 @@
 		42C1D2251CAAC5CA005D0347 /* MessageTransformer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessageTransformer.swift; sourceTree = "<group>"; };
 		42C1D2271CAAC5F0005D0347 /* Command.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Command.swift; sourceTree = "<group>"; };
 		42C1D2291CAACBD5005D0347 /* ReferenceTimestampStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReferenceTimestampStore.swift; sourceTree = "<group>"; };
+		42C1D22B1CABD2AE005D0347 /* AudioConfigStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AudioConfigStore.swift; sourceTree = "<group>"; };
+		42C1D22D1CABD704005D0347 /* AudioConfigurationTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AudioConfigurationTests.swift; sourceTree = "<group>"; };
 		42C45A851C57DF2100888EA8 /* AudioStemStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AudioStemStore.swift; sourceTree = "<group>"; };
 		42C45A871C58CA8C00888EA8 /* DJViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DJViewController.swift; sourceTree = "<group>"; };
 		42D9F89F1C88A70F0056957B /* Group.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Group.swift; sourceTree = "<group>"; };
@@ -304,6 +308,7 @@
 				429EC9881C85AF9F002FDBCC /* GroupStoreTests.swift */,
 				42899B781C886CC600ECA105 /* GroupTransformerTests.swift */,
 				42B3D1EB1C99B7260065842D /* CompassLevelVolumeControllerTests.swift */,
+				42C1D22D1CABD704005D0347 /* AudioConfigurationTests.swift */,
 			);
 			name = "Test Cases";
 			sourceTree = "<group>";
@@ -476,9 +481,10 @@
 		429EC9871C85AEE0002FDBCC /* Stores (Disk) */ = {
 			isa = PBXGroup;
 			children = (
+				42C1D22B1CABD2AE005D0347 /* AudioConfigStore.swift */,
 				42C45A851C57DF2100888EA8 /* AudioStemStore.swift */,
-				42B3D1E41C99B0F50065842D /* TaggedAudioPathStore.swift */,
 				429EC9661C84770C002FDBCC /* SwiftyJSON.swift */,
+				42B3D1E41C99B0F50065842D /* TaggedAudioPathStore.swift */,
 			);
 			name = "Stores (Disk)";
 			sourceTree = "<group>";
@@ -486,11 +492,11 @@
 		42A55C121C0F2AE900FD6C7D /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				E20B946A1C1753C800222A2B /* LaunchScreen.storyboard */,
+				E26EBAA21C18AF4700747726 /* Localizable.strings */,
 				426A7B421CA2EA5A0031AA10 /* Fonts */,
 				E20B94641C1753B900222A2B /* Assets.xcassets */,
 				428A89001C9975DC0070BE7F /* Sounds */,
-				E20B946A1C1753C800222A2B /* LaunchScreen.storyboard */,
-				E26EBAA21C18AF4700747726 /* Localizable.strings */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -848,6 +854,7 @@
 				42B3D1EC1C99B7260065842D /* CompassLevelVolumeControllerTests.swift in Sources */,
 				42E81E8F1C5E37E100A9FC57 /* SuiteStoreTests.swift in Sources */,
 				429EC9891C85AF9F002FDBCC /* GroupStoreTests.swift in Sources */,
+				42C1D22E1CABD704005D0347 /* AudioConfigurationTests.swift in Sources */,
 				420080261C5A458B009009E8 /* SoundaramaTests.swift in Sources */,
 				42899B791C886CC600ECA105 /* GroupTransformerTests.swift in Sources */,
 				4280C0DA1C5D25DC00B2C9B3 /* CommandTransformerTests.swift in Sources */,
@@ -910,6 +917,7 @@
 				42889BF71CA0476C00ACC3B9 /* Direction.swift in Sources */,
 				42A727B21C552E5D00BFCA47 /* DJWireframe.swift in Sources */,
 				420AA6AB1C55288E00F7BB25 /* DecideWireframe.swift in Sources */,
+				42C1D22C1CABD2AE005D0347 /* AudioConfigStore.swift in Sources */,
 				42C45A881C58CA8C00888EA8 /* DJViewController.swift in Sources */,
 				42A727A41C552D0200BFCA47 /* PerformerWireframe.swift in Sources */,
 				42B3D1EA1C99B3130065842D /* CompassLevelVolumeController.swift in Sources */,

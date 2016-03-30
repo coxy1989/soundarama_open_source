@@ -34,9 +34,7 @@ extension DJInteractor: DJInput {
         
         djOutput.setUISuite(UISuiteTransformer.transform(suiteStore.suite))
         djOutput.setGroupingMode(true)
-        
         christiansTimeServer = ChristiansTimeServer(endpoint: endpoint)
-        
         endpoint.connectionDelegate = self
         endpoint.connect()
     }
@@ -251,6 +249,8 @@ extension DJInteractor: ConnectableDelegate {
 }
 
 extension DJInteractor {
+    
+    // TODO: refactor. This function is too long. timestamped messages vs regular messages in Transformer?
     
     func didChangeSuite(fromSuite: Suite, toSuite: Suite) {
         

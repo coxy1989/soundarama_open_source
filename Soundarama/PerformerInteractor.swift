@@ -15,21 +15,21 @@ class PerformerInteractor: PerformerInput {
     
     var endpoint: Endpoint!
     
-    let compass = Compass(locationManager: LocationService.manager)
+    private let compass = Compass(locationManager: LocationService.manager)
     
-    let flickometer = Flickometer(accellerometer: Accellerometer(motionManager: MotionService.manager))
+    private let flickometer = Flickometer(accellerometer: Accellerometer(motionManager: MotionService.manager))
     
-    let swishometer = Swishometer(accellerometer: Accellerometer(motionManager: MotionService.manager))
+    private let audioStemStore = AudioStemStore()
+    
+    private let levelStore = LevelStore()
+    
+    private let audioConfig: AudioConfiguration = AudioConfiguration.getConfiguration()
     
     private var connectionAdapter: PerformerConnectionAdapter!
     
     private var christiansProcess: ChristiansProcess?
     
     private var christiansMap: (remote: NSTimeInterval, local: NSTimeInterval)?
-    
-    private lazy var audioStemStore: AudioStemStore =  { AudioStemStore() } ()
-    
-    private var levelStore = LevelStore()
     
     private var audioloop: (loop: MultiAudioLoop, paths: Set<TaggedAudioPath>)?
     
@@ -108,18 +108,12 @@ extension PerformerInteractor {
     
     func handleStartMessage(message: StartMessage) {
         
-        let tp = TaggedAudioPathStore.taggedAudioPaths(message.reference)
-        let ll = tp.first!.loopLength
-        let delay = ChristiansCalculator.calculateDelay(christiansMap!.remote, localTime: christiansMap!.local, sessionTimestamp: message.sessionTimestamp, loopLength: ll)
-        
-        //TODO: Read `length` from a config file
-        let atTime = ChristiansCalculator.calculateReferenceTime(message.timestamp, referenceTimestamp: message.referenceTimestamp, length: 15.6098)
-        
+        let delay = ChristiansCalculator.calculateDelay(christiansMap!.remote, localTime: christiansMap!.local, sessionTimestamp: message.sessionTimestamp, loopLength: audioConfig.loopLength)
+        let atTime = ChristiansCalculator.calculateReferenceTime(message.timestamp, referenceTimestamp: message.referenceTimestamp, length: audioConfig.audioFileLength)
         stopAudio(delay)
         startAudio(TaggedAudioPathStore.taggedAudioPaths(message.reference), afterDelay: delay, atTime: atTime + delay, muted: message.muted)
         performerOutput.setColor(audioStemStore.audioStem(message.reference)!.colour)
         controlAudioLoopVolume(compass.getHeading(), level: levelStore.getLevel())
-        
     }
     
     func handleStopMessage(message: StopMessage) {
@@ -145,9 +139,7 @@ extension PerformerInteractor {
     
     private func startAudio(paths: Set<TaggedAudioPath>, afterDelay: NSTimeInterval, atTime: NSTimeInterval, muted: Bool) {
         
-        //TODO: Read `length` from a config file
-        
-        audioloop = (MultiAudioLoop(paths: Set(paths.map({$0.path})), length: 15.6098), paths)
+        audioloop = (MultiAudioLoop(paths: Set(paths.map({$0.path})), length: audioConfig.audioFileLength), paths)
         audioloop?.loop.start(afterDelay: afterDelay, atTime: atTime)
         audioloop?.loop.setMuted(muted)
     }
