@@ -14,11 +14,20 @@ protocol DJBroadcastConfigurationUserInterface: class {
     func setIdentifiers(identifiers: [String])
 }
 
+protocol DJBroadcastConfigurationUserInterfaceDelegate: class {
+    
+    func didRequestAddIdentifier(identifier: String)
+}
+
 class DJBroadcastConfigurationViewController: ViewController {
+    
+    weak var delegate: DJBroadcastConfigurationUserInterfaceDelegate!
+    
+    private var identifiers: [String] = []
     
     @IBOutlet private weak var tableView: UITableView!
     
-    private var identifiers: [String] = []
+    @IBAction private func textFieldDidPressDone(textField: UITextField) { delegate.didRequestAddIdentifier(textField.text!) }
     
 }
 

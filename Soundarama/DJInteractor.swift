@@ -275,24 +275,23 @@ extension DJInteractor: DJBroadcastConfigurationInput {
         browsingService = BrowseService.browsing(NetworkConfiguration.type, domain: NetworkConfiguration.domain, found: found, lost: lost, failed: failed)
     }
     
-    func requestBroadcastDJIdentifier(identifier: String) {
+    func requestAddIdentifier(identifier: String) {
         
         //TODO: callbacki-ify host
         
         /*
-        guard let host = Host.aceptingOnPort(666) else {
-            // output.setBroadcastingState(.Failed)
-            return
-        }
-        
-        let failure: ([String : NSNumber]) -> () = { _ in
-            
-        }
-        
-        BroadcastService.broadcasting("", type: "", name: identifier, port: 666, failure: failure)
- */
+         guard let host = Host.aceptingOnPort(666) else {
+         // output.setBroadcastingState(.Failed)
+         return
+         }
+         
+         let failure: ([String : NSNumber]) -> () = { _ in
+         
+         }
+         
+         BroadcastService.broadcasting("", type: "", name: identifier, port: 666, failure: failure)
+         */
     }
-    
 }
 
 extension DJInteractor: ConnectableDelegate {

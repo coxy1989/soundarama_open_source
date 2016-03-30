@@ -44,12 +44,11 @@ class DJWireframe {
         
         let vc = djBroadcastConfigurationViewController()
         vc.userInterfaceDelegate = djPresenter
+        vc.delegate = djPresenter
         djPresenter.djBroadcastConfigurationUI = vc
         let view = djViewController.view
         vc.modalPresentationStyle = .Popover
         vc.popoverPresentationController?.sourceRect = CGRectMake(CGRectGetMidX(view.bounds), CGRectGetMidY(view.bounds), 0, 0)
-        
-        //vc.popoverPresentationController?.sourceRect = CGRectMake(200, 200, 0, 0)
         vc.popoverPresentationController?.sourceView = view
         vc.popoverPresentationController?.permittedArrowDirections = []
         djViewController.presentViewController(vc, animated: true, completion: nil)

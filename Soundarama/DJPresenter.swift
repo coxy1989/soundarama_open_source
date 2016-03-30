@@ -286,3 +286,10 @@ extension DJPresenter: DJBroadcastConfigurationOutput {
     }
 }
 
+extension DJPresenter: DJBroadcastConfigurationUserInterfaceDelegate {
+    
+    func didRequestAddIdentifier(identifier: String) {
+        
+        djBroadcastConfigurationInput.requestAddIdentifier(identifier)
+    }
+}

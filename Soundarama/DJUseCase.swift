@@ -106,6 +106,8 @@ protocol DJAudioStemPickerOutput: class {
 protocol DJBroadcastConfigurationInput: class {
     
     func startBroadcastConfiguration()
+    
+    func requestAddIdentifier(identifier: String)
 }
 
 protocol DJBroadcastConfigurationOutput: class {
