@@ -6,7 +6,7 @@
 //  Copyright © 2016 Touchpress Ltd. All rights reserved.
 //
 
-class BrowseService: NSObject {
+class SearchService: NSObject {
     
     private let browser: NSNetServiceBrowser
     
@@ -21,17 +21,22 @@ class BrowseService: NSObject {
         self.browser = browser
     }
     
-    static func browsing(type: String, domain: String, found: (String, Resolvable) -> (), lost: (String, Resolvable) -> (), failed: () -> ()) -> BrowseService {
+    func stop() {
+        
+        browser.stop()
+    }
+    
+    static func searching(type: String, domain: String, found: (String, Resolvable) -> (), lost: (String, Resolvable) -> (), failed: () -> ()) -> SearchService {
         
         let bs = NSNetServiceBrowser()
-        let ss = BrowseService(browser: bs, lost: lost, found: found)
+        let ss = SearchService(browser: bs, lost: lost, found: found)
         bs.delegate = ss
         ss.browser.searchForServicesOfType(type, inDomain: domain)
         return ss
     }
 }
 
-extension BrowseService: NSNetServiceBrowserDelegate {
+extension SearchService: NSNetServiceBrowserDelegate {
     
     @objc func netServiceBrowserWillSearch(browser: NSNetServiceBrowser) {
         
@@ -62,19 +67,17 @@ extension BrowseService: NSNetServiceBrowserDelegate {
         
         print("Browser found service \(service.name)")
         found(service.name, ResolvableNetService(netService: service))
-        //self.service = service
-        //self.service?.delegate = self
-        //self.service?.resolveWithTimeout(5)
+        
     }
     
     @objc func netServiceBrowser(browser: NSNetServiceBrowser, didRemoveService service: NSNetService, moreComing: Bool) {
         
         print("Browser removed service")
-        /* keep retrying if we lose the service */
-        //search()
+        lost(service.name, ResolvableNetService(netService: service))
     }
 }
 
+/*
 class ResolveService {
    
     private let resolvable: Resolvable
@@ -91,6 +94,7 @@ class ResolveService {
         return rs
     }
 }
+*/
 
 protocol Resolvable {
     
@@ -113,5 +117,3 @@ class ResolvableNetService: Resolvable {
         //TODO route delegates methods to callbacks
     }
 }
-
-

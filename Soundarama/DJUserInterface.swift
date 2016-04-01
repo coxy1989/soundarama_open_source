@@ -14,6 +14,8 @@ protocol DJUserInterface: class {
     
     func setUISuite(uiSuite: UISuite)
     
+    func setBroadcastingIdentifier(identifier: String)
+    
     func addPerformer(performer: Performer)
     
     func removePerformer(performer: Performer)

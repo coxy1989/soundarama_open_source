@@ -23,13 +23,13 @@ class DJInteractor {
     
     private let groupStore = GroupStore()
     
-    private let resolvableStore = ResolvableStore()
+    private let broadcastStore = BroadcastStore()
     
     private let referenceTimestampStore = ReferenceTimestampStore()
     
     private var christiansTimeServer: ChristiansTimeServer!
     
-    private var browsingService: BrowseService?
+    private var searchcastService: SearchcastService!
     
     private lazy var audioStemStore: AudioStemStore =  { AudioStemStore() } ()
 }
@@ -40,7 +40,9 @@ extension DJInteractor: DJInput {
         
         djOutput.setUISuite(UISuiteTransformer.transform(suiteStore.suite))
         djOutput.setGroupingMode(true)
-        christiansTimeServer = ChristiansTimeServer(endpoint: endpoint)
+        
+        
+        //christiansTimeServer = ChristiansTimeServer(endpoint: endpoint)
         //endpoint.connectionDelegate = self
         //endpoint.connect()
         
@@ -246,51 +248,42 @@ extension DJInteractor: DJBroadcastConfigurationInput {
     
     func startBroadcastConfiguration() {
         
-        let found: (String, Resolvable) -> () = { [weak self] in
+        let added: String -> () = { [weak self] in
             
             guard let this = self else {
                 
                 return
             }
             
-            this.resolvableStore.addResolvable($0)
-            this.djBroadcastConfigurationOutput.setIdentifiers(this.resolvableStore.identifiers())
+            let prestate = this.broadcastStore.getState()
+            this.broadcastStore.addResolvableIdentifier($0)
+            let poststate = this.broadcastStore.getState()
+            this.didChangeBroadcastState(prestate, toState: poststate)
         }
         
-        let lost: (String, Resolvable) -> () = { [weak self] in
+        let removed: String -> () = { [weak self] in
             
             guard let this = self else {
                 
                 return
             }
             
-            this.resolvableStore.removeResolvable($0)
-            this.djBroadcastConfigurationOutput.setIdentifiers(this.resolvableStore.identifiers())
+            let prestate = this.broadcastStore.getState()
+            this.broadcastStore.removeResolvableIdentifier($0)
+            let poststate = this.broadcastStore.getState()
+            this.didChangeBroadcastState(prestate, toState: poststate)
         }
         
-        let failed: () -> () = {
-            
-        }
-        
-        browsingService = BrowseService.browsing(NetworkConfiguration.type, domain: NetworkConfiguration.domain, found: found, lost: lost, failed: failed)
+        searchcastService = SearchcastService.searching(NetworkConfiguration.type, domain: NetworkConfiguration.domain, added: added, removed: removed)
     }
     
     func requestAddIdentifier(identifier: String) {
         
-        //TODO: callbacki-ify host
-        
-        /*
-         guard let host = Host.aceptingOnPort(666) else {
-         // output.setBroadcastingState(.Failed)
-         return
-         }
-         
-         let failure: ([String : NSNumber]) -> () = { _ in
-         
-         }
-         
-         BroadcastService.broadcasting("", type: "", name: identifier, port: 666, failure: failure)
-         */
+        let prestate = broadcastStore.getState()
+        broadcastStore.setUserBroadcastIdentifer(identifier)
+        let poststate = broadcastStore.getState()
+        didChangeBroadcastState(prestate, toState: poststate)
+        searchcastService.broadcast(NetworkConfiguration.type, domain: NetworkConfiguration.domain, port: Int32(NetworkConfiguration.port), identifier: identifier)
     }
 }
 
@@ -368,5 +361,16 @@ extension DJInteractor {
             
             djOutput.destroyGroup(destroyed.id(), intoPerformers: destroyed.members)
         }
+    }
+}
+
+extension DJInteractor {
+    
+    func didChangeBroadcastState(fromState: BroadcastState, toState: BroadcastState) {
+        
+        if fromState.userBroadcastIdentifier != toState.userBroadcastIdentifier {
+            
+        }
+        print("FROM: \(fromState) TO: \(toState)")
     }
 }

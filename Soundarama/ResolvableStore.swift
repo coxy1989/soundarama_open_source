@@ -12,7 +12,8 @@ class ResolvableStore {
     
     func identifiers() -> [String] {
         
-        return Array(resolvables.keys)
+        let keys = resolvables.keys
+        return keys.count > 0 ? Array(keys) : []
     }
     
     func addResolvable(resolvable: (String, Resolvable)) {
@@ -22,6 +23,40 @@ class ResolvableStore {
     
     func removeResolvable(resolvable: (String, Resolvable)) {
         
-        resolvables[resolvable.0] = nil
+        resolvables.removeValueForKey(resolvable.0)
     }
+}
+
+class BroadcastStore {
+    
+    private var userBroadcastIdentifier: String?
+    
+    private var resolvableIdentifiers: Set<String> = Set([])
+    
+    func getState() -> BroadcastState {
+        
+        return BroadcastState(userBroadcastIdentifier: userBroadcastIdentifier, resolvableIdentifiers: resolvableIdentifiers)
+    }
+    
+    func addResolvableIdentifier(identifier: String) {
+        
+        resolvableIdentifiers.insert(identifier)
+    }
+    
+    func removeResolvableIdentifier(identifier: String) {
+        
+        resolvableIdentifiers.remove(identifier)
+    }
+    
+    func setUserBroadcastIdentifer(identifier: String?) {
+     
+        userBroadcastIdentifier = identifier
+    }
+}
+
+struct BroadcastState {
+    
+    let userBroadcastIdentifier: String?
+    
+    let resolvableIdentifiers: Set<String>
 }

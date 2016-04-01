@@ -113,4 +113,9 @@ protocol DJBroadcastConfigurationInput: class {
 protocol DJBroadcastConfigurationOutput: class {
     
     func setIdentifiers(identifiers: [String])
+    
+    func setBroadcastingIdentifier(identifier: String)
+    
+    func setNotBroadcasting()
+    
 }

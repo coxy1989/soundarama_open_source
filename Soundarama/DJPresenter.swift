@@ -284,6 +284,16 @@ extension DJPresenter: DJBroadcastConfigurationOutput {
         
         djBroadcastConfigurationUI.setIdentifiers(identifiers)
     }
+    
+    func setBroadcastingIdentifier(identifier: String) {
+        
+        djWireframe.dismissBroadcastConfigurationUserInterface(djBroadcastConfigurationUI)
+        djUI.setBroadcastingIdentifier(identifier)
+    }
+    
+    func setNotBroadcasting() {
+        
+    }
 }
 
 extension DJPresenter: DJBroadcastConfigurationUserInterfaceDelegate {

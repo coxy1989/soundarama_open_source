@@ -34,10 +34,6 @@ class PerformerInteractor: PerformerInput {
     private var t: BroadcastService!
     
     func start() {
-    
-        t = BroadcastService.broadcasting(NetworkConfiguration.domain, type: NetworkConfiguration.type, name: "Cocksucker", port: Int32(NetworkConfiguration.port), failure: { _ in
-            
-        })
         
         //endpoint.connectionDelegate = self
         //endpoint.connect()

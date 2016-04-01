@@ -75,6 +75,11 @@ class DJViewController: ViewController {
 
 extension DJViewController: DJUserInterface {
     
+    func setBroadcastingIdentifier(identifier: String) {
+        
+        broadcastingButton.setTitle("Broadcasting: \(identifier)", forState: .Normal)
+    }
+    
     func setUISuite(uiSuite: UISuite) {
         
         uiWorkspaces = uiSuite.sort({ $0.workspaceID > $1.workspaceID })
