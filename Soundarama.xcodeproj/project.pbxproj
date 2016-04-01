@@ -30,7 +30,6 @@
 		42177FA21C9AAB29008411B0 /* Functional.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42177FA11C9AAB29008411B0 /* Functional.swift */; };
 		422EB05A1C8DBA2200B27134 /* DJAudioStemsPickerUserInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = 422EB0591C8DBA2200B27134 /* DJAudioStemsPickerUserInterface.swift */; };
 		422EB05C1C8DC39500B27134 /* UIAudioStemTransformer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 422EB05B1C8DC39500B27134 /* UIAudioStemTransformer.swift */; };
-		423709861CA44E4800CC59F9 /* TouchpressFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 423709851CA44E4800CC59F9 /* TouchpressFoundation.framework */; };
 		4244598D1CA2EB5F00547B3C /* AGaramondPro-Italic.otf in Resources */ = {isa = PBXBuildFile; fileRef = 4244598B1CA2EB5F00547B3C /* AGaramondPro-Italic.otf */; };
 		4244598E1CA2EB5F00547B3C /* AGaramondPro-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = 4244598C1CA2EB5F00547B3C /* AGaramondPro-Regular.otf */; };
 		4249B5961C578A160096872D /* BroadcastSocketEndpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4249B5951C578A160096872D /* BroadcastSocketEndpoint.swift */; };
@@ -56,6 +55,7 @@
 		428AF2AC1CA0327C0023FCC9 /* ConnectionState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 428AF2AB1CA0327C0023FCC9 /* ConnectionState.swift */; };
 		428AF2AE1CA032BF0023FCC9 /* Level.swift in Sources */ = {isa = PBXBuildFile; fileRef = 428AF2AD1CA032BF0023FCC9 /* Level.swift */; };
 		428AF2B01CA0396F0023FCC9 /* LevelStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 428AF2AF1CA0396F0023FCC9 /* LevelStore.swift */; };
+		429523A91CAE89BC005B26FA /* WiFiReachability.swift in Sources */ = {isa = PBXBuildFile; fileRef = 429523A81CAE89BC005B26FA /* WiFiReachability.swift */; };
 		429EC9571C8475A8002FDBCC /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 429EC9561C8475A8002FDBCC /* AppDelegate.swift */; };
 		429EC95B1C84761F002FDBCC /* PerformerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 429EC95A1C84761F002FDBCC /* PerformerView.swift */; };
 		429EC95D1C847628002FDBCC /* SoundZoneView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 429EC95C1C847628002FDBCC /* SoundZoneView.swift */; };
@@ -109,7 +109,7 @@
 		42ED6C661CAC028E002A7211 /* Host.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42ED6C651CAC028E002A7211 /* Host.swift */; };
 		42ED6C681CAC02D5002A7211 /* SearchService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42ED6C671CAC02D5002A7211 /* SearchService.swift */; };
 		42ED6C6A1CAC1F32002A7211 /* DJBroadcastConfigurationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42ED6C691CAC1F32002A7211 /* DJBroadcastConfigurationViewController.swift */; };
-		42ED6C6C1CAC2D8D002A7211 /* ResolvableStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42ED6C6B1CAC2D8D002A7211 /* ResolvableStore.swift */; };
+		42ED6C6C1CAC2D8D002A7211 /* BroadcastStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42ED6C6B1CAC2D8D002A7211 /* BroadcastStore.swift */; };
 		42ED6C6E1CAC30BA002A7211 /* AudioConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42ED6C6D1CAC30BA002A7211 /* AudioConfiguration.swift */; };
 		42ED6C701CAC30C7002A7211 /* NetworkConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42ED6C6F1CAC30C7002A7211 /* NetworkConfiguration.swift */; };
 		42ED6C731CAD7741002A7211 /* SearchcastService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42ED6C721CAD7741002A7211 /* SearchcastService.swift */; };
@@ -119,6 +119,7 @@
 		42F99EA71CA1BC1E0058F7AC /* TouchpressFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 42F99EA61CA1BC1E0058F7AC /* TouchpressFoundation.framework */; };
 		42F99EA91CA1BC230058F7AC /* TouchpressUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 42F99EA81CA1BC230058F7AC /* TouchpressUI.framework */; };
 		42FC502A1CAD832E00591803 /* BroadcastStateTransformer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42FC50291CAD832E00591803 /* BroadcastStateTransformer.swift */; };
+		42FC502E1CAE80C100591803 /* Reachability.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42FC502D1CAE80C100591803 /* Reachability.swift */; };
 		DFBAD41F1C64C346004C1D47 /* SpringMesh.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFBAD41E1C64C346004C1D47 /* SpringMesh.swift */; };
 		E20B94681C1753B900222A2B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E20B94641C1753B900222A2B /* Assets.xcassets */; };
 		E20B946C1C1753C800222A2B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E20B946A1C1753C800222A2B /* LaunchScreen.storyboard */; };
@@ -174,7 +175,6 @@
 		42177FA11C9AAB29008411B0 /* Functional.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Functional.swift; sourceTree = "<group>"; };
 		422EB0591C8DBA2200B27134 /* DJAudioStemsPickerUserInterface.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DJAudioStemsPickerUserInterface.swift; sourceTree = "<group>"; };
 		422EB05B1C8DC39500B27134 /* UIAudioStemTransformer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIAudioStemTransformer.swift; sourceTree = "<group>"; };
-		423709851CA44E4800CC59F9 /* TouchpressFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = TouchpressFoundation.framework; path = "../../Library/Developer/Xcode/DerivedData/Soundarama-farhttzqfpiupbbbjubivppgzixr/Build/Products/Debug-iphonesimulator/TouchpressFoundation.framework"; sourceTree = "<group>"; };
 		4244598B1CA2EB5F00547B3C /* AGaramondPro-Italic.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "AGaramondPro-Italic.otf"; path = "Resources/Font/AGaramondPro-Italic.otf"; sourceTree = "<group>"; };
 		4244598C1CA2EB5F00547B3C /* AGaramondPro-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "AGaramondPro-Regular.otf"; path = "Resources/Font/AGaramondPro-Regular.otf"; sourceTree = "<group>"; };
 		4249B5951C578A160096872D /* BroadcastSocketEndpoint.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BroadcastSocketEndpoint.swift; sourceTree = "<group>"; };
@@ -200,6 +200,7 @@
 		428AF2AB1CA0327C0023FCC9 /* ConnectionState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConnectionState.swift; sourceTree = "<group>"; };
 		428AF2AD1CA032BF0023FCC9 /* Level.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Level.swift; sourceTree = "<group>"; };
 		428AF2AF1CA0396F0023FCC9 /* LevelStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LevelStore.swift; sourceTree = "<group>"; };
+		429523A81CAE89BC005B26FA /* WiFiReachability.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WiFiReachability.swift; sourceTree = "<group>"; };
 		429EC9561C8475A8002FDBCC /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		429EC95A1C84761F002FDBCC /* PerformerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PerformerView.swift; sourceTree = "<group>"; };
 		429EC95C1C847628002FDBCC /* SoundZoneView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SoundZoneView.swift; sourceTree = "<group>"; };
@@ -256,7 +257,7 @@
 		42ED6C651CAC028E002A7211 /* Host.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Host.swift; sourceTree = "<group>"; };
 		42ED6C671CAC02D5002A7211 /* SearchService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchService.swift; sourceTree = "<group>"; };
 		42ED6C691CAC1F32002A7211 /* DJBroadcastConfigurationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DJBroadcastConfigurationViewController.swift; sourceTree = "<group>"; };
-		42ED6C6B1CAC2D8D002A7211 /* ResolvableStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResolvableStore.swift; sourceTree = "<group>"; };
+		42ED6C6B1CAC2D8D002A7211 /* BroadcastStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BroadcastStore.swift; sourceTree = "<group>"; };
 		42ED6C6D1CAC30BA002A7211 /* AudioConfiguration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AudioConfiguration.swift; sourceTree = "<group>"; };
 		42ED6C6F1CAC30C7002A7211 /* NetworkConfiguration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkConfiguration.swift; sourceTree = "<group>"; };
 		42ED6C721CAD7741002A7211 /* SearchcastService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchcastService.swift; sourceTree = "<group>"; };
@@ -266,6 +267,7 @@
 		42F99EA61CA1BC1E0058F7AC /* TouchpressFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = TouchpressFoundation.framework; path = Carthage/Build/iOS/TouchpressFoundation.framework; sourceTree = "<group>"; };
 		42F99EA81CA1BC230058F7AC /* TouchpressUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = TouchpressUI.framework; path = Carthage/Build/iOS/TouchpressUI.framework; sourceTree = "<group>"; };
 		42FC50291CAD832E00591803 /* BroadcastStateTransformer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BroadcastStateTransformer.swift; sourceTree = "<group>"; };
+		42FC502D1CAE80C100591803 /* Reachability.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Reachability.swift; path = ../Carthage/Checkouts/Reachability.swift/Reachability/Reachability.swift; sourceTree = "<group>"; };
 		DFBAD41E1C64C346004C1D47 /* SpringMesh.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpringMesh.swift; sourceTree = "<group>"; };
 		E20B94641C1753B900222A2B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Assets.xcassets; path = Resources/Assets.xcassets; sourceTree = "<group>"; };
 		E20B946B1C1753C800222A2B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Resources/Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -279,7 +281,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				423709861CA44E4800CC59F9 /* TouchpressFoundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -541,6 +542,8 @@
 		42AFC6511C5542DA00AD4B9B /* Network */ = {
 			isa = PBXGroup;
 			children = (
+				429523A81CAE89BC005B26FA /* WiFiReachability.swift */,
+				42FC502D1CAE80C100591803 /* Reachability.swift */,
 				42ED6C651CAC028E002A7211 /* Host.swift */,
 				42ED6C621CABFDA4002A7211 /* BroadcastService.swift */,
 				42ED6C671CAC02D5002A7211 /* SearchService.swift */,
@@ -578,7 +581,7 @@
 				429EC9851C85AECE002FDBCC /* GroupStore.swift */,
 				428AF2AF1CA0396F0023FCC9 /* LevelStore.swift */,
 				42C1D2291CAACBD5005D0347 /* ReferenceTimestampStore.swift */,
-				42ED6C6B1CAC2D8D002A7211 /* ResolvableStore.swift */,
+				42ED6C6B1CAC2D8D002A7211 /* BroadcastStore.swift */,
 				4200803A1C5BD289009009E8 /* SuiteStore.swift */,
 			);
 			name = "Stores (Memory)";
@@ -721,12 +724,11 @@
 		FF8F05C000FBA5897614E1FA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				423709851CA44E4800CC59F9 /* TouchpressFoundation.framework */,
-				42F99EA81CA1BC230058F7AC /* TouchpressUI.framework */,
-				42F99EA61CA1BC1E0058F7AC /* TouchpressFoundation.framework */,
-				42F99EA41CA1BC1A0058F7AC /* CocoaAsyncSocket.framework */,
-				4207043D1C7223E7003F6568 /* AVKit.framework */,
 				426A26E41C721EA5003FE38D /* AVFoundation.framework */,
+				4207043D1C7223E7003F6568 /* AVKit.framework */,
+				42F99EA41CA1BC1A0058F7AC /* CocoaAsyncSocket.framework */,
+				42F99EA61CA1BC1E0058F7AC /* TouchpressFoundation.framework */,
+				42F99EA81CA1BC230058F7AC /* TouchpressUI.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -906,6 +908,7 @@
 				42C45A861C57DF2100888EA8 /* AudioStemStore.swift in Sources */,
 				42C1D22A1CAACBD5005D0347 /* ReferenceTimestampStore.swift in Sources */,
 				42F90EEA1C5D74920010F1C5 /* UIFont.swift in Sources */,
+				429523A91CAE89BC005B26FA /* WiFiReachability.swift in Sources */,
 				42AFC6631C55802000AD4B9B /* ReadableMessageAdapter.swift in Sources */,
 				4249B5961C578A160096872D /* BroadcastSocketEndpoint.swift in Sources */,
 				421468571C56404C00892786 /* DJUserInterface.swift in Sources */,
@@ -918,7 +921,7 @@
 				429EC9671C84770C002FDBCC /* SwiftyJSON.swift in Sources */,
 				421468551C56345700892786 /* TP2P.swift in Sources */,
 				42D9F8A61C88A7AB0056957B /* AudioStem.swift in Sources */,
-				42ED6C6C1CAC2D8D002A7211 /* ResolvableStore.swift in Sources */,
+				42ED6C6C1CAC2D8D002A7211 /* BroadcastStore.swift in Sources */,
 				42E49DAE1C58F20D00B9C127 /* SoundZoneCollectionViewCell.swift in Sources */,
 				42B4F6DB1C96F79E00C755E6 /* ChristiansCalculator.swift in Sources */,
 				42ED6C661CAC028E002A7211 /* Host.swift in Sources */,
@@ -967,6 +970,7 @@
 				42ED6C681CAC02D5002A7211 /* SearchService.swift in Sources */,
 				42A727A81C552D5D00BFCA47 /* PerformerModule.swift in Sources */,
 				42C1D2281CAAC5F0005D0347 /* Command.swift in Sources */,
+				42FC502E1CAE80C100591803 /* Reachability.swift in Sources */,
 				42889BF51CA0468B00ACC3B9 /* Flickometer.swift in Sources */,
 				42D9F8A01C88A70F0056957B /* Group.swift in Sources */,
 				429EC9691C847740002FDBCC /* UIColor+Hex.swift in Sources */,

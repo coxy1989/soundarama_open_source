@@ -75,9 +75,9 @@ class DJViewController: ViewController {
 
 extension DJViewController: DJUserInterface {
     
-    func setBroadcastingIdentifier(identifier: String) {
+    func setBroadcastingStatusMessage(message: String) {
         
-        broadcastingButton.setTitle("Broadcasting: \(identifier)", forState: .Normal)
+        broadcastingButton.setTitle(message, forState: .Normal)
     }
     
     func setUISuite(uiSuite: UISuite) {

@@ -12,6 +12,8 @@ import TouchpressUI
 protocol DJBroadcastConfigurationUserInterface: class {
     
     func setIdentifiers(identifiers: [String])
+    
+    func setReachability(isReachable: Bool)
 }
 
 protocol DJBroadcastConfigurationUserInterfaceDelegate: class {
@@ -25,6 +27,10 @@ class DJBroadcastConfigurationViewController: ViewController {
     
     private var identifiers: [String] = []
     
+    private var isReachable = false
+    
+    @IBOutlet private weak var textField: UITextField!
+    
     @IBOutlet private weak var tableView: UITableView!
     
     @IBAction private func textFieldDidPressDone(textField: UITextField) { delegate.didRequestAddIdentifier(textField.text!) }
@@ -36,6 +42,14 @@ extension DJBroadcastConfigurationViewController: DJBroadcastConfigurationUserIn
     func setIdentifiers(identifiers: [String]) {
         
         self.identifiers = identifiers
+        tableView.reloadData()
+    }
+    
+    func setReachability(isReachable: Bool) {
+        
+        self.isReachable = isReachable
+        textField.userInteractionEnabled = isReachable
+        textField.text = isReachable ? "Tap here to enter your broadcast name" : "Please connect to the internet"
         tableView.reloadData()
     }
 }
@@ -71,8 +85,23 @@ extension DJBroadcastConfigurationViewController: UITableViewDelegate {
         
         let c = tableView.dequeueReusableCellWithIdentifier("HeaderCell") as! HeaderCell
         let v = c.contentView
-        let text = identifiers.count == 0 ? "Existing broadcasts will appear below" : "There are \(identifiers.count) existing broadcasts"
-        c.label.text = text
+        c.label.text = sectionTitle()
         return v
+    }
+}
+
+extension DJBroadcastConfigurationViewController {
+    
+    func sectionTitle() -> String {
+        
+        if isReachable {
+            
+            return identifiers.count == 0 ? "Existing broadcasts will appear below" : "There are \(identifiers.count) existing broadcasts"
+        }
+            
+        else {
+            
+            return ""
+        }
     }
 }

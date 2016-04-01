@@ -6,6 +6,7 @@
 //  Copyright © 2016 Touchpress Ltd. All rights reserved.
 //
 
+/*
 class ResolvableStore {
     
     private var resolvables: [String : Resolvable] = [ : ]
@@ -26,6 +27,7 @@ class ResolvableStore {
         resolvables.removeValueForKey(resolvable.0)
     }
 }
+*/
 
 class BroadcastStore {
     

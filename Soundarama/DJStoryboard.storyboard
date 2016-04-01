@@ -836,6 +836,7 @@
                     </view>
                     <connections>
                         <outlet property="tableView" destination="JiT-OO-c2l" id="JkM-be-e2r"/>
+                        <outlet property="textField" destination="HtE-7c-7gn" id="DSR-nd-Q3a"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="90W-53-kG8" userLabel="First Responder" sceneMemberID="firstResponder"/>

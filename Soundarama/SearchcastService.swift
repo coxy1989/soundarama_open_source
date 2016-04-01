@@ -23,4 +23,10 @@ class SearchcastService {
         
         broadcast = BroadcastService.broadcasting(domain, type: type, name: identifier, port: port)
     }
+    
+    func kill() {
+        
+        search?.stop()
+        broadcast?.stop()
+    }
 }

@@ -29,7 +29,9 @@ class DJInteractor {
     
     private var christiansTimeServer: ChristiansTimeServer!
     
-    private var searchcastService: SearchcastService!
+    private var searchcastService: SearchcastService?
+    
+    private var wifiReachability: WiFiReachability!
     
     private lazy var audioStemStore: AudioStemStore =  { AudioStemStore() } ()
 }
@@ -38,6 +40,30 @@ extension DJInteractor: DJInput {
     
     func startDJ() {
         
+        let wifi_reachable = { [weak self] in
+            
+            self?.startSearchcast()
+            self?.djBroadcastConfigurationOutput.setReachabilityState(true)
+            debugPrint("WiFi available")
+        }
+        
+        let wifi_unreachable = { [weak self] in
+        
+            self?.searchcastService?.kill()
+            self?.djBroadcastConfigurationOutput.setIdentifiers([])
+            self?.djBroadcastConfigurationOutput.setReachabilityState(false)
+            self?.djOutput.setBroadcastStatusMessage("Not Broadcasting")
+            debugPrint("WiFi unavailable")
+        }
+        
+        let wifi_failure = {
+            
+            debugPrint("WiFi monitioring failure")
+            return
+        }
+        
+        wifiReachability = WiFiReachability.monitoringReachability(wifi_reachable, unreachable: wifi_unreachable, failure: wifi_failure)
+        djOutput.setBroadcastStatusMessage("Not Broadcasting")
         djOutput.setUISuite(UISuiteTransformer.transform(suiteStore.suite))
         djOutput.setGroupingMode(true)
         
@@ -45,11 +71,11 @@ extension DJInteractor: DJInput {
         //christiansTimeServer = ChristiansTimeServer(endpoint: endpoint)
         //endpoint.connectionDelegate = self
         //endpoint.connect()
-        
     }
     
     func stopDJ() {
         
+        //reachbility.stopNotifier
         //endpoint.disconnect()
     }
     
@@ -248,42 +274,21 @@ extension DJInteractor: DJBroadcastConfigurationInput {
     
     func startBroadcastConfiguration() {
         
-        let added: String -> () = { [weak self] in
-            
-            guard let this = self else {
-                
-                return
-            }
-            
-            let prestate = this.broadcastStore.getState()
-            this.broadcastStore.addResolvableIdentifier($0)
-            let poststate = this.broadcastStore.getState()
-            this.didChangeBroadcastState(prestate, toState: poststate)
-        }
-        
-        let removed: String -> () = { [weak self] in
-            
-            guard let this = self else {
-                
-                return
-            }
-            
-            let prestate = this.broadcastStore.getState()
-            this.broadcastStore.removeResolvableIdentifier($0)
-            let poststate = this.broadcastStore.getState()
-            this.didChangeBroadcastState(prestate, toState: poststate)
-        }
-        
-        searchcastService = SearchcastService.searching(NetworkConfiguration.type, domain: NetworkConfiguration.domain, added: added, removed: removed)
+        let reachable = wifiReachability.isReachable()
+        let identifiers = reachable ? broadcastStore.getState().resolvableIdentifiers.sort() : []
+        djBroadcastConfigurationOutput.setIdentifiers(identifiers)
+        djBroadcastConfigurationOutput.setReachabilityState(reachable)
     }
     
     func requestAddIdentifier(identifier: String) {
-        
+    
+        // TODO Test searchcast exists and wifi is available else return
+
         let prestate = broadcastStore.getState()
         broadcastStore.setUserBroadcastIdentifer(identifier)
         let poststate = broadcastStore.getState()
         didChangeBroadcastState(prestate, toState: poststate)
-        searchcastService.broadcast(NetworkConfiguration.type, domain: NetworkConfiguration.domain, port: Int32(NetworkConfiguration.port), identifier: identifier)
+        searchcastService?.broadcast(NetworkConfiguration.type, domain: NetworkConfiguration.domain, port: Int32(NetworkConfiguration.port), identifier: identifier)
     }
 }
 
@@ -368,9 +373,53 @@ extension DJInteractor {
     
     func didChangeBroadcastState(fromState: BroadcastState, toState: BroadcastState) {
         
-        if fromState.userBroadcastIdentifier != toState.userBroadcastIdentifier {
-            
-        }
         print("FROM: \(fromState) TO: \(toState)")
+        
+        if let ub = toState.userBroadcastIdentifier where toState.resolvableIdentifiers.contains(ub) {
+            
+            djOutput.setBroadcastStatusMessage("Broadcating as \(ub)")
+        }
+        
+        else {
+            
+            djOutput.setBroadcastStatusMessage("Not Broadcasting")
+        }
+        
+        djBroadcastConfigurationOutput.setIdentifiers(toState.resolvableIdentifiers.sort())
+    }
+}
+
+
+extension DJInteractor {
+    
+    func startSearchcast() {
+        
+        let added: String -> () = { [weak self] in
+            
+            guard let this = self else {
+                
+                return
+            }
+            
+            let prestate = this.broadcastStore.getState()
+            this.broadcastStore.addResolvableIdentifier($0)
+            let poststate = this.broadcastStore.getState()
+            this.didChangeBroadcastState(prestate, toState: poststate)
+        }
+        
+        let removed: String -> () = { [weak self] in
+            
+            guard let this = self else {
+                
+                return
+            }
+            
+            let prestate = this.broadcastStore.getState()
+            this.broadcastStore.removeResolvableIdentifier($0)
+            let poststate = this.broadcastStore.getState()
+            this.didChangeBroadcastState(prestate, toState: poststate)
+        }
+        
+        searchcastService = SearchcastService.searching(NetworkConfiguration.type, domain: NetworkConfiguration.domain, added: added, removed: removed)
     }
 }

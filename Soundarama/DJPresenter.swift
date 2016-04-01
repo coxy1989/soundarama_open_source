@@ -17,7 +17,7 @@ class DJPresenter: DJModule {
     
     weak var djAudioStemPickerUI: DJAudioStemPickerUserInterface!
     
-    weak var djBroadcastConfigurationUI: DJBroadcastConfigurationUserInterface!
+    weak var djBroadcastConfigurationUI: DJBroadcastConfigurationUserInterface?
     
     weak var djInput: DJInput!
     
@@ -32,7 +32,7 @@ class DJPresenter: DJModule {
 }
 
 extension DJPresenter: DJOutput {
-        
+    
     func setUISuite(uiSuite: UISuite) {
         
          djUI.setUISuite(uiSuite)
@@ -106,6 +106,26 @@ extension DJPresenter: DJOutput {
     func moveGroup(groupID: GroupID, translation: CGPoint) {
         
         djUI.moveGroup(groupID, translation: translation)
+    }
+
+    func showBroadcastSuccessful() {
+    
+        guard let configUI = djBroadcastConfigurationUI else {
+            
+            return
+        }
+        
+        djWireframe.dismissBroadcastConfigurationUserInterface(configUI)
+    }
+    
+    func setBroadcastStatusMessage(message: String) {
+        
+        djUI.setBroadcastingStatusMessage(message)
+    }
+    
+    func setReachabilityState(isReachable: Bool) {
+        
+        djBroadcastConfigurationUI?.setReachability(isReachable)
     }
 }
 
@@ -282,17 +302,7 @@ extension DJPresenter: DJBroadcastConfigurationOutput {
     
     func setIdentifiers(identifiers: [String]) {
         
-        djBroadcastConfigurationUI.setIdentifiers(identifiers)
-    }
-    
-    func setBroadcastingIdentifier(identifier: String) {
-        
-        djWireframe.dismissBroadcastConfigurationUserInterface(djBroadcastConfigurationUI)
-        djUI.setBroadcastingIdentifier(identifier)
-    }
-    
-    func setNotBroadcasting() {
-        
+        djBroadcastConfigurationUI?.setIdentifiers(identifiers)
     }
 }
 
