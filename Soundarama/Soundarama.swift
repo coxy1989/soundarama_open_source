@@ -57,7 +57,7 @@ extension Soundarama {
         performerWireframe.performerPresenter = performerPresenter
         performerPresenter.input = performerInteractor
         performerInteractor.performerOutput = performerPresenter
-        performerInteractor.endpoint = dependencies.searchingEndpoint()
+       // performerInteractor.endpoint = dependencies.searchingEndpoint()
     }
     
     private func setupDjModule() {

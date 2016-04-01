@@ -6,7 +6,6 @@
 //  Copyright © 2016 Touchpress Ltd. All rights reserved.
 //
 
-import CocoaAsyncSocket
 
 class BroadcastSocketEndpoint: SocketEndpoint {
     

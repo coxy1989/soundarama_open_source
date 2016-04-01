@@ -13,7 +13,7 @@ class PerformerInteractor: PerformerInput {
  
     weak var performerOutput: PerformerOutput!
     
-    var endpoint: Endpoint!
+   // var endpoint: Endpoint!
     
     private let compass = Compass(locationManager: LocationService.manager)
     
@@ -31,9 +31,35 @@ class PerformerInteractor: PerformerInput {
     
     private var audioloop: (loop: MultiAudioLoop, paths: Set<TaggedAudioPath>)?
     
-    private var t: BroadcastService!
+    private var wifiReachability: WiFiReachability!
+    
+    private var searchService: SearchService?
     
     func start() {
+        
+        let wifi_reachable = { [weak self] in
+            
+            self?.startNetworkIO()
+    //        self?.djBroadcastConfigurationOutput.setReachabilityState(true)
+            debugPrint("WiFi available")
+        }
+        
+        let wifi_unreachable = { [weak self] in
+            
+            self?.stopNetworkIO()
+      //      self?.djBroadcastConfigurationOutput.setIdentifiers([])
+        //    self?.djBroadcastConfigurationOutput.setReachabilityState(false)
+          //  self?.djOutput.setBroadcastStatusMessage("Not Broadcasting")
+            debugPrint("WiFi unavailable")
+        }
+        
+        let wifi_failure = {
+            
+            debugPrint("WiFi monitioring failure")
+            return
+        }
+        
+        wifiReachability = WiFiReachability.monitoringReachability(wifi_reachable, unreachable: wifi_unreachable, failure: wifi_failure)
         
         //endpoint.connectionDelegate = self
         //endpoint.connect()
@@ -42,31 +68,60 @@ class PerformerInteractor: PerformerInput {
     }
 }
 
+extension PerformerInteractor {
+    
+    func startNetworkIO() {
+        
+        let found: (String, Resolvable) -> () = { _ in
+            
+            //TODO: PICK DJ UI
+        }
+        
+        let lost: (String, Resolvable) -> () = { _ in
+            
+        }
+        
+        let failed = { }
+        
+        searchService = SearchService.searching(NetworkConfiguration.type, domain: NetworkConfiguration.domain, found: found, lost: lost, failed: failed)
+        
+    }
+    
+    func stopNetworkIO() {
+        
+    }
+}
+
 extension PerformerInteractor: ConnectableDelegate {
     
     func didConnectToAddress(address: Address) {
-        
+       
+        /*
         performerOutput.setConnectionState(.Connected)
         christiansProcess = ChristiansProcess(endpoint: endpoint)
         christiansProcess!.delegate = self
         christiansProcess!.syncronise()
+ */
     }
     
     func didDisconnectFromAddress(address: Address) {
      
-        performerOutput.setConnectionState(.NotConnected)
+   //     performerOutput.setConnectionState(.NotConnected)
     }
 }
 
 extension PerformerInteractor: ChristiansProcessDelegate {
     
     func christiansProcessDidSynchronise(local: NSTimeInterval, remote: NSTimeInterval) {
+        
+        /*
     
         christiansMap = (local: local, remote: remote)
         debugPrint(christiansMap)
         endpoint.readData(Serialisation.terminator)
         
         endpoint.readableDelegate = self
+ */
     }
 }
 
@@ -74,12 +129,14 @@ extension PerformerInteractor: ReadableDelegate {
     
     func didReadData(data: NSData, address: Address) {
         
+        /*
         if let msg = MessageDeserializer.deserialize(data) {
             
             handleMessage(msg)
         }
         
         endpoint.readData(Serialisation.terminator)
+ */
     }
 }
 
@@ -234,3 +291,4 @@ extension PerformerInteractor {
         v.forEach() { al.loop.setVolume($0.path, volume: $1) }
     }
 }
+

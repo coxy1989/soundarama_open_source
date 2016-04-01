@@ -29,6 +29,8 @@ class DJInteractor {
     
     private var christiansTimeServer: ChristiansTimeServer!
     
+    private var socketAcceptor: SocketAcceptor?
+    
     private var searchcastService: SearchcastService?
     
     private var wifiReachability: WiFiReachability!
@@ -42,14 +44,14 @@ extension DJInteractor: DJInput {
         
         let wifi_reachable = { [weak self] in
             
-            self?.startSearchcast()
+            self?.startNetworkIO()
             self?.djBroadcastConfigurationOutput.setReachabilityState(true)
             debugPrint("WiFi available")
         }
         
         let wifi_unreachable = { [weak self] in
         
-            self?.searchcastService?.kill()
+            self?.stopNetworkIO()
             self?.djBroadcastConfigurationOutput.setIdentifiers([])
             self?.djBroadcastConfigurationOutput.setReachabilityState(false)
             self?.djOutput.setBroadcastStatusMessage("Not Broadcasting")
@@ -391,6 +393,49 @@ extension DJInteractor {
 
 
 extension DJInteractor {
+    
+    func startNetworkIO() {
+        
+        if startSocketAcceptor() {
+            
+            startSearchcast()
+        }
+        
+        else {
+            
+            //TODO: This represents some nasty IO fuck up. Give some "check internet connection and restart the app"  messaging.
+        }
+    }
+    
+    func stopNetworkIO() {
+        
+        socketAcceptor?.stop()
+        searchcastService?.kill()
+    }
+    
+    func startSocketAcceptor() -> Bool {
+        
+        let accepted: String -> () = {
+            
+            print("Accepted: \($0)")
+            return
+        }
+        
+        let lost: String -> () = {
+            
+            print("Lost: \($0)")
+            return
+        }
+        
+        guard let acceptor = SocketAcceptor.accepting(NetworkConfiguration.port, accepted: accepted, lost: lost) else {
+            
+            return false
+        }
+        
+        socketAcceptor = acceptor
+        
+        return true
+    }
     
     func startSearchcast() {
         

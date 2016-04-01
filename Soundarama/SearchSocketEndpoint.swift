@@ -8,6 +8,7 @@
 
 import CocoaAsyncSocket
 
+
 class SearchSocketEndpoint: SocketEndpoint {
     
     private lazy var strategy: SearchStrategy = {
