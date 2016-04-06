@@ -6,8 +6,8 @@
 //  Copyright © 2016 Touchpress Ltd. All rights reserved.
 //
 
+/*
 import CocoaAsyncSocket
-
 
 class SearchSocketEndpoint: SocketEndpoint {
     
@@ -18,6 +18,7 @@ class SearchSocketEndpoint: SocketEndpoint {
         return s
     }()
     
+    /*
     override func connect() {
         
         strategy.search()
@@ -27,6 +28,7 @@ class SearchSocketEndpoint: SocketEndpoint {
         
         socket.disconnect()
     }
+    */
     
     override func readData(terminator: NSData) {
         
@@ -36,13 +38,13 @@ class SearchSocketEndpoint: SocketEndpoint {
     func onSocket(sock: AsyncSocket!, didConnectToHost host: String!, port: UInt16) {
         
         print("Connected to host: \(host)")
-        connectionDelegate.didConnectToAddress(host)
+       // connectionDelegate.didConnectToAddress(host)
     }
     
     func onSocketDidDisconnect(sock: AsyncSocket!) {
 
         print("Socket did disconnect")
-        connectionDelegate.didDisconnectFromAddress("")
+       // connectionDelegate.didDisconnectFromAddress("")
     }
 }
 
@@ -67,3 +69,4 @@ extension SearchSocketEndpoint: SearchStrategyDelegate {
         connectToHost(host, port: port)
     }
 }
+*/

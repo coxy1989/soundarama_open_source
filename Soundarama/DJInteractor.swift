@@ -17,17 +17,17 @@ class DJInteractor {
     
     weak var djBroadcastConfigurationOutput: DJBroadcastConfigurationOutput!
     
-    var endpoint: Endpoint!
-    
     private let suiteStore = SuiteStore(number: UIDevice.isPad() ? 9 : 4)
     
     private let groupStore = GroupStore()
     
     private let broadcastStore = BroadcastStore()
     
+    private let endpointStore = EndpointStore()
+    
     private let referenceTimestampStore = ReferenceTimestampStore()
     
-    private var christiansTimeServer: ChristiansTimeServer!
+    private var christiansTimeServers: [ChristiansTimeServer] = []
     
     private var socketAcceptor: SocketAcceptor?
     
@@ -46,6 +46,7 @@ extension DJInteractor: DJInput {
             
             self?.startNetworkIO()
             self?.djBroadcastConfigurationOutput.setReachabilityState(true)
+            self?.requestAddIdentifier(UIDevice.currentDevice().name)
             debugPrint("WiFi available")
         }
         
@@ -68,17 +69,12 @@ extension DJInteractor: DJInput {
         djOutput.setBroadcastStatusMessage("Not Broadcasting")
         djOutput.setUISuite(UISuiteTransformer.transform(suiteStore.suite))
         djOutput.setGroupingMode(true)
-        
-        
-        //christiansTimeServer = ChristiansTimeServer(endpoint: endpoint)
-        //endpoint.connectionDelegate = self
-        //endpoint.connect()
     }
     
     func stopDJ() {
         
-        //reachbility.stopNotifier
-        //endpoint.disconnect()
+        wifiReachability.stop()
+        stopNetworkIO()
     }
     
     func getStemKeys() -> [String] {
@@ -284,26 +280,13 @@ extension DJInteractor: DJBroadcastConfigurationInput {
     
     func requestAddIdentifier(identifier: String) {
     
-        // TODO Test searchcast exists and wifi is available else return
+        // TODO: REMOVE ME
 
         let prestate = broadcastStore.getState()
         broadcastStore.setUserBroadcastIdentifer(identifier)
         let poststate = broadcastStore.getState()
         didChangeBroadcastState(prestate, toState: poststate)
         searchcastService?.broadcast(NetworkConfiguration.type, domain: NetworkConfiguration.domain, port: Int32(NetworkConfiguration.port), identifier: identifier)
-    }
-}
-
-extension DJInteractor: ConnectableDelegate {
-    
-    func didConnectToAddress(address: Address) {
-        
-        djOutput.addPerformer(address)
-    }
-    
-    func didDisconnectFromAddress(address: Address) {
-        
-        djOutput.removePerformer(address)
     }
 }
 
@@ -337,7 +320,7 @@ extension DJInteractor {
             }
         }
         
-        messages.forEach() { endpoint.writeData(MessageSerializer.serialize($0.1), address: $0.0) }
+          messages.forEach() {  endpointStore.getEndpoint($0.0).writeData(MessageSerializer.serialize($0.1)) }
     }
     
     func calculateStartTimestamps(reference: String) -> (unix: NSTimeInterval, reference_unix: NSTimeInterval) {
@@ -373,27 +356,6 @@ extension DJInteractor {
 
 extension DJInteractor {
     
-    func didChangeBroadcastState(fromState: BroadcastState, toState: BroadcastState) {
-        
-        print("FROM: \(fromState) TO: \(toState)")
-        
-        if let ub = toState.userBroadcastIdentifier where toState.resolvableIdentifiers.contains(ub) {
-            
-            djOutput.setBroadcastStatusMessage("Broadcating as \(ub)")
-        }
-        
-        else {
-            
-            djOutput.setBroadcastStatusMessage("Not Broadcasting")
-        }
-        
-        djBroadcastConfigurationOutput.setIdentifiers(toState.resolvableIdentifiers.sort())
-    }
-}
-
-
-extension DJInteractor {
-    
     func startNetworkIO() {
         
         if startSocketAcceptor() {
@@ -403,31 +365,46 @@ extension DJInteractor {
         
         else {
             
-            //TODO: This represents some nasty IO fuck up. Give some "check internet connection and restart the app"  messaging.
+            //TODO: This represents a nasty IO fuck up. Give some "check internet connection and restart the app"  messaging.
         }
     }
     
     func stopNetworkIO() {
         
         socketAcceptor?.stop()
-        searchcastService?.kill()
+        searchcastService?.stop()
+        endpointStore.getEndpoints().forEach() { $0.disconnect() }
     }
     
     func startSocketAcceptor() -> Bool {
         
-        let accepted: String -> () = {
+        let disconnected: String -> () -> () = { x in { [weak self] in
+            
+            self?.endpointStore.removeEndpoint(x)
+            self?.djOutput.removePerformer(x)
+            print("Lost: \(x)")
+        } }
+        
+        let accepted: (String, DisconnectableEndpoint) -> () = { [weak self] in
+            
+            $0.1.onDisconnect(disconnected($0.0))
+            self?.endpointStore.addEndpoint($0.0, endpoint: $0.1)
+            let cts = ChristiansTimeServer(endpoint: $0.1)
+            self?.christiansTimeServers.append(cts)
+            
+            //TODO: This should only happed after sync is complete
+            self?.djOutput.addPerformer($0.0)
             
             print("Accepted: \($0)")
-            return
         }
-        
-        let lost: String -> () = {
+    
+        let stopped: () -> () = {
             
-            print("Lost: \($0)")
+            print("Stopped")
             return
         }
         
-        guard let acceptor = SocketAcceptor.accepting(NetworkConfiguration.port, accepted: accepted, lost: lost) else {
+        guard let acceptor = SocketAcceptor.accepting(NetworkConfiguration.port, accepted: accepted, stopped: stopped) else {
             
             return false
         }
@@ -468,3 +445,35 @@ extension DJInteractor {
         searchcastService = SearchcastService.searching(NetworkConfiguration.type, domain: NetworkConfiguration.domain, added: added, removed: removed)
     }
 }
+
+extension DJInteractor {
+    
+    func didChangeBroadcastState(fromState: BroadcastState, toState: BroadcastState) {
+        
+        print("FROM: \(fromState) TO: \(toState)")
+        
+        if let ub = toState.userBroadcastIdentifier where toState.resolvableIdentifiers.contains(ub) {
+            
+            djOutput.setBroadcastStatusMessage("Broadcating as \(ub)")
+        }
+            
+        else {
+            
+            djOutput.setBroadcastStatusMessage("Not Broadcasting")
+        }
+        
+        djBroadcastConfigurationOutput.setIdentifiers(toState.resolvableIdentifiers.sort())
+    }
+}
+
+
+/*
+ let lost: (String, Endpoint) -> () = { [weak self] in
+ 
+ self?.djOutput.removePerformer($0.0)
+ self?.endpointStore.removeEndpoint($0.0, endpoint: $0.1)
+ print("Lost: \($0)")
+ return
+ }
+ 
+ */

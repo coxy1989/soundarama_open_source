@@ -8,8 +8,10 @@
 
 /* Inversion of external non-VIPER dependencies */
 
+
 struct SoundaramaDependencies {
-    
+ 
+    /*
     func broadcastingEndpoint() -> Endpoint {
         
         return BroadcastSocketEndpoint()
@@ -19,4 +21,6 @@ struct SoundaramaDependencies {
         
         return SearchSocketEndpoint()
     }
+ */
 }
+ 

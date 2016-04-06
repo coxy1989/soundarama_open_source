@@ -5,12 +5,13 @@
 //  Created by Jamie Cox on 25/01/2016.
 //  Copyright © 2016 Touchpress Ltd. All rights reserved.
 //
+/*
 
 import CocoaAsyncSocket
 
 class SocketEndpoint: NSObject, Endpoint {
     
-    weak var connectionDelegate: ConnectableDelegate!
+    //weak var connectionDelegate: ConnectableDelegate!
     
     weak var readableDelegate: ReadableDelegate!
     
@@ -28,6 +29,7 @@ class SocketEndpoint: NSObject, Endpoint {
     }()
 }
 
+/*
 extension SocketEndpoint: Connectable {
     
     func connect() {
@@ -42,6 +44,7 @@ extension SocketEndpoint: Connectable {
         assert(false, "This is an abstract method")
     }
 }
+ */
 
 extension SocketEndpoint: Readable {
     
@@ -63,7 +66,7 @@ extension SocketEndpoint: Writeable {
     func writeData(data: NSData) {
         
         socket.writeData(data, withTimeout: -1, tag: 0)
-        writeableDelegate?.didWriteData(data)
+        writeableDelegate?.didWriteData()
     }
     
     func writeData(data: NSData, address: Address) { /* Abstract */ }
@@ -76,3 +79,4 @@ extension SocketEndpoint: AsyncSocketDelegate {
         readableDelegate.didReadData(data, address: sock.connectedHost())
     }
 }
+*/

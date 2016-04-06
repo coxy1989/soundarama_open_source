@@ -10,7 +10,7 @@
 
 protocol ChristiansProcessDelegate: class {
     
-    func christiansProcessDidSynchronise(local: NSTimeInterval, remote: NSTimeInterval)
+    func christiansProcessDidSynchronise(endpoint: Endpoint, local: NSTimeInterval, remote: NSTimeInterval)
 }
 
 class ChristiansProcess {
@@ -55,8 +55,8 @@ extension ChristiansProcess {
     
     private func takeTrip() {
         
-        endpoint.readData(Serialisation.terminator)
         endpoint.writeData(Serialisation.terminator)
+        endpoint.readData(Serialisation.terminator)
     }
     
     private func takeTripIfNeeded() {
@@ -67,7 +67,7 @@ extension ChristiansProcess {
     private func end() {
     
         let result = calculateResult()
-        delegate?.christiansProcessDidSynchronise(result.local, remote: result.remote)
+        delegate?.christiansProcessDidSynchronise(endpoint, local: result.local, remote: result.remote)
     }
     
     private func calculateResult() -> (local: NSTimeInterval, remote: NSTimeInterval) {
@@ -76,11 +76,11 @@ extension ChristiansProcess {
         let shortestTrip = sortedTrips.first!
         let longestTrip = sortedTrips.last!
         
-        print("------------ Longest Trip ------------")
-        print(" Latency: \(longestTrip.latency()) \n Master Clock: \(longestTrip.timestamp) \n Request: \(longestTrip.requestStamp) \n Response: \(longestTrip.responseStamp)")
-        print("------------ Shortest Trip ------------")
-        print(" Latency: \(shortestTrip.latency()) \n Master Clock: \(shortestTrip.timestamp) \n Request: \(shortestTrip.requestStamp) \n Response: \(shortestTrip.responseStamp)")
-        print("---------------------------------------")
+        debugPrint("------------ Longest Trip ------------")
+        debugPrint(" Latency: \(longestTrip.latency()) \n Master Clock: \(longestTrip.timestamp) \n Request: \(longestTrip.requestStamp) \n Response: \(longestTrip.responseStamp)")
+        debugPrint("------------ Shortest Trip ------------")
+        debugPrint(" Latency: \(shortestTrip.latency()) \n Master Clock: \(shortestTrip.timestamp) \n Request: \(shortestTrip.requestStamp) \n Response: \(shortestTrip.responseStamp)")
+        debugPrint("---------------------------------------")
         
         let remote = shortestTrip.timestamp + (shortestTrip.latency() * 0.5)
         let local = shortestTrip.responseStamp
@@ -92,8 +92,9 @@ extension ChristiansProcess {
 
 extension ChristiansProcess: WriteableDelegate {
     
-    func didWriteData(data: NSData) {
+    func didWriteData() {
         
+        debugPrint("Christian's process wrote data")
         currentTrip = RoundTrip(requestStamp: NSDate().timeIntervalSince1970, responseStamp: nil, timestamp:nil)
     }
 }
@@ -103,10 +104,17 @@ extension ChristiansProcess: ReadableDelegate {
     func didReadData(data: NSData, address: Address) {
 
         if let d = getTimestamp(data) {
+            
+            debugPrint("Christian's process read data")
+            
             currentTrip!.responseStamp = NSDate().timeIntervalSince1970
             currentTrip!.timestamp = d
-            print(d)
+            debugPrint(d)
             trips.append(currentTrip!)
+        }
+        else {
+            
+                debugPrint("Christian's process FAILED to read data")
         }
         
         takeTripIfNeeded()
@@ -118,12 +126,17 @@ extension ChristiansProcess {
     func getTimestamp(data: NSData) -> NSTimeInterval? {
         
         let dat = Serialisation.getPayload(data)
-        if let dic = NSKeyedUnarchiver.unarchiveObjectWithData(dat) {
-            if let t = dic["timestamp"] as? Double {
-                return t
-            }
+        
+        guard let dic = NSKeyedUnarchiver.unarchiveObjectWithData(dat) else {
+            
+            return nil
         }
         
-        return nil
+        guard let t = dic["timestamp"] as? Double else {
+                
+            return nil
+        }
+        
+        return t
     }
 }

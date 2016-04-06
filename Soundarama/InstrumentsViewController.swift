@@ -14,7 +14,12 @@ protocol ColoredUserInterface: class {
     func setColor(color: UIColor)
 }
 
-protocol ConnectionUserInterface: class {
+protocol ConnectionUserInterfaceDelegate: class {
+    
+    func didRequestConfigureConnection()
+}
+
+protocol ConnectionUserInterface: UserInterface {
     
     func setConnectionState(state: ConnectionState)
 }
@@ -31,6 +36,8 @@ protocol CompassUserInterface: class {
 
 class InstrumentsViewController: ViewController {
     
+    weak var connectionUserInterfaceDelegate: ConnectionUserInterfaceDelegate!
+    
     @IBOutlet weak var compassView: UIView!
     
     @IBOutlet weak var highLabel: UILabel!
@@ -40,6 +47,10 @@ class InstrumentsViewController: ViewController {
     @IBOutlet weak var lowLabel: UILabel!
     
     @IBOutlet weak var connectionLabel: UILabel!
+    
+    @IBAction func didPressBackButton(sender: AnyObject) { userInterfaceDelegate?.userInterfaceDidNavigateBack(self)}
+    
+    @IBAction func didPressConnectionButton(sender: AnyObject) { connectionUserInterfaceDelegate.didRequestConfigureConnection() }
 }
 
 extension InstrumentsViewController: LevelUserInterface {

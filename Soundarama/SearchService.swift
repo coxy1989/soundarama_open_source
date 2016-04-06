@@ -67,7 +67,6 @@ extension SearchService: NSNetServiceBrowserDelegate {
         
         print("Browser found service \(service.name)")
         found(service.name, ResolvableNetService(netService: service))
-        
     }
     
     @objc func netServiceBrowser(browser: NSNetServiceBrowser, didRemoveService service: NSNetService, moreComing: Bool) {
@@ -77,43 +76,81 @@ extension SearchService: NSNetServiceBrowserDelegate {
     }
 }
 
-/*
-class ResolveService {
-   
-    private let resolvable: Resolvable
-    
-    private init(resolvable: Resolvable) {
-    
-        self.resolvable = resolvable
-    }
-    
-    static func resolving(resolvable: Resolvable, timeout: NSTimeInterval) -> ResolveService {
-        
-        let rs = ResolveService(resolvable: resolvable)
-        //resolvable.resolveWithTimeout(timeout)
-        return rs
-    }
-}
-*/
 
 protocol Resolvable {
     
     func resolveWithTimeout(timeout: NSTimeInterval, success: (host: String, port: UInt16) -> (), failure: [String : NSNumber] -> ())
 }
 
-class ResolvableNetService: Resolvable {
+class ResolvableNetService: NSObject {
     
     let netService: NSNetService
+    
+    var success: ((String, UInt16) -> ())!
+    
+    var failure: ([String : NSNumber] -> ())!
     
     private init(netService: NSNetService) {
         
         self.netService = netService
+        super.init()
+        netService.delegate = self
     }
+}
+
+extension ResolvableNetService: Resolvable {
     
     func resolveWithTimeout(timeout: NSTimeInterval, success: (host: String, port: UInt16) -> (), failure: [String : NSNumber] -> ()) {
         
-        netService.resolveWithTimeout(timeout)
         
-        //TODO route delegates methods to callbacks
+        self.success = success
+        self.failure = failure
+        netService.resolveWithTimeout(timeout)
+    }
+}
+
+extension ResolvableNetService: NSNetServiceDelegate {
+    
+    func netServiceWillPublish(sender: NSNetService) {
+        
+        print("Net service will publish")
+    }
+    
+    func netServiceDidPublish(sender: NSNetService) {
+        
+        print("Net service published...")
+    }
+    
+    func netService(sender: NSNetService, didNotPublish errorDict: [String : NSNumber]) {
+        
+        print("Net service failed to publish")
+    }
+    
+    func netServiceDidResolveAddress(sender: NSNetService) {
+        
+        guard let host = sender.hostName else {
+            
+            return
+        }
+        
+        print("Net Service resolved address")
+        
+        success(host, UInt16(sender.port))
+    }
+    
+    func netService(sender: NSNetService, didNotResolve errorDict: [String : NSNumber]) {
+        
+        print("Net service did not resolve \(errorDict)")
+        failure(errorDict)
+    }
+    
+    func netServiceDidStop(sender: NSNetService) {
+        
+        print("Net service did stop")
+    }
+    
+    func netServiceWillResolve(sender: NSNetService) {
+        
+        print("Net service will resolve")
     }
 }

@@ -21,6 +21,11 @@ class WiFiReachability {
         return reachability?.isReachable() ?? false
     }
     
+    func stop() {
+        
+        reachability?.stopNotifier()
+    }
+    
     static func monitoringReachability(reachable: () -> (), unreachable: () -> (), failure: () -> ()) -> WiFiReachability {
         
         let wr = WiFiReachability()

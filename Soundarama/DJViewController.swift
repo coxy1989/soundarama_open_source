@@ -686,11 +686,7 @@ extension DJViewController {
     
     private func moveViewsToView(sourceViews: Set<UIView>, stationaryView: UIView) -> () -> () {
         
-        return {
-            sourceViews.forEach() {
-                $0.center =  stationaryView.center
-            }
-        }
+        return { sourceViews.forEach() { $0.center =  stationaryView.center } }
     }
     
     private func createGroupAnimationCompletion(sourceViews: Set<UIView>, groupID: GroupID, groupSize: UInt) -> (Bool) -> () {

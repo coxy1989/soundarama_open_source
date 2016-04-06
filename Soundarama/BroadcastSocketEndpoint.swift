@@ -6,13 +6,14 @@
 //  Copyright © 2016 Touchpress Ltd. All rights reserved.
 //
 
-
+/*
 class BroadcastSocketEndpoint: SocketEndpoint {
     
     private var sockets: [Address : AsyncSocket] = [ : ]
     
     let strategy = BroadcastStrategy(tcpPort: Int32(SocketEndpoint.portTCP))
     
+    /*
     override func connect() {
         
         do {
@@ -31,6 +32,7 @@ class BroadcastSocketEndpoint: SocketEndpoint {
             s.disconnect()
         }
     }
+ */
     
     override func writeData(data: NSData, address: Address) {
         
@@ -61,7 +63,7 @@ extension BroadcastSocketEndpoint  {
         
         let address = newSocket.connectedHost()
         sockets[address] = newSocket
-        connectionDelegate.didConnectToAddress(address)
+      //  connectionDelegate.didConnectToAddress(address)
         newSocket.readDataToData(Serialisation.terminator, withTimeout: -1, tag:0)
         print("Accepted socket: \(address)")
     }
@@ -73,7 +75,7 @@ extension BroadcastSocketEndpoint  {
         if let pair = filter.first {
             print("removing socket: \(pair.0)")
             sockets[pair.0] = nil
-            connectionDelegate.didDisconnectFromAddress(pair.0)
+       //     connectionDelegate.didDisconnectFromAddress(pair.0)
         }
     }
     
@@ -86,3 +88,4 @@ extension BroadcastSocketEndpoint  {
         readableDelegate.didReadData(data, address: sock.connectedHost())
     }
 }
+*/

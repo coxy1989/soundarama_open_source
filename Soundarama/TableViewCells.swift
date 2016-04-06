@@ -16,11 +16,17 @@ class HeaderCell: UITableViewCell {
 class TitleCell: UITableViewCell {
     
     @IBOutlet weak var titleLabel: UILabel!
-    
 }
 
 class SubtitleCell: UITableViewCell {
     
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var subtitleLabel: UILabel!
+}
+
+class ActivityIndicatorCell: UITableViewCell {
+    
+    @IBOutlet weak var titleLabel: UILabel!
+    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
+    @IBOutlet weak var checkmark: UIImageView!
 }

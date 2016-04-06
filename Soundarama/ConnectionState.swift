@@ -8,5 +8,5 @@
 
 enum ConnectionState {
     
-    case Connected, NotConnected
+    case Connected, Connecting, NotConnected
 }

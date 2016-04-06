@@ -57,6 +57,8 @@ extension Soundarama {
         performerWireframe.performerPresenter = performerPresenter
         performerPresenter.input = performerInteractor
         performerInteractor.performerOutput = performerPresenter
+        performerInteractor.performerDJPickerOutput = performerPresenter
+        performerPresenter.pickDJInput = performerInteractor
        // performerInteractor.endpoint = dependencies.searchingEndpoint()
     }
     
@@ -68,7 +70,6 @@ extension Soundarama {
         djPresenter.djAudioStemPickerInput = djInteractor
         djInteractor.djOutput = djPresenter
         djInteractor.djAudioStemPickerOutput = djPresenter
-        djInteractor.endpoint = dependencies.broadcastingEndpoint()
         djInteractor.djBroadcastConfigurationOutput = djPresenter
         djPresenter.djBroadcastConfigurationInput = djInteractor
     }

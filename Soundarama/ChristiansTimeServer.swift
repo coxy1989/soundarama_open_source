@@ -18,6 +18,7 @@ class ChristiansTimeServer {
         
         self.endpoint = endpoint
         endpoint.readableDelegate = self
+        endpoint.readData(Serialisation.terminator)
     }
 }
 
@@ -25,11 +26,10 @@ extension ChristiansTimeServer: ReadableDelegate {
     
     func didReadData(data: NSData, address: Address) {
         
-        endpoint.writeData(setTimestamp(), address: address)
-        endpoint.readData(Serialisation.terminator, address: address)
+        endpoint.writeData(setTimestamp())
+        endpoint.readData(Serialisation.terminator)
     }
 }
-
 
 extension ChristiansTimeServer {
     

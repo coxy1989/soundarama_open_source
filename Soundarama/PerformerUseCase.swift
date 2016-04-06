@@ -11,6 +11,15 @@ import UIKit
 protocol PerformerInput: class {
     
     func start()
+    
+    func stop()
+}
+
+protocol PerformerDJPickerInput: class {
+    
+    func startDJPickerInput()
+    
+    func pickIdentifier(identifier: String)
 }
 
 protocol PerformerOutput: class {
@@ -22,4 +31,9 @@ protocol PerformerOutput: class {
     func setLevel(level: Level)
     
     func setColor(color: UIColor)
+}
+
+protocol PerformerDJPickerOutput: class {
+    
+    func set(identifier: String?, state: ConnectionState, identifiers: [String], isReachable: Bool)
 }

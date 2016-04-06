@@ -2,12 +2,12 @@
   "images" : [
     {
       "idiom" : "universal",
-      "filename" : "glitch-1.png",
+      "filename" : "Checkmark.png",
       "scale" : "1x"
     },
     {
       "idiom" : "universal",
-      "filename" : "glitch-1@2x.png",
+      "filename" : "Checkmark@2x.png",
       "scale" : "2x"
     },
     {
