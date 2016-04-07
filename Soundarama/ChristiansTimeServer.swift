@@ -8,15 +8,24 @@
 
 /* Christian's Algorithm: https://en.wikipedia.org/wiki/Cristian%27s_algorithm */
 
+protocol ChristiansTimeServerDelegate {
+    
+    func christiansTimeServerDidSyncronise(timeServer: ChristiansTimeServer, endpoint: (String, DisconnectableEndpoint))
+}
+
 class ChristiansTimeServer {
     
     static let timestamp = NSDate().timeIntervalSince1970
     
-    private let endpoint: Endpoint
+    var delegate: ChristiansTimeServerDelegate!
     
-    init(endpoint: Endpoint) {
+    private let endpoint: (String, DisconnectableEndpoint)
+    
+    private var trips = 0
+    
+    init(address: String, endpoint: DisconnectableEndpoint) {
         
-        self.endpoint = endpoint
+        self.endpoint = (address, endpoint)
         endpoint.readableDelegate = self
         endpoint.readData(Serialisation.terminator)
     }
@@ -24,10 +33,16 @@ class ChristiansTimeServer {
 
 extension ChristiansTimeServer: ReadableDelegate {
     
-    func didReadData(data: NSData, address: Address) {
+    func didReadData(data: NSData) {
         
-        endpoint.writeData(setTimestamp())
-        endpoint.readData(Serialisation.terminator)
+        endpoint.1.writeData(setTimestamp())
+        endpoint.1.readData(Serialisation.terminator)
+        trips = trips + 1
+        
+        if trips == ChristiansConstants.numberOfTrips {
+            
+            delegate.christiansTimeServerDidSyncronise(self, endpoint: endpoint)
+        }
     }
 }
 

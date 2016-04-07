@@ -27,7 +27,7 @@ class DJInteractor {
     
     private let referenceTimestampStore = ReferenceTimestampStore()
     
-    private var christiansTimeServers: [ChristiansTimeServer] = []
+    private var christiansTimeServers: [String : ChristiansTimeServer] = [ : ]
     
     private var socketAcceptor: SocketAcceptor?
     
@@ -280,8 +280,6 @@ extension DJInteractor: DJBroadcastConfigurationInput {
     
     func requestAddIdentifier(identifier: String) {
     
-        // TODO: REMOVE ME
-
         let prestate = broadcastStore.getState()
         broadcastStore.setUserBroadcastIdentifer(identifier)
         let poststate = broadcastStore.getState()
@@ -304,7 +302,7 @@ extension DJInteractor {
 
                     let timestamps = calculateStartTimestamps(($0 as! DJStartCommand).reference)
                     
-                    return ($0.performer, DJMessageTransformer.transform(($0 as! DJStartCommand), timestamp: timestamps.unix, sessionTimestamp: ChristiansTimeServer.timestamp, referenceTimestamp: timestamps.reference_unix))
+                    return ($0.performer, DJMessageTransformer.transform(($0 as! DJStartCommand), timestamp: timestamps.unix, sessionTimestamp: ChristiansTimeServer.timestamp, referenceTimestamp: ChristiansTimeServer.timestamp))
                 
                 case .Stop:
                     
@@ -320,7 +318,18 @@ extension DJInteractor {
             }
         }
         
-          messages.forEach() {  endpointStore.getEndpoint($0.0).writeData(MessageSerializer.serialize($0.1)) }
+          messages.forEach() {
+            debugPrint($0)
+            //if $0.1 is StartMessage {
+              //  let fuckyou = StopMessage()
+               // endpointStore.getEndpoint($0.0).writeData(MessageSerializer.serialize(fuckyou))
+                
+                //endpointStore.getEndpoint($0.0).writeData(MessageSerializer.serialize($0.1))
+            //}
+            //else {
+                endpointStore.getEndpoint($0.0).writeData(MessageSerializer.serialize($0.1))
+            //}
+        }
     }
     
     func calculateStartTimestamps(reference: String) -> (unix: NSTimeInterval, reference_unix: NSTimeInterval) {
@@ -378,29 +387,26 @@ extension DJInteractor {
     
     func startSocketAcceptor() -> Bool {
         
-        let disconnected: String -> () -> () = { x in { [weak self] in
+        let accepted: (String, DisconnectableEndpoint) -> () = { [weak self] e in
             
-            self?.endpointStore.removeEndpoint(x)
-            self?.djOutput.removePerformer(x)
-            print("Lost: \(x)")
-        } }
-        
-        let accepted: (String, DisconnectableEndpoint) -> () = { [weak self] in
-            
-            $0.1.onDisconnect(disconnected($0.0))
-            self?.endpointStore.addEndpoint($0.0, endpoint: $0.1)
-            let cts = ChristiansTimeServer(endpoint: $0.1)
-            self?.christiansTimeServers.append(cts)
-            
-            //TODO: This should only happed after sync is complete
-            self?.djOutput.addPerformer($0.0)
-            
-            print("Accepted: \($0)")
+            print("accepted endpoint")
+            let cts = ChristiansTimeServer(address: e.0, endpoint: e.1)
+            cts.delegate = self
+            self?.christiansTimeServers[e.0] = cts
+            e.1.onDisconnect() {
+                
+                //TODO FIXME
+                
+                if self?.christiansTimeServers.removeValueForKey(e.0) != nil {
+                    
+                    //debugPrint("disconnected unsyncronised endpoint")
+                }
+            }
         }
     
         let stopped: () -> () = {
             
-            print("Stopped")
+            print("stopped accepting endpoints")
             return
         }
         
@@ -446,11 +452,29 @@ extension DJInteractor {
     }
 }
 
+extension DJInteractor: ChristiansTimeServerDelegate {
+    
+    func christiansTimeServerDidSyncronise(timeServer: ChristiansTimeServer, endpoint: (String, DisconnectableEndpoint)) {
+        
+        debugPrint("syncronised")
+        //TODO FIXME
+        //christiansTimeServers.removeValueForKey(endpoint.0)
+        
+        endpoint.1.onDisconnect() { [weak self] in
+            
+            self?.endpointStore.removeEndpoint(endpoint.0)
+            self?.djOutput.removePerformer(endpoint.0)
+            debugPrint("disconnected syncronised endpoint")
+        }
+        
+        endpointStore.addEndpoint(endpoint.0, endpoint: endpoint.1)
+        djOutput.addPerformer(endpoint.0)
+    }
+}
+
 extension DJInteractor {
     
     func didChangeBroadcastState(fromState: BroadcastState, toState: BroadcastState) {
-        
-        print("FROM: \(fromState) TO: \(toState)")
         
         if let ub = toState.userBroadcastIdentifier where toState.resolvableIdentifiers.contains(ub) {
             
@@ -465,15 +489,3 @@ extension DJInteractor {
         djBroadcastConfigurationOutput.setIdentifiers(toState.resolvableIdentifiers.sort())
     }
 }
-
-
-/*
- let lost: (String, Endpoint) -> () = { [weak self] in
- 
- self?.djOutput.removePerformer($0.0)
- self?.endpointStore.removeEndpoint($0.0, endpoint: $0.1)
- print("Lost: \($0)")
- return
- }
- 
- */

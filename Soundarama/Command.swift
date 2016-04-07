@@ -6,6 +6,8 @@
 //  Copyright © 2016 Touchpress Ltd. All rights reserved.
 //
 
+//TODO: could these have associated values of the corresponding message type?
+
 enum DJCommandType {
     
     case Start

@@ -68,8 +68,7 @@ extension PerformerPresenter: UserInterfaceDelegate {
     
     func userInterfaceDidLoad(userInterface: UserInterface) {
         
-        // TODO seperate the input interfaces where possible
-        
+        //TODO: Fixme
         if userInterface !== pickDJUI {
         
             input.start()

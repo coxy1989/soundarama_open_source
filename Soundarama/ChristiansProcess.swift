@@ -15,8 +15,6 @@ protocol ChristiansProcessDelegate: class {
 
 class ChristiansProcess {
     
-    static private let numberOfTrips = 100
-    
     weak var delegate: ChristiansProcessDelegate!
     
     private let endpoint: Endpoint
@@ -61,7 +59,7 @@ extension ChristiansProcess {
     
     private func takeTripIfNeeded() {
         
-        trips.count < ChristiansProcess.numberOfTrips ? takeTrip() : end()
+        trips.count < ChristiansConstants.numberOfTrips ? takeTrip() : end()
     }
     
     private func end() {
@@ -101,7 +99,7 @@ extension ChristiansProcess: WriteableDelegate {
 
 extension ChristiansProcess: ReadableDelegate {
     
-    func didReadData(data: NSData, address: Address) {
+    func didReadData(data: NSData) {
 
         if let d = getTimestamp(data) {
             

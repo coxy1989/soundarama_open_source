@@ -118,6 +118,8 @@
 		42F64F681CB3BAF600565F4B /* ResolvableStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42F64F671CB3BAF600565F4B /* ResolvableStore.swift */; };
 		42F64F6C1CB3D02000565F4B /* Endpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42F64F6B1CB3D02000565F4B /* Endpoint.swift */; };
 		42F64F711CB3FB1A00565F4B /* EndpointStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42F64F701CB3FB1A00565F4B /* EndpointStore.swift */; };
+		42F64F731CB563B600565F4B /* ChristiansConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42F64F721CB563B600565F4B /* ChristiansConstants.swift */; };
+		42F64F751CB6507000565F4B /* NetworkEndpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42F64F741CB6507000565F4B /* NetworkEndpoint.swift */; };
 		42F90EE81C5D74280010F1C5 /* UIColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42F90EE71C5D74280010F1C5 /* UIColor.swift */; };
 		42F90EEA1C5D74920010F1C5 /* UIFont.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42F90EE91C5D74920010F1C5 /* UIFont.swift */; };
 		42F99EA51CA1BC1A0058F7AC /* CocoaAsyncSocket.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 42F99EA41CA1BC1A0058F7AC /* CocoaAsyncSocket.framework */; };
@@ -270,6 +272,8 @@
 		42F64F671CB3BAF600565F4B /* ResolvableStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResolvableStore.swift; sourceTree = "<group>"; };
 		42F64F6B1CB3D02000565F4B /* Endpoint.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Endpoint.swift; sourceTree = "<group>"; };
 		42F64F701CB3FB1A00565F4B /* EndpointStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EndpointStore.swift; sourceTree = "<group>"; };
+		42F64F721CB563B600565F4B /* ChristiansConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChristiansConstants.swift; sourceTree = "<group>"; };
+		42F64F741CB6507000565F4B /* NetworkEndpoint.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkEndpoint.swift; sourceTree = "<group>"; };
 		42F90EE71C5D74280010F1C5 /* UIColor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIColor.swift; sourceTree = "<group>"; };
 		42F90EE91C5D74920010F1C5 /* UIFont.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIFont.swift; sourceTree = "<group>"; };
 		42F99EA41CA1BC1A0058F7AC /* CocoaAsyncSocket.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CocoaAsyncSocket.framework; path = Carthage/Build/iOS/CocoaAsyncSocket.framework; sourceTree = "<group>"; };
@@ -404,6 +408,7 @@
 		421468621C56751600892786 /* Synchronisation */ = {
 			isa = PBXGroup;
 			children = (
+				42F64F721CB563B600565F4B /* ChristiansConstants.swift */,
 				4249B59C1C5797920096872D /* ChristiansTimeServer.swift */,
 				4249B59E1C57979E0096872D /* ChristiansProcess.swift */,
 				42B4F6DA1C96F79E00C755E6 /* ChristiansCalculator.swift */,
@@ -707,6 +712,7 @@
 			isa = PBXGroup;
 			children = (
 				42F64F6B1CB3D02000565F4B /* Endpoint.swift */,
+				42F64F741CB6507000565F4B /* NetworkEndpoint.swift */,
 				42E6236D1CB2CA2B00A3443A /* SocketConnector.swift */,
 				42160E371CAEDB5000EBCBB6 /* SocketAcceptor.swift */,
 			);
@@ -993,6 +999,8 @@
 				429EC9861C85AECE002FDBCC /* GroupStore.swift in Sources */,
 				42D9F8A21C88A7460056957B /* Workspace.swift in Sources */,
 				42889BF71CA0476C00ACC3B9 /* Direction.swift in Sources */,
+				42F64F731CB563B600565F4B /* ChristiansConstants.swift in Sources */,
+				42F64F751CB6507000565F4B /* NetworkEndpoint.swift in Sources */,
 				42E6236E1CB2CA2B00A3443A /* SocketConnector.swift in Sources */,
 				42A727B21C552E5D00BFCA47 /* DJWireframe.swift in Sources */,
 				420AA6AB1C55288E00F7BB25 /* DecideWireframe.swift in Sources */,

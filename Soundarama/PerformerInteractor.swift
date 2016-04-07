@@ -144,6 +144,8 @@ extension PerformerInteractor {
     
     func handleMessage(message: Message) {
         
+        debugPrint(message)
+        
         switch message.type {
             
             case .Start:
@@ -164,19 +166,64 @@ extension PerformerInteractor {
         }
     }
     
+    func remoteTime(cmap: ((remote: NSTimeInterval, local: NSTimeInterval))) -> NSTimeInterval {
+        
+        let local_now = NSDate().timeIntervalSince1970
+        let elapsed = local_now - cmap.local
+        let remote_now = cmap.remote + elapsed
+        return remote_now
+    }
+    
     func handleStartMessage(message: StartMessage) {
         
-        let delay = ChristiansCalculator.calculateDelay(christiansMap!.remote, localTime: christiansMap!.local, sessionTimestamp: message.sessionTimestamp, loopLength: audioConfig.loopLength)
-        let atTime = ChristiansCalculator.calculateReferenceTime(message.timestamp, referenceTimestamp: message.referenceTimestamp, length: audioConfig.audioFileLength)
-        stopAudio(delay)
-        startAudio(TaggedAudioPathStore.taggedAudioPaths(message.reference), afterDelay: delay, atTime: atTime + delay, muted: message.muted)
+        /* -----> VODOO <-------- */
+        audioloop?.loop.stop()
+        audioloop = nil
+        /* -----> VODOO END <-----*/
+        
+        let remote_now = remoteTime(christiansMap!)
+        let latency = remote_now - message.timestamp
+        let time_elapsed = message.timestamp - message.referenceTimestamp + latency
+        let time_modulus = time_elapsed % audioConfig.audioFileLength
+        
+        self.startAudio(TaggedAudioPathStore.taggedAudioPaths(message.reference), afterDelay: 0, atTime: time_modulus, muted: message.muted)
+        self.performerOutput.setColor(self.audioStemStore.audioStem(message.reference)!.colour)
+        self.controlAudioLoopVolume(self.compass.getHeading(), level: self.levelStore.getLevel())
+    
+        /*
+         debugPrint(time_modulus)
+         
+         let queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
+         let group = dispatch_group_create();
+         
+         
+         dispatch_group_async(group, queue) {
+         
+         self.handleMessage(StopMessage())
+         debugPrint("CUNT")
+         }
+         
+         dispatch_group_wait(group, DISPATCH_TIME_FOREVER);
+         
+         debugPrint("FUCK")
+         */
+        
+    
+        /*
+        audioloop?.loop.stop()
+        audioloop = nil
+        
+        startAudio(TaggedAudioPathStore.taggedAudioPaths(message.reference), afterDelay: 0, atTime: time_modulus, muted: message.muted)
         performerOutput.setColor(audioStemStore.audioStem(message.reference)!.colour)
         controlAudioLoopVolume(compass.getHeading(), level: levelStore.getLevel())
+ */
     }
     
     func handleStopMessage(message: StopMessage) {
         
-        stopAudio(0)
+        audioloop?.loop.stop()
+        audioloop = nil
+        
         performerOutput.setColor(UIColor.lightGrayColor())
     }
     
@@ -200,11 +247,16 @@ extension PerformerInteractor {
         audioloop?.loop.setMuted(muted)
     }
     
-    private func stopAudio(afterDelay: NSTimeInterval) {
+    /*
+    private func stopAudioLoop(loop: MultiAudioLoop, afterDelay: NSTimeInterval) {
         
+        loop.stop()
+        /*
         audioloop?.loop.stop()
         audioloop = nil
+         */
     }
+    */
     
     private func toggleMuteAudio(isMuted: Bool) {
         
@@ -361,11 +413,6 @@ extension PerformerInteractor: PerformerDJPickerInput {
             this.performerOutput.setConnectionState(.NotConnected)
         }
         
-        if endpoint != nil {
-            
-            
-        }
-        
         connectionState = .Connecting
         let resolvable = resolvableStore.getResolvable(identifier)
         resolvable?.resolveWithTimeout(5, success: resolve_success, failure: resolve_failure)
@@ -399,7 +446,7 @@ extension PerformerInteractor: ChristiansProcessDelegate {
 extension PerformerInteractor: ReadableDelegate {
     
     
-    func didReadData(data: NSData, address: Address) {
+    func didReadData(data: NSData) {
         
         if let msg = MessageDeserializer.deserialize(data) {
             
@@ -423,32 +470,3 @@ extension PerformerInteractor {
         return  resolvableStore.identifiers().filter() { $0 != connected_name }
     }
 }
-
-
-/*
- let disconnected = { [weak self] in
- 
- guard let this = self else {
- 
- return
- }
- 
- this.connectionState = .NotConnected
- this.socketConnector = nil
- this.performerDJPickerOutput.set(this.socketConnector?.0, state: this.connectionState, identifiers: this.availableIdentifiers(), isReachable: this.wifiReachability.isReachable())
- this.performerOutput.setConnectionState(.NotConnected)
- }
- 
- let connect_failed = { [weak self] in
- 
- guard let this = self else {
- 
- return
- }
- 
- this.connectionState = .NotConnected
- this.socketConnector = nil
- this.performerDJPickerOutput.set(this.socketConnector?.0, state: this.connectionState, identifiers: this.availableIdentifiers(), isReachable: this.wifiReachability.isReachable())
- this.performerOutput.setConnectionState(.NotConnected)
- }
- */

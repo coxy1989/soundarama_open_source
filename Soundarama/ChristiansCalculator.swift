@@ -14,6 +14,13 @@ struct ChristiansCalculator {
         let elapsed = now - localTime
         let remoteNow = remoteTime + elapsed
         
+        
+        
+        /*
+        let now = NSDate().timeIntervalSince1970
+        let elapsed = now - localTime
+        let remoteNow = remoteTime + elapsed
+        
         // Calculate `nextStartTime` as a value equal to `timestamp` plus an integer multiple of `loopLength`
         // +0.1 is to make sure the audio player has enough time to prepare for playback
         
@@ -24,6 +31,8 @@ struct ChristiansCalculator {
         }
         
         return Double(nextStartTime) - Double(remoteNow)
+ */
+        return 1
     }
     
     static func calculateReferenceTime(timestamp: NSTimeInterval, referenceTimestamp: NSTimeInterval, length: NSTimeInterval) -> NSTimeInterval {
@@ -32,15 +41,5 @@ struct ChristiansCalculator {
         let modulus = elapsed % length
         debugPrint("reference modulus: \(modulus)")
         return modulus
-        
-        /*
-        let now = NSDate().timeIntervalSince1970
-        let elapsed = now - localTime
-        let remoteNow = remoteTime + elapsed
-        let referenceDuration = remoteNow - referenceTimestamp
-        let modulus = referenceDuration % length
-        debugPrint("reference modulus: \(modulus)")
-        return modulus
- */
     }
 }
