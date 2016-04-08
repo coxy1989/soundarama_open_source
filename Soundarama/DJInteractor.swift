@@ -318,18 +318,7 @@ extension DJInteractor {
             }
         }
         
-          messages.forEach() {
-            debugPrint($0)
-            //if $0.1 is StartMessage {
-              //  let fuckyou = StopMessage()
-               // endpointStore.getEndpoint($0.0).writeData(MessageSerializer.serialize(fuckyou))
-                
-                //endpointStore.getEndpoint($0.0).writeData(MessageSerializer.serialize($0.1))
-            //}
-            //else {
-                endpointStore.getEndpoint($0.0).writeData(MessageSerializer.serialize($0.1))
-            //}
-        }
+          messages.forEach() { endpointStore.getEndpoint($0.0).writeData(MessageSerializer.serialize($0.1)) }
     }
     
     func calculateStartTimestamps(reference: String) -> (unix: NSTimeInterval, reference_unix: NSTimeInterval) {

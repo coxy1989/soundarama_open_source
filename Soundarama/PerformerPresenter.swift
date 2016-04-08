@@ -13,23 +13,25 @@ class PerformerPresenter: PerformerModule {
     
     weak var performerWireframe: PerformerWireframe!
     
-    weak var compassUI: CompassUserInterface!
-    
-    weak var levelUI: LevelUserInterface!
-   
-    weak var coloredUI: ColoredUserInterface!
-    
-    weak var connectionUI: ConnectionUserInterface!
-    
-    weak var pickDJUI: PickDJUserInterface?
-    
-    weak var input: PerformerInput!
+    weak var performerInput: PerformerInput!
     
     weak var pickDJInput: PerformerDJPickerInput!
     
+    weak var instrumentsInput: PerformerInstrumentsInput!
+    
+    weak var compassUI: CompassUserInterface?
+    
+    weak var levelUI: LevelUserInterface?
+   
+    weak var coloredUI: ColoredUserInterface?
+    
+    weak var connectionUI: ConnectionUserInterface?
+    
+    weak var pickDJUI: PickDJUserInterface?
+    
     func start(navigationController: UINavigationController) {
         
-        performerWireframe.presentInstrumentsUI(navigationController)
+        performerWireframe.presentDJPickerUI(navigationController)
     }
 }
 
@@ -37,22 +39,25 @@ extension PerformerPresenter: PerformerOutput {
     
     func setConnectionState(state: ConnectionState) {
         
-        connectionUI.setConnectionState(state)
+        connectionUI?.setConnectionState(state)
     }
+}
 
+extension PerformerPresenter: PerformerInstrumentsOutput {
+    
     func setCompassValue(value: Double) {
         
-        compassUI.setCompassValue(value)
+        compassUI?.setCompassValue(value)
     }
     
     func setLevel(level: Level) {
         
-        levelUI.setLevel(level)
+        levelUI?.setLevel(level)
     }
     
     func setColor(color: UIColor) {
         
-        coloredUI.setColor(color)
+        coloredUI?.setColor(color)
     }
 }
 
@@ -68,21 +73,16 @@ extension PerformerPresenter: UserInterfaceDelegate {
     
     func userInterfaceDidLoad(userInterface: UserInterface) {
         
-        //TODO: Fixme
-        if userInterface !== pickDJUI {
-        
-            input.start()
+        if userInterface === pickDJUI {
+            
+            pickDJInput.startDJPickerInput()
         }
         
-        else  {
+        else {
             
-             pickDJInput.startDJPickerInput()
+            instrumentsInput.startPerformerInstrumentInput()
         }
     }
-    
-    func userInterfaceWillAppear(userInterface: UserInterface) { }
-    
-    func userInterfaceDidAppear(userInterface: UserInterface) {}
     
     func userInterfaceDidNavigateBack(userInterface: UserInterface) {
     
@@ -93,9 +93,13 @@ extension PerformerPresenter: UserInterfaceDelegate {
         
         else {
             performerWireframe.dismissInstrumentsUI()
-            input.stop()
+            performerInput.stop()
         }
     }
+    
+    func userInterfaceWillAppear(userInterface: UserInterface) { }
+    
+    func userInterfaceDidAppear(userInterface: UserInterface) {}
 }
 
 extension PerformerPresenter: PickDJUserInterfaceDelegate {
@@ -108,9 +112,11 @@ extension PerformerPresenter: PickDJUserInterfaceDelegate {
 
 extension PerformerPresenter: ConnectionUserInterfaceDelegate {
     
+    // TODO: fuck this.
+    
     func didRequestConfigureConnection() {
         
-          performerWireframe.presentDJPickerUI()
+         // performerWireframe.presentDJPickerUI()
         
     }
 }

@@ -21,21 +21,14 @@ class PerformerWireframe {
     
     weak var navigationController: UINavigationController?
     
-    func presentDJPickerUI() {
+    func presentDJPickerUI(navigationController: UINavigationController) {
         
-        let vc = UIDevice.isPad() ? PerformerWireframe.pickDJViewController_iPad(performerPresenter) : PerformerWireframe.pickDJViewController_iPhone(performerPresenter)
-        let view = instrumentsVC.view
-        vc.modalPresentationStyle = .Popover
-        vc.popoverPresentationController?.sourceRect = CGRectMake(CGRectGetMidX(view.bounds), CGRectGetMidY(view.bounds), 0, 0)
-        vc.popoverPresentationController?.sourceView = view
-        vc.popoverPresentationController?.permittedArrowDirections = []
-        instrumentsVC.presentViewController(vc, animated: true, completion: nil)
-        djPickerVC = vc
+        UIDevice.isPad() ? presentDJPickerUI_iPad(navigationController) : presentDJPickerUI_iPhone(navigationController)
     }
     
     func dismissDJPickerUI() {
         
-        djPickerVC?.dismissViewControllerAnimated(true, completion: nil)
+        navigationController?.popViewControllerAnimated(true)
     }
     
     func presentInstrumentsUI(navigationController: UINavigationController) {
@@ -49,7 +42,35 @@ class PerformerWireframe {
     func dismissInstrumentsUI() {
         
         navigationController?.popViewControllerAnimated(true)
+    }
+}
+
+extension PerformerWireframe {
+    
+    private func presentDJPickerUI_iPhone(navigationController: UINavigationController) {
         
+        let vc = PerformerWireframe.pickDJViewController_iPhone(performerPresenter)
+        performerPresenter.pickDJUI = vc
+        self.navigationController = navigationController
+        navigationController.pushViewController(vc, animated: true)
+    }
+    
+    private func presentDJPickerUI_iPad(navigationController: UINavigationController) {
+        
+        let rvc = PerformerWireframe.robotWarsViewController()
+        self.navigationController = navigationController
+        navigationController.pushViewController(rvc, animated: true)
+        
+        let view = rvc.view
+        let vc = PerformerWireframe.pickDJViewController_iPad(performerPresenter)
+        djPickerVC = vc
+        performerPresenter.pickDJUI = vc
+        
+        vc.modalPresentationStyle = .Popover
+        vc.popoverPresentationController?.sourceRect = CGRectMake(CGRectGetMidX(view.bounds), CGRectGetMidY(view.bounds), 0, 0)
+        vc.popoverPresentationController?.sourceView = view
+        vc.popoverPresentationController?.permittedArrowDirections = []
+        rvc.presentViewController(vc, animated: true, completion: nil)
     }
 }
 
@@ -82,5 +103,10 @@ extension PerformerWireframe {
         vc.userInterfaceDelegate = performerPresenter
         performerPresenter.pickDJUI = vc
         return vc
+    }
+    
+    private static func robotWarsViewController() -> UIViewController {
+        
+        return sb.instantiateViewControllerWithIdentifier("RobotWarsViewController")
     }
 }

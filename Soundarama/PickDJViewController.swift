@@ -21,31 +21,61 @@ protocol PickDJUserInterfaceDelegate: class {
 
 class PickDJViewController: ViewController {
     
-    @IBOutlet weak var tableView: UITableView!
-    
-    @IBAction func didPressDismissButton(sender: AnyObject) { userInterfaceDelegate?.userInterfaceDidNavigateBack(self) }
-    
     weak var delegate: PickDJUserInterfaceDelegate!
     
-    private var identifiers: [String] = []
+    @IBOutlet private weak var tableView: UITableView!
     
-    private var isReachable = false
+    @IBAction private func didPressDismissButton(sender: AnyObject) { userInterfaceDelegate?.userInterfaceDidNavigateBack(self) }
     
-    private var connectionIdentifier: String?
+    private var sections: [Section] = []
     
-    private var connectionState = ConnectionState.NotConnected
+    private var connectionState: ConnectionState = .NotConnected
 }
 
 extension PickDJViewController: PickDJUserInterface {
     
     func set(identifier: String?, state: ConnectionState, identifiers: [String], isReachable: Bool) {
         
-        connectionIdentifier = identifier
+        print("Reachable: \(isReachable)")
         connectionState = state
-        self.identifiers = identifiers
-        self.isReachable = isReachable
-        tableView.reloadData()
-        print("\(identifier), \(state), \(identifiers), \(isReachable)")
+        let prestate = sections
+        let poststate = [sectionZero(identifier, state: state, isReachable: isReachable), sectionOne(identifiers, isReachable: isReachable)].filter() { $0 != nil }.map() { $0!}
+        sections = poststate
+        updateTableView(prestate, to: poststate)
+    }
+    
+    private func sectionZero(identifier: String?, state: ConnectionState, isReachable: Bool) -> Section? {
+        
+        guard isReachable else {
+            
+            return Section(header: "Please connect to the interwebs", rows: [])
+        }
+        
+        guard let id = identifier else {
+            
+            return nil
+        }
+        
+        guard state != .NotConnected else {
+         
+            return nil
+        }
+        
+        let header = state == .Connecting ? "Connecting" : "Connected"
+        
+        return Section(header: header, rows: [id])
+    }
+    
+    private func sectionOne(identifiers: [String], isReachable: Bool)  -> Section? {
+        
+        guard isReachable else {
+            
+            return nil
+        }
+        
+        let header = identifiers.count == 0 ? "There are no available DJs" : "Available DJs"
+        
+        return Section(header: header, rows: identifiers.sort(<))
     }
 }
 
@@ -53,41 +83,20 @@ extension PickDJViewController: UITableViewDataSource {
     
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         
-        guard isReachable else {
-            
-            return 1
-        }
-        
-        switch connectionState {
-            
-            case .Connected, .Connecting:
-                
-                return identifiers.count == 0 ? 1 : 2
-            
-            case .NotConnected:
-            
-                return 1
-        }
+        return sections.count
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-    
-        if let identifier = connectionIdentifier where indexPath.section == 0 && connectionState != .NotConnected {
-            
-            return connectionCell(identifier)
-        }
         
-        return availableCell(indexPath.row)
+        let s = sections[indexPath.section]
+        let r = s.rows[indexPath.row]
+        let isConnectionCell = sections.count > 1 && indexPath.section == 0
+        return isConnectionCell ? connectionCell(r) : availableCell(r)
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
-        if connectionIdentifier != nil && section == 0 && connectionState != .NotConnected {
-            
-            return 1
-        }
-        
-        return identifiers.count
+        return sections[section].rows.count
     }
 }
 
@@ -101,21 +110,87 @@ extension PickDJViewController: UITableViewDelegate {
     func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         
         let c = tableView.dequeueReusableCellWithIdentifier("HeaderCell") as! HeaderCell
+        c.label.text = sections[section].header
         let v = c.contentView
-        c.label.text = sectionTitle(section)
         return v
     }
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         
-        if connectionIdentifier != nil && indexPath.section == 0 {
+        let valid0 = indexPath.section == 0 && sections.count == 1
+        let valid1 = indexPath.section == 1
+        let valid = valid0 || valid1
+        
+        guard valid else {
             
-            /* This isn't an identifier, its the connected identifier */
             return
         }
         
-        let id = identifiers[indexPath.row]
-        delegate.didPickIdentifier(id)
+        delegate.didPickIdentifier(sections[indexPath.section].rows[indexPath.row])
+    }
+}
+
+extension PickDJViewController {
+    
+    private func updateTableView(from: [Section], to: [Section]) {
+        
+        CATransaction.begin()
+        CATransaction.setCompletionBlock() { [weak self] in self?.tableView.reloadData() }
+        
+        tableView.beginUpdates()
+        tableView.insertSections(insertedSections(from, to: to), withRowAnimation: .Automatic)
+        tableView.deleteSections(deletedSections(from, to: to), withRowAnimation: .Automatic)
+        tableView.insertRowsAtIndexPaths(insertedRows(from, to: to), withRowAnimation: .Automatic)
+        tableView.deleteRowsAtIndexPaths(deletedRows(from, to: to), withRowAnimation: .Automatic)
+        tableView.endUpdates()
+        
+        CATransaction.commit()
+    }
+    
+    private func insertedSections(from: [Section], to: [Section]) -> NSIndexSet {
+        
+        let preidx = from.enumerate().map() { $0.index }, postidx = to.enumerate().map() { $0.index }
+        let inserted_sections = Set(postidx).subtract(Set(preidx))
+        let indexSet = NSMutableIndexSet()
+        inserted_sections.forEach() { indexSet.addIndex($0) }
+        return indexSet
+    }
+    
+    private func insertedRows(from: Section, to: Section) -> NSIndexSet {
+        
+        let preidx = from.rows.enumerate().map() { $0.index }, postidx = to.rows.enumerate().map() { $0.index }
+        let inserted_rows = Set(postidx).subtract(Set(preidx))
+        let indexSet = NSMutableIndexSet()
+        inserted_rows.forEach() { indexSet.addIndex($0) }
+        return indexSet
+    }
+    
+    private func deletedSections(from: [Section], to: [Section]) -> NSIndexSet {
+        
+        let preidx = from.enumerate().map() { $0.index }, postidx = to.enumerate().map() { $0.index }
+        let deleted_sections = Set(preidx).subtract(Set(postidx))
+        let indexSet = NSMutableIndexSet()
+        deleted_sections.forEach() { indexSet.addIndex($0) }
+        return indexSet
+    }
+    
+    private func deletedRows(from: Section, to: Section) -> NSIndexSet {
+        
+        let preidx = from.rows.enumerate().map() { $0.index }, postidx = to.rows.enumerate().map() { $0.index }
+        let deleted_rows = Set(preidx).subtract(Set(postidx))
+        let indexSet = NSMutableIndexSet()
+        deleted_rows.forEach() { indexSet.addIndex($0) }
+        return indexSet
+    }
+    
+    private func insertedRows(from: [Section], to: [Section]) -> [NSIndexPath] {
+        
+        return Array(zip(from, to).enumerate().map() { idx, secs in insertedRows(secs.0, to: secs.1).map() { NSIndexPath(forRow: $0, inSection: idx )}}.flatten())
+    }
+    
+    private func deletedRows(from: [Section], to: [Section]) -> [NSIndexPath] {
+        
+        return Array(zip(from, to).enumerate().map() { idx, secs in deletedRows(secs.0, to: secs.1).map() { NSIndexPath(forRow: $0, inSection: idx )}}.flatten())
     }
 }
 
@@ -143,38 +218,28 @@ extension PickDJViewController {
         return c
     }
     
-    func availableCell(row: Int) -> UITableViewCell {
+    func availableCell(identifier: String) -> UITableViewCell {
         
         let c = tableView.dequeueReusableCellWithIdentifier("TitleCell") as! TitleCell
-        c.titleLabel.text = identifiers[row]
+        c.titleLabel.text = identifier
         return c
     }
 }
 
-extension PickDJViewController {
+private struct Section: Hashable {
     
-    func sectionTitle(section: Int) -> String {
+    let header: String
+    let rows: [String]
+    
+    private var hashValue: Int {
         
-        guard isReachable else {
-            
-            return "Please connect to the interwebs"
-        }
-        
-        guard connectionState != .NotConnected else {
-            
-            return identifiers.count == 0 ? "There are no available DJs" : "Available"
-        }
-        
-        if section == 0 {
-            
-            return connectionState == .Connected ? "Connected" : "Connecting"
-        }
-        
-        if section == 1 {
-            
-            return identifiers.count == 0 ? "There are no available DJs" : "Available"
-        }
-        
-        return "This is a logical error"
+        return header.hash ^ rows.reduce(0) { $0 ^ $1.hashValue }
     }
+}
+
+private func == (lhs: Section, rhs: Section) -> Bool {
+    
+    let eq_rows = zip(lhs.rows, rhs.rows).map() { $0.0 == $0.1 }.filter() { $0 == false }.count == 0
+    let eq_headers = lhs.header == rhs.header
+    return eq_rows && eq_headers
 }

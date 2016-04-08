@@ -289,14 +289,14 @@
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="67"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Pick a DJ" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0h4-u2-aBx">
-                                        <rect key="frame" x="262.5" y="21" width="75" height="25"/>
+                                        <rect key="frame" x="262" y="21" width="75" height="25"/>
                                         <fontDescription key="fontDescription" name="Avenir-Roman" family="Avenir" pointSize="18"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9y4-0r-ITo">
-                                        <rect key="frame" x="8" y="19" width="37" height="30"/>
-                                        <state key="normal" title="Done">
+                                        <rect key="frame" x="8" y="19" width="34" height="30"/>
+                                        <state key="normal" title="Back">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                         <connections>
@@ -463,8 +463,38 @@
             </objects>
             <point key="canvasLocation" x="-19" y="-308"/>
         </scene>
+        <!--View Controller-->
+        <scene sceneID="fq4-qN-SZ3">
+            <objects>
+                <viewController storyboardIdentifier="RobotWarsViewController" id="Q2i-z8-qyO" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="0UO-Db-YYx"/>
+                        <viewControllerLayoutGuide type="bottom" id="l88-i7-eVB"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="OZh-qj-ogd">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bg-robot-wars" translatesAutoresizingMaskIntoConstraints="NO" id="Yls-UD-JsF">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                            </imageView>
+                        </subviews>
+                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="Yls-UD-JsF" firstAttribute="top" secondItem="OZh-qj-ogd" secondAttribute="topMargin" id="2gv-j1-v9t"/>
+                            <constraint firstAttribute="trailing" secondItem="Yls-UD-JsF" secondAttribute="trailing" id="8Eq-At-3jO"/>
+                            <constraint firstItem="l88-i7-eVB" firstAttribute="top" secondItem="Yls-UD-JsF" secondAttribute="bottom" id="Bk4-lU-ds9"/>
+                            <constraint firstItem="Yls-UD-JsF" firstAttribute="leading" secondItem="OZh-qj-ogd" secondAttribute="leading" id="XEx-ac-FFJ"/>
+                        </constraints>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="oZN-wT-S0m" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="670" y="-313"/>
+        </scene>
     </scenes>
     <resources>
+        <image name="bg-robot-wars" width="1366" height="1024"/>
         <image name="checkmark" width="39" height="30"/>
     </resources>
 </document>

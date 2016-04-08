@@ -15,6 +15,8 @@ class PerformerInteractor: PerformerInput {
     
     weak var performerDJPickerOutput: PerformerDJPickerOutput!
     
+    weak var performerInstrumentsOutput: PerformerInstrumentsOutput!
+    
     private let compass = Compass(locationManager: LocationService.manager)
     
     private let flickometer = Flickometer(accellerometer: Accellerometer(motionManager: MotionService.manager))
@@ -45,6 +47,19 @@ class PerformerInteractor: PerformerInput {
     
     func start() {
         
+    }
+    
+    func stop() {
+        
+        wifiReachability.stop()
+        stopNetworkIO()
+    }
+}
+
+extension PerformerInteractor: PerformerDJPickerInput {
+    
+    func startDJPickerInput() {
+        
         let wifi_reachable = { [weak self] in
             
             guard let this = self else {
@@ -53,7 +68,7 @@ class PerformerInteractor: PerformerInput {
             }
             
             this.startNetworkIO()
-            this.performerDJPickerOutput.set(this.endpoint?.0, state: this.connectionState, identifiers: this.availableIdentifiers(), isReachable: this.wifiReachability.isReachable())
+            this.performerDJPickerOutput.set(this.endpoint?.0, state: this.connectionState, identifiers: this.availableIdentifiers(), isReachable: true)
             debugPrint("WiFi available")
         }
         
@@ -65,7 +80,7 @@ class PerformerInteractor: PerformerInput {
             }
             
             self?.stopNetworkIO()
-            this.performerDJPickerOutput.set(this.endpoint?.0, state: this.connectionState, identifiers: this.availableIdentifiers(), isReachable: this.wifiReachability.isReachable())
+            this.performerDJPickerOutput.set(this.endpoint?.0, state: this.connectionState, identifiers: this.availableIdentifiers(), isReachable: false)
             debugPrint("WiFi unavailable")
         }
         
@@ -76,21 +91,92 @@ class PerformerInteractor: PerformerInput {
                 return
             }
             
-            this.performerDJPickerOutput.set(this.endpoint?.0, state: this.connectionState, identifiers: this.availableIdentifiers(), isReachable: this.wifiReachability.isReachable())
+            this.performerDJPickerOutput.set(this.endpoint?.0, state: this.connectionState, identifiers: this.availableIdentifiers(), isReachable: false)
             debugPrint("WiFi monitioring failure")
             return
         }
         
-        performerOutput.setConnectionState(.NotConnected)
+        //performerOutput.setConnectionState(.NotConnected)
         wifiReachability = WiFiReachability.monitoringReachability(wifi_reachable, unreachable: wifi_unreachable, failure: wifi_failure)
-        startInstruments()
-        performerOutput.setLevel(levelStore.getLevel())
+    
+        performerDJPickerOutput.set(endpoint?.0, state: connectionState, identifiers: availableIdentifiers(), isReachable: wifiReachability.isReachable())
     }
     
-    func stop() {
+    func pickIdentifier(identifier: String) {
         
-        wifiReachability.stop()
-        stopNetworkIO()
+        let disconnected = { [weak self] in
+            
+            guard let this = self else {
+                
+                return
+            }
+            
+            this.endpoint = nil
+            this.connectionState = .NotConnected
+            this.performerDJPickerOutput.set(nil, state: this.connectionState, identifiers: this.availableIdentifiers(), isReachable: this.wifiReachability.isReachable())
+            this.performerOutput.setConnectionState(.NotConnected)
+        }
+        
+        let connected: (String, DisconnectableEndpoint) -> () = { [weak self] i, e in
+            
+            guard let this = self else {
+                
+                return
+            }
+            
+            this.socketConnector = nil
+            this.endpoint = (i, e)
+            e.onDisconnect(disconnected)
+            this.christianSync(e)
+        }
+        
+        
+        let resolve_success: (String, UInt16) -> () = { [weak self] in
+            
+            guard let this = self else {
+                
+                return
+            }
+            
+            guard let connector = SocketConnector.connect(identifier, host: $0.0, port: $0.1, connected: connected) else {
+                
+                this.connectionState = .NotConnected
+                this.performerDJPickerOutput.set(this.endpoint?.0, state: this.connectionState, identifiers: this.availableIdentifiers(), isReachable: this.wifiReachability.isReachable())
+                this.performerOutput.setConnectionState(.NotConnected)
+                return
+            }
+            
+            this.resolvableStore.removeResolvable(identifier)
+            this.socketConnector = connector
+            this.performerDJPickerOutput.set(identifier, state: this.connectionState, identifiers: this.availableIdentifiers(), isReachable: this.wifiReachability.isReachable())
+            this.performerOutput.setConnectionState(.NotConnected)
+        }
+        
+        let resolve_failure: ([String : NSNumber] -> ()) = {[weak self] _ in
+            
+            guard let this = self else {
+                
+                return
+            }
+            
+            this.resolvableStore.removeResolvable(identifier)
+            this.connectionState = .NotConnected
+            this.performerDJPickerOutput.set(this.endpoint?.0, state: this.connectionState, identifiers: this.availableIdentifiers(), isReachable: this.wifiReachability.isReachable())
+            this.performerOutput.setConnectionState(.NotConnected)
+        }
+        
+        connectionState = .Connecting
+        let resolvable = resolvableStore.getResolvable(identifier)
+        resolvable?.resolveWithTimeout(5, success: resolve_success, failure: resolve_failure)
+    }
+}
+
+extension PerformerInteractor: PerformerInstrumentsInput {
+    
+    func startPerformerInstrumentInput() {
+        
+        startInstruments()
+        performerInstrumentsOutput.setLevel(levelStore.getLevel())
     }
 }
 
@@ -176,47 +262,19 @@ extension PerformerInteractor {
     
     func handleStartMessage(message: StartMessage) {
         
-        /* -----> VODOO <-------- */
         audioloop?.loop.stop()
         audioloop = nil
-        /* -----> VODOO END <-----*/
         
         let remote_now = remoteTime(christiansMap!)
         let latency = remote_now - message.timestamp
         let time_elapsed = message.timestamp - message.referenceTimestamp + latency
         let time_modulus = time_elapsed % audioConfig.audioFileLength
         
+        
+        
         self.startAudio(TaggedAudioPathStore.taggedAudioPaths(message.reference), afterDelay: 0, atTime: time_modulus, muted: message.muted)
-        self.performerOutput.setColor(self.audioStemStore.audioStem(message.reference)!.colour)
+        self.performerInstrumentsOutput.setColor(self.audioStemStore.audioStem(message.reference)!.colour)
         self.controlAudioLoopVolume(self.compass.getHeading(), level: self.levelStore.getLevel())
-    
-        /*
-         debugPrint(time_modulus)
-         
-         let queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
-         let group = dispatch_group_create();
-         
-         
-         dispatch_group_async(group, queue) {
-         
-         self.handleMessage(StopMessage())
-         debugPrint("CUNT")
-         }
-         
-         dispatch_group_wait(group, DISPATCH_TIME_FOREVER);
-         
-         debugPrint("FUCK")
-         */
-        
-    
-        /*
-        audioloop?.loop.stop()
-        audioloop = nil
-        
-        startAudio(TaggedAudioPathStore.taggedAudioPaths(message.reference), afterDelay: 0, atTime: time_modulus, muted: message.muted)
-        performerOutput.setColor(audioStemStore.audioStem(message.reference)!.colour)
-        controlAudioLoopVolume(compass.getHeading(), level: levelStore.getLevel())
- */
     }
     
     func handleStopMessage(message: StopMessage) {
@@ -224,7 +282,7 @@ extension PerformerInteractor {
         audioloop?.loop.stop()
         audioloop = nil
         
-        performerOutput.setColor(UIColor.lightGrayColor())
+        performerInstrumentsOutput.setColor(UIColor.lightGrayColor())
     }
     
     func handleMuteMessage(message: MuteMessage) {
@@ -281,7 +339,7 @@ extension PerformerInteractor {
             return
         }
         
-        performerOutput.setLevel(levelStore.getLevel())
+        performerInstrumentsOutput.setLevel(levelStore.getLevel())
     }
     
     func lockLevelStore(duration: NSTimeInterval) {
@@ -309,7 +367,7 @@ extension PerformerInteractor {
             }
             
             c = $0
-            this.performerOutput.setCompassValue($0)
+            this.performerInstrumentsOutput.setCompassValue($0)
             this.controlAudioLoopVolume($0, level: this.levelStore.getLevel())
         }
         
@@ -340,82 +398,6 @@ extension PerformerInteractor {
         
         let v = CompassLevelVolumeController.calculateVolume(al.paths, compassValue: c, level: level)
         v.forEach() { al.loop.setVolume($0.path, volume: $1) }
-    }
-}
-
-extension PerformerInteractor: PerformerDJPickerInput {
-    
-    func startDJPickerInput() {
-        
-        performerDJPickerOutput.set(endpoint?.0, state: connectionState, identifiers: availableIdentifiers(), isReachable: wifiReachability.isReachable())
-    }
-    
-    func pickIdentifier(identifier: String) {
-        
-        let disconnected = { [weak self] in
-            
-            guard let this = self else {
-                
-                return
-            }
-            
-            this.endpoint = nil
-            this.connectionState = .NotConnected
-            this.performerDJPickerOutput.set(nil, state: this.connectionState, identifiers: this.availableIdentifiers(), isReachable: this.wifiReachability.isReachable())
-            this.performerOutput.setConnectionState(.NotConnected)
-        }
-        
-        let connected: (String, DisconnectableEndpoint) -> () = { [weak self] i, e in
-            
-            guard let this = self else {
-                
-                return
-            }
-            
-            this.socketConnector = nil
-            this.endpoint = (i, e)
-            e.onDisconnect(disconnected)
-            this.christianSync(e)
-        }
-        
-
-        let resolve_success: (String, UInt16) -> () = { [weak self] in
-            
-            guard let this = self else {
-                
-                return
-            }
-            
-            guard let connector = SocketConnector.connect(identifier, host: $0.0, port: $0.1, connected: connected) else {
-                
-                this.connectionState = .NotConnected
-                this.performerDJPickerOutput.set(this.endpoint?.0, state: this.connectionState, identifiers: this.availableIdentifiers(), isReachable: this.wifiReachability.isReachable())
-                this.performerOutput.setConnectionState(.NotConnected)
-                return
-            }
-            
-            this.resolvableStore.removeResolvable(identifier)
-            this.socketConnector = connector
-            this.performerDJPickerOutput.set(identifier, state: this.connectionState, identifiers: this.availableIdentifiers(), isReachable: this.wifiReachability.isReachable())
-            this.performerOutput.setConnectionState(.NotConnected)
-        }
-        
-        let resolve_failure: ([String : NSNumber] -> ()) = {[weak self] _ in
-            
-            guard let this = self else {
-                
-                return
-            }
-            
-            this.resolvableStore.removeResolvable(identifier)
-            this.connectionState = .NotConnected
-            this.performerDJPickerOutput.set(this.endpoint?.0, state: this.connectionState, identifiers: this.availableIdentifiers(), isReachable: this.wifiReachability.isReachable())
-            this.performerOutput.setConnectionState(.NotConnected)
-        }
-        
-        connectionState = .Connecting
-        let resolvable = resolvableStore.getResolvable(identifier)
-        resolvable?.resolveWithTimeout(5, success: resolve_success, failure: resolve_failure)
     }
 }
 
