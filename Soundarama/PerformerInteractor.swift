@@ -11,8 +11,6 @@ import UIKit
 
 class PerformerInteractor: PerformerInput {
  
-    weak var performerOutput: PerformerOutput!
-    
     weak var performerDJPickerOutput: PerformerDJPickerOutput!
     
     weak var performerInstrumentsOutput: PerformerInstrumentsOutput!
@@ -53,6 +51,7 @@ class PerformerInteractor: PerformerInput {
         
         wifiReachability.stop()
         stopNetworkIO()
+        audioloop?.loop.stop()
     }
 }
 
@@ -114,7 +113,6 @@ extension PerformerInteractor: PerformerDJPickerInput {
             this.endpoint = nil
             this.connectionState = .NotConnected
             this.performerDJPickerOutput.set(nil, state: this.connectionState, identifiers: this.availableIdentifiers(), isReachable: this.wifiReachability.isReachable())
-            this.performerOutput.setConnectionState(.NotConnected)
         }
         
         let connected: (String, DisconnectableEndpoint) -> () = { [weak self] i, e in
@@ -142,14 +140,12 @@ extension PerformerInteractor: PerformerDJPickerInput {
                 
                 this.connectionState = .NotConnected
                 this.performerDJPickerOutput.set(this.endpoint?.0, state: this.connectionState, identifiers: this.availableIdentifiers(), isReachable: this.wifiReachability.isReachable())
-                this.performerOutput.setConnectionState(.NotConnected)
                 return
             }
             
             this.resolvableStore.removeResolvable(identifier)
             this.socketConnector = connector
             this.performerDJPickerOutput.set(identifier, state: this.connectionState, identifiers: this.availableIdentifiers(), isReachable: this.wifiReachability.isReachable())
-            this.performerOutput.setConnectionState(.NotConnected)
         }
         
         let resolve_failure: ([String : NSNumber] -> ()) = {[weak self] _ in
@@ -162,7 +158,6 @@ extension PerformerInteractor: PerformerDJPickerInput {
             this.resolvableStore.removeResolvable(identifier)
             this.connectionState = .NotConnected
             this.performerDJPickerOutput.set(this.endpoint?.0, state: this.connectionState, identifiers: this.availableIdentifiers(), isReachable: this.wifiReachability.isReachable())
-            this.performerOutput.setConnectionState(.NotConnected)
         }
         
         connectionState = .Connecting
@@ -420,7 +415,6 @@ extension PerformerInteractor: ChristiansProcessDelegate {
         endpoint.readableDelegate = self
         connectionState = .Connected
         performerDJPickerOutput.set(self.endpoint?.0, state: connectionState, identifiers: availableIdentifiers(), isReachable: wifiReachability.isReachable())
-        performerOutput.setConnectionState(.Connected)
         debugPrint(christiansMap)
     }
 }

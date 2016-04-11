@@ -11,6 +11,7 @@ import UIKit
 class DecideWireframe {
     
     enum Decision {
+        
         case DJ, Performer
     }
     

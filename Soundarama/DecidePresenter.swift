@@ -11,10 +11,12 @@ class DecidePresenter: DecideUserInterfaceDelegate {
     weak var decideWireframe: DecideWireframe!
     
     func decideUserInterfaceDidSelectDJ(decideUserInterface: DecideUserInterface) {
+        
         decideWireframe.decide(.DJ)
     }
     
     func decideUserInterfaceDidSelectPerformer(decideUserInterface: DecideUserInterface) {
+        
         decideWireframe.decide(.Performer)
     }
 }

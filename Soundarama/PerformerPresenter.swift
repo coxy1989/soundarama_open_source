@@ -35,14 +35,6 @@ class PerformerPresenter: PerformerModule {
     }
 }
 
-extension PerformerPresenter: PerformerOutput {
-    
-    func setConnectionState(state: ConnectionState) {
-        
-        connectionUI?.setConnectionState(state)
-    }
-}
-
 extension PerformerPresenter: PerformerInstrumentsOutput {
     
     func setCompassValue(value: Double) {
@@ -66,6 +58,11 @@ extension PerformerPresenter: PerformerDJPickerOutput {
     func set(identifier: String?, state: ConnectionState, identifiers: [String], isReachable: Bool) {
      
         pickDJUI?.set(identifier, state: state, identifiers: identifiers, isReachable: isReachable)
+        
+        if state == .Connected {
+            
+            performerWireframe.presentInstrumentsUI()
+        }
     }
 }
 
@@ -73,12 +70,7 @@ extension PerformerPresenter: UserInterfaceDelegate {
     
     func userInterfaceDidLoad(userInterface: UserInterface) {
         
-        if userInterface === pickDJUI {
-            
-            pickDJInput.startDJPickerInput()
-        }
-        
-        else {
+        if userInterface === compassUI || userInterface === levelUI {
             
             instrumentsInput.startPerformerInstrumentInput()
         }
@@ -91,13 +83,20 @@ extension PerformerPresenter: UserInterfaceDelegate {
             performerWireframe.dismissDJPickerUI()
         }
         
-        else {
+        else if userInterface === compassUI || userInterface === levelUI {
+            
             performerWireframe.dismissInstrumentsUI()
             performerInput.stop()
         }
     }
     
-    func userInterfaceWillAppear(userInterface: UserInterface) { }
+    func userInterfaceWillAppear(userInterface: UserInterface) {
+        
+        if userInterface === pickDJUI {
+            
+            pickDJInput.startDJPickerInput()
+        }
+    }
     
     func userInterfaceDidAppear(userInterface: UserInterface) {}
 }
@@ -107,16 +106,5 @@ extension PerformerPresenter: PickDJUserInterfaceDelegate {
     func didPickIdentifier(identifier: String) {
         
         pickDJInput.pickIdentifier(identifier)
-    }
-}
-
-extension PerformerPresenter: ConnectionUserInterfaceDelegate {
-    
-    // TODO: fuck this.
-    
-    func didRequestConfigureConnection() {
-        
-         // performerWireframe.presentDJPickerUI()
-        
     }
 }

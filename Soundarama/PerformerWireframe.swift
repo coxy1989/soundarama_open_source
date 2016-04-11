@@ -17,6 +17,8 @@ class PerformerWireframe {
     
     private var djPickerVC: PickDJViewController?
     
+    private var djPickerBackgroundVC: PickDJViewController_iPadBackgroundViewController?
+    
     weak var performerPresenter: PerformerPresenter!
     
     weak var navigationController: UINavigationController?
@@ -31,12 +33,10 @@ class PerformerWireframe {
         navigationController?.popViewControllerAnimated(true)
     }
     
-    func presentInstrumentsUI(navigationController: UINavigationController) {
+    func presentInstrumentsUI() {
         
-        self.navigationController = navigationController
         instrumentsVC = PerformerWireframe.instrumentsViewController(performerPresenter)
-        instrumentsVC.connectionUserInterfaceDelegate = performerPresenter
-        navigationController.pushViewController(instrumentsVC!, animated: true)
+        navigationController?.pushViewController(instrumentsVC!, animated: true)
     }
     
     func dismissInstrumentsUI() {
@@ -57,20 +57,17 @@ extension PerformerWireframe {
     
     private func presentDJPickerUI_iPad(navigationController: UINavigationController) {
         
-        let rvc = PerformerWireframe.robotWarsViewController()
+        let rvc = PerformerWireframe.pickDJViewController_iPadBackgroundViewController()
+        djPickerBackgroundVC = rvc
         self.navigationController = navigationController
         navigationController.pushViewController(rvc, animated: true)
-        
-        let view = rvc.view
-        let vc = PerformerWireframe.pickDJViewController_iPad(performerPresenter)
-        djPickerVC = vc
-        performerPresenter.pickDJUI = vc
-        
-        vc.modalPresentationStyle = .Popover
-        vc.popoverPresentationController?.sourceRect = CGRectMake(CGRectGetMidX(view.bounds), CGRectGetMidY(view.bounds), 0, 0)
-        vc.popoverPresentationController?.sourceView = view
-        vc.popoverPresentationController?.permittedArrowDirections = []
-        rvc.presentViewController(vc, animated: true, completion: nil)
+        rvc.onEmbeddedPickDJViewController = { [weak self] in
+            
+            self?.performerPresenter.pickDJUI = $0
+            $0.delegate = self?.performerPresenter
+            $0.userInterfaceDelegate = self?.performerPresenter
+            self?.performerPresenter.pickDJUI = $0
+        }
     }
 }
 
@@ -87,15 +84,6 @@ extension PerformerWireframe {
         return vc
     }
     
-    private static func pickDJViewController_iPad(performerPresenter: PerformerPresenter) -> PickDJViewController {
-     
-        let vc = sb.instantiateViewControllerWithIdentifier("PickDJViewController") as! PickDJViewController
-        vc.delegate = performerPresenter
-        vc.userInterfaceDelegate = performerPresenter
-        performerPresenter.pickDJUI = vc
-        return vc
-    }
-    
     private static func pickDJViewController_iPhone(performerPresenter: PerformerPresenter) -> PickDJViewController {
         
         let vc = sb.instantiateViewControllerWithIdentifier("PickDJViewController_iPhone") as! PickDJViewController
@@ -105,8 +93,28 @@ extension PerformerWireframe {
         return vc
     }
     
-    private static func robotWarsViewController() -> UIViewController {
+    private static func pickDJViewController_iPadBackgroundViewController() -> PickDJViewController_iPadBackgroundViewController {
         
-        return sb.instantiateViewControllerWithIdentifier("RobotWarsViewController")
+        return sb.instantiateViewControllerWithIdentifier("PickDJViewController_iPadBackgroundViewController") as! PickDJViewController_iPadBackgroundViewController
     }
+}
+
+
+extension PerformerWireframe {
+    
+    /*
+     private func presentDJPickerPopover(onViewController: UIViewController) {
+     
+     let view = onViewController.view
+     let vc = PerformerWireframe.pickDJViewController_iPad(performerPresenter)
+     djPickerVC = vc
+     performerPresenter.pickDJUI = vc
+     
+     vc.modalPresentationStyle = .Popover
+     vc.popoverPresentationController?.sourceRect = CGRectMake(CGRectGetMidX(view.bounds), CGRectGetMidY(view.bounds), 0, 0)
+     vc.popoverPresentationController?.sourceView = view
+     vc.popoverPresentationController?.permittedArrowDirections = []
+     onViewController.presentViewController(vc, animated: true, completion: nil)
+     }
+     */
 }

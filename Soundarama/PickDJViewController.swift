@@ -19,6 +19,21 @@ protocol PickDJUserInterfaceDelegate: class {
     func didPickIdentifier(identifier: String)
 }
 
+class PickDJViewController_iPadBackgroundViewController: ViewController {
+    
+    var onEmbeddedPickDJViewController: (PickDJViewController -> ())!
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        
+        guard segue.identifier == "embedPickDJViewController" else {
+            
+            return
+        }
+        
+        onEmbeddedPickDJViewController(segue.destinationViewController as! PickDJViewController)
+    }
+}
+
 class PickDJViewController: ViewController {
     
     weak var delegate: PickDJUserInterfaceDelegate!
