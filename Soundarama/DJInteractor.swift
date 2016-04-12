@@ -141,6 +141,8 @@ extension DJInteractor: DJInput {
         }
         
         djOutput.movePerformer(performer, translation: translation)
+        
+        djOutput.cancelLasoo()
     }
     
     func requestAddPerformerToWorkspace(performer: Performer, workspaceID: WorkspaceID) {
@@ -172,6 +174,7 @@ extension DJInteractor: DJInput {
     func requestSelectPerformer(performer: Performer) {
         
         guard groupStore.groupingMode == false else {
+            
             return
         }
         

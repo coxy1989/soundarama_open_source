@@ -52,6 +52,8 @@ extension PerformerInteractor: PerformerDJPickerInput {
         wifiReachability.stop()
         stopNetworkIO()
         audioloop?.loop.stop()
+        audioloop = nil
+        wifiReachability = nil
     }
     
     func startDJPickerInput() {

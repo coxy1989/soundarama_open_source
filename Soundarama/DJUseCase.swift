@@ -82,6 +82,8 @@ protocol DJOutput: class {
     
     func endLasoo(atPoint: CGPoint)
     
+    func cancelLasoo()
+    
     func createGroup(groupID: GroupID, groupSize: UInt, sourcePerformers: Set<Performer>, sourceGroupIDs: Set<GroupID>)
     
     func destroyGroup(groupID: GroupID, intoPerformers: Set<Performer>)

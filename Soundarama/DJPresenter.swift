@@ -83,6 +83,11 @@ extension DJPresenter: DJOutput {
         djUI.endLasoo(atPoint)
     }
     
+    func cancelLasoo() {
+        
+        djUI.cancelLasoo()
+    }
+    
     func createGroup(groupID: GroupID, groupSize: UInt, sourcePerformers: Set<Performer>, sourceGroupIDs: Set<GroupID>) {
      
         djUI.createGroup(groupID, groupSize: groupSize, sourcePerformers: sourcePerformers, sourceGroupIDs: sourceGroupIDs)

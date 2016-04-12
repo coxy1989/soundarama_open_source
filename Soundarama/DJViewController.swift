@@ -165,6 +165,11 @@ extension DJViewController: DJUserInterface {
         lassoPath = nil
     }
     
+    func cancelLasoo() {
+        
+        lassoPath = nil
+    }
+    
     func createGroup(groupID: GroupID, groupSize: UInt, sourcePerformers: Set<Performer>, sourceGroupIDs: Set<GroupID>) {
                 
         let p_views = Set(performer_view_map.filter() { p, v in sourcePerformers.contains(p) }.map({ $0.1 as UIView }))
@@ -566,13 +571,20 @@ extension DJViewController {
         switch panGesture.state {
             
             case .Began:
+                
                 delegate.didRequestStartLassoo(point)
+            
             case .Changed:
+                
                 delegate.didRequestContinueLasoo(point)
+            
             case .Ended:
+                
                 delegate.didRequestEndLasoo(point)
                 lassoPath = nil
+            
             default:
+                
                 return
             }
         
@@ -581,8 +593,13 @@ extension DJViewController {
 
     private func lassooedPerformers() -> Set<Performer> {
         
+        guard let path = lassoPath else {
+            
+            return Set([])
+        }
+        
         let p = view_performer_map
-            .filter() { v, p in(lassoPath!.containsPoint(v.center) )}
+            .filter() { v, p in(path.containsPoint(v.center) )}
             .map() { v, p in return p }
         
         print("lasooed performers: \(p)")
@@ -591,8 +608,13 @@ extension DJViewController {
     
     private func lassooedGroupIDs() -> Set<GroupID> {
         
+        guard let path = lassoPath else {
+            
+            return Set([])
+        }
+        
         let g = view_group_map
-            .filter() { v, g in  (lassoPath!.containsPoint(v.center))}
+            .filter() { v, g in  (path.containsPoint(v.center))}
             .map() { v, g in return g }
 
         print("lasooed groups: \(g)")
