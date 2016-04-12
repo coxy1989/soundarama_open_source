@@ -32,6 +32,12 @@ class LevelCompassView: UIView {
         return v
     }()
     
+    func setColor(color: UIColor) {
+        
+        north_point.backgroundColor = color
+        south_point.backgroundColor = color
+    }
+    
     func setLevel(level: Level) {
         
         guard self.level != level else {

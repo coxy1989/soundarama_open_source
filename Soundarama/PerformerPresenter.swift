@@ -21,13 +21,14 @@ class PerformerPresenter: PerformerModule {
     
     weak var levelUI: LevelUserInterface?
     
+    weak var coloredUI: ColoredUserInteface?
+    
     weak var pickDJUI: PickDJUserInterface?
     
     func start(navigationController: UINavigationController) {
         
         performerWireframe.navigationController = navigationController
         performerWireframe.presentDJPickerUI(self)
-        //performerWireframe.presentInstrumentsUI(self)
     }
 }
 
@@ -43,7 +44,10 @@ extension PerformerPresenter: PerformerInstrumentsOutput {
         levelUI?.setLevel(level)
     }
     
-    func setColor(color: UIColor) { }
+    func setColor(color: UIColor) {
+        
+        coloredUI?.setColor(color)
+    }
 }
 
 extension PerformerPresenter: PerformerDJPickerOutput {
@@ -78,7 +82,8 @@ extension PerformerPresenter: UserInterfaceDelegate {
         
         else if userInterface === compassUI || userInterface === levelUI {
             
-            performerWireframe.dismissInstrumentsUI()
+            pickDJInput.stopDJPickerInput()
+            performerWireframe.dismissInstrumentsUI(self)
         }
     }
     

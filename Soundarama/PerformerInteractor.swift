@@ -9,7 +9,7 @@
 import AVFoundation
 import UIKit
 
-class PerformerInteractor: PerformerInput {
+class PerformerInteractor {
  
     weak var performerDJPickerOutput: PerformerDJPickerOutput!
     
@@ -43,19 +43,16 @@ class PerformerInteractor: PerformerInput {
     
     private var connectionState = ConnectionState.NotConnected
     
-    func start() {
-        
-    }
-    
-    func stop() {
+}
+
+extension PerformerInteractor: PerformerDJPickerInput {
+ 
+    func stopDJPickerInput() {
         
         wifiReachability.stop()
         stopNetworkIO()
         audioloop?.loop.stop()
     }
-}
-
-extension PerformerInteractor: PerformerDJPickerInput {
     
     func startDJPickerInput() {
         
@@ -95,7 +92,6 @@ extension PerformerInteractor: PerformerDJPickerInput {
             return
         }
         
-        //performerOutput.setConnectionState(.NotConnected)
         wifiReachability = WiFiReachability.monitoringReachability(wifi_reachable, unreachable: wifi_unreachable, failure: wifi_failure)
     
         performerDJPickerOutput.set(endpoint?.0, state: connectionState, identifiers: availableIdentifiers(), isReachable: wifiReachability.isReachable())

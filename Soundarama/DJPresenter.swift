@@ -136,9 +136,6 @@ extension DJPresenter: UserInterfaceDelegate {
         if userInterface === djUI {
             
             djInput.startDJ()
-            djUI.addPerformer("x")
-            djUI.addPerformer("y")
-            djUI.addPerformer("z")
         }
         
         else if userInterface === djAudioStemPickerUI {

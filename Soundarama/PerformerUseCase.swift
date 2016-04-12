@@ -8,16 +8,11 @@
 
 import UIKit
 
-protocol PerformerInput: class {
-    
-    func start()
-    
-    func stop()
-}
-
 protocol PerformerDJPickerInput: class {
     
     func startDJPickerInput()
+    
+    func stopDJPickerInput()
     
     func pickIdentifier(identifier: String)
 }

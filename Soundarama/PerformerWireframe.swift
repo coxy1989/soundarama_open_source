@@ -33,8 +33,11 @@ class PerformerWireframe {
         navigationController?.pushViewController(instrumentsVC, animated: true)
     }
     
-    func dismissInstrumentsUI() {
+    func dismissInstrumentsUI(presenter: PerformerPresenter) {
         
+        presenter.compassUI = nil
+        presenter.levelUI = nil
+        presenter.coloredUI = nil
         navigationController?.popViewControllerAnimated(true)
     }
 }
@@ -73,6 +76,7 @@ extension PerformerWireframe {
         vc.userInterfaceDelegate = performerPresenter
         performerPresenter.compassUI = vc
         performerPresenter.levelUI = vc
+        performerPresenter.coloredUI = vc
         return vc
     }
     

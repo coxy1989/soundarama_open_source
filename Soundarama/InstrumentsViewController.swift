@@ -19,35 +19,33 @@ protocol CompassUserInterface: class {
     func setCompassValue(value: Double)
 }
 
+protocol ColoredUserInteface: class {
+    
+    func setColor(color: UIColor)
+}
+
 class InstrumentsViewController: ViewController {
         
-    @IBOutlet weak var levelCompassView: LevelCompassView!
+    @IBOutlet weak var levelCompassView: LevelCompassView?
 
     @IBAction func didPressBackButton(sender: AnyObject) { userInterfaceDelegate?.userInterfaceDidNavigateBack(self)}
     
     var dirtyCalibrated = false
 }
 
+extension InstrumentsViewController: ColoredUserInteface {
+    
+    func setColor(color: UIColor) {
+        
+        levelCompassView?.setColor(color)
+    }
+}
+
 extension InstrumentsViewController: LevelUserInterface {
     
     func setLevel(level: Level) {
         
-        levelCompassView.setLevel(level)
-        
-        switch level {
-            
-        case .High:
-            
-            debugPrint("H")
-            
-        case .Middle:
-            
-            debugPrint("M")
-            
-        case .Low:
-            
-            debugPrint("L")
-        }
+        levelCompassView?.setLevel(level)
     }
 }
 
@@ -59,15 +57,14 @@ extension InstrumentsViewController: CompassUserInterface {
         
         guard dirtyCalibrated == true else {
             
-            levelCompassView.transform = CGAffineTransformMakeRotation(-radians)
+            levelCompassView?.transform = CGAffineTransformMakeRotation(-radians)
             dirtyCalibrated = true
             return
         }
         
         UIView.animateWithDuration(0.1) { [weak self] in
         
-            self?.levelCompassView.transform = CGAffineTransformMakeRotation(-radians)
+            self?.levelCompassView?.transform = CGAffineTransformMakeRotation(-radians)
         }
- 
     }
 }
