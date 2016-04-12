@@ -8,6 +8,7 @@
 
 struct ChristiansCalculator {
     
+    /*
     static func calculateDelay(remoteTime: NSTimeInterval, localTime: NSTimeInterval, sessionTimestamp: NSTimeInterval, loopLength: NSTimeInterval) -> NSTimeInterval {
         
         let now = NSDate().timeIntervalSince1970
@@ -42,4 +43,5 @@ struct ChristiansCalculator {
         debugPrint("reference modulus: \(modulus)")
         return modulus
     }
+ */
 }

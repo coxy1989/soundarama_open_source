@@ -12,9 +12,7 @@ import TouchpressUI
 class PerformerPresenter: PerformerModule {
     
     weak var performerWireframe: PerformerWireframe!
-    
-    weak var performerInput: PerformerInput!
-    
+        
     weak var pickDJInput: PerformerDJPickerInput!
     
     weak var instrumentsInput: PerformerInstrumentsInput!
@@ -22,16 +20,14 @@ class PerformerPresenter: PerformerModule {
     weak var compassUI: CompassUserInterface?
     
     weak var levelUI: LevelUserInterface?
-   
-    weak var coloredUI: ColoredUserInterface?
-    
-    weak var connectionUI: ConnectionUserInterface?
     
     weak var pickDJUI: PickDJUserInterface?
     
     func start(navigationController: UINavigationController) {
         
-        performerWireframe.presentDJPickerUI(navigationController)
+        performerWireframe.navigationController = navigationController
+        performerWireframe.presentDJPickerUI(self)
+        //performerWireframe.presentInstrumentsUI(self)
     }
 }
 
@@ -47,10 +43,7 @@ extension PerformerPresenter: PerformerInstrumentsOutput {
         levelUI?.setLevel(level)
     }
     
-    func setColor(color: UIColor) {
-        
-        coloredUI?.setColor(color)
-    }
+    func setColor(color: UIColor) { }
 }
 
 extension PerformerPresenter: PerformerDJPickerOutput {
@@ -61,7 +54,7 @@ extension PerformerPresenter: PerformerDJPickerOutput {
         
         if state == .Connected {
             
-            performerWireframe.presentInstrumentsUI()
+            performerWireframe.presentInstrumentsUI(self)
         }
     }
 }
@@ -86,7 +79,6 @@ extension PerformerPresenter: UserInterfaceDelegate {
         else if userInterface === compassUI || userInterface === levelUI {
             
             performerWireframe.dismissInstrumentsUI()
-            performerInput.stop()
         }
     }
     
@@ -108,3 +100,4 @@ extension PerformerPresenter: PickDJUserInterfaceDelegate {
         pickDJInput.pickIdentifier(identifier)
     }
 }
+

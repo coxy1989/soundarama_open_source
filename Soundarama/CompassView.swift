@@ -69,11 +69,3 @@ extension CompassView {
         south.layer.cornerRadius = north.frame.size.width * 0.5
     }
 }
-
-extension CompassView: ColoredUserInterface {
-    
-    func setColor(color: UIColor) {
-        
-        circle.backgroundColor = color
-    }
-}

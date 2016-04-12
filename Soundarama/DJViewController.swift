@@ -514,9 +514,10 @@ extension DJViewController {
         let pan = UIPanGestureRecognizer(target: self, action: #selector(DJViewController.didPanGroup(_:)))
         let longPress = UILongPressGestureRecognizer(target: self, action: #selector(DJViewController.didLongPressGroup(_:)))
         longPress.delegate = self
-        longPress.minimumPressDuration = 0.001
+        longPress.minimumPressDuration = 0.075
         let tap = UITapGestureRecognizer(target: self, action: #selector(DJViewController.didDoubleTapGroup(_:)))
         tap.numberOfTapsRequired = 2
+        tap.delegate = self
         return Set([longPress, pan, tap])
     }
  

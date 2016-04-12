@@ -6,7 +6,7 @@
 //  Copyright © 2016 Touchpress Ltd. All rights reserved.
 //
 
-enum Level {
+enum Level:Int {
     
     case High, Middle, Low
     

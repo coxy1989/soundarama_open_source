@@ -2,98 +2,10 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10116" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
-        <!--Instruments View Controller-->
-        <scene sceneID="u2K-30-vKk">
-            <objects>
-                <viewController storyboardIdentifier="InstrumentsViewController" id="wy5-1H-CP9" customClass="InstrumentsViewController" customModule="Soundarama" customModuleProvider="target" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="I6g-cw-orr"/>
-                        <viewControllerLayoutGuide type="bottom" id="aFK-d9-IDY"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="NDe-5A-F7o">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dXO-zq-10v" customClass="CompassView" customModule="Soundarama" customModuleProvider="target">
-                                <rect key="frame" x="150" y="150" width="300" height="300"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="300" id="QDG-QU-sIz"/>
-                                    <constraint firstAttribute="height" constant="300" id="Tdb-mI-zN4"/>
-                                </constraints>
-                            </view>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="High" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="X7B-YW-egH">
-                                <rect key="frame" x="282" y="70" width="35.5" height="19.5"/>
-                                <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
-                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Middle" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="p0j-Es-kf0">
-                                <rect key="frame" x="274" y="97" width="51.5" height="19.5"/>
-                                <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
-                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Low" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mrr-lq-N0w">
-                                <rect key="frame" x="284" y="124" width="31" height="19.5"/>
-                                <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
-                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Not Connected" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Fpw-Wf-lz0">
-                                <rect key="frame" x="242" y="560" width="114.5" height="19.5"/>
-                                <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
-                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Q7U-4X-6aV">
-                                <rect key="frame" x="20" y="550" width="59" height="30"/>
-                                <state key="normal" title="Connect"/>
-                                <connections>
-                                    <action selector="didPressConnectionButton:" destination="wy5-1H-CP9" eventType="touchUpInside" id="Jlk-Ok-3tz"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QIF-wW-sDv">
-                                <rect key="frame" x="8" y="8" width="34" height="30"/>
-                                <state key="normal" title="Back"/>
-                                <connections>
-                                    <action selector="didPressBackButton:" destination="wy5-1H-CP9" eventType="touchUpInside" id="vdL-Sg-E4a"/>
-                                </connections>
-                            </button>
-                        </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <constraints>
-                            <constraint firstItem="p0j-Es-kf0" firstAttribute="top" secondItem="X7B-YW-egH" secondAttribute="bottom" constant="7.5" id="7d5-Cr-H6L"/>
-                            <constraint firstItem="mrr-lq-N0w" firstAttribute="centerX" secondItem="p0j-Es-kf0" secondAttribute="centerX" id="8Ll-q9-ffi"/>
-                            <constraint firstItem="aFK-d9-IDY" firstAttribute="top" secondItem="Q7U-4X-6aV" secondAttribute="bottom" constant="20" id="9K0-Mg-Spd"/>
-                            <constraint firstItem="mrr-lq-N0w" firstAttribute="top" secondItem="p0j-Es-kf0" secondAttribute="bottom" constant="7.5" id="AxV-YQ-JBT"/>
-                            <constraint firstItem="X7B-YW-egH" firstAttribute="centerX" secondItem="NDe-5A-F7o" secondAttribute="centerX" id="Ba7-1d-yab"/>
-                            <constraint firstItem="X7B-YW-egH" firstAttribute="top" secondItem="I6g-cw-orr" secondAttribute="bottom" constant="50" id="OOz-5j-xRI"/>
-                            <constraint firstItem="p0j-Es-kf0" firstAttribute="centerX" secondItem="X7B-YW-egH" secondAttribute="centerX" id="Rfh-aC-Wu6"/>
-                            <constraint firstItem="QIF-wW-sDv" firstAttribute="leading" secondItem="NDe-5A-F7o" secondAttribute="leading" constant="8" id="SDO-9m-RgT"/>
-                            <constraint firstItem="Fpw-Wf-lz0" firstAttribute="centerX" secondItem="NDe-5A-F7o" secondAttribute="centerX" id="Ypx-nh-f1T"/>
-                            <constraint firstItem="Q7U-4X-6aV" firstAttribute="leading" secondItem="NDe-5A-F7o" secondAttribute="leading" constant="20" id="ZgL-vp-fO3"/>
-                            <constraint firstItem="QIF-wW-sDv" firstAttribute="top" secondItem="NDe-5A-F7o" secondAttribute="top" constant="8" id="Zsb-Vg-4u0"/>
-                            <constraint firstItem="dXO-zq-10v" firstAttribute="centerX" secondItem="NDe-5A-F7o" secondAttribute="centerX" id="cjl-cK-vmf"/>
-                            <constraint firstItem="aFK-d9-IDY" firstAttribute="top" secondItem="Fpw-Wf-lz0" secondAttribute="bottom" constant="20" id="k3D-OR-xnp"/>
-                            <constraint firstItem="dXO-zq-10v" firstAttribute="centerY" secondItem="NDe-5A-F7o" secondAttribute="centerY" id="xcM-Qg-ghs"/>
-                        </constraints>
-                    </view>
-                    <connections>
-                        <outlet property="compassView" destination="dXO-zq-10v" id="qU1-fn-cny"/>
-                        <outlet property="connectionLabel" destination="Fpw-Wf-lz0" id="VUb-Mb-y3c"/>
-                        <outlet property="highLabel" destination="X7B-YW-egH" id="63R-NR-ULC"/>
-                        <outlet property="lowLabel" destination="mrr-lq-N0w" id="hyt-ao-KEG"/>
-                        <outlet property="middleLabel" destination="p0j-Es-kf0" id="dC6-pL-qHG"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="2FB-YL-paE" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="682" y="351"/>
-        </scene>
         <!--PickDJ View Controller-->
         <scene sceneID="v83-lX-vBq">
             <objects>
@@ -284,6 +196,84 @@
             </objects>
             <point key="canvasLocation" x="-19" y="-308"/>
         </scene>
+        <!--Instruments View Controller-->
+        <scene sceneID="RxL-yW-rXa">
+            <objects>
+                <viewController storyboardIdentifier="InstrumentsViewController" id="x8l-Qe-jsB" customClass="InstrumentsViewController" customModule="Soundarama" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="dbu-iU-eBE"/>
+                        <viewControllerLayoutGuide type="bottom" id="Ei2-uS-487"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="3A5-Ka-Dqu">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bg" translatesAutoresizingMaskIntoConstraints="NO" id="whf-9w-4PZ">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                            </imageView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pHP-fg-Dzo" customClass="LevelCompassView" customModule="Soundarama" customModuleProvider="target">
+                                <rect key="frame" x="86" y="86" width="428" height="428"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="pHP-fg-Dzo" secondAttribute="height" multiplier="1:1" id="ne1-S5-0gt"/>
+                                </constraints>
+                            </view>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Image" translatesAutoresizingMaskIntoConstraints="NO" id="nez-Kz-pKi">
+                                <rect key="frame" x="163" y="534" width="274" height="58"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="58" id="D5s-cQ-W3k"/>
+                                </constraints>
+                            </imageView>
+                            <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Image" translatesAutoresizingMaskIntoConstraints="NO" id="Axl-DH-2n2">
+                                <rect key="frame" x="117" y="236" width="303" height="128"/>
+                            </imageView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="OKh-N8-0Ia" customClass="LevelCompassView" customModule="Soundarama" customModuleProvider="target">
+                                <rect key="frame" x="100" y="100" width="400" height="400"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                            </view>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NY4-7y-euX">
+                                <rect key="frame" x="12" y="12" width="25" height="25"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="25" id="D4S-44-DyD"/>
+                                    <constraint firstAttribute="height" constant="25" id="JC0-fM-UHq"/>
+                                </constraints>
+                                <state key="normal" image="back-btn"/>
+                                <connections>
+                                    <action selector="didPressBackButton:" destination="x8l-Qe-jsB" eventType="touchUpInside" id="jim-LI-RA4"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="pHP-fg-Dzo" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="whf-9w-4PZ" secondAttribute="leading" constant="20" id="3Ru-LD-Cws"/>
+                            <constraint firstItem="nez-Kz-pKi" firstAttribute="centerX" secondItem="3A5-Ka-Dqu" secondAttribute="centerX" id="8X5-rS-cPs"/>
+                            <constraint firstItem="whf-9w-4PZ" firstAttribute="leading" secondItem="3A5-Ka-Dqu" secondAttribute="leading" id="9ZP-a8-W1w"/>
+                            <constraint firstItem="pHP-fg-Dzo" firstAttribute="trailing" relation="lessThanOrEqual" secondItem="whf-9w-4PZ" secondAttribute="trailing" constant="-20" id="GpL-5w-duA"/>
+                            <constraint firstItem="NY4-7y-euX" firstAttribute="leading" secondItem="3A5-Ka-Dqu" secondAttribute="leading" constant="12" id="JbP-uv-Ot5"/>
+                            <constraint firstItem="pHP-fg-Dzo" firstAttribute="centerX" secondItem="3A5-Ka-Dqu" secondAttribute="centerX" id="Lzb-iI-oJu"/>
+                            <constraint firstAttribute="trailing" secondItem="whf-9w-4PZ" secondAttribute="trailing" id="NTg-fQ-Tl8"/>
+                            <constraint firstItem="nez-Kz-pKi" firstAttribute="top" secondItem="pHP-fg-Dzo" secondAttribute="bottom" constant="20" id="REg-C4-tXc"/>
+                            <constraint firstItem="whf-9w-4PZ" firstAttribute="top" secondItem="3A5-Ka-Dqu" secondAttribute="top" id="YGS-Cv-WT0"/>
+                            <constraint firstItem="NY4-7y-euX" firstAttribute="top" secondItem="3A5-Ka-Dqu" secondAttribute="top" constant="12" id="bht-lQ-p9s"/>
+                            <constraint firstItem="Ei2-uS-487" firstAttribute="top" secondItem="whf-9w-4PZ" secondAttribute="bottom" id="cf7-Oo-9RM"/>
+                            <constraint firstItem="Ei2-uS-487" firstAttribute="top" secondItem="nez-Kz-pKi" secondAttribute="bottom" constant="8" id="dhx-J0-HHx"/>
+                            <constraint firstItem="pHP-fg-Dzo" firstAttribute="centerY" secondItem="3A5-Ka-Dqu" secondAttribute="centerY" id="iNZ-NX-FuM"/>
+                        </constraints>
+                        <variation key="default">
+                            <mask key="subviews">
+                                <exclude reference="Axl-DH-2n2"/>
+                                <exclude reference="OKh-N8-0Ia"/>
+                            </mask>
+                        </variation>
+                    </view>
+                    <connections>
+                        <outlet property="levelCompassView" destination="pHP-fg-Dzo" id="aTB-YV-has"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="hrN-V0-Oda" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="367" y="363"/>
+        </scene>
         <!--PickDJ View Controller i Pad Background View Controller-->
         <scene sceneID="fq4-qN-SZ3">
             <objects>
@@ -329,6 +319,10 @@
         <scene sceneID="ESO-bv-xqM">
             <objects>
                 <viewController storyboardIdentifier="PickDJViewController" id="1By-Ih-44U" customClass="PickDJViewController" customModule="Soundarama" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="wPJ-3w-ewg"/>
+                        <viewControllerLayoutGuide type="bottom" id="8QW-40-22j"/>
+                    </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="131-Xe-ypW">
                         <rect key="frame" x="0.0" y="0.0" width="275" height="275"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -508,6 +502,9 @@
         </scene>
     </scenes>
     <resources>
+        <image name="Image" width="274" height="45"/>
+        <image name="back-btn" width="13" height="22"/>
+        <image name="bg" width="375" height="667"/>
         <image name="bg-robot-wars" width="1366" height="1024"/>
         <image name="checkmark" width="39" height="30"/>
     </resources>

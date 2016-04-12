@@ -9,16 +9,6 @@
 import UIKit
 import TouchpressUI
 
-protocol ColoredUserInterface: class {
-    
-    func setColor(color: UIColor)
-}
-
-protocol ConnectionUserInterface: UserInterface {
-    
-    func setConnectionState(state: ConnectionState)
-}
-
 protocol LevelUserInterface: class {
     
     func setLevel(level: Level)
@@ -31,43 +21,32 @@ protocol CompassUserInterface: class {
 
 class InstrumentsViewController: ViewController {
         
-    @IBOutlet weak var compassView: UIView!
-    
-    @IBOutlet weak var highLabel: UILabel!
-    
-    @IBOutlet weak var middleLabel: UILabel!
-    
-    @IBOutlet weak var lowLabel: UILabel!
-    
-    @IBOutlet weak var connectionLabel: UILabel!
-    
+    @IBOutlet weak var levelCompassView: LevelCompassView!
+
     @IBAction func didPressBackButton(sender: AnyObject) { userInterfaceDelegate?.userInterfaceDidNavigateBack(self)}
     
+    var dirtyCalibrated = false
 }
 
 extension InstrumentsViewController: LevelUserInterface {
     
     func setLevel(level: Level) {
         
+        levelCompassView.setLevel(level)
+        
         switch level {
             
         case .High:
             
-            highLabel.hidden = false
-            middleLabel.hidden = true
-            lowLabel.hidden = true
+            debugPrint("H")
             
         case .Middle:
             
-            highLabel.hidden = true
-            middleLabel.hidden = false
-            lowLabel.hidden = true
+            debugPrint("M")
             
         case .Low:
             
-            highLabel.hidden = true
-            middleLabel.hidden = true
-            lowLabel.hidden = false
+            debugPrint("L")
         }
     }
 }
@@ -77,26 +56,18 @@ extension InstrumentsViewController: CompassUserInterface {
     func setCompassValue(value: Double) {
         
         let radians = CGFloat((M_PI * value) / 180)
-                
-        UIView.animateWithDuration(0.1) { [weak self] in
+        
+        guard dirtyCalibrated == true else {
             
-            self?.compassView.transform = CGAffineTransformMakeRotation(radians)
+            levelCompassView.transform = CGAffineTransformMakeRotation(-radians)
+            dirtyCalibrated = true
+            return
         }
-    }
-}
-
-extension InstrumentsViewController: ColoredUserInterface {
-    
-    func setColor(color: UIColor) {
         
-        (compassView as! ColoredUserInterface).setColor(color)
-    }
-}
-
-extension InstrumentsViewController: ConnectionUserInterface {
-    
-    func setConnectionState(state: ConnectionState) {
+        UIView.animateWithDuration(0.1) { [weak self] in
         
-       connectionLabel.text = state == .Connected ? "Connected" : "Not Connected"
+            self?.levelCompassView.transform = CGAffineTransformMakeRotation(-radians)
+        }
+ 
     }
 }

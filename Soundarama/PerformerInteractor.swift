@@ -353,11 +353,19 @@ extension PerformerInteractor {
     private func startInstruments() {
         
         var c: Double?
+        var first_reading = true
         
         compass.start() { [weak self] in
             
             guard let this = self else {
                 
+                return
+            }
+            
+            guard first_reading == false else {
+                
+                // The first reading is bullshit.
+                first_reading = false
                 return
             }
             

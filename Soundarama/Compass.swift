@@ -43,7 +43,7 @@ extension Compass: CLLocationManagerDelegate {
     
     func locationManager(manager: CLLocationManager, didUpdateHeading newHeading: CLHeading) {
         
-        heading = newHeading.trueHeading
+        heading = newHeading.magneticHeading
         handler(heading: newHeading.trueHeading)
     }
 }
