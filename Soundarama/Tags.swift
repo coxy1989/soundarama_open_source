@@ -30,3 +30,10 @@ enum LevelTag: String {
     
     case Low = "Level:LOW"
 }
+
+enum ChargeTag: String {
+    
+    case GT = "Level:HIGH"
+    
+    case LT = "Level:MIDDLE"
+}

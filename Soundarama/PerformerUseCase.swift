@@ -31,6 +31,8 @@ protocol PerformerInstrumentsOutput: class {
     
     func setCompassValue(value: Double)
     
+    func setCharge(value: Double)
+    
     func setLevel(level: Level)
     
     func setColor(color: UIColor)

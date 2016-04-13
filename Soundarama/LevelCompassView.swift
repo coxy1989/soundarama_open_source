@@ -10,7 +10,7 @@ import UIKit
 
 class LevelCompassView: UIView {
     
-    private var level: Level = .Middle
+    private var level: Level = .High
     
     private lazy var north_point: UIView = {
        
@@ -90,22 +90,22 @@ class LevelCompassView: UIView {
         
         let sl0 = CAShapeLayer()
         sl0.lineWidth = 2
-        sl0.strokeColor = UIColor.whiteColor().CGColor
-        sl0.fillColor = UIColor.whiteColor().CGColor
+        sl0.strokeColor = UIColor.clearColor().CGColor
+        sl0.fillColor = UIColor.clearColor().CGColor
         layer.addSublayer(sl0)
         sl0.path = UIBezierPath(ovalInRect: CGRectInset(bounds, bounds.size.width * c0, bounds.size.height * c0)).CGPath
         
         let sl1 = CAShapeLayer()
         sl1.lineWidth = 2
         sl1.fillColor = UIColor.clearColor().CGColor
-        sl1.strokeColor = UIColor.whiteColor().CGColor
+        sl1.strokeColor = UIColor.clearColor().CGColor
         layer.addSublayer(sl1)
         sl1.path = UIBezierPath(ovalInRect: CGRectInset(bounds, bounds.size.width * c1, bounds.size.height * c1)).CGPath
         
         let sl2 = CAShapeLayer()
         sl2.lineWidth = 2
         sl2.fillColor = UIColor.clearColor().CGColor
-        sl2.strokeColor = UIColor.whiteColor().CGColor
+        sl2.strokeColor = UIColor.clearColor().CGColor
         layer.addSublayer(sl2)
         sl2.path = UIBezierPath(ovalInRect: CGRectInset(bounds, bounds.size.width * c2, bounds.size.height * c2)).CGPath
         

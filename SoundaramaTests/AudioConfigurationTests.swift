@@ -7,12 +7,11 @@
 //
 
 import XCTest
-
 @testable import Soundarama
 
 class AudioConfigurationTests: XCTestCase {
     
-    let config = AudioConfiguration.getConfiguration()
+    let config = AudioConfigurationStore.getConfiguration()
 }
 
 extension AudioConfigurationTests {

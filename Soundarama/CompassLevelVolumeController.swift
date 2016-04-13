@@ -14,7 +14,7 @@ struct CompassLevelVolumeController {
     
     private static let contains_com: (Set<String>, CompassTag) -> Bool = { $0.contains($1.rawValue) }
 
-    static func calculateVolume(paths:Set<TaggedAudioPath>, compassValue: Double, level: Level) -> [ TaggedAudioPath :  Volume ]{
+    static func calculateVolume(paths:Set<TaggedAudioPath>, compassValue: Double, level: Level) -> [ TaggedAudioPath :  Volume ] {
     
         var ret: [TaggedAudioPath : Volume] = [ : ]
         
@@ -49,6 +49,7 @@ struct CompassLevelVolumeController {
         n_high.forEach() { ret[$0] =  Float( (1 - compass_transform)) }
         
         s_high.forEach() { ret[$0] =  Float( compass_transform) }
+        
         
         return ret
     }

@@ -33,12 +33,13 @@ class MultiAudioLoop {
         let player = try! AVAudioPlayer(contentsOfURL: NSURL(fileURLWithPath: Array(volume_map.keys).head))
         let playtime = player.deviceCurrentTime + delay
         player.currentTime = atTime
+        player.volume = 0
         
         volume_map.forEach { p, v in
             
             let player = try! AVAudioPlayer(contentsOfURL: NSURL(fileURLWithPath: p))
             player.currentTime = atTime
-            player.volume = v
+            player.volume = 0
             player.playAtTime(playtime)
             current_players_map[p] = player
             loop(player, path: p, playtime: playtime, currentTime: atTime)

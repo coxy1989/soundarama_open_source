@@ -9,6 +9,46 @@
 import XCTest
 @testable import Soundarama
 
+class CompassChargeVolumeControllerTests: XCTestCase {
+
+    var tagged_paths: Set<TaggedAudioPath>!
+    
+    let north_gt_tags = Set([CompassTag.North.rawValue, ChargeTag.GT.rawValue])
+    let north_lt_tags = Set([CompassTag.North.rawValue, ChargeTag.LT.rawValue])
+    let south_gt_tags = Set([CompassTag.South.rawValue, ChargeTag.GT.rawValue])
+    let south_lt_tags = Set([CompassTag.South.rawValue, ChargeTag.LT.rawValue])
+    
+    var north_gt: TaggedAudioPath!
+    var north_lt: TaggedAudioPath!
+    var south_gt: TaggedAudioPath!
+    var south_lt: TaggedAudioPath!
+    
+    override func setUp() {
+        
+        super.setUp()
+        
+        north_gt = TaggedAudioPath(tags: north_gt_tags, path: "x", loopLength: 2)
+        north_lt = TaggedAudioPath(tags: north_lt_tags, path: "x", loopLength: 2)
+        south_gt = TaggedAudioPath(tags: south_gt_tags, path: "x", loopLength: 2)
+        south_lt = TaggedAudioPath(tags: south_lt_tags, path: "x", loopLength: 2)
+        tagged_paths = Set([north_gt, north_lt, south_gt, south_lt])
+    }
+}
+
+extension CompassChargeVolumeControllerTests {
+    
+    func test_compass_north_charge_lt_threshold() {
+        
+        let ret = CompassChargeVolumeController.calculateVolume(tagged_paths, compassValue: 0, charge:0, threshold: 1)
+        
+        XCTAssertEqual(ret[south_gt], 0)
+        XCTAssertEqual(ret[south_lt], 0)
+        XCTAssertEqual(ret[north_gt], 0)
+        
+        XCTAssertEqual(ret[north_lt], 1)
+    }
+}
+
 class CompassLevelVolumeControllerTests: XCTestCase {
 
     var tagged_paths: Set<TaggedAudioPath>!

@@ -17,7 +17,7 @@ class PerformerInteractor {
     
     private let compass = Compass(locationManager: LocationService.manager)
     
-    private let flickometer = Flickometer(accellerometer: Accellerometer(motionManager: MotionService.manager))
+    private let danceometer = Danceometer(accellerometer: Accellerometer(motionManager: MotionService.manager))
     
     private let audioStemStore = AudioStemStore()
     
@@ -170,6 +170,8 @@ extension PerformerInteractor: PerformerInstrumentsInput {
         
         startInstruments()
         performerInstrumentsOutput.setLevel(levelStore.getLevel())
+        
+        startAudio(TaggedAudioPathStore.taggedAudioPaths("Kick"), afterDelay: 2, atTime: 0, muted: false)
     }
 }
 
@@ -369,24 +371,31 @@ extension PerformerInteractor {
             
             c = $0
             this.performerInstrumentsOutput.setCompassValue($0)
-            this.controlAudioLoopVolume($0, level: this.levelStore.getLevel())
         }
         
-        flickometer.start() { [weak self] in
+        danceometer.start() { [weak self] in
             
             guard let this = self else {
                 
                 return
             }
             
-            switch $0 {
+            this.performerInstrumentsOutput.setCharge($0)
+            
+            guard let al = this.audioloop else {
                 
-                case .Up: this.changeLevel(this.levelStore.getLevel().levelUp())
-                
-                case .Down: this.changeLevel(this.levelStore.getLevel().levelDown())
+                return
             }
             
-            this.controlAudioLoopVolume(c, level: this.levelStore.getLevel())
+            guard let com = c else {
+                
+                return
+            }
+            
+            CompassChargeVolumeController.calculateVolume(al.paths, compassValue: com, charge: $0, threshold: 0.5).forEach() {
+                
+                al.loop.setVolume($0.path, volume: $1)
+            }
         }
     }
     
@@ -421,7 +430,7 @@ extension PerformerInteractor: ChristiansProcessDelegate {
         endpoint.readableDelegate = self
         connectionState = .Connected
         performerDJPickerOutput.set(self.endpoint?.0, state: connectionState, identifiers: availableIdentifiers(), isReachable: wifiReachability.isReachable())
-        debugPrint(christiansMap)
+        /* debugPrint(christiansMap) */
     }
 }
 

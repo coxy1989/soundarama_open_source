@@ -127,6 +127,9 @@
 		42F99EA71CA1BC1E0058F7AC /* TouchpressFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 42F99EA61CA1BC1E0058F7AC /* TouchpressFoundation.framework */; };
 		42F99EA91CA1BC230058F7AC /* TouchpressUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 42F99EA81CA1BC230058F7AC /* TouchpressUI.framework */; };
 		42FC502A1CAD832E00591803 /* BroadcastStateTransformer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42FC50291CAD832E00591803 /* BroadcastStateTransformer.swift */; };
+		42FDDD111CBD58A400776C06 /* Danceometer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42FDDD101CBD58A400776C06 /* Danceometer.swift */; };
+		42FDDD131CBE429F00776C06 /* ChargerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42FDDD121CBE429F00776C06 /* ChargerView.swift */; };
+		42FDDD151CBE80CF00776C06 /* CompassChargeVolumeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42FDDD141CBE80CF00776C06 /* CompassChargeVolumeController.swift */; };
 		DFBAD41F1C64C346004C1D47 /* SpringMesh.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFBAD41E1C64C346004C1D47 /* SpringMesh.swift */; };
 		E20B94681C1753B900222A2B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E20B94641C1753B900222A2B /* Assets.xcassets */; };
 		E20B946C1C1753C800222A2B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E20B946A1C1753C800222A2B /* LaunchScreen.storyboard */; };
@@ -282,6 +285,9 @@
 		42F99EA61CA1BC1E0058F7AC /* TouchpressFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = TouchpressFoundation.framework; path = Carthage/Build/iOS/TouchpressFoundation.framework; sourceTree = "<group>"; };
 		42F99EA81CA1BC230058F7AC /* TouchpressUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = TouchpressUI.framework; path = Carthage/Build/iOS/TouchpressUI.framework; sourceTree = "<group>"; };
 		42FC50291CAD832E00591803 /* BroadcastStateTransformer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BroadcastStateTransformer.swift; sourceTree = "<group>"; };
+		42FDDD101CBD58A400776C06 /* Danceometer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Danceometer.swift; sourceTree = "<group>"; };
+		42FDDD121CBE429F00776C06 /* ChargerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChargerView.swift; sourceTree = "<group>"; };
+		42FDDD141CBE80CF00776C06 /* CompassChargeVolumeController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CompassChargeVolumeController.swift; sourceTree = "<group>"; };
 		DFBAD41E1C64C346004C1D47 /* SpringMesh.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpringMesh.swift; sourceTree = "<group>"; };
 		E20B94641C1753B900222A2B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Assets.xcassets; path = Resources/Assets.xcassets; sourceTree = "<group>"; };
 		E20B946B1C1753C800222A2B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Resources/Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -347,6 +353,7 @@
 		4207563A1CA00DE400A4666A /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				42FDDD121CBE429F00776C06 /* ChargerView.swift */,
 				4207563B1CA00E0400A4666A /* CompassView.swift */,
 				427B05C31CBBB71B0009EF75 /* LevelCompassView.swift */,
 			);
@@ -587,11 +594,13 @@
 		42B3D1E81C99B2540065842D /* Instrumentation */ = {
 			isa = PBXGroup;
 			children = (
+				42FDDD141CBE80CF00776C06 /* CompassChargeVolumeController.swift */,
 				42B3D1E91C99B3130065842D /* CompassLevelVolumeController.swift */,
 				42B3D1ED1C99CDF00065842D /* Compass.swift */,
 				42B3D1EF1C99D7D80065842D /* Altimeter.swift */,
 				428AF2A71CA02DA80023FCC9 /* Accelerometer.swift */,
 				42889BF41CA0468B00ACC3B9 /* Flickometer.swift */,
+				42FDDD101CBD58A400776C06 /* Danceometer.swift */,
 			);
 			name = Instrumentation;
 			sourceTree = "<group>";
@@ -972,6 +981,7 @@
 				42AFC6571C554F5A00AD4B9B /* DJUseCase.swift in Sources */,
 				428AF2AE1CA032BF0023FCC9 /* Level.swift in Sources */,
 				4249B59D1C5797920096872D /* ChristiansTimeServer.swift in Sources */,
+				42FDDD151CBE80CF00776C06 /* CompassChargeVolumeController.swift in Sources */,
 				428AF2AC1CA0327C0023FCC9 /* ConnectionState.swift in Sources */,
 				429EC9671C84770C002FDBCC /* SwiftyJSON.swift in Sources */,
 				421468551C56345700892786 /* TP2P.swift in Sources */,
@@ -1019,6 +1029,7 @@
 				42A727B41C552E7400BFCA47 /* DJPresenter.swift in Sources */,
 				429EC95B1C84761F002FDBCC /* PerformerView.swift in Sources */,
 				42C1D2261CAAC5CA005D0347 /* MessageTransformer.swift in Sources */,
+				42FDDD111CBD58A400776C06 /* Danceometer.swift in Sources */,
 				421468641C567E9600892786 /* SearchStrategy.swift in Sources */,
 				429EC9651C8476A1002FDBCC /* VolumeControl.m in Sources */,
 				4249B59F1C57979E0096872D /* ChristiansProcess.swift in Sources */,
@@ -1042,6 +1053,7 @@
 				422EB05C1C8DC39500B27134 /* UIAudioStemTransformer.swift in Sources */,
 				42C1D2241CAA9DCE005D0347 /* MessageDeserializer.swift in Sources */,
 				420AA6A91C55236F00F7BB25 /* DecideUserInterface.swift in Sources */,
+				42FDDD131CBE429F00776C06 /* ChargerView.swift in Sources */,
 				42ED6C631CABFDA4002A7211 /* BroadcastService.swift in Sources */,
 				425498E51C987FB500793640 /* TableViewCells.swift in Sources */,
 				4207563C1CA00E0400A4666A /* CompassView.swift in Sources */,

@@ -38,6 +38,7 @@ class PerformerWireframe {
         presenter.compassUI = nil
         presenter.levelUI = nil
         presenter.coloredUI = nil
+        presenter.chargingUI = nil
         navigationController?.popViewControllerAnimated(true)
     }
 }
@@ -77,6 +78,7 @@ extension PerformerWireframe {
         performerPresenter.compassUI = vc
         performerPresenter.levelUI = vc
         performerPresenter.coloredUI = vc
+        performerPresenter.chargingUI = vc
         return vc
     }
     

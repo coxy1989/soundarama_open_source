@@ -208,66 +208,50 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bg" translatesAutoresizingMaskIntoConstraints="NO" id="whf-9w-4PZ">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bg" translatesAutoresizingMaskIntoConstraints="NO" id="AJb-4F-miM">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                             </imageView>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pHP-fg-Dzo" customClass="LevelCompassView" customModule="Soundarama" customModuleProvider="target">
-                                <rect key="frame" x="86" y="86" width="428" height="428"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="IRr-Tg-YW5" customClass="LevelCompassView" customModule="Soundarama" customModuleProvider="target">
+                                <rect key="frame" x="175" y="175" width="250" height="250"/>
+                                <subviews>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="giF-dY-YF3">
+                                        <rect key="frame" x="0.0" y="0.0" width="250" height="250"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    </view>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BEz-yR-s05" customClass="BorderedCircleView" customModule="Soundarama" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="0.0" width="250" height="250"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                    </view>
+                                </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" secondItem="pHP-fg-Dzo" secondAttribute="height" multiplier="1:1" id="ne1-S5-0gt"/>
+                                    <constraint firstItem="giF-dY-YF3" firstAttribute="top" secondItem="IRr-Tg-YW5" secondAttribute="top" id="2Qw-eH-9h1"/>
+                                    <constraint firstAttribute="bottom" secondItem="giF-dY-YF3" secondAttribute="bottom" id="BXj-FT-R15"/>
+                                    <constraint firstAttribute="trailing" secondItem="giF-dY-YF3" secondAttribute="trailing" id="Fo7-yL-Dgj"/>
+                                    <constraint firstItem="BEz-yR-s05" firstAttribute="leading" secondItem="IRr-Tg-YW5" secondAttribute="leading" id="Lzu-1S-uzv"/>
+                                    <constraint firstAttribute="bottom" secondItem="BEz-yR-s05" secondAttribute="bottom" id="YAd-aG-4Uj"/>
+                                    <constraint firstAttribute="trailing" secondItem="BEz-yR-s05" secondAttribute="trailing" id="dD0-Rk-RPQ"/>
+                                    <constraint firstItem="giF-dY-YF3" firstAttribute="leading" secondItem="IRr-Tg-YW5" secondAttribute="leading" id="gaa-jT-KdA"/>
+                                    <constraint firstAttribute="width" secondItem="IRr-Tg-YW5" secondAttribute="height" multiplier="1:1" id="mRY-lx-9rH"/>
+                                    <constraint firstAttribute="width" constant="250" id="oaS-l8-8PW"/>
+                                    <constraint firstItem="BEz-yR-s05" firstAttribute="top" secondItem="IRr-Tg-YW5" secondAttribute="top" id="wjg-xK-nKc"/>
                                 </constraints>
                             </view>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Image" translatesAutoresizingMaskIntoConstraints="NO" id="nez-Kz-pKi">
-                                <rect key="frame" x="163" y="534" width="274" height="58"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="58" id="D5s-cQ-W3k"/>
-                                </constraints>
-                            </imageView>
-                            <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Image" translatesAutoresizingMaskIntoConstraints="NO" id="Axl-DH-2n2">
-                                <rect key="frame" x="117" y="236" width="303" height="128"/>
-                            </imageView>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="OKh-N8-0Ia" customClass="LevelCompassView" customModule="Soundarama" customModuleProvider="target">
-                                <rect key="frame" x="100" y="100" width="400" height="400"/>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                            </view>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NY4-7y-euX">
-                                <rect key="frame" x="12" y="12" width="25" height="25"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="25" id="D4S-44-DyD"/>
-                                    <constraint firstAttribute="height" constant="25" id="JC0-fM-UHq"/>
-                                </constraints>
-                                <state key="normal" image="back-btn"/>
-                                <connections>
-                                    <action selector="didPressBackButton:" destination="x8l-Qe-jsB" eventType="touchUpInside" id="jim-LI-RA4"/>
-                                </connections>
-                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="pHP-fg-Dzo" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="whf-9w-4PZ" secondAttribute="leading" constant="20" id="3Ru-LD-Cws"/>
-                            <constraint firstItem="nez-Kz-pKi" firstAttribute="centerX" secondItem="3A5-Ka-Dqu" secondAttribute="centerX" id="8X5-rS-cPs"/>
-                            <constraint firstItem="whf-9w-4PZ" firstAttribute="leading" secondItem="3A5-Ka-Dqu" secondAttribute="leading" id="9ZP-a8-W1w"/>
-                            <constraint firstItem="pHP-fg-Dzo" firstAttribute="trailing" relation="lessThanOrEqual" secondItem="whf-9w-4PZ" secondAttribute="trailing" constant="-20" id="GpL-5w-duA"/>
-                            <constraint firstItem="NY4-7y-euX" firstAttribute="leading" secondItem="3A5-Ka-Dqu" secondAttribute="leading" constant="12" id="JbP-uv-Ot5"/>
-                            <constraint firstItem="pHP-fg-Dzo" firstAttribute="centerX" secondItem="3A5-Ka-Dqu" secondAttribute="centerX" id="Lzb-iI-oJu"/>
-                            <constraint firstAttribute="trailing" secondItem="whf-9w-4PZ" secondAttribute="trailing" id="NTg-fQ-Tl8"/>
-                            <constraint firstItem="nez-Kz-pKi" firstAttribute="top" secondItem="pHP-fg-Dzo" secondAttribute="bottom" constant="20" id="REg-C4-tXc"/>
-                            <constraint firstItem="whf-9w-4PZ" firstAttribute="top" secondItem="3A5-Ka-Dqu" secondAttribute="top" id="YGS-Cv-WT0"/>
-                            <constraint firstItem="NY4-7y-euX" firstAttribute="top" secondItem="3A5-Ka-Dqu" secondAttribute="top" constant="12" id="bht-lQ-p9s"/>
-                            <constraint firstItem="Ei2-uS-487" firstAttribute="top" secondItem="whf-9w-4PZ" secondAttribute="bottom" id="cf7-Oo-9RM"/>
-                            <constraint firstItem="Ei2-uS-487" firstAttribute="top" secondItem="nez-Kz-pKi" secondAttribute="bottom" constant="8" id="dhx-J0-HHx"/>
-                            <constraint firstItem="pHP-fg-Dzo" firstAttribute="centerY" secondItem="3A5-Ka-Dqu" secondAttribute="centerY" id="iNZ-NX-FuM"/>
+                            <constraint firstItem="IRr-Tg-YW5" firstAttribute="centerX" secondItem="3A5-Ka-Dqu" secondAttribute="centerX" id="6m9-1o-wHg"/>
+                            <constraint firstAttribute="trailing" secondItem="AJb-4F-miM" secondAttribute="trailing" id="EeC-TW-De7"/>
+                            <constraint firstItem="AJb-4F-miM" firstAttribute="leading" secondItem="3A5-Ka-Dqu" secondAttribute="leading" id="Glg-9P-wHy"/>
+                            <constraint firstItem="Ei2-uS-487" firstAttribute="top" secondItem="AJb-4F-miM" secondAttribute="bottom" id="QOJ-QP-CNm"/>
+                            <constraint firstItem="AJb-4F-miM" firstAttribute="top" secondItem="3A5-Ka-Dqu" secondAttribute="top" id="RNg-b8-6OI"/>
+                            <constraint firstItem="IRr-Tg-YW5" firstAttribute="centerY" secondItem="3A5-Ka-Dqu" secondAttribute="centerY" id="bla-KD-9oO"/>
                         </constraints>
-                        <variation key="default">
-                            <mask key="subviews">
-                                <exclude reference="Axl-DH-2n2"/>
-                                <exclude reference="OKh-N8-0Ia"/>
-                            </mask>
-                        </variation>
                     </view>
                     <connections>
-                        <outlet property="levelCompassView" destination="pHP-fg-Dzo" id="aTB-YV-has"/>
+                        <outlet property="circleView" destination="giF-dY-YF3" id="Od1-s7-iQb"/>
+                        <outlet property="compassView" destination="IRr-Tg-YW5" id="4Zd-QW-MQu"/>
+                        <outlet property="dashedCircleView" destination="BEz-yR-s05" id="1g5-XM-dHn"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hrN-V0-Oda" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -502,8 +486,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="Image" width="274" height="45"/>
-        <image name="back-btn" width="13" height="22"/>
         <image name="bg" width="375" height="667"/>
         <image name="bg-robot-wars" width="1366" height="1024"/>
         <image name="checkmark" width="39" height="30"/>

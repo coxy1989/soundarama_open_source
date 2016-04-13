@@ -23,12 +23,15 @@ class PerformerPresenter: PerformerModule {
     
     weak var coloredUI: ColoredUserInteface?
     
+    weak var chargingUI: ChargingUserInteface?
+    
     weak var pickDJUI: PickDJUserInterface?
     
     func start(navigationController: UINavigationController) {
         
         performerWireframe.navigationController = navigationController
-        performerWireframe.presentDJPickerUI(self)
+        //performerWireframe.presentDJPickerUI(self)
+        performerWireframe.presentInstrumentsUI(self)
     }
 }
 
@@ -37,6 +40,11 @@ extension PerformerPresenter: PerformerInstrumentsOutput {
     func setCompassValue(value: Double) {
         
         compassUI?.setCompassValue(value)
+    }
+    
+    func setCharge(value: Double) {
+        
+        chargingUI?.setCharge(value)
     }
     
     func setLevel(level: Level) {
