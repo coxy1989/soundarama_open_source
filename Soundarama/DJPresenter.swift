@@ -9,7 +9,7 @@
 import UIKit
 import TouchpressUI
 
-class DJPresenter: DJModule {
+class DJPresenter { //: DJModule {
     
     weak var djWireframe: DJWireframe!
     
@@ -25,9 +25,12 @@ class DJPresenter: DJModule {
     
     weak var djBroadcastConfigurationInput: DJBroadcastConfigurationInput!
     
-    func start(navigationController: UINavigationController) {
+    private var close: (() -> ())!
+    
+    func start(navigationController: UINavigationController, close: () -> ()) {
         
         djWireframe.presentDJUserInterface(navigationController)
+        self.close = close
     }
 }
 
@@ -160,6 +163,7 @@ extension DJPresenter: UserInterfaceDelegate {
             
             djWireframe.dismissDJUserInterface()
             djInput.stopDJ()
+            close()
         }
         
         else if userInterface === djAudioStemPickerUI {

@@ -8,7 +8,30 @@
 
 import UIKit
 
-protocol PerformerModule: class {
+class PerformerModule {
     
-    func start(navigationController: UINavigationController)
+    let wireframe = PerformerWireframe()
+    let presenter = PerformerPresenter()
+    let interactor = PerformerInteractor()
+
+    static func start(navigationController: UINavigationController, close: () -> ()) -> PerformerModule {
+        
+        let module = PerformerModule()
+        module.start(navigationController, close: close)
+        return module
+    }
+    
+    private func start(navigationController: UINavigationController, close: () -> ()) {
+        
+        presenter.start(navigationController, close: close)
+    }
+    
+    private init() {
+        
+        presenter.performerWireframe = wireframe
+        presenter.instrumentsInput = interactor
+        presenter.pickDJInput = interactor
+        interactor.performerDJPickerOutput = presenter
+        interactor.performerInstrumentsOutput = presenter
+    }
 }

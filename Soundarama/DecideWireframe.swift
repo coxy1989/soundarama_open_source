@@ -10,20 +10,10 @@ import UIKit
 
 class DecideWireframe {
     
-    enum Decision {
-        
-        case DJ, Performer
-    }
-    
-    weak var decidePresenter: DecidePresenter!
-    
-    weak var performerModule: PerformerModule!
-    
-    weak var djModule: DJModule!
-    
     private let window: UIWindow!
     
-    private lazy var nvc: UINavigationController = {
+    lazy var navigationController: UINavigationController = {
+        
         let nvc = UINavigationController()
         nvc.setNavigationBarHidden(true, animated: false)
         return nvc
@@ -34,25 +24,20 @@ class DecideWireframe {
         self.window = window
     }
     
-    func presentUI() {
+    func presentUI(presenter: DecidePresenter) {
         
-        window.rootViewController = nvc
+        window.rootViewController = navigationController
         window.makeKeyAndVisible()
-        nvc.setViewControllers([decideViewController()], animated: false)
-    }
-    
-    func decide(decision: Decision) {
-        
-        decision == .DJ ? djModule.start(nvc) : performerModule.start(nvc)
+        navigationController.setViewControllers([decideViewController(presenter)], animated: false)
     }
 }
 
 extension DecideWireframe {
     
-    private func decideViewController() -> UIViewController {
+    private func decideViewController(presenter: DecidePresenter) -> UIViewController {
         
         let vc = UIDevice.isPad() ? decideViewController_iPad() : decideViewController_iPhone()
-        vc.delegate = decidePresenter
+        vc.delegate = presenter
         return vc
     }
     

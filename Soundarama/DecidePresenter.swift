@@ -6,17 +6,30 @@
 //  Copyright © 2016 Touchpress Ltd. All rights reserved.
 //
 
-class DecidePresenter: DecideUserInterfaceDelegate {
+import UIKit
+
+class DecidePresenter { //: DecideModule {
     
     weak var decideWireframe: DecideWireframe!
     
+    var decision: ((Decision, UINavigationController) -> ())!
+    
+    func start(decision: (Decision, UINavigationController) -> ()) {
+        
+        self.decision = decision
+        decideWireframe.presentUI(self)
+    }
+}
+
+extension DecidePresenter: DecideUserInterfaceDelegate {
+    
     func decideUserInterfaceDidSelectDJ(decideUserInterface: DecideUserInterface) {
         
-        decideWireframe.decide(.DJ)
+        decision(.DJ, decideWireframe.navigationController)
     }
     
     func decideUserInterfaceDidSelectPerformer(decideUserInterface: DecideUserInterface) {
         
-        decideWireframe.decide(.Performer)
+        decision(.Performer, decideWireframe.navigationController)
     }
 }

@@ -13,17 +13,13 @@ import AVFoundation
 
 class AppDelegate: UIResponder, UIApplicationDelegate {
     
-    var window: UIWindow?
-    
     var soundarama: Soundarama!
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
      
         audioSetup()
         appSetup()
-        window = UIWindow(frame: UIScreen.mainScreen().bounds)
-        soundarama = Soundarama(window: window!, dependencies: SoundaramaDependencies())
-        soundarama.start()
+        soundarama = Soundarama.start(UIWindow(frame: UIScreen.mainScreen().bounds))
         return true
     }
 }

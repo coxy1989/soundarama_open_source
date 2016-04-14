@@ -6,69 +6,42 @@
 //  Copyright © 2016 Touchpress Ltd. All rights reserved.
 //
 
-/* Injection of internal VIPER dependencies */
-
 import UIKit
 
 class Soundarama {
     
-    let dependencies: SoundaramaDependencies!
+    private var decideModule: DecideModule!
     
-    private let decideWireframe: DecideWireframe!
-    private let decidePresenter = DecidePresenter()
-    private let decideInteractor = DecideInteractor()
+    private var djModule: DJModule?
+   
+    private var performerModule: PerformerModule?
     
-    private let performerWireframe = PerformerWireframe()
-    private let performerPresenter = PerformerPresenter()
-    private let performerInteractor = PerformerInteractor()
-    
-    private let djWireframe = DJWireframe()
-    private let djPresenter = DJPresenter()
-    private let djInteractor = DJInteractor()
-    
-    init(window: UIWindow, dependencies: SoundaramaDependencies) {
-    
-        self.dependencies = dependencies
-        decideWireframe = DecideWireframe(window: window)
-        setupDecideModule()
-        setupPerformerModule()
-        setupDjModule()
+    static func start(window: UIWindow) -> Soundarama {
+        
+        let soundarama = Soundarama()
+        soundarama.start(window)
+        return soundarama
     }
     
-    func start() {
+    private func start(window: UIWindow) {
         
-        decideWireframe.presentUI()
+        decideModule = DecideModule.start(window) { [unowned self] in $0.0 == .DJ ? self.startDJ($0.1) : self.startPerformer($0.1); return }
+    }
+    
+    private func startDJ(navigationController: UINavigationController) {
+        
+        djModule = DJModule.start(navigationController) { [unowned self] in
+            
+            self.djModule = nil
+        }
+    }
+    
+    private func startPerformer(navigationController: UINavigationController) {
+        
+        performerModule = PerformerModule.start(navigationController) { [unowned self] in
+            
+            self.performerModule = nil
+        }
     }
 }
 
-extension Soundarama {
-    
-    private func setupDecideModule() {
-        
-        decideWireframe.performerModule = performerPresenter
-        decideWireframe.djModule = djPresenter
-        decideWireframe.decidePresenter = decidePresenter
-        decidePresenter.decideWireframe = decideWireframe
-    }
-    
-    private func setupPerformerModule() {
-        
-        performerPresenter.instrumentsInput = performerInteractor
-        performerPresenter.pickDJInput = performerInteractor
-        performerPresenter.performerWireframe = performerWireframe
-        performerInteractor.performerDJPickerOutput = performerPresenter
-        performerInteractor.performerInstrumentsOutput = performerPresenter
-    }
-    
-    private func setupDjModule() {
-        
-        djPresenter.djWireframe = djWireframe
-        djWireframe.djPresenter = djPresenter
-        djPresenter.djInput = djInteractor
-        djPresenter.djAudioStemPickerInput = djInteractor
-        djInteractor.djOutput = djPresenter
-        djInteractor.djAudioStemPickerOutput = djPresenter
-        djInteractor.djBroadcastConfigurationOutput = djPresenter
-        djPresenter.djBroadcastConfigurationInput = djInteractor
-    }
-}

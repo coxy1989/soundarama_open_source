@@ -15,7 +15,7 @@ class DJInteractor {
     
     weak var djAudioStemPickerOutput: DJAudioStemPickerOutput!
     
-    weak var djBroadcastConfigurationOutput: DJBroadcastConfigurationOutput!
+    weak var djBroadcastConfigurationOutput: DJBroadcastConfigurationOutput?
     
     private let suiteStore = SuiteStore(number: UIDevice.isPad() ? 9 : 4)
     
@@ -45,7 +45,7 @@ extension DJInteractor: DJInput {
         let wifi_reachable = { [weak self] in
             
             self?.startNetworkIO()
-            self?.djBroadcastConfigurationOutput.setReachabilityState(true)
+            self?.djBroadcastConfigurationOutput?.setReachabilityState(true)
             self?.requestAddIdentifier(UIDevice.currentDevice().name)
             debugPrint("WiFi available")
         }
@@ -53,8 +53,8 @@ extension DJInteractor: DJInput {
         let wifi_unreachable = { [weak self] in
         
             self?.stopNetworkIO()
-            self?.djBroadcastConfigurationOutput.setIdentifiers([])
-            self?.djBroadcastConfigurationOutput.setReachabilityState(false)
+            self?.djBroadcastConfigurationOutput?.setIdentifiers([])
+            self?.djBroadcastConfigurationOutput?.setReachabilityState(false)
             self?.djOutput.setBroadcastStatusMessage("Not Broadcasting")
             debugPrint("WiFi unavailable")
         }
@@ -277,8 +277,8 @@ extension DJInteractor: DJBroadcastConfigurationInput {
         
         let reachable = wifiReachability.isReachable()
         let identifiers = reachable ? broadcastStore.getState().resolvableIdentifiers.sort() : []
-        djBroadcastConfigurationOutput.setIdentifiers(identifiers)
-        djBroadcastConfigurationOutput.setReachabilityState(reachable)
+        djBroadcastConfigurationOutput?.setIdentifiers(identifiers)
+        djBroadcastConfigurationOutput?.setReachabilityState(reachable)
     }
     
     func requestAddIdentifier(identifier: String) {
@@ -478,6 +478,6 @@ extension DJInteractor {
             djOutput.setBroadcastStatusMessage("Not Broadcasting")
         }
         
-        djBroadcastConfigurationOutput.setIdentifiers(toState.resolvableIdentifiers.sort())
+        djBroadcastConfigurationOutput?.setIdentifiers(toState.resolvableIdentifiers.sort())
     }
 }

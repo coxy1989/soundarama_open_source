@@ -9,7 +9,7 @@
 import UIKit
 import TouchpressUI
 
-class PerformerPresenter: PerformerModule {
+class PerformerPresenter {
     
     weak var performerWireframe: PerformerWireframe!
         
@@ -25,11 +25,13 @@ class PerformerPresenter: PerformerModule {
     
     weak var pickDJUI: PickDJUserInterface?
     
-    func start(navigationController: UINavigationController) {
+    private var close: (() -> ())!
+    
+    func start(navigationController: UINavigationController, close: () -> ()) {
         
+        self.close = close
         performerWireframe.navigationController = navigationController
-        //performerWireframe.presentDJPickerUI(self)
-        performerWireframe.presentInstrumentsUI(self)
+        performerWireframe.presentDJPickerUI(self)
     }
 }
 
@@ -79,6 +81,7 @@ extension PerformerPresenter: UserInterfaceDelegate {
         if userInterface === pickDJUI {
             
             performerWireframe.dismissDJPickerUI()
+            close()
         }
         
         else if userInterface === compassUI || userInterface === chargingUI {
