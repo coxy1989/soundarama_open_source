@@ -5,7 +5,7 @@
 //  Created by Jamie Cox on 21/03/2016.
 //  Copyright © 2016 Touchpress Ltd. All rights reserved.
 //
-
+/*
 class LevelStore {
     
     private var level: Level = .Middle
@@ -37,3 +37,4 @@ class LevelStore {
     }
 }
 
+*/

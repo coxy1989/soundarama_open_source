@@ -42,7 +42,7 @@ class SuiteStore {
         
         guard let workspace = suite.filter({ $0.performers.contains(performer)}).first else {
             
-            print("performer has no workspace to be removed from")
+            debugPrint("performer has no workspace to be removed from")
             return
         }
         
@@ -92,25 +92,25 @@ class SuiteStore {
         
         guard !workspace.isSolo else {
             
-            print("Turned off a solo")
+            debugPrint("Turned off a solo")
             guard otherSolos.count != 0 else {
                 
-                print("Turned off the only solo")
+                debugPrint("Turned off the only solo")
                  suite = Set(suite.map({ workspaceWithSoloState($0, soloState: false, antiSoloState: false) }))
                 return
             }
             
-            print("Turned off a solo, but there is at least one other solo")
+            debugPrint("Turned off a solo, but there is at least one other solo")
             let nextWorkspace = workspaceWithSoloState(workspace, soloState: false, antiSoloState: otherSolos.count > 0)
             suite.remove(workspace)
             suite.insert(nextWorkspace)
             return
         }
         
-        print("Turned on a solo")
+        debugPrint("Turned on a solo")
         guard otherSolos.count != 0 else {
             
-            print("Turned on the only solo")
+            debugPrint("Turned on the only solo")
             suite = Set(suite.map({ workspaceWithSoloState($0, soloState: false, antiSoloState: true) }))
             let nextWorkspace = workspaceWithSoloState(workspace, soloState: true, antiSoloState: false)
             suite.remove(workspace)
@@ -118,7 +118,7 @@ class SuiteStore {
             return
         }
         
-        print("Turned on a solo, but there is at least one other solo")
+        debugPrint("Turned on a solo, but there is at least one other solo")
         let nextWorkspace = workspaceWithSoloState(workspace, soloState: true, antiSoloState: false)
         suite.remove(workspace)
         suite.insert(nextWorkspace)

@@ -29,12 +29,14 @@ class ChargerView: UIView {
     override init(frame: CGRect) {
         
         super.init(frame: frame)
+        
         commonInit()
     }
     
     required init?(coder aDecoder: NSCoder) {
         
         super.init(coder: aDecoder)
+        
         commonInit()
     }
     
@@ -50,6 +52,7 @@ class ChargerView: UIView {
     override func layoutSubviews() {
         
         super.layoutSubviews()
+        
         fixedCircle.frame = bounds
         movingCircle.frame = bounds
     }
@@ -77,7 +80,6 @@ class CircleView: UIView {
 }
 
 class BorderedCircleView: UIView {
-    
     
     private let l = CAShapeLayer()
     

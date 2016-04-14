@@ -7,13 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		420080261C5A458B009009E8 /* SoundaramaTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 420080251C5A458B009009E8 /* SoundaramaTests.swift */; };
 		420080371C5BAD50009009E8 /* SoundaramaDependencies.swift in Sources */ = {isa = PBXBuildFile; fileRef = 420080361C5BAD50009009E8 /* SoundaramaDependencies.swift */; };
 		420080391C5BCA44009009E8 /* Suite.swift in Sources */ = {isa = PBXBuildFile; fileRef = 420080381C5BCA44009009E8 /* Suite.swift */; };
 		4200803B1C5BD289009009E8 /* SuiteStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4200803A1C5BD289009009E8 /* SuiteStore.swift */; };
 		4207043E1C7223E7003F6568 /* AVKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4207043D1C7223E7003F6568 /* AVKit.framework */; };
 		420756391CA0036B00A4666A /* InstrumentsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 420756381CA0036B00A4666A /* InstrumentsViewController.swift */; };
-		4207563C1CA00E0400A4666A /* CompassView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4207563B1CA00E0400A4666A /* CompassView.swift */; };
+		4207563C1CA00E0400A4666A /* xCompassView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4207563B1CA00E0400A4666A /* xCompassView.swift */; };
 		420AA6991C55055F00F7BB25 /* DecideStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 420AA6981C55055F00F7BB25 /* DecideStoryboard.storyboard */; };
 		420AA69F1C550B1700F7BB25 /* DecideViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 420AA69E1C550B1700F7BB25 /* DecideViewController.swift */; };
 		420AA6A51C551AB300F7BB25 /* PerformerStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 420AA6A41C551AB300F7BB25 /* PerformerStoryboard.storyboard */; };
@@ -45,11 +44,10 @@
 		4273BC611C876708002E9EF9 /* GroupTransformer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4273BC601C876708002E9EF9 /* GroupTransformer.swift */; };
 		4273BC631C87673C002E9EF9 /* UISuiteTransformer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4273BC621C87673C002E9EF9 /* UISuiteTransformer.swift */; };
 		4277FBF41C9729FB0042B051 /* DJAudioStemPickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4277FBF31C9729FB0042B051 /* DJAudioStemPickerViewController.swift */; };
-		427B05C41CBBB71B0009EF75 /* LevelCompassView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 427B05C31CBBB71B0009EF75 /* LevelCompassView.swift */; };
+		427B05C41CBBB71B0009EF75 /* CompassView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 427B05C31CBBB71B0009EF75 /* CompassView.swift */; };
 		4280C0D81C5D1A8A00B2C9B3 /* DJCommandTransformer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4280C0D71C5D1A8A00B2C9B3 /* DJCommandTransformer.swift */; };
 		4280C0DA1C5D25DC00B2C9B3 /* CommandTransformerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4280C0D91C5D25DC00B2C9B3 /* CommandTransformerTests.swift */; };
 		42889BF51CA0468B00ACC3B9 /* Flickometer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42889BF41CA0468B00ACC3B9 /* Flickometer.swift */; };
-		42889BF71CA0476C00ACC3B9 /* Direction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42889BF61CA0476C00ACC3B9 /* Direction.swift */; };
 		42889BF91CA047BF00ACC3B9 /* Tags.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42889BF81CA047BF00ACC3B9 /* Tags.swift */; };
 		42899B791C886CC600ECA105 /* GroupTransformerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42899B781C886CC600ECA105 /* GroupTransformerTests.swift */; };
 		428A89011C9975DC0070BE7F /* Sounds in Resources */ = {isa = PBXBuildFile; fileRef = 428A89001C9975DC0070BE7F /* Sounds */; };
@@ -90,7 +88,6 @@
 		42B3D1EE1C99CDF00065842D /* Compass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42B3D1ED1C99CDF00065842D /* Compass.swift */; };
 		42B3D1F01C99D7D80065842D /* Altimeter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42B3D1EF1C99D7D80065842D /* Altimeter.swift */; };
 		42B3D1F21C99DDBB0065842D /* MultiAudioLoop.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42B3D1F11C99DDBB0065842D /* MultiAudioLoop.swift */; };
-		42B4F6DB1C96F79E00C755E6 /* ChristiansCalculator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42B4F6DA1C96F79E00C755E6 /* ChristiansCalculator.swift */; };
 		42C1D2241CAA9DCE005D0347 /* MessageDeserializer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42C1D2231CAA9DCE005D0347 /* MessageDeserializer.swift */; };
 		42C1D2261CAAC5CA005D0347 /* MessageTransformer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42C1D2251CAAC5CA005D0347 /* MessageTransformer.swift */; };
 		42C1D2281CAAC5F0005D0347 /* Command.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42C1D2271CAAC5F0005D0347 /* Command.swift */; };
@@ -161,14 +158,13 @@
 
 /* Begin PBXFileReference section */
 		420080231C5A458B009009E8 /* SoundaramaTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SoundaramaTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		420080251C5A458B009009E8 /* SoundaramaTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SoundaramaTests.swift; sourceTree = "<group>"; };
 		420080271C5A458B009009E8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		420080361C5BAD50009009E8 /* SoundaramaDependencies.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SoundaramaDependencies.swift; sourceTree = "<group>"; };
 		420080381C5BCA44009009E8 /* Suite.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Suite.swift; sourceTree = "<group>"; };
 		4200803A1C5BD289009009E8 /* SuiteStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SuiteStore.swift; sourceTree = "<group>"; };
 		4207043D1C7223E7003F6568 /* AVKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVKit.framework; path = System/Library/Frameworks/AVKit.framework; sourceTree = SDKROOT; };
 		420756381CA0036B00A4666A /* InstrumentsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InstrumentsViewController.swift; sourceTree = "<group>"; };
-		4207563B1CA00E0400A4666A /* CompassView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CompassView.swift; sourceTree = "<group>"; };
+		4207563B1CA00E0400A4666A /* xCompassView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = xCompassView.swift; sourceTree = "<group>"; };
 		420AA6981C55055F00F7BB25 /* DecideStoryboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = DecideStoryboard.storyboard; sourceTree = "<group>"; };
 		420AA69E1C550B1700F7BB25 /* DecideViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DecideViewController.swift; sourceTree = "<group>"; };
 		420AA6A41C551AB300F7BB25 /* PerformerStoryboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = PerformerStoryboard.storyboard; sourceTree = "<group>"; };
@@ -200,11 +196,10 @@
 		4273BC601C876708002E9EF9 /* GroupTransformer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GroupTransformer.swift; sourceTree = "<group>"; };
 		4273BC621C87673C002E9EF9 /* UISuiteTransformer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UISuiteTransformer.swift; sourceTree = "<group>"; };
 		4277FBF31C9729FB0042B051 /* DJAudioStemPickerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DJAudioStemPickerViewController.swift; sourceTree = "<group>"; };
-		427B05C31CBBB71B0009EF75 /* LevelCompassView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LevelCompassView.swift; sourceTree = "<group>"; };
+		427B05C31CBBB71B0009EF75 /* CompassView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CompassView.swift; sourceTree = "<group>"; };
 		4280C0D71C5D1A8A00B2C9B3 /* DJCommandTransformer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DJCommandTransformer.swift; sourceTree = "<group>"; };
 		4280C0D91C5D25DC00B2C9B3 /* CommandTransformerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommandTransformerTests.swift; sourceTree = "<group>"; };
 		42889BF41CA0468B00ACC3B9 /* Flickometer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Flickometer.swift; sourceTree = "<group>"; };
-		42889BF61CA0476C00ACC3B9 /* Direction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Direction.swift; sourceTree = "<group>"; };
 		42889BF81CA047BF00ACC3B9 /* Tags.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Tags.swift; sourceTree = "<group>"; };
 		42899B781C886CC600ECA105 /* GroupTransformerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GroupTransformerTests.swift; sourceTree = "<group>"; };
 		428A89001C9975DC0070BE7F /* Sounds */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Sounds; path = Resources/Sounds; sourceTree = "<group>"; };
@@ -248,7 +243,6 @@
 		42B3D1ED1C99CDF00065842D /* Compass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Compass.swift; sourceTree = "<group>"; };
 		42B3D1EF1C99D7D80065842D /* Altimeter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Altimeter.swift; sourceTree = "<group>"; };
 		42B3D1F11C99DDBB0065842D /* MultiAudioLoop.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MultiAudioLoop.swift; sourceTree = "<group>"; };
-		42B4F6DA1C96F79E00C755E6 /* ChristiansCalculator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChristiansCalculator.swift; sourceTree = "<group>"; };
 		42C1D2231CAA9DCE005D0347 /* MessageDeserializer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessageDeserializer.swift; sourceTree = "<group>"; };
 		42C1D2251CAAC5CA005D0347 /* MessageTransformer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessageTransformer.swift; sourceTree = "<group>"; };
 		42C1D2271CAAC5F0005D0347 /* Command.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Command.swift; sourceTree = "<group>"; };
@@ -323,6 +317,7 @@
 			isa = PBXGroup;
 			children = (
 				420080301C5A461C009009E8 /* Test Cases */,
+				42FDDD181CBFC93A00776C06 /* Legacy */,
 				4200802F1C5A4614009009E8 /* Supporting Files */,
 			);
 			path = SoundaramaTests;
@@ -331,7 +326,6 @@
 		4200802F1C5A4614009009E8 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				420080251C5A458B009009E8 /* SoundaramaTests.swift */,
 				420080271C5A458B009009E8 /* Info.plist */,
 			);
 			name = "Supporting Files";
@@ -344,7 +338,6 @@
 				42E81E8E1C5E37E100A9FC57 /* SuiteStoreTests.swift */,
 				429EC9881C85AF9F002FDBCC /* GroupStoreTests.swift */,
 				42899B781C886CC600ECA105 /* GroupTransformerTests.swift */,
-				42B3D1EB1C99B7260065842D /* CompassLevelVolumeControllerTests.swift */,
 				42C1D22D1CABD704005D0347 /* AudioConfigurationTests.swift */,
 			);
 			name = "Test Cases";
@@ -354,8 +347,7 @@
 			isa = PBXGroup;
 			children = (
 				42FDDD121CBE429F00776C06 /* ChargerView.swift */,
-				4207563B1CA00E0400A4666A /* CompassView.swift */,
-				427B05C31CBBB71B0009EF75 /* LevelCompassView.swift */,
+				427B05C31CBBB71B0009EF75 /* CompassView.swift */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -421,7 +413,6 @@
 				42F64F721CB563B600565F4B /* ChristiansConstants.swift */,
 				4249B59C1C5797920096872D /* ChristiansTimeServer.swift */,
 				4249B59E1C57979E0096872D /* ChristiansProcess.swift */,
-				42B4F6DA1C96F79E00C755E6 /* ChristiansCalculator.swift */,
 			);
 			name = Synchronisation;
 			sourceTree = "<group>";
@@ -459,9 +450,7 @@
 				42D9F8A51C88A7AB0056957B /* AudioStem.swift */,
 				42C1D2271CAAC5F0005D0347 /* Command.swift */,
 				428AF2AB1CA0327C0023FCC9 /* ConnectionState.swift */,
-				42889BF61CA0476C00ACC3B9 /* Direction.swift */,
 				42D9F89F1C88A70F0056957B /* Group.swift */,
-				428AF2AD1CA032BF0023FCC9 /* Level.swift */,
 				4249B59A1C5792490096872D /* Message.swift */,
 				42ED6C6F1CAC30C7002A7211 /* NetworkConfiguration.swift */,
 				42D9F8A31C88A7950056957B /* Performer.swift */,
@@ -576,7 +565,6 @@
 				42F64F6F1CB3D55400565F4B /* Reachability */,
 				42F64F6D1CB3D52300565F4B /* Discovery */,
 				42F64F6E1CB3D52E00565F4B /* IO */,
-				42ED6C641CAC0271002A7211 /* Legacy */,
 			);
 			name = Network;
 			sourceTree = "<group>";
@@ -595,11 +583,8 @@
 			isa = PBXGroup;
 			children = (
 				42FDDD141CBE80CF00776C06 /* CompassChargeVolumeController.swift */,
-				42B3D1E91C99B3130065842D /* CompassLevelVolumeController.swift */,
 				42B3D1ED1C99CDF00065842D /* Compass.swift */,
-				42B3D1EF1C99D7D80065842D /* Altimeter.swift */,
 				428AF2A71CA02DA80023FCC9 /* Accelerometer.swift */,
-				42889BF41CA0468B00ACC3B9 /* Flickometer.swift */,
 				42FDDD101CBD58A400776C06 /* Danceometer.swift */,
 			);
 			name = Instrumentation;
@@ -676,6 +661,16 @@
 		42E8BE191C54FB730034F1C8 /* Legacy */ = {
 			isa = PBXGroup;
 			children = (
+				428AF2AD1CA032BF0023FCC9 /* Level.swift */,
+				4207563B1CA00E0400A4666A /* xCompassView.swift */,
+				42B3D1EF1C99D7D80065842D /* Altimeter.swift */,
+				42889BF41CA0468B00ACC3B9 /* Flickometer.swift */,
+				42B3D1E91C99B3130065842D /* CompassLevelVolumeController.swift */,
+				42ED6C651CAC028E002A7211 /* Host.swift */,
+				421468541C56345700892786 /* TP2P.swift */,
+				421468671C568EC600892786 /* SocketEndpoint.swift */,
+				4249B5941C5789E30096872D /* Broadcast */,
+				4249B5931C5789E00096872D /* Search */,
 				428AF2AF1CA0396F0023FCC9 /* LevelStore.swift */,
 				42AFC6621C55802000AD4B9B /* ReadableMessageAdapter.swift */,
 				429EC9601C847697002FDBCC /* AudioController.h */,
@@ -696,18 +691,6 @@
 				42A727AD1C552DDF00BFCA47 /* DecideInteractor.swift */,
 			);
 			name = Decide;
-			sourceTree = "<group>";
-		};
-		42ED6C641CAC0271002A7211 /* Legacy */ = {
-			isa = PBXGroup;
-			children = (
-				42ED6C651CAC028E002A7211 /* Host.swift */,
-				421468541C56345700892786 /* TP2P.swift */,
-				421468671C568EC600892786 /* SocketEndpoint.swift */,
-				4249B5941C5789E30096872D /* Broadcast */,
-				4249B5931C5789E00096872D /* Search */,
-			);
-			name = Legacy;
 			sourceTree = "<group>";
 		};
 		42F64F6D1CB3D52300565F4B /* Discovery */ = {
@@ -734,8 +717,8 @@
 		42F64F6F1CB3D55400565F4B /* Reachability */ = {
 			isa = PBXGroup;
 			children = (
-				42160E311CAEB34700EBCBB6 /* Reachability.swift */,
 				429523A81CAE89BC005B26FA /* WiFiReachability.swift */,
+				42160E311CAEB34700EBCBB6 /* Reachability.swift */,
 			);
 			name = Reachability;
 			sourceTree = "<group>";
@@ -748,6 +731,14 @@
 				429EC9681C847740002FDBCC /* UIColor+Hex.swift */,
 			);
 			name = Theme;
+			sourceTree = "<group>";
+		};
+		42FDDD181CBFC93A00776C06 /* Legacy */ = {
+			isa = PBXGroup;
+			children = (
+				42B3D1EB1C99B7260065842D /* CompassLevelVolumeControllerTests.swift */,
+			);
+			name = Legacy;
 			sourceTree = "<group>";
 		};
 		E25279B91BF606C8008B4690 = {
@@ -943,7 +934,6 @@
 				42E81E8F1C5E37E100A9FC57 /* SuiteStoreTests.swift in Sources */,
 				429EC9891C85AF9F002FDBCC /* GroupStoreTests.swift in Sources */,
 				42C1D22E1CABD704005D0347 /* AudioConfigurationTests.swift in Sources */,
-				420080261C5A458B009009E8 /* SoundaramaTests.swift in Sources */,
 				42899B791C886CC600ECA105 /* GroupTransformerTests.swift in Sources */,
 				4280C0DA1C5D25DC00B2C9B3 /* CommandTransformerTests.swift in Sources */,
 			);
@@ -988,7 +978,6 @@
 				42D9F8A61C88A7AB0056957B /* AudioStem.swift in Sources */,
 				42ED6C6C1CAC2D8D002A7211 /* BroadcastStore.swift in Sources */,
 				42E49DAE1C58F20D00B9C127 /* SoundZoneCollectionViewCell.swift in Sources */,
-				42B4F6DB1C96F79E00C755E6 /* ChristiansCalculator.swift in Sources */,
 				42ED6C661CAC028E002A7211 /* Host.swift in Sources */,
 				42F64F6C1CB3D02000565F4B /* Endpoint.swift in Sources */,
 				DFBAD41F1C64C346004C1D47 /* SpringMesh.swift in Sources */,
@@ -998,7 +987,7 @@
 				42B3D1EE1C99CDF00065842D /* Compass.swift in Sources */,
 				42B3D1E51C99B0F50065842D /* TaggedAudioPathStore.swift in Sources */,
 				4249B59B1C5792490096872D /* Message.swift in Sources */,
-				427B05C41CBBB71B0009EF75 /* LevelCompassView.swift in Sources */,
+				427B05C41CBBB71B0009EF75 /* CompassView.swift in Sources */,
 				42ED6C701CAC30C7002A7211 /* NetworkConfiguration.swift in Sources */,
 				428AF2A81CA02DA80023FCC9 /* Accelerometer.swift in Sources */,
 				421468661C56831F00892786 /* BroadcastStrategy.swift in Sources */,
@@ -1012,7 +1001,6 @@
 				4273BC611C876708002E9EF9 /* GroupTransformer.swift in Sources */,
 				429EC9861C85AECE002FDBCC /* GroupStore.swift in Sources */,
 				42D9F8A21C88A7460056957B /* Workspace.swift in Sources */,
-				42889BF71CA0476C00ACC3B9 /* Direction.swift in Sources */,
 				42F64F731CB563B600565F4B /* ChristiansConstants.swift in Sources */,
 				42F64F751CB6507000565F4B /* NetworkEndpoint.swift in Sources */,
 				42E6236E1CB2CA2B00A3443A /* SocketConnector.swift in Sources */,
@@ -1056,7 +1044,7 @@
 				42FDDD131CBE429F00776C06 /* ChargerView.swift in Sources */,
 				42ED6C631CABFDA4002A7211 /* BroadcastService.swift in Sources */,
 				425498E51C987FB500793640 /* TableViewCells.swift in Sources */,
-				4207563C1CA00E0400A4666A /* CompassView.swift in Sources */,
+				4207563C1CA00E0400A4666A /* xCompassView.swift in Sources */,
 				42A727AE1C552DDF00BFCA47 /* DecideInteractor.swift in Sources */,
 				429EC95D1C847628002FDBCC /* SoundZoneView.swift in Sources */,
 			);

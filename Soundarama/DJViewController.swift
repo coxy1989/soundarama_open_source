@@ -304,7 +304,7 @@ extension DJViewController {
         
         guard let p = view_performer_map[panGesture.view as! PerformerView] else {
             
-            print("Warning. This is an odd state (didPanPerformer:)")
+            debugPrint("Warning. This is an odd state (didPanPerformer:)")
             return
         }
         let t = panGesture.translationInView(view)
@@ -332,7 +332,7 @@ extension DJViewController {
         
         guard let p = view_performer_map[pv] else {
             
-            print("Warning: This is an odd state (didLongPressPerformer:)")
+            debugPrint("Warning: This is an odd state (didLongPressPerformer:)")
             return
         }
         
@@ -352,7 +352,7 @@ extension DJViewController {
         
         guard let g = view_group_map[panGesture.view as! GroupView] else {
             
-            print("Warning. This is an odd state (didPanGroup:)")
+            debugPrint("Warning. This is an odd state (didPanGroup:)")
             return
         }
         
@@ -380,7 +380,7 @@ extension DJViewController {
         let gv = pressGesture.view as! GroupView
         guard let g = view_group_map[gv] else {
             
-            print("Warning. This is an odd state (didLongPressGroup:)")
+            debugPrint("Warning. This is an odd state (didLongPressGroup:)")
             return
         }
         
@@ -602,7 +602,7 @@ extension DJViewController {
             .filter() { v, p in(path.containsPoint(v.center) )}
             .map() { v, p in return p }
         
-        print("lasooed performers: \(p)")
+        debugPrint("lasooed performers: \(p)")
         return Set(p)
     }
     
@@ -617,7 +617,7 @@ extension DJViewController {
             .filter() { v, g in  (path.containsPoint(v.center))}
             .map() { v, g in return g }
 
-        print("lasooed groups: \(g)")
+        debugPrint("lasooed groups: \(g)")
         return Set(g)
     }
 }

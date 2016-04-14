@@ -6,7 +6,7 @@
 //  Copyright © 2016 Touchpress Ltd. All rights reserved.
 //
 
-import Foundation
+typealias Volume = Float
 
 struct CompassChargeVolumeController {
     

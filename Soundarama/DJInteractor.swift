@@ -381,7 +381,7 @@ extension DJInteractor {
         
         let accepted: (String, DisconnectableEndpoint) -> () = { [weak self] e in
             
-            print("accepted endpoint")
+            debugPrint("accepted endpoint")
             let cts = ChristiansTimeServer(address: e.0, endpoint: e.1)
             cts.delegate = self
             self?.christiansTimeServers[e.0] = cts
@@ -398,7 +398,7 @@ extension DJInteractor {
     
         let stopped: () -> () = {
             
-            print("stopped accepting endpoints")
+            debugPrint("stopped accepting endpoints")
             return
         }
         

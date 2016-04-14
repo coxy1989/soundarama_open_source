@@ -40,38 +40,38 @@ extension SearchService: NSNetServiceBrowserDelegate {
     
     @objc func netServiceBrowserWillSearch(browser: NSNetServiceBrowser) {
         
-        print("Browser will search")
+        debugPrint("Browser will search")
     }
     
     @objc func netServiceBrowserDidStopSearch(browser: NSNetServiceBrowser) {
         
-        print("Browser stopped searching")
+        debugPrint("Browser stopped searching")
     }
     
     @objc func netServiceBrowser(browser: NSNetServiceBrowser, didFindDomain domainString: String, moreComing: Bool) {
         
-        print("Browser did find domian \(domainString)")
+        debugPrint("Browser did find domian \(domainString)")
     }
     
     @objc func netServiceBrowser(browser: NSNetServiceBrowser, didNotSearch errorDict: [String : NSNumber]) {
         
-        print("Browser did not search \(errorDict)")
+        debugPrint("Browser did not search \(errorDict)")
     }
     
     @objc func netServiceBrowser(browser: NSNetServiceBrowser, didRemoveDomain domainString: String, moreComing: Bool) {
         
-        print("Browser did remove domain")
+        debugPrint("Browser did remove domain")
     }
     
     @objc func netServiceBrowser(browser: NSNetServiceBrowser, didFindService service: NSNetService, moreComing: Bool) {
         
-        print("Browser found service \(service.name)")
+        debugPrint("Browser found service \(service.name)")
         found(service.name, ResolvableNetService(netService: service))
     }
     
     @objc func netServiceBrowser(browser: NSNetServiceBrowser, didRemoveService service: NSNetService, moreComing: Bool) {
         
-        print("Browser removed service")
+        debugPrint("Browser removed service")
         lost(service.name, ResolvableNetService(netService: service))
     }
 }
@@ -113,17 +113,17 @@ extension ResolvableNetService: NSNetServiceDelegate {
     
     func netServiceWillPublish(sender: NSNetService) {
         
-        print("Net service will publish")
+        debugPrint("Net service will publish")
     }
     
     func netServiceDidPublish(sender: NSNetService) {
         
-        print("Net service published...")
+        debugPrint("Net service published...")
     }
     
     func netService(sender: NSNetService, didNotPublish errorDict: [String : NSNumber]) {
         
-        print("Net service failed to publish")
+        debugPrint("Net service failed to publish")
     }
     
     func netServiceDidResolveAddress(sender: NSNetService) {
@@ -133,24 +133,24 @@ extension ResolvableNetService: NSNetServiceDelegate {
             return
         }
         
-        print("Net Service resolved address")
+        debugPrint("Net Service resolved address")
         
         success(host, UInt16(sender.port))
     }
     
     func netService(sender: NSNetService, didNotResolve errorDict: [String : NSNumber]) {
         
-        print("Net service did not resolve \(errorDict)")
+        debugPrint("Net service did not resolve \(errorDict)")
         failure(errorDict)
     }
     
     func netServiceDidStop(sender: NSNetService) {
         
-        print("Net service did stop")
+        debugPrint("Net service did stop")
     }
     
     func netServiceWillResolve(sender: NSNetService) {
         
-        print("Net service will resolve")
+        debugPrint("Net service will resolve")
     }
 }

@@ -41,12 +41,12 @@ extension SocketAcceptor {
         
         do {
             try socket.acceptOnPort(port)
-            print("Accepting on port \(port)...")
+            debugPrint("Accepting on port \(port)...")
             return self
         }
             
         catch {
-            print("Failed to accept on port \(port)...")
+            debugPrint("Failed to accept on port \(port)...")
             return nil
         }
     }
@@ -56,14 +56,14 @@ extension SocketAcceptor: AsyncSocketDelegate {
     
     @objc func onSocket(sock: AsyncSocket!, didAcceptNewSocket newSocket: AsyncSocket!) {
         
-        print("Sock: \(sock.connectedHost()) Accepted Socket: \(newSocket.connectedHost())")
+        debugPrint("Sock: \(sock.connectedHost()) Accepted Socket: \(newSocket.connectedHost())")
         
         accepted(newSocket.connectedHost(), NetworkEndpoint(socket: newSocket))
     }
     
     @objc func onSocketDidDisconnect(sock: AsyncSocket!) {
         
-        print("Socket acceptor disconnected")
+        debugPrint("Socket acceptor disconnected")
         stopped()
         
     }

@@ -66,7 +66,7 @@ class Danceometer {
                 this.score = max(0, this.score - gravity)
             }
             
-            debugPrint("s:\(this.score), v = \(v)")
+            /* debugPrint("s:\(this.score), v = \(v)") */
             
             handler(max(this.score,0))
         }

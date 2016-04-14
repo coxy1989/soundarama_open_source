@@ -6,8 +6,7 @@
 //  Copyright © 2016 Touchpress Ltd. All rights reserved.
 //
 
-typealias Volume = Float
-
+/*
 struct CompassLevelVolumeController {
     
     private static let contains_alt: (Set<String>, LevelTag) -> Bool = { $0.contains($1.rawValue) }
@@ -100,3 +99,4 @@ struct CompassLevelVolumeController {
     }
 }
 
+*/

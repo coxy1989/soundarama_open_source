@@ -6,6 +6,7 @@
 //  Copyright © 2016 Touchpress Ltd. All rights reserved.
 //
 
+/*
 class BroadcastStrategy: NSObject {
     
     private let tcpPort: Int32
@@ -32,37 +33,38 @@ extension BroadcastStrategy: NSNetServiceDelegate {
     
     func netServiceWillPublish(sender: NSNetService) {
         
-        print("Net service will publish")
+        debugPrint("Net service will publish")
     }
     
     func netServiceDidPublish(sender: NSNetService) {
         
-        print("Net service published...")
+        debugPrint("Net service published...")
     }
     
     func netService(sender: NSNetService, didNotPublish errorDict: [String : NSNumber]) {
         
-        print("Net service failed to publish")
+        debugPrint("Net service failed to publish")
     }
     
     func netServiceDidResolveAddress(sender: NSNetService) {
         
-        print("Net service did not resolve address")
+        debugPrint("Net service did not resolve address")
     }
     
     func netService(sender: NSNetService, didNotResolve errorDict: [String : NSNumber]) {
         
-        print("Net service did not resolve \(errorDict)")
+        debugPrint("Net service did not resolve \(errorDict)")
     }
     
     func netServiceDidStop(sender: NSNetService) {
         
-        print("Net service did stop")
+        debugPrint("Net service did stop")
     }
     
     func netServiceWillResolve(sender: NSNetService) {
         
-        print("Net service will resolve")
+        debugPrint("Net service will resolve")
     }
 }
 
+*/

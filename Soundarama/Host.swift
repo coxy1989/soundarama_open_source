@@ -5,7 +5,7 @@
 //  Created by Jamie Cox on 30/03/2016.
 //  Copyright © 2016 Touchpress Ltd. All rights reserved.
 //
-
+/*
 class Host {
  
     private let hostSocket: AsyncSocket
@@ -23,11 +23,11 @@ class Host {
         s.setDelegate(self)
         do {
             try s.acceptOnPort(port)
-            print("Accepting on port \(port)...")
+            debugPrint("Accepting on port \(port)...")
             return Host(hostSocket: s)
             
         } catch {
-            print("Failed to publish service")
+            debugPrint("Failed to publish service")
             return nil
         }
     }
@@ -46,7 +46,7 @@ class Host {
             pair.1.writeData(data, withTimeout: -1, tag: 0)
         }
         else {
-            print("No socket for writing: \(address)")
+            debugPrint("No socket for writing: \(address)")
         }
     }
     
@@ -55,7 +55,7 @@ class Host {
         if let socket = clientSockets[address] {
             socket.readDataToData(terminator, withTimeout: -1, tag: 0)
         } else {
-            print("No socket for reading: \(address)")
+            debugPrint("No socket for reading: \(address)")
         }
     }
 }
@@ -68,15 +68,15 @@ extension Host: AsyncSocketDelegate {
         clientSockets[address] = newSocket
         //connectionDelegate.didConnectToAddress(address)
         //newSocket.readDataToData(Serialisation.terminator, withTimeout: -1, tag:0)
-        print("Accepted socket: \(address)")
+        debugPrint("Accepted socket: \(address)")
     }
     
     @objc func onSocketDidDisconnect(sock: AsyncSocket!) {
         
-        print("Socket did disconnect")
+        debugPrint("Socket did disconnect")
         let filter = clientSockets.filter({$0.1 == sock})
         if let pair = filter.first {
-            print("removing socket: \(pair.0)")
+            debugPrint("removing socket: \(pair.0)")
             clientSockets[pair.0] = nil
             //connectionDelegate.didDisconnectFromAddress(pair.0)
         }
@@ -91,3 +91,5 @@ extension Host: AsyncSocketDelegate {
         //readableDelegate.didReadData(data, address: sock.connectedHost())
     }
 }
+
+ */

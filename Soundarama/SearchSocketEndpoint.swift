@@ -37,13 +37,13 @@ class SearchSocketEndpoint: SocketEndpoint {
     
     func onSocket(sock: AsyncSocket!, didConnectToHost host: String!, port: UInt16) {
         
-        print("Connected to host: \(host)")
+        debugPrint("Connected to host: \(host)")
        // connectionDelegate.didConnectToAddress(host)
     }
     
     func onSocketDidDisconnect(sock: AsyncSocket!) {
 
-        print("Socket did disconnect")
+        debugPrint("Socket did disconnect")
        // connectionDelegate.didDisconnectFromAddress("")
     }
 }
@@ -52,12 +52,12 @@ extension SearchSocketEndpoint {
     
     private func connectToHost(hostName: String, port: Int) {
         
-        print("Connecting to host \(hostName)")
+        debugPrint("Connecting to host \(hostName)")
         do {
             try socket.connectToHost(hostName, onPort: UInt16(port))
         }
         catch {
-            print("Failed to connect to host")
+            debugPrint("Failed to connect to host")
         }
     }
 }

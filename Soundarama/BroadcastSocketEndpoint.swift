@@ -18,10 +18,10 @@ class BroadcastSocketEndpoint: SocketEndpoint {
         
         do {
             try socket.acceptOnPort(SocketEndpoint.portTCP)
-            print("Accepting on port \(SocketEndpoint.portTCP)...")
+            debugPrint("Accepting on port \(SocketEndpoint.portTCP)...")
             strategy.broadcast()
         } catch {
-            print("Failed to publish service")
+            debugPrint("Failed to publish service")
         }
     }
     
@@ -40,7 +40,7 @@ class BroadcastSocketEndpoint: SocketEndpoint {
             pair.1.writeData(data, withTimeout: -1, tag: 0)
         }
         else {
-            print("No socket for writing: \(address)")
+            debugPrint("No socket for writing: \(address)")
         }
     }
     
@@ -49,7 +49,7 @@ class BroadcastSocketEndpoint: SocketEndpoint {
         if let socket = sockets[address] {
             socket.readDataToData(Serialisation.terminator, withTimeout: -1, tag: 0)
         } else {
-            print("No socket for reading: \(address)")
+            debugPrint("No socket for reading: \(address)")
         }
         
     }
@@ -65,15 +65,15 @@ extension BroadcastSocketEndpoint  {
         sockets[address] = newSocket
       //  connectionDelegate.didConnectToAddress(address)
         newSocket.readDataToData(Serialisation.terminator, withTimeout: -1, tag:0)
-        print("Accepted socket: \(address)")
+        debugPrint("Accepted socket: \(address)")
     }
     
     func onSocketDidDisconnect(sock: AsyncSocket!) {
 
-        print("Socket did disconnect")
+        debugPrint("Socket did disconnect")
         let filter = sockets.filter({$0.1 == sock})
         if let pair = filter.first {
-            print("removing socket: \(pair.0)")
+            debugPrint("removing socket: \(pair.0)")
             sockets[pair.0] = nil
        //     connectionDelegate.didDisconnectFromAddress(pair.0)
         }

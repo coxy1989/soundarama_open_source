@@ -21,7 +21,7 @@ extension AudioConfigurationTests {
         let multiple = config.audioFileLength / config.loopLength
         let integer_multiple = floor(multiple)
         let diff = multiple - integer_multiple
-        print(diff)
+        debugPrint(diff)
         XCTAssertTrue( diff < 0.0001)
     }
 }

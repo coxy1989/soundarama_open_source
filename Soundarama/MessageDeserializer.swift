@@ -14,13 +14,13 @@ class MessageDeserializer {
         
         guard let json = NSKeyedUnarchiver.unarchiveObjectWithData(payload) else {
             
-            print("Failed to unarchive JSON")
+            debugPrint("Failed to unarchive JSON")
             return nil
         }
         
         guard let type = json[MessageSerialisationKeys.type] as? String else {
             
-            print("Failed to obtain a value for MessageSerialisationKeys.type Key")
+            debugPrint("Failed to obtain a value for MessageSerialisationKeys.type Key")
             return nil
         }
      
@@ -47,7 +47,7 @@ class MessageDeserializer {
         
         else {
             
-            print("Failed to obtain a valid value for MessageSerialisationKeys.type Key")
+            debugPrint("Failed to obtain a valid value for MessageSerialisationKeys.type Key")
             return nil
         }
     }

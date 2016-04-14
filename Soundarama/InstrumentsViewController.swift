@@ -27,7 +27,7 @@ protocol ChargingUserInteface: class {
 class InstrumentsViewController: ViewController {
         
     @IBOutlet weak var dashedCircleView: BorderedCircleView?
-    @IBOutlet weak var compassView: LevelCompassView?
+    @IBOutlet weak var compassView: CompassView?
     @IBOutlet weak var circleView: UIView?
 
     @IBAction func didPressBackButton(sender: AnyObject) { userInterfaceDelegate?.userInterfaceDidNavigateBack(self)}

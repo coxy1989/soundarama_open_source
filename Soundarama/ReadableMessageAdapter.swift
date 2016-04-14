@@ -45,7 +45,7 @@ extension ReadableMessageAdapter: ReadableDelegate {
         /*
         if let message = deserialize(data) {
             
-            print("Success: Deserialised a message: \(message)")
+            debugPrint("Success: Deserialised a message: \(message)")
             delegate.didReceivePerformerMessage(message)
         }
         readable.readData(Serialisation.terminator)
@@ -69,7 +69,7 @@ extension ReadableMessageAdapter {
         
         guard let json = NSKeyedUnarchiver.unarchiveObjectWithData(payload) else {
             
-            print("Failed to unarchive JSON")
+            debugPrint("Failed to unarchive JSON")
             return nil
         }
         
@@ -82,7 +82,7 @@ extension ReadableMessageAdapter {
             muted = json["muted"] as? Bool
             
         else {
-            print("Failed to deserialise JSON")
+            debugPrint("Failed to deserialise JSON")
             return nil
         }
         

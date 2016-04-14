@@ -360,17 +360,6 @@ extension PerformerInteractor {
             handler($0)
         }
     }
-    
-    func controlAudioLoopVolume(compasssValue: Double?, level: Level) {
-        
-        guard let c = compasssValue, al = audioloop else {
-            
-            return
-        }
-        
-        let v = CompassLevelVolumeController.calculateVolume(al.paths, compassValue: c, level: level)
-        v.forEach() { al.loop.setVolume($0.path, volume: $1) }
-    }
 }
 
 extension PerformerInteractor {
@@ -392,7 +381,7 @@ extension PerformerInteractor: ChristiansProcessDelegate {
         endpoint.readableDelegate = self
         connectionState = .Connected
         performerDJPickerOutput.set(self.endpoint?.0, state: connectionState, identifiers: availableIdentifiers(), isReachable: wifiReachability.isReachable())
-        /* debugPrint(christiansMap) */
+        debugPrint(christiansMap)
     }
 }
 

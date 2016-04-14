@@ -51,7 +51,7 @@ extension PickDJViewController: PickDJUserInterface {
     
     func set(identifier: String?, state: ConnectionState, identifiers: [String], isReachable: Bool) {
         
-        print("Reachable: \(isReachable)")
+        debugPrint("Reachable: \(isReachable)")
         connectionState = state
         let prestate = sections
         let poststate = [sectionZero(identifier, state: state, isReachable: isReachable), sectionOne(identifiers, isReachable: isReachable)].filter() { $0 != nil }.map() { $0!}

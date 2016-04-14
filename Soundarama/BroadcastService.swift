@@ -30,36 +30,36 @@ extension BroadcastService: NSNetServiceDelegate {
     
     @objc func netServiceWillPublish(sender: NSNetService) {
         
-        print("BroadcastService service will publish")
+        debugPrint("BroadcastService service will publish")
     }
     
     @objc func netServiceDidPublish(sender: NSNetService) {
         
-        print("BroadcastService service published...")
+        debugPrint("BroadcastService service published...")
     }
     
     @objc func netService(sender: NSNetService, didNotPublish errorDict: [String : NSNumber]) {
         
-        print("BroadcastService service failed to publish")
+        debugPrint("BroadcastService service failed to publish")
     }
     
     @objc func netServiceDidResolveAddress(sender: NSNetService) {
         
-        print("BroadcastService service did not resolve address")
+        debugPrint("BroadcastService service did not resolve address")
     }
     
     @objc func netService(sender: NSNetService, didNotResolve errorDict: [String : NSNumber]) {
         
-        print("BroadcastService service did not resolve \(errorDict)")
+        debugPrint("BroadcastService service did not resolve \(errorDict)")
     }
     
     @objc func netServiceDidStop(sender: NSNetService) {
         
-        print("BroadcastService service did stop")
+        debugPrint("BroadcastService service did stop")
     }
     
     @objc func netServiceWillResolve(sender: NSNetService) {
         
-        print("BroadcastService service will resolve")
+        debugPrint("BroadcastService service will resolve")
     }
 }

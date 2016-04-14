@@ -6,6 +6,7 @@
 //  Copyright © 2016 Touchpress Ltd. All rights reserved.
 //
 
+/*
 import CoreMotion
 
 class Altitmeter {
@@ -20,3 +21,4 @@ class Altitmeter {
         }
     }
 }
+ */

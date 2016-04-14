@@ -6,13 +6,14 @@
 //  Copyright © 2015 Touchpress Ltd. All rights reserved.
 //
 
+/*
 import Foundation
 import AVFoundation
 
 class PerformerStemAudioPlayer: AVAudioPlayer {
     
     deinit {
-        print("PerformerStemAudioPlayer dealloc")
+        debugPrint("PerformerStemAudioPlayer dealloc")
     }
 }
 
@@ -55,7 +56,7 @@ class PerformerAudioController: NSObject {
                 
                 updateForVolume()
                 
-                print("playAudioStem")
+                debugPrint("playAudioStem")
             }
             catch _ as NSError
             {
@@ -65,7 +66,7 @@ class PerformerAudioController: NSObject {
     
     func stopAudioStem(audioStem: AudioStem, afterDelay: NSTimeInterval = 0.0) {
         
-        print("stopAudioStem")
+        debugPrint("stopAudioStem")
         if let player = self.audioPlayers[audioStem.reference] {
             
             self.audioPlayers[audioStem.reference] = nil
@@ -105,3 +106,4 @@ extension PerformerAudioController: AVAudioPlayerDelegate {
         }
     }
 }
+ */

@@ -28,7 +28,8 @@ class PerformerPresenter: PerformerModule {
     func start(navigationController: UINavigationController) {
         
         performerWireframe.navigationController = navigationController
-        performerWireframe.presentDJPickerUI(self)
+        //performerWireframe.presentDJPickerUI(self)
+        performerWireframe.presentInstrumentsUI(self)
     }
 }
 

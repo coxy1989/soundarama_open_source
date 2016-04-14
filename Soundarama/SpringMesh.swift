@@ -198,7 +198,7 @@ func makeMesh() {
             for i in (2*numberOfMovingPoints)..<(2*numberOfPoints) {
                 jacobian[i][i] = 1.0
             }
-            print(jacobian)
+            debugPrint(jacobian)
             return jacobian
         }
         
@@ -216,12 +216,12 @@ func makeMesh() {
         
         let flatJacobian = flattenMatrix(makeJacobian())
         
-        //    print(makeJacobian())
+        //    debugPrint(makeJacobian())
         
         let jacobianInverse = invert( flatJacobian )
         
-        //    print("\njacobian inverse:")
-        //    print(jacobianInverse)
+        //    debugPrint("\njacobian inverse:")
+        //    debugPrint(jacobianInverse)
         
         let pk = allPoints
         var fpk = f()
@@ -231,23 +231,23 @@ func makeMesh() {
             }
         }
         
-        //    print("\npk: ")
-        //    print(pk)
-        //    print("\nfpk: ")
-        //    print(fpk)
+        //    debugPrint("\npk: ")
+        //    debugPrint(pk)
+        //    debugPrint("\nfpk: ")
+        //    debugPrint(fpk)
         
         var multipliedMatrix = multiplyMatrixByVector(jacobianInverse, vector: fpk)
         
-        //    print("\nmultipliedMatrix:")
-        //    print(multipliedMatrix)
+        //    debugPrint("\nmultipliedMatrix:")
+        //    debugPrint(multipliedMatrix)
         
         var negativeMultipliedMatrix = [Double](count: multipliedMatrix.count, repeatedValue: 0.0)
         for i in 0..<multipliedMatrix.count {
             negativeMultipliedMatrix[i] = multipliedMatrix[i] * -1
         }
         
-        //    print("\nnegativeMultipliedMatrix:")
-        //    print(negativeMultipliedMatrix)
+        //    debugPrint("\nnegativeMultipliedMatrix:")
+        //    debugPrint(negativeMultipliedMatrix)
         
         
         var addedMatrix = [Double](count : allPoints.count, repeatedValue : 0.0)
@@ -255,14 +255,14 @@ func makeMesh() {
         vDSP_vaddD(pk, 1, negativeMultipliedMatrix, 1, &addedMatrix, 1, vDSP_Length(allPoints.count))
         
         allPoints = addedMatrix
-        print("\nallPoints at end:")
-        print(allPoints)
+        debugPrint("\nallPoints at end:")
+        debugPrint(allPoints)
         var total = 0.0
         for sumCount in 0...7 {
             total += pow(fpk[sumCount],2)
         }
-        print("\nclose to zero?:")
-        print(sqrt(total))
+        debugPrint("\nclose to zero?:")
+        debugPrint(sqrt(total))
         if sqrt(total) < 0.001 {
             break
         }

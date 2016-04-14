@@ -5,6 +5,7 @@
 //  Created by Jamie Cox on 16/03/2016.
 //  Copyright © 2016 Touchpress Ltd. All rights reserved.
 //
+/*
 
 import XCTest
 @testable import Soundarama
@@ -310,3 +311,5 @@ extension CompassLevelVolumeControllerTests {
         XCTAssertEqual(ret[south_middle], 0.5)
     }
 }
+
+*/

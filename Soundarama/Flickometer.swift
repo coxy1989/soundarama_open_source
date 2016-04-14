@@ -6,6 +6,7 @@
 //  Copyright © 2016 Touchpress Ltd. All rights reserved.
 //
 
+/*
 class Flickometer {
     
     let accellerometer: Accellerometer
@@ -91,3 +92,4 @@ class Swishometer {
         }
     }
 }
+ */
