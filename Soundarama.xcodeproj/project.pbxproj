@@ -612,7 +612,6 @@
 				42F64F671CB3BAF600565F4B /* ResolvableStore.swift */,
 				42F64F701CB3FB1A00565F4B /* EndpointStore.swift */,
 				429EC9851C85AECE002FDBCC /* GroupStore.swift */,
-				428AF2AF1CA0396F0023FCC9 /* LevelStore.swift */,
 				42C1D2291CAACBD5005D0347 /* ReferenceTimestampStore.swift */,
 				4200803A1C5BD289009009E8 /* SuiteStore.swift */,
 			);
@@ -677,6 +676,7 @@
 		42E8BE191C54FB730034F1C8 /* Legacy */ = {
 			isa = PBXGroup;
 			children = (
+				428AF2AF1CA0396F0023FCC9 /* LevelStore.swift */,
 				42AFC6621C55802000AD4B9B /* ReadableMessageAdapter.swift */,
 				429EC9601C847697002FDBCC /* AudioController.h */,
 				429EC9611C847697002FDBCC /* AudioController.mm */,

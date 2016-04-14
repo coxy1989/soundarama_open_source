@@ -78,16 +78,23 @@ class CircleView: UIView {
 
 class BorderedCircleView: UIView {
     
+    
+    private let l = CAShapeLayer()
+    
     override func layoutSubviews() {
         
         super.layoutSubviews()
         
-        let l = CAShapeLayer()
         l.fillColor = UIColor.clearColor().CGColor
         l.lineWidth = 3.0
         l.strokeColor = UIColor.whiteColor().CGColor
         l.lineDashPattern = [ 5, 9 ]
         layer.addSublayer(l)
         l.path = UIBezierPath(ovalInRect: bounds).CGPath
+    }
+    
+    func setColor(color: UIColor) {
+        
+        l.strokeColor = color.CGColor
     }
 }

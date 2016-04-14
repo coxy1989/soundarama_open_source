@@ -212,14 +212,14 @@
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                             </imageView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="IRr-Tg-YW5" customClass="LevelCompassView" customModule="Soundarama" customModuleProvider="target">
-                                <rect key="frame" x="175" y="175" width="250" height="250"/>
+                                <rect key="frame" x="150" y="150" width="300" height="300"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="giF-dY-YF3">
-                                        <rect key="frame" x="0.0" y="0.0" width="250" height="250"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="300" height="300"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BEz-yR-s05" customClass="BorderedCircleView" customModule="Soundarama" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="0.0" width="250" height="250"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="300" height="300"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                     </view>
                                 </subviews>
@@ -233,19 +233,28 @@
                                     <constraint firstAttribute="trailing" secondItem="BEz-yR-s05" secondAttribute="trailing" id="dD0-Rk-RPQ"/>
                                     <constraint firstItem="giF-dY-YF3" firstAttribute="leading" secondItem="IRr-Tg-YW5" secondAttribute="leading" id="gaa-jT-KdA"/>
                                     <constraint firstAttribute="width" secondItem="IRr-Tg-YW5" secondAttribute="height" multiplier="1:1" id="mRY-lx-9rH"/>
-                                    <constraint firstAttribute="width" constant="250" id="oaS-l8-8PW"/>
+                                    <constraint firstAttribute="width" constant="300" id="oaS-l8-8PW"/>
                                     <constraint firstItem="BEz-yR-s05" firstAttribute="top" secondItem="IRr-Tg-YW5" secondAttribute="top" id="wjg-xK-nKc"/>
                                 </constraints>
                             </view>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dWK-Ms-9aU">
+                                <rect key="frame" x="8" y="8" width="13" height="22"/>
+                                <state key="normal" image="back-btn"/>
+                                <connections>
+                                    <action selector="didPressBackButton:" destination="x8l-Qe-jsB" eventType="touchUpInside" id="FSw-fg-gbb"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="IRr-Tg-YW5" firstAttribute="centerX" secondItem="3A5-Ka-Dqu" secondAttribute="centerX" id="6m9-1o-wHg"/>
                             <constraint firstAttribute="trailing" secondItem="AJb-4F-miM" secondAttribute="trailing" id="EeC-TW-De7"/>
                             <constraint firstItem="AJb-4F-miM" firstAttribute="leading" secondItem="3A5-Ka-Dqu" secondAttribute="leading" id="Glg-9P-wHy"/>
+                            <constraint firstItem="dWK-Ms-9aU" firstAttribute="top" secondItem="3A5-Ka-Dqu" secondAttribute="top" constant="8" id="NKA-hw-pon"/>
                             <constraint firstItem="Ei2-uS-487" firstAttribute="top" secondItem="AJb-4F-miM" secondAttribute="bottom" id="QOJ-QP-CNm"/>
                             <constraint firstItem="AJb-4F-miM" firstAttribute="top" secondItem="3A5-Ka-Dqu" secondAttribute="top" id="RNg-b8-6OI"/>
                             <constraint firstItem="IRr-Tg-YW5" firstAttribute="centerY" secondItem="3A5-Ka-Dqu" secondAttribute="centerY" id="bla-KD-9oO"/>
+                            <constraint firstItem="dWK-Ms-9aU" firstAttribute="leading" secondItem="3A5-Ka-Dqu" secondAttribute="leading" constant="8" id="cjL-4p-7dT"/>
                         </constraints>
                     </view>
                     <connections>
@@ -486,6 +495,7 @@
         </scene>
     </scenes>
     <resources>
+        <image name="back-btn" width="13" height="22"/>
         <image name="bg" width="375" height="667"/>
         <image name="bg-robot-wars" width="1366" height="1024"/>
         <image name="checkmark" width="39" height="30"/>

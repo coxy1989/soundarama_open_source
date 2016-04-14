@@ -20,6 +20,8 @@ protocol PerformerDJPickerInput: class {
 protocol PerformerInstrumentsInput: class {
     
     func startPerformerInstrumentInput()
+    
+    func stopPerfromerInstrumentInput()
 }
 
 protocol PerformerDJPickerOutput: class {
@@ -32,8 +34,6 @@ protocol PerformerInstrumentsOutput: class {
     func setCompassValue(value: Double)
     
     func setCharge(value: Double)
-    
-    func setLevel(level: Level)
     
     func setColor(color: UIColor)
 }

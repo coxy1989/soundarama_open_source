@@ -9,11 +9,6 @@
 import UIKit
 import TouchpressUI
 
-protocol LevelUserInterface: class {
-    
-    func setLevel(level: Level)
-}
-
 protocol CompassUserInterface: class {
     
     func setCompassValue(value: Double)
@@ -31,9 +26,9 @@ protocol ChargingUserInteface: class {
 
 class InstrumentsViewController: ViewController {
         
-    @IBOutlet weak var dashedCircleView: UIView!
-    @IBOutlet weak var compassView: LevelCompassView!
-    @IBOutlet weak var circleView: UIView!
+    @IBOutlet weak var dashedCircleView: BorderedCircleView?
+    @IBOutlet weak var compassView: LevelCompassView?
+    @IBOutlet weak var circleView: UIView?
 
     @IBAction func didPressBackButton(sender: AnyObject) { userInterfaceDelegate?.userInterfaceDidNavigateBack(self)}
     
@@ -43,9 +38,9 @@ class InstrumentsViewController: ViewController {
         
         super.viewDidLoad()
         
-        dashedCircleView.transform = CGAffineTransformMakeScale(0.5, 0.5)
-        circleView.layer.cornerRadius = circleView.frame.size.width * 0.5
-        circleView.clipsToBounds = true
+        dashedCircleView!.transform = CGAffineTransformMakeScale(0.7, 0.7)
+        circleView!.layer.cornerRadius = circleView!.frame.size.width * 0.5
+        circleView!.clipsToBounds = true
         setCharge(0)
     }
 }
@@ -54,10 +49,16 @@ extension InstrumentsViewController: ChargingUserInteface {
  
     func setCharge(value: Double) {
         
-        UIView.animateWithDuration(0.1) { [unowned self] in
+        UIView.animateWithDuration(0.1) { [weak self] in
             
-            let v = CGFloat(max(value, 0.1))
-            self.circleView.transform = CGAffineTransformMakeScale(v, v)
+            if value > 0.7 {
+                self?.dashedCircleView?.setColor(UIColor.redColor())
+            }
+            else {
+                self?.dashedCircleView?.setColor(UIColor.whiteColor())
+            }
+            let v = CGFloat(value)
+            self?.circleView?.transform = CGAffineTransformMakeScale(v, v)
         }
     }
 }
@@ -66,14 +67,7 @@ extension InstrumentsViewController: ColoredUserInteface {
     
     func setColor(color: UIColor) {
         
-        
-    }
-}
-
-extension InstrumentsViewController: LevelUserInterface {
-    
-    func setLevel(level: Level) {
-    
+        compassView?.setColor(color)
     }
 }
 

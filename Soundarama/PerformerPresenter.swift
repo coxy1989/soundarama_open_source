@@ -19,8 +19,6 @@ class PerformerPresenter: PerformerModule {
     
     weak var compassUI: CompassUserInterface?
     
-    weak var levelUI: LevelUserInterface?
-    
     weak var coloredUI: ColoredUserInteface?
     
     weak var chargingUI: ChargingUserInteface?
@@ -30,8 +28,7 @@ class PerformerPresenter: PerformerModule {
     func start(navigationController: UINavigationController) {
         
         performerWireframe.navigationController = navigationController
-        //performerWireframe.presentDJPickerUI(self)
-        performerWireframe.presentInstrumentsUI(self)
+        performerWireframe.presentDJPickerUI(self)
     }
 }
 
@@ -47,11 +44,6 @@ extension PerformerPresenter: PerformerInstrumentsOutput {
         chargingUI?.setCharge(value)
     }
     
-    func setLevel(level: Level) {
-        
-        levelUI?.setLevel(level)
-    }
-    
     func setColor(color: UIColor) {
         
         coloredUI?.setColor(color)
@@ -64,7 +56,7 @@ extension PerformerPresenter: PerformerDJPickerOutput {
      
         pickDJUI?.set(identifier, state: state, identifiers: identifiers, isReachable: isReachable)
         
-        if state == .Connected {
+        if state == .Connected && compassUI == nil {
             
             performerWireframe.presentInstrumentsUI(self)
         }
@@ -75,7 +67,7 @@ extension PerformerPresenter: UserInterfaceDelegate {
     
     func userInterfaceDidLoad(userInterface: UserInterface) {
         
-        if userInterface === compassUI || userInterface === levelUI {
+        if userInterface === compassUI || userInterface === chargingUI {
             
             instrumentsInput.startPerformerInstrumentInput()
         }
@@ -88,9 +80,10 @@ extension PerformerPresenter: UserInterfaceDelegate {
             performerWireframe.dismissDJPickerUI()
         }
         
-        else if userInterface === compassUI || userInterface === levelUI {
+        else if userInterface === compassUI || userInterface === chargingUI {
             
             pickDJInput.stopDJPickerInput()
+            instrumentsInput.stopPerfromerInstrumentInput()
             performerWireframe.dismissInstrumentsUI(self)
         }
     }

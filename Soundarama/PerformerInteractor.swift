@@ -15,13 +15,7 @@ class PerformerInteractor {
     
     weak var performerInstrumentsOutput: PerformerInstrumentsOutput!
     
-    private let compass = Compass(locationManager: LocationService.manager)
-    
-    private let danceometer = Danceometer(accellerometer: Accellerometer(motionManager: MotionService.manager))
-    
     private let audioStemStore = AudioStemStore()
-    
-    private let levelStore = LevelStore()
     
     private let audioConfig: AudioConfiguration = AudioConfigurationStore.getConfiguration()
     
@@ -43,6 +37,9 @@ class PerformerInteractor {
     
     private var connectionState = ConnectionState.NotConnected
     
+    private var compass: Compass?
+    
+    private var danceometer: Danceometer?
 }
 
 extension PerformerInteractor: PerformerDJPickerInput {
@@ -169,9 +166,12 @@ extension PerformerInteractor: PerformerInstrumentsInput {
     func startPerformerInstrumentInput() {
         
         startInstruments()
-        performerInstrumentsOutput.setLevel(levelStore.getLevel())
+    }
+    
+    func stopPerfromerInstrumentInput() {
         
-        startAudio(TaggedAudioPathStore.taggedAudioPaths("Kick"), afterDelay: 2, atTime: 0, muted: false)
+        danceometer = nil
+        compass = nil
     }
 }
 
@@ -225,8 +225,6 @@ extension PerformerInteractor {
     
     func handleMessage(message: Message) {
         
-        debugPrint(message)
-        
         switch message.type {
             
             case .Start:
@@ -265,11 +263,8 @@ extension PerformerInteractor {
         let time_elapsed = message.timestamp - message.referenceTimestamp + latency
         let time_modulus = time_elapsed % audioConfig.audioFileLength
         
-        
-        
         self.startAudio(TaggedAudioPathStore.taggedAudioPaths(message.reference), afterDelay: 0, atTime: time_modulus, muted: message.muted)
         self.performerInstrumentsOutput.setColor(self.audioStemStore.audioStem(message.reference)!.colour)
-        self.controlAudioLoopVolume(self.compass.getHeading(), level: self.levelStore.getLevel())
     }
     
     func handleStopMessage(message: StopMessage) {
@@ -300,17 +295,6 @@ extension PerformerInteractor {
         audioloop?.loop.setMuted(muted)
     }
     
-    /*
-    private func stopAudioLoop(loop: MultiAudioLoop, afterDelay: NSTimeInterval) {
-        
-        loop.stop()
-        /*
-        audioloop?.loop.stop()
-        audioloop = nil
-         */
-    }
-    */
-    
     private func toggleMuteAudio(isMuted: Bool) {
         
         audioloop?.loop.setMuted(isMuted)
@@ -319,61 +303,15 @@ extension PerformerInteractor {
 
 extension PerformerInteractor {
     
-    func changeLevel(toLevel: Level) {
-        
-        let prestate = levelStore.getLevel()
-        levelStore.setLevel(toLevel)
-        let poststate = levelStore.getLevel()
-        lockLevelStore(2)
-        didChangeLevel(prestate, toLevel: poststate)
-    }
-    
-    func didChangeLevel(fromLevel: Level, toLevel: Level) {
-        
-        guard fromLevel != toLevel else {
-            return
-        }
-        
-        performerInstrumentsOutput.setLevel(levelStore.getLevel())
-    }
-    
-    func lockLevelStore(duration: NSTimeInterval) {
-        
-        levelStore.lock()
-        
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, Int64((UInt64(duration) * NSEC_PER_SEC))), dispatch_get_main_queue()) { [weak self] in
-            
-            self?.levelStore.unlock()
-        }
-    }
-}
-
-extension PerformerInteractor {
-    
     private func startInstruments() {
         
         var c: Double?
-        var first_reading = true
+        startCompass() { c = $0 }
         
-        compass.start() { [weak self] in
+        danceometer = Danceometer(accellerometer: Accellerometer(motionManager: MotionService.manager))
+        danceometer!.start() { [weak self] in
             
-            guard let this = self else {
-                
-                return
-            }
-            
-            guard first_reading == false else {
-                
-                // The first reading is bullshit.
-                first_reading = false
-                return
-            }
-            
-            c = $0
-            this.performerInstrumentsOutput.setCompassValue($0)
-        }
-        
-        danceometer.start() { [weak self] in
+            /* TODO: Refactor this garbage! */
             
             guard let this = self else {
                 
@@ -392,10 +330,34 @@ extension PerformerInteractor {
                 return
             }
             
-            CompassChargeVolumeController.calculateVolume(al.paths, compassValue: com, charge: $0, threshold: 0.5).forEach() {
+            CompassChargeVolumeController.calculateVolume(al.paths, compassValue: com, charge: $0, threshold: 0.7).forEach() {
                 
                 al.loop.setVolume($0.path, volume: $1)
             }
+        }
+    }
+    
+    private func startCompass(handler: Double? -> ()) {
+        
+        var first_reading = true
+        
+        compass = Compass(locationManager: LocationService.manager)
+        compass!.start() { [weak self] in
+            
+            guard let this = self else {
+                
+                return
+            }
+            
+            guard first_reading == false else {
+                
+                // The first reading is bullshit.
+                first_reading = false
+                return
+            }
+            
+            this.performerInstrumentsOutput.setCompassValue($0)
+            handler($0)
         }
     }
     
@@ -435,7 +397,6 @@ extension PerformerInteractor: ChristiansProcessDelegate {
 }
 
 extension PerformerInteractor: ReadableDelegate {
-    
     
     func didReadData(data: NSData) {
         
