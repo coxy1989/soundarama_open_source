@@ -25,7 +25,7 @@ class PerformerInteractor {
     
     private var audioloop: (loop: MultiAudioLoop, paths: Set<TaggedAudioPath>)?
     
-    private var wifiReachability: WiFiReachability!
+    private var wifiReachability: WiFiReachability?
     
     private var searchService: SearchService?
     
@@ -46,7 +46,7 @@ extension PerformerInteractor: PerformerDJPickerInput {
  
     func stopDJPickerInput() {
         
-        wifiReachability.stop()
+        wifiReachability?.stop()
         stopNetworkIO()
         audioloop?.loop.stop()
         audioloop = nil
@@ -93,7 +93,7 @@ extension PerformerInteractor: PerformerDJPickerInput {
         
         wifiReachability = WiFiReachability.monitoringReachability(wifi_reachable, unreachable: wifi_unreachable, failure: wifi_failure)
     
-        performerDJPickerOutput.set(endpoint?.0, state: connectionState, identifiers: availableIdentifiers(), isReachable: wifiReachability.isReachable())
+        performerDJPickerOutput.set(endpoint?.0, state: connectionState, identifiers: availableIdentifiers(), isReachable: wifiReachability?.isReachable() ?? false)
     }
     
     func pickIdentifier(identifier: String) {
@@ -107,7 +107,7 @@ extension PerformerInteractor: PerformerDJPickerInput {
             
             this.endpoint = nil
             this.connectionState = .NotConnected
-            this.performerDJPickerOutput.set(nil, state: this.connectionState, identifiers: this.availableIdentifiers(), isReachable: this.wifiReachability.isReachable())
+            this.performerDJPickerOutput.set(nil, state: this.connectionState, identifiers: this.availableIdentifiers(), isReachable: this.wifiReachability?.isReachable() ?? false)
         }
         
         let connected: (String, DisconnectableEndpoint) -> () = { [weak self] i, e in
@@ -134,13 +134,13 @@ extension PerformerInteractor: PerformerDJPickerInput {
             guard let connector = SocketConnector.connect(identifier, host: $0.0, port: $0.1, connected: connected) else {
                 
                 this.connectionState = .NotConnected
-                this.performerDJPickerOutput.set(this.endpoint?.0, state: this.connectionState, identifiers: this.availableIdentifiers(), isReachable: this.wifiReachability.isReachable())
+                this.performerDJPickerOutput.set(this.endpoint?.0, state: this.connectionState, identifiers: this.availableIdentifiers(), isReachable: this.wifiReachability?.isReachable() ?? false)
                 return
             }
             
             this.resolvableStore.removeResolvable(identifier)
             this.socketConnector = connector
-            this.performerDJPickerOutput.set(identifier, state: this.connectionState, identifiers: this.availableIdentifiers(), isReachable: this.wifiReachability.isReachable())
+            this.performerDJPickerOutput.set(identifier, state: this.connectionState, identifiers: this.availableIdentifiers(), isReachable: this.wifiReachability?.isReachable() ?? false)
         }
         
         let resolve_failure: ([String : NSNumber] -> ()) = {[weak self] _ in
@@ -152,7 +152,7 @@ extension PerformerInteractor: PerformerDJPickerInput {
             
             this.resolvableStore.removeResolvable(identifier)
             this.connectionState = .NotConnected
-            this.performerDJPickerOutput.set(this.endpoint?.0, state: this.connectionState, identifiers: this.availableIdentifiers(), isReachable: this.wifiReachability.isReachable())
+            this.performerDJPickerOutput.set(this.endpoint?.0, state: this.connectionState, identifiers: this.availableIdentifiers(), isReachable: this.wifiReachability?.isReachable() ?? false)
         }
         
         connectionState = .Connecting
@@ -187,7 +187,7 @@ extension PerformerInteractor {
             }
             
             this.resolvableStore.addResolvable($0)
-            this.performerDJPickerOutput.set(this.endpoint?.0, state: this.connectionState, identifiers: this.availableIdentifiers(), isReachable: this.wifiReachability.isReachable())
+            this.performerDJPickerOutput.set(this.endpoint?.0, state: this.connectionState, identifiers: this.availableIdentifiers(), isReachable: this.wifiReachability?.isReachable() ?? false)
         }
         
         let lost: (String, Resolvable) -> () = { [weak self] in
@@ -198,7 +198,7 @@ extension PerformerInteractor {
             }
             
             this.resolvableStore.removeResolvable($0.0)
-            this.performerDJPickerOutput.set(this.endpoint?.0, state: this.connectionState, identifiers: this.availableIdentifiers(), isReachable: this.wifiReachability.isReachable())
+            this.performerDJPickerOutput.set(this.endpoint?.0, state: this.connectionState, identifiers: this.availableIdentifiers(), isReachable: this.wifiReachability?.isReachable() ?? false)
         }
         
         let failed: () -> () = { [weak self] in
@@ -208,7 +208,7 @@ extension PerformerInteractor {
                 return
             }
             
-            this.performerDJPickerOutput.set(this.endpoint?.0, state: this.connectionState, identifiers: this.availableIdentifiers(), isReachable: this.wifiReachability.isReachable())
+            this.performerDJPickerOutput.set(this.endpoint?.0, state: this.connectionState, identifiers: this.availableIdentifiers(), isReachable: this.wifiReachability?.isReachable() ?? false)
         }
         
         searchService = SearchService.searching(NetworkConfiguration.type, domain: NetworkConfiguration.domain, found: found, lost: lost, failed: failed)
@@ -380,7 +380,7 @@ extension PerformerInteractor: ChristiansProcessDelegate {
         endpoint.readData(Serialisation.terminator)
         endpoint.readableDelegate = self
         connectionState = .Connected
-        performerDJPickerOutput.set(self.endpoint?.0, state: connectionState, identifiers: availableIdentifiers(), isReachable: wifiReachability.isReachable())
+        performerDJPickerOutput.set(self.endpoint?.0, state: connectionState, identifiers: availableIdentifiers(), isReachable: wifiReachability?.isReachable() ?? false)
         debugPrint(christiansMap)
     }
 }

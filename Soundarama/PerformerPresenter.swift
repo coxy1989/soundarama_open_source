@@ -86,7 +86,7 @@ extension PerformerPresenter: UserInterfaceDelegate {
         
         else if userInterface === compassUI || userInterface === chargingUI {
             
-            pickDJInput.stopDJPickerInput()
+            //pickDJInput.stopDJPickerInput()
             instrumentsInput.stopPerfromerInstrumentInput()
             performerWireframe.dismissInstrumentsUI(self)
         }
@@ -96,6 +96,7 @@ extension PerformerPresenter: UserInterfaceDelegate {
         
         if userInterface === pickDJUI {
             
+            pickDJInput.stopDJPickerInput()
             pickDJInput.startDJPickerInput()
         }
     }
