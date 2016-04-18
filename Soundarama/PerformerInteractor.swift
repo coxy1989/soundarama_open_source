@@ -24,8 +24,6 @@ class PerformerInteractor {
     
     private var christiansProcess: ChristiansProcess?
     
-    private var christiansMap: (remote: NSTimeInterval, local: NSTimeInterval)?
-    
     private var audioloop: (loop: MultiAudioLoop, paths: Set<TaggedAudioPath>)?
     
     private var resolvableStore = ResolvableStore()
@@ -44,7 +42,7 @@ class PerformerInteractor {
     
     private var searchReachability: Reachability?
     
-    private var pickedDJHandler: (String -> ())?
+    private var reactiveEndpoint: ReactiveEndpoint?
     
     deinit {
         
@@ -61,6 +59,8 @@ extension PerformerInteractor: PerformerDJPickerInput {
         
         searchReachability = try! Reachability.reachabilityForInternetConnection()
         WiFiReachability2.reachability(searchReachability!).startWithNext(processDJSearchReachability)
+        
+        setPerformerDJPickerOutput()
     }
     
     func stopDJPickerInput() {
@@ -70,6 +70,9 @@ extension PerformerInteractor: PerformerDJPickerInput {
         
         searchReachability?.stopNotifier()
         searchReachability = nil
+        
+        resolvableStore.removeAllResolvables()
+        connectionStore.clearConnectionState()
     }
     
     func pickIdentifier(identifier: String) {
@@ -88,39 +91,35 @@ extension PerformerInteractor: PerformerDJPickerInput {
                 
             case .Success(let endpoint, let time_map):
                 
+                debugPrint("Successfully connected")
                 self?.onConnected(endpoint, time_map: time_map)
                 self?.processDJConnectionEvent(identifier, event: .Succeeded)
-                debugPrint("Success! TODO: Clean up resources")
                 
             case .Failure(let e):
                 
+                debugPrint("Failed to connect: \(e)")
                 self?.processDJConnectionEvent(identifier, event: .Failed)
-                debugPrint("Failed: \(e): TODO: Clean up resoucrces")
             }
         }
     }
     
     func onConnected(endpoint: Endpoint, time_map: ChristiansMap) {
         
-        let rpt = ReactiveEndpoint(endpoint: endpoint)
-        ReactiveEndpoint.start(rpt).on(completed: {}, disposed: {}, next: { d in  }).start()
+        reactiveEndpoint = ReactiveEndpoint(endpoint: endpoint)
         
-        ReactiveEndpoint.start(rpt).map(MessageDeserializer.deserialize).on(completed: {}, disposed: {}).startWithNext() { [weak self] in
-            
-            switch $0 {
+        ReactiveEndpoint.start(reactiveEndpoint!)
+            .on(completed: { debugPrint("endpoint completed") })
+            .map(MessageDeserializer.deserialize)
+            .startWithNext() { [weak self] in
                 
-                case .Success(let m): self?.handleMessage(m)
+                switch $0 {
                 
-                case .Failure(let e): debugPrint("Failed to unarchive message: \(e)")
+                    case .Success(let m): self?.handleMessage(m, timeMap: time_map)
+                
+                    case .Failure(let e): debugPrint("Failed to unarchive message: \(e)")
             }
         }
     }
-    
-    func deserialze(data: NSData) -> Result<Message, ParsingError> {
-        
-        
-    }
-    
 }
 
 extension PerformerInteractor: PerformerInstrumentsInput {
@@ -132,8 +131,14 @@ extension PerformerInteractor: PerformerInstrumentsInput {
     
     func stopPerfromerInstrumentInput() {
         
-        danceometer = nil
+        reactiveEndpoint?.stop()
+        reactiveEndpoint = nil
+        
+        compass?.stop()
         compass = nil
+        
+        danceometer?.stop()
+        danceometer = nil
     }
 }
 
@@ -147,7 +152,7 @@ extension PerformerInteractor {
         let socketConnector = SocketConnector()
         self.socketConnector = socketConnector
         
-        return resolvable.resolve(NetworkConfiguration.resolveTimeout)
+        return resolvable.resolve()
             .flatMap(){ transformer($0, f: socketConnector.connect) }
             .flatMap(){ transformer($0, f: christiansProcess.syncronise) }
     }
@@ -205,20 +210,16 @@ extension PerformerInteractor {
     }
 }
 
-extension PerformerInteractor {
-    
-    
-}
 
 extension PerformerInteractor {
     
-    func handleMessage(message: Message) {
+    func handleMessage(message: Message, timeMap: ChristiansMap) {
         
         switch message.type {
             
             case .Start:
                 
-                handleStartMessage(message as! StartMessage)
+                handleStartMessage(message as! StartMessage, timeMap: timeMap)
             
             case .Stop:
                 
@@ -234,28 +235,28 @@ extension PerformerInteractor {
         }
     }
     
-    func remoteTime(cmap: ((remote: NSTimeInterval, local: NSTimeInterval))) -> NSTimeInterval {
+    func remoteTime(timeMap: ChristiansMap) -> NSTimeInterval {
         
         let local_now = NSDate().timeIntervalSince1970
-        let elapsed = local_now - cmap.local
-        let remote_now = cmap.remote + elapsed
+        let elapsed = local_now - timeMap.local
+        let remote_now = timeMap.remote + elapsed
         return remote_now
     }
     
-    func handleStartMessage(message: StartMessage) {
+    func handleStartMessage(message: StartMessage, timeMap: ChristiansMap) {
         
         /* DO NOT MOVE THESE TWO LINES OR YOU WILL BREAK THE SYNC. */
         audioloop?.loop.stop()
         audioloop = nil
         /*-------------------------------------------------------- */
         
-        let remote_now = remoteTime(christiansMap!)
+        let remote_now = remoteTime(timeMap)
         let latency = remote_now - message.timestamp
         let time_elapsed = message.timestamp - message.referenceTimestamp + latency
         let time_modulus = time_elapsed % audioConfig.audioFileLength
         
-        self.startAudio(TaggedAudioPathStore.taggedAudioPaths(message.reference), afterDelay: 0, atTime: time_modulus, muted: message.muted)
-        self.performerInstrumentsOutput.setColor(self.audioStemStore.audioStem(message.reference)!.colour)
+        startAudio(TaggedAudioPathStore.taggedAudioPaths(message.reference), afterDelay: 0, atTime: time_modulus, muted: message.muted)
+        performerInstrumentsOutput.setColor(self.audioStemStore.audioStem(message.reference)!.colour)
     }
     
     func handleStopMessage(message: StopMessage) {

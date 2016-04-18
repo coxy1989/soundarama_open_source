@@ -58,20 +58,20 @@ extension NetworkEndpoint: AsyncSocketDelegate {
     
     func onSocket(sock: AsyncSocket!, didWriteDataWithTag tag: Int) {
         
-        debugPrint("Socket wrote data")
+        /* debugPrint("Socket wrote data") */
         writeableDelegate?.didWriteData()
     }
     
     func onSocket(sock: AsyncSocket!, didReadData data: NSData!, withTag tag: Int) {
         
-        debugPrint("Socket read data")
+        /* debugPrint("Socket read data") */
         readableDelegate?.didReadData(data)
     }
     
     
     func onSocket(sock: AsyncSocket!, willDisconnectWithError err: NSError!) {
         
-        debugPrint("Socket will disconnect: \(err)")
+        /* debugPrint("Socket will disconnect: \(err)") */
     }
     
     func onSocketDidDisconnect(sock: AsyncSocket!) {

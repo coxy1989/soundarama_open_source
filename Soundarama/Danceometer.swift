@@ -71,4 +71,9 @@ class Danceometer {
             handler(max(this.score,0))
         }
     }
+    
+    func stop() {
+        
+        accellerometer.stop()
+    }
 }

@@ -33,6 +33,11 @@ class Compass: NSObject {
         locationManager.startUpdatingHeading()
     }
     
+    func stop() {
+        
+        locationManager.stopUpdatingHeading()
+    }
+    
     func getHeading() -> Double {
         
         return heading

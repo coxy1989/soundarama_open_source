@@ -12,9 +12,7 @@ import Result
 
 protocol Resolvable {
     
-   // func resolveWithTimeout(timeout: NSTimeInterval, success: (host: String, port: UInt16) -> (), failure: [String : NSNumber] -> ())
-    
-    func resolve(timeout: NSTimeInterval) -> Promise<Result<(String, UInt16), ConnectionError>>
+    func resolve() -> Promise<Result<(String, UInt16), ConnectionError>>
 }
 
 class ResolvableNetService: NSObject {
@@ -24,6 +22,7 @@ class ResolvableNetService: NSObject {
     var success: ((String, UInt16) -> ())!
     
     var failure: ([String : NSNumber] -> ())!
+    
     
     init(netService: NSNetService) {
         
@@ -35,16 +34,9 @@ class ResolvableNetService: NSObject {
 
 extension ResolvableNetService: Resolvable {
     
-    func resolveWithTimeout(timeout: NSTimeInterval, success: (host: String, port: UInt16) -> (), failure: [String : NSNumber] -> ()) {
+    func resolve() -> Promise<Result<(String, UInt16), ConnectionError>> {
         
-        self.success = success
-        self.failure = failure
-        netService.resolveWithTimeout(timeout)
-    }
-    
-    func resolve(timeout: NSTimeInterval) -> Promise<Result<(String, UInt16), ConnectionError>> {
-        
-        netService.resolveWithTimeout(timeout)
+        netService.resolveWithTimeout(NetworkConfiguration.resolveTimeout)
         
         return Promise<Result<(String, UInt16), ConnectionError>> { [weak self] execute in
             
@@ -91,12 +83,14 @@ extension ResolvableNetService: NSNetServiceDelegate {
         
         debugPrint("Net Service resolved address")
         
+        netService.stop()
         success(host, UInt16(sender.port))
     }
     
     func netService(sender: NSNetService, didNotResolve errorDict: [String : NSNumber]) {
         
         debugPrint("Net service did not resolve \(errorDict)")
+        netService.stop()
         failure(errorDict)
     }
     

@@ -15,4 +15,8 @@ struct NetworkConfiguration {
     static let port: UInt16 = 6565
     
     static let resolveTimeout: NSTimeInterval = 5
+    
+    static let connectTimeout: NSTimeInterval = 5
+    
+    static let syncTimeout: NSTimeInterval = 5
 }

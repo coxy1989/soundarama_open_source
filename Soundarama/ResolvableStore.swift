@@ -32,6 +32,13 @@ class ResolvableStore {
         lock.unlock()
     }
     
+    func removeAllResolvables() {
+        
+        lock.lock()
+        resolvables.keys.forEach() { resolvables.removeValueForKey($0) }
+        lock.unlock()
+    }
+    
     func getResolvable(identifer: String) -> Resolvable? {
         
         return resolvables[identifer]

@@ -26,6 +26,7 @@ enum ParsingError: ResultErrorType {
     
     case InvalidStartMessage
     
+    case InvalidMessage
 }
 
 func transformer<T, U>(r: Result<T, ConnectionError>, f: T -> Promise<Result<U, ConnectionError>>) -> Promise<Result<U, ConnectionError>> {

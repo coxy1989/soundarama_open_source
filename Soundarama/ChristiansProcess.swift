@@ -43,12 +43,15 @@ class ChristiansProcess {
     private var onSyncronised: (ChristiansMap -> ())!
     
     private var onFailed: (() -> ())!
+    
+    private var startUnix: NSTimeInterval!
 
     func syncronise(endpoint: Endpoint) -> Promise<Result<(Endpoint, ChristiansMap), ConnectionError>> {
         
         self.endpoint = endpoint
         endpoint.readableDelegate = self
         endpoint.writeableDelegate = self
+        startUnix = NSDate().timeIntervalSince1970
     
         return Promise<Result<(Endpoint, ChristiansMap), ConnectionError>> { [weak self] execute in
             
@@ -81,6 +84,13 @@ extension ChristiansProcess {
     
     private func takeTripIfNeeded() {
         
+        guard NSDate().timeIntervalSince1970 - startUnix < NetworkConfiguration.syncTimeout else {
+            
+            endpoint?.disconnect()
+            onFailed()
+            return
+        }
+        
         trips.count < ChristiansConstants.numberOfTrips ? takeTrip() : onSyncronised(calculateResult())
     }
 
@@ -108,7 +118,7 @@ extension ChristiansProcess: WriteableDelegate {
     
     func didWriteData() {
         
-        debugPrint("Christian's process wrote data")
+        /* debugPrint("Christian's process wrote data") */
         currentTrip = RoundTrip(requestStamp: NSDate().timeIntervalSince1970, responseStamp: nil, timestamp:nil)
     }
 }
@@ -119,11 +129,9 @@ extension ChristiansProcess: ReadableDelegate {
 
         if let d = getTimestamp(data) {
             
-            debugPrint("Christian's process read data")
-            
+            /* debugPrint("Christian's process read data") */
             currentTrip!.responseStamp = NSDate().timeIntervalSince1970
             currentTrip!.timestamp = d
-            debugPrint(d)
             trips.append(currentTrip!)
         }
             

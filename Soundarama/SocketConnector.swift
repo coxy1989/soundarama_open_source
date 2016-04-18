@@ -13,12 +13,6 @@ import Result
 
 class SocketConnector: NSObject {
     
-//    private var connected: ((String, DisconnectableEndpoint) -> ())!
-    
-//    private var state = false
-    
-   // private let name: String
-    
     private var onConnected: (Endpoint -> ())!
     
     private var onDisconnected: (() -> ())!
@@ -29,13 +23,6 @@ class SocketConnector: NSObject {
         s.setDelegate(self)
         return s
     }()
-    
-    /*
-    private init(name: String) {
-        
-        self.name = name
-    }
- */
     
     func connect(host: String, port: UInt16) -> Promise<Result<Endpoint, ConnectionError>> {
     
@@ -57,7 +44,7 @@ class SocketConnector: NSObject {
             
             do {
                 
-                try self?.socket.connectToHost(host, onPort: port)
+                try self?.socket.connectToHost(host, onPort: port, withTimeout: NetworkConfiguration.connectTimeout)
             }
             
             catch {
@@ -66,34 +53,8 @@ class SocketConnector: NSObject {
                 let promise = Promise<Result<Endpoint, ConnectionError>>(result)
                 execute(promise)
             }
-            
         }
     }
-    
-    /*
-    
-    static func connect(name: String, host: String, port: UInt16, connected: (String, DisconnectableEndpoint) -> ()) -> SocketConnector? {
-        
-        let connector = SocketConnector(name: name)
-        connector.connected = connected
-    
-        do {
-            
-            try connector.socket.connectToHost(host, onPort: port)
-            
-        } catch {
-            
-            return nil
-        }
-        
-        return connector
-    }
-    
-    func isConnected() -> Bool {
-        
-        return state
-    }
- */
 }
 
 
@@ -102,8 +63,6 @@ extension SocketConnector: AsyncSocketDelegate {
     func onSocket(sock: AsyncSocket!, didConnectToHost host: String!, port: UInt16) {
         
         debugPrint("Socket connector connected socket")
-        //state = true
-       // connected(name, NetworkEndpoint(socket: sock))
         onConnected(NetworkEndpoint(socket: sock))
     }
     

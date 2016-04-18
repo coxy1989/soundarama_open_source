@@ -38,4 +38,9 @@ class Accellerometer {
             }
         }
     }
+    
+    func stop() {
+        
+        motionManager.stopDeviceMotionUpdates()
+    }
 }

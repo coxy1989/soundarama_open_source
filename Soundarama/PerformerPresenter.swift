@@ -68,10 +68,16 @@ extension PerformerPresenter: PerformerDJPickerOutput {
 
 extension PerformerPresenter: UserInterfaceDelegate {
     
-    func userInterfaceDidLoad(userInterface: UserInterface) {
+    func userInterfaceWillAppear(userInterface: UserInterface) {
+        
+        if userInterface === pickDJUI {
+            
+            pickDJInput.startDJPickerInput()
+        }
         
         if userInterface === compassUI || userInterface === chargingUI {
             
+            pickDJInput.stopDJPickerInput()
             instrumentsInput.startPerformerInstrumentInput()
         }
     }
@@ -87,20 +93,12 @@ extension PerformerPresenter: UserInterfaceDelegate {
         
         else if userInterface === compassUI || userInterface === chargingUI {
             
-            //pickDJInput.stopDJPickerInput()
             instrumentsInput.stopPerfromerInstrumentInput()
             performerWireframe.dismissInstrumentsUI(self)
         }
     }
-    
-    func userInterfaceWillAppear(userInterface: UserInterface) {
-        
-        if userInterface === pickDJUI {
-            
-            pickDJInput.stopDJPickerInput()
-            pickDJInput.startDJPickerInput()
-        }
-    }
+
+    func userInterfaceDidLoad(userInterface: UserInterface) { }
     
     func userInterfaceDidAppear(userInterface: UserInterface) {}
 }

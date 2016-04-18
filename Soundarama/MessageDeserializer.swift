@@ -32,23 +32,22 @@ class MessageDeserializer {
         
         else if type == MessageType.Stop.rawValue {
             
-            return deserializeStopMessage(json)
+            return Result<Message, ParsingError>.Success(StopMessage())
         }
         
         else if type == MessageType.Mute.rawValue {
             
-            return deserializeMuteMessage(json)
+            return Result<Message, ParsingError>.Success(MuteMessage())
         }
         
         else if type == MessageType.Unmute.rawValue {
             
-            return deserializeUnmuteMessage(json)
+             return Result<Message, ParsingError>.Success(UnmuteMessage())
         }
         
         else {
-            
-            debugPrint("Failed to obtain a valid value for MessageSerialisationKeys.type Key")
-            return nil
+    
+            return Result<Message, ParsingError>.Failure(.InvalidMessage)
         }
     }
 }
@@ -63,7 +62,7 @@ extension MessageDeserializer {
                 referenceTimestamp = json[StartMessageSerialisationKeys.referenceTimestamp] as? Double,
                 muted = json[StartMessageSerialisationKeys.muted] as? Bool else {
                     
-            Result<StartMessage, ParsingError>.Failure(.InvalidStartMessage)
+            return Result<Message, ParsingError>.Failure(.InvalidStartMessage)
         }
         
         return Result<Message, ParsingError>.Success( StartMessage(timestamp: timestamp, reference: reference, sessionTimestamp: sessionTimestamp, referenceTimestamp: referenceTimestamp, muted: muted))
