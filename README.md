@@ -6,4 +6,4 @@ Throw sound around...
 
 - Clone me.
 - Make sure you have carthage installed on your machine.
-- Run 'carthage bootstrap' in Soundarama/Soundarama.
+- Run 'carthage bootstrap'
