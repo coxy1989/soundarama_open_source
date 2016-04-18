@@ -74,6 +74,9 @@ public class Reachability: NSObject {
     public var whenUnreachable: NetworkUnreachable?
     public var reachableOnWWAN: Bool
     public var notificationCenter = NSNotificationCenter.defaultCenter()
+    
+    //MARK:-- *** Added by CoxyBwoi
+    public var whenStopped: (() -> ())?
 
     public var currentReachabilityStatus: NetworkStatus {
         if isReachable() {
@@ -171,6 +174,8 @@ public class Reachability: NSObject {
 
         SCNetworkReachabilitySetCallback(reachabilityRef, nil, nil)
         SCNetworkReachabilitySetDispatchQueue(reachabilityRef, nil)
+        
+        whenStopped?()
     }
     
     // MARK: - *** Connection test methods ***

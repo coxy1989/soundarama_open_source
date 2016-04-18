@@ -6,22 +6,22 @@
 //  Copyright © 2016 Touchpress Ltd. All rights reserved.
 //
 
+import Result
+
 class MessageDeserializer {
     
-    static func deserialize(data: NSData)  -> Message? {
+    static func deserialize(data: NSData)  -> Result<Message, ParsingError> {
         
         let payload = Serialisation.getPayload(data)
         
         guard let json = NSKeyedUnarchiver.unarchiveObjectWithData(payload) else {
             
-            debugPrint("Failed to unarchive JSON")
-            return nil
+            return Result<Message, ParsingError>.Failure(.FailedToUnarchiveJSON)
         }
         
         guard let type = json[MessageSerialisationKeys.type] as? String else {
             
-            debugPrint("Failed to obtain a value for MessageSerialisationKeys.type Key")
-            return nil
+            return Result<Message, ParsingError>.Failure(.InvalidJSON)
         }
      
     
@@ -55,7 +55,7 @@ class MessageDeserializer {
 
 extension MessageDeserializer {
     
-    static func deserialiseStartMessage(json: AnyObject) -> StartMessage? {
+    static func deserialiseStartMessage(json: AnyObject) -> Result<Message, ParsingError> {
         
         guard let timestamp = json[StartMessageSerialisationKeys.timestamp] as? Double,
                 reference = json[StartMessageSerialisationKeys.reference] as?  String,
@@ -63,10 +63,10 @@ extension MessageDeserializer {
                 referenceTimestamp = json[StartMessageSerialisationKeys.referenceTimestamp] as? Double,
                 muted = json[StartMessageSerialisationKeys.muted] as? Bool else {
                     
-            return nil
+            Result<StartMessage, ParsingError>.Failure(.InvalidStartMessage)
         }
         
-        return StartMessage(timestamp: timestamp, reference: reference, sessionTimestamp: sessionTimestamp, referenceTimestamp: referenceTimestamp, muted: muted)
+        return Result<Message, ParsingError>.Success( StartMessage(timestamp: timestamp, reference: reference, sessionTimestamp: sessionTimestamp, referenceTimestamp: referenceTimestamp, muted: muted))
     }
     
     static func deserializeStopMessage(json: AnyObject) -> StopMessage? {

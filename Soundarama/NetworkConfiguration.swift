@@ -13,4 +13,6 @@ struct NetworkConfiguration {
     static let type = "_soundarama_coxy._tcp."
     
     static let port: UInt16 = 6565
+    
+    static let resolveTimeout: NSTimeInterval = 5
 }

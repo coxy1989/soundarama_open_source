@@ -6,6 +6,37 @@
 //  Copyright © 2016 Touchpress Ltd. All rights reserved.
 //
 
+import ReactiveCocoa
+import enum Result.NoError
+
+class WifiError: ErrorType {
+    
+}
+
+class WiFiReachability2 {
+    
+    static func reachability(r: Reachability) -> SignalProducer<Bool, Result.NoError> {
+        
+        return SignalProducer<Bool, NoError> { observer, disposable in
+    
+            r.whenReachable = { reachability in
+                
+                reachability.isReachableViaWiFi() ? observer.sendNext(true) : observer.sendNext(false)
+            }
+            
+            r.whenUnreachable = { reachability in
+                
+                observer.sendNext(false)
+            }
+            
+            r.whenStopped = {
+                
+                observer.sendCompleted()
+            }
+        }
+    }
+}
+
 class WiFiReachability {
     
     private var reachability: Reachability?

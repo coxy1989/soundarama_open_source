@@ -8,44 +8,66 @@
 
 /* Christian's Algorithm: https://en.wikipedia.org/wiki/Cristian%27s_algorithm */
 
-protocol ChristiansProcessDelegate: class {
+import PromiseK
+import Result
+
+struct ChristiansMap {
     
-    func christiansProcessDidSynchronise(endpoint: Endpoint, local: NSTimeInterval, remote: NSTimeInterval)
+    let local: NSTimeInterval
+    
+    let remote: NSTimeInterval
+}
+
+private struct RoundTrip {
+    
+    let requestStamp: NSTimeInterval
+    
+    var responseStamp: NSTimeInterval!
+    
+    var timestamp: NSTimeInterval!
+    
+    func latency() -> NSTimeInterval {
+        
+        return responseStamp - requestStamp
+    }
 }
 
 class ChristiansProcess {
     
-    weak var delegate: ChristiansProcessDelegate!
-    
-    private let endpoint: Endpoint
-    
-    private struct RoundTrip {
-
-        let requestStamp: NSTimeInterval
-        
-        var responseStamp: NSTimeInterval!
-        
-        var timestamp: NSTimeInterval!
-        
-        func latency() -> NSTimeInterval {
-            return responseStamp - requestStamp
-        }
-    }
+    private var endpoint: Endpoint?
     
     private var currentTrip: RoundTrip?
     
     private var trips: [RoundTrip] = []
     
-    init (endpoint: Endpoint) {
+    private var onSyncronised: (ChristiansMap -> ())!
+    
+    private var onFailed: (() -> ())!
+
+    func syncronise(endpoint: Endpoint) -> Promise<Result<(Endpoint, ChristiansMap), ConnectionError>> {
         
         self.endpoint = endpoint
         endpoint.readableDelegate = self
         endpoint.writeableDelegate = self
-    }
     
-    func syncronise() {
-    
-        takeTrip()
+        return Promise<Result<(Endpoint, ChristiansMap), ConnectionError>> { [weak self] execute in
+            
+            self?.onSyncronised = {
+                
+                let result = Result<(Endpoint, ChristiansMap), ConnectionError>.Success(endpoint, $0)
+                let promise = Promise<Result<(Endpoint, ChristiansMap), ConnectionError>>(result)
+                execute(promise)
+            }
+            
+            self?.onFailed = {
+                
+                let result = Result<(Endpoint, ChristiansMap), ConnectionError>.Failure(ConnectionError.SyncFailed)
+                let promise = Promise<Result<(Endpoint, ChristiansMap), ConnectionError>>(result)
+                execute(promise)
+            }
+            
+            self?.takeTrip()
+        }
     }
 }
 
@@ -53,22 +75,16 @@ extension ChristiansProcess {
     
     private func takeTrip() {
         
-        endpoint.writeData(Serialisation.terminator)
-        endpoint.readData(Serialisation.terminator)
+        endpoint?.writeData(Serialisation.terminator)
+        endpoint?.readData(Serialisation.terminator)
     }
     
     private func takeTripIfNeeded() {
         
-        trips.count < ChristiansConstants.numberOfTrips ? takeTrip() : end()
+        trips.count < ChristiansConstants.numberOfTrips ? takeTrip() : onSyncronised(calculateResult())
     }
-    
-    private func end() {
-    
-        let result = calculateResult()
-        delegate?.christiansProcessDidSynchronise(endpoint, local: result.local, remote: result.remote)
-    }
-    
-    private func calculateResult() -> (local: NSTimeInterval, remote: NSTimeInterval) {
+
+    private func calculateResult() -> (ChristiansMap) {
         
         let sortedTrips = trips.sort() { $0.latency() < $1.latency() }
         let shortestTrip = sortedTrips.first!
@@ -83,7 +99,7 @@ extension ChristiansProcess {
         let remote = shortestTrip.timestamp + (shortestTrip.latency() * 0.5)
         let local = shortestTrip.responseStamp
         
-        return (local, remote)
+        return ChristiansMap(local: local, remote: remote)
     }
     
 }
@@ -110,6 +126,7 @@ extension ChristiansProcess: ReadableDelegate {
             debugPrint(d)
             trips.append(currentTrip!)
         }
+            
         else {
             
                 debugPrint("Christian's process FAILED to read data")

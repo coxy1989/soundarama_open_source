@@ -6,33 +6,61 @@
 //  Copyright © 2016 Touchpress Ltd. All rights reserved.
 //
 
+import ReactiveCocoa
+import enum Result.NoError
+
+protocol Stoppable {
+    
+    func stop()
+}
+
+enum SearchStreamEvent {
+    
+    case Found (String, Resolvable)
+    
+    case Lost (String, Resolvable)
+}
+
 class SearchService: NSObject {
     
-    private let browser: NSNetServiceBrowser
+    private var browser: NSNetServiceBrowser!
     
-    private let found: (String, Resolvable) -> ()
+    private var stream: (SearchStreamEvent -> ())!
     
-    private let lost: (String, Resolvable) -> ()
+    private var stopped: (() -> ())?
     
-    private init(browser: NSNetServiceBrowser, lost: (String, Resolvable) -> (), found: (String, Resolvable) -> ()) {
-        
-        self.lost = lost
-        self.found = found
-        self.browser = browser
+    override init() {
+
+        super.init()
+        self.browser = NSNetServiceBrowser()
+        self.browser.delegate = self
     }
+    
+    static func start(searchService: SearchService, type: String, domain: String) -> SignalProducer<SearchStreamEvent, NoError> {
+        
+        searchService.browser.searchForServicesOfType(type, inDomain: domain)
+        
+        return SignalProducer<SearchStreamEvent, NoError> { s, d in
+            
+            searchService.stream = {
+                
+                s.sendNext($0)
+            }
+            
+            searchService.stopped = {
+                
+                s.sendCompleted()
+            }
+        }
+    }
+} 
+
+extension SearchService: Stoppable {
     
     func stop() {
         
         browser.stop()
-    }
-    
-    static func searching(type: String, domain: String, found: (String, Resolvable) -> (), lost: (String, Resolvable) -> (), failed: () -> ()) -> SearchService {
-        
-        let bs = NSNetServiceBrowser()
-        let ss = SearchService(browser: bs, lost: lost, found: found)
-        bs.delegate = ss
-        ss.browser.searchForServicesOfType(type, inDomain: domain)
-        return ss
+        stopped?()
     }
 }
 
@@ -66,91 +94,12 @@ extension SearchService: NSNetServiceBrowserDelegate {
     @objc func netServiceBrowser(browser: NSNetServiceBrowser, didFindService service: NSNetService, moreComing: Bool) {
         
         debugPrint("Browser found service \(service.name)")
-        found(service.name, ResolvableNetService(netService: service))
+        stream(SearchStreamEvent.Found(service.name, ResolvableNetService(netService: service)))
     }
     
     @objc func netServiceBrowser(browser: NSNetServiceBrowser, didRemoveService service: NSNetService, moreComing: Bool) {
         
         debugPrint("Browser removed service")
-        lost(service.name, ResolvableNetService(netService: service))
-    }
-}
-
-
-protocol Resolvable {
-    
-    func resolveWithTimeout(timeout: NSTimeInterval, success: (host: String, port: UInt16) -> (), failure: [String : NSNumber] -> ())
-}
-
-class ResolvableNetService: NSObject {
-    
-    let netService: NSNetService
-    
-    var success: ((String, UInt16) -> ())!
-    
-    var failure: ([String : NSNumber] -> ())!
-    
-    private init(netService: NSNetService) {
-        
-        self.netService = netService
-        super.init()
-        netService.delegate = self
-    }
-}
-
-extension ResolvableNetService: Resolvable {
-    
-    func resolveWithTimeout(timeout: NSTimeInterval, success: (host: String, port: UInt16) -> (), failure: [String : NSNumber] -> ()) {
-        
-        
-        self.success = success
-        self.failure = failure
-        netService.resolveWithTimeout(timeout)
-    }
-}
-
-extension ResolvableNetService: NSNetServiceDelegate {
-    
-    func netServiceWillPublish(sender: NSNetService) {
-        
-        debugPrint("Net service will publish")
-    }
-    
-    func netServiceDidPublish(sender: NSNetService) {
-        
-        debugPrint("Net service published...")
-    }
-    
-    func netService(sender: NSNetService, didNotPublish errorDict: [String : NSNumber]) {
-        
-        debugPrint("Net service failed to publish")
-    }
-    
-    func netServiceDidResolveAddress(sender: NSNetService) {
-        
-        guard let host = sender.hostName else {
-            
-            return
-        }
-        
-        debugPrint("Net Service resolved address")
-        
-        success(host, UInt16(sender.port))
-    }
-    
-    func netService(sender: NSNetService, didNotResolve errorDict: [String : NSNumber]) {
-        
-        debugPrint("Net service did not resolve \(errorDict)")
-        failure(errorDict)
-    }
-    
-    func netServiceDidStop(sender: NSNetService) {
-        
-        debugPrint("Net service did stop")
-    }
-    
-    func netServiceWillResolve(sender: NSNetService) {
-        
-        debugPrint("Net service will resolve")
+        stream(SearchStreamEvent.Lost(service.name, ResolvableNetService(netService: service)))
     }
 }

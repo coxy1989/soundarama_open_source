@@ -15,7 +15,7 @@ class SearchcastService {
     static func searching(type: String, domain: String, added: String -> (), removed: String -> ()) -> SearchcastService {
      
         let service = SearchcastService()
-        service.search = SearchService.searching(type, domain: domain, found: { added($0.0) }, lost: { removed($0.0) }, failed: {})
+    //    service.search = SearchService.searching(type, domain: domain, found: { added($0.0) }, lost: { removed($0.0) }, failed: {})
         return service
     }
     
@@ -26,7 +26,7 @@ class SearchcastService {
     
     func stop() {
         
-        search?.stop()
+      //  search?.stop()
         broadcast?.stop()
     }
 }

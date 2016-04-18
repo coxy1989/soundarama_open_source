@@ -1,3 +1,5 @@
 github "robbiehanson/CocoaAsyncSocket" ~> 7.4.2
 github "touchpress/TouchpressFoundation" "master"
 github "touchpress/TouchpressUI" "master"
+github "ReactiveCocoa/ReactiveCocoa"
+github "koher/PromiseK" ~> 2.0

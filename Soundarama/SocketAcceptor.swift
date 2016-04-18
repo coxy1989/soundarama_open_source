@@ -10,7 +10,7 @@ import CocoaAsyncSocket
 
 class SocketAcceptor {
     
-    private var accepted: ((String, DisconnectableEndpoint) -> ())!
+    private var accepted: ((String, Endpoint) -> ())!
     
     private var stopped: (() -> ())!
     
@@ -26,7 +26,7 @@ class SocketAcceptor {
         socket.disconnect()
     }
     
-    static func accepting(port: UInt16, accepted: (String, DisconnectableEndpoint) -> (), stopped: () -> ()) -> SocketAcceptor? {
+    static func accepting(port: UInt16, accepted: (String, Endpoint) -> (), stopped: () -> ()) -> SocketAcceptor? {
         
         let acceptor = SocketAcceptor()
         acceptor.accepted = accepted

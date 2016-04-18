@@ -10,14 +10,14 @@ import Foundation
 
 class EndpointStore {
     
-    private var endpoints: [String : DisconnectableEndpoint] = [ : ]
+    private var endpoints: [String : Endpoint] = [ : ]
     
-    func getEndpoint(address: String) -> DisconnectableEndpoint {
+    func getEndpoint(address: String) -> Endpoint {
         
         return endpoints[address]!
     }
     
-    func addEndpoint(address: String, endpoint: DisconnectableEndpoint) {
+    func addEndpoint(address: String, endpoint: Endpoint) {
         
         endpoints[address] = endpoint
     }
@@ -27,7 +27,7 @@ class EndpointStore {
         endpoints.removeValueForKey(address)
     }
     
-    func getEndpoints() -> [DisconnectableEndpoint] {
+    func getEndpoints() -> [Endpoint] {
         
         return endpoints.map() { $0.1 }
     }

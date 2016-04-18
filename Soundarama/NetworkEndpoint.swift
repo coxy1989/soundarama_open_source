@@ -10,7 +10,7 @@ import Foundation
 
 import CocoaAsyncSocket
 
-class NetworkEndpoint: NSObject, DisconnectableEndpoint {
+class NetworkEndpoint: NSObject, Endpoint {
     
     weak var readableDelegate: ReadableDelegate?
     

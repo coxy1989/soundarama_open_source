@@ -8,6 +8,9 @@
 
 import AVFoundation
 import UIKit
+import ReactiveCocoa
+import Result
+import PromiseK
 
 class PerformerInteractor {
  
@@ -25,140 +28,99 @@ class PerformerInteractor {
     
     private var audioloop: (loop: MultiAudioLoop, paths: Set<TaggedAudioPath>)?
     
-    private var wifiReachability: WiFiReachability?
-    
-    private var searchService: SearchService?
-    
     private var resolvableStore = ResolvableStore()
+    
+    private var connectionStore = ConnectionStore()
 
     private var socketConnector: SocketConnector?
-    
-    private var endpoint: (String, DisconnectableEndpoint)?
     
     private var connectionState = ConnectionState.NotConnected
     
     private var compass: Compass?
     
     private var danceometer: Danceometer?
+    
+    private var searchService: SearchService?
+    
+    private var searchReachability: Reachability?
+    
+    private var pickedDJHandler: (String -> ())?
+    
+    deinit {
+        
+        debugPrint("Deinit Performer Interactor")
+    }
 }
 
 extension PerformerInteractor: PerformerDJPickerInput {
- 
-    func stopDJPickerInput() {
-        
-        wifiReachability?.stop()
-        stopNetworkIO()
-        audioloop?.loop.stop()
-        audioloop = nil
-        wifiReachability = nil
-    }
     
     func startDJPickerInput() {
-        
-        let wifi_reachable = { [weak self] in
-            
-            guard let this = self else {
-                
-                return
-            }
-            
-            this.startNetworkIO()
-            this.performerDJPickerOutput.set(this.endpoint?.0, state: this.connectionState, identifiers: this.availableIdentifiers(), isReachable: true)
-            debugPrint("WiFi available")
-        }
-        
-        let wifi_unreachable = { [weak self] in
-            
-            guard let this = self else {
-                
-                return
-            }
-            
-            self?.stopNetworkIO()
-            this.performerDJPickerOutput.set(this.endpoint?.0, state: this.connectionState, identifiers: this.availableIdentifiers(), isReachable: false)
-            debugPrint("WiFi unavailable")
-        }
-        
-        let wifi_failure = { [weak self] in
-            
-            guard let this = self else {
-                
-                return
-            }
-            
-            this.performerDJPickerOutput.set(this.endpoint?.0, state: this.connectionState, identifiers: this.availableIdentifiers(), isReachable: false)
-            debugPrint("WiFi monitioring failure")
-            return
-        }
-        
-        wifiReachability = WiFiReachability.monitoringReachability(wifi_reachable, unreachable: wifi_unreachable, failure: wifi_failure)
     
-        performerDJPickerOutput.set(endpoint?.0, state: connectionState, identifiers: availableIdentifiers(), isReachable: wifiReachability?.isReachable() ?? false)
+        searchService = SearchService()
+        SearchService.start(searchService!, type: NetworkConfiguration.type, domain: NetworkConfiguration.domain).startWithNext(processDJSearchEvent)
+        
+        searchReachability = try! Reachability.reachabilityForInternetConnection()
+        WiFiReachability2.reachability(searchReachability!).startWithNext(processDJSearchReachability)
+    }
+    
+    func stopDJPickerInput() {
+        
+        searchService?.stop()
+        searchService = nil
+        
+        searchReachability?.stopNotifier()
+        searchReachability = nil
     }
     
     func pickIdentifier(identifier: String) {
         
-        let disconnected = { [weak self] in
+        guard let resolvable = resolvableStore.getResolvable(identifier) else {
             
-            guard let this = self else {
-                
-                return
-            }
-            
-            this.endpoint = nil
-            this.connectionState = .NotConnected
-            this.performerDJPickerOutput.set(nil, state: this.connectionState, identifiers: this.availableIdentifiers(), isReachable: this.wifiReachability?.isReachable() ?? false)
+            processDJConnectionEvent(identifier, event: .Failed)
+            return
         }
         
-        let connected: (String, DisconnectableEndpoint) -> () = { [weak self] i, e in
+        processDJConnectionEvent(identifier, event: .Started)
+        
+        connect(resolvable).map() { [weak self] in
             
-            guard let this = self else {
+            switch $0 {
                 
-                return
+            case .Success(let endpoint, let time_map):
+                
+                self?.onConnected(endpoint, time_map: time_map)
+                self?.processDJConnectionEvent(identifier, event: .Succeeded)
+                debugPrint("Success! TODO: Clean up resources")
+                
+            case .Failure(let e):
+                
+                self?.processDJConnectionEvent(identifier, event: .Failed)
+                debugPrint("Failed: \(e): TODO: Clean up resoucrces")
             }
-            
-            this.socketConnector = nil
-            this.endpoint = (i, e)
-            e.onDisconnect(disconnected)
-            this.christianSync(e)
         }
-        
-        
-        let resolve_success: (String, UInt16) -> () = { [weak self] in
-            
-            guard let this = self else {
-                
-                return
-            }
-            
-            guard let connector = SocketConnector.connect(identifier, host: $0.0, port: $0.1, connected: connected) else {
-                
-                this.connectionState = .NotConnected
-                this.performerDJPickerOutput.set(this.endpoint?.0, state: this.connectionState, identifiers: this.availableIdentifiers(), isReachable: this.wifiReachability?.isReachable() ?? false)
-                return
-            }
-            
-            this.resolvableStore.removeResolvable(identifier)
-            this.socketConnector = connector
-            this.performerDJPickerOutput.set(identifier, state: this.connectionState, identifiers: this.availableIdentifiers(), isReachable: this.wifiReachability?.isReachable() ?? false)
-        }
-        
-        let resolve_failure: ([String : NSNumber] -> ()) = {[weak self] _ in
-            
-            guard let this = self else {
-                
-                return
-            }
-            
-            this.resolvableStore.removeResolvable(identifier)
-            this.connectionState = .NotConnected
-            this.performerDJPickerOutput.set(this.endpoint?.0, state: this.connectionState, identifiers: this.availableIdentifiers(), isReachable: this.wifiReachability?.isReachable() ?? false)
-        }
-        
-        connectionState = .Connecting
-        let resolvable = resolvableStore.getResolvable(identifier)
-        resolvable?.resolveWithTimeout(5, success: resolve_success, failure: resolve_failure)
     }
+    
+    func onConnected(endpoint: Endpoint, time_map: ChristiansMap) {
+        
+        let rpt = ReactiveEndpoint(endpoint: endpoint)
+        ReactiveEndpoint.start(rpt).on(completed: {}, disposed: {}, next: { d in  }).start()
+        
+        ReactiveEndpoint.start(rpt).map(MessageDeserializer.deserialize).on(completed: {}, disposed: {}).startWithNext() { [weak self] in
+            
+            switch $0 {
+                
+                case .Success(let m): self?.handleMessage(m)
+                
+                case .Failure(let e): debugPrint("Failed to unarchive message: \(e)")
+            }
+        }
+    }
+    
+    func deserialze(data: NSData) -> Result<Message, ParsingError> {
+        
+        
+    }
+    
 }
 
 extension PerformerInteractor: PerformerInstrumentsInput {
@@ -177,48 +139,75 @@ extension PerformerInteractor: PerformerInstrumentsInput {
 
 extension PerformerInteractor {
     
-    func startNetworkIO() {
+    func connect(resolvable: Resolvable) -> Promise<Result<(Endpoint, ChristiansMap), ConnectionError>> {
         
-        let found: (String, Resolvable) -> () = { [weak self] in
+        let christiansProcess = ChristiansProcess()
+        self.christiansProcess = christiansProcess
+        
+        let socketConnector = SocketConnector()
+        self.socketConnector = socketConnector
+        
+        return resolvable.resolve(NetworkConfiguration.resolveTimeout)
+            .flatMap(){ transformer($0, f: socketConnector.connect) }
+            .flatMap(){ transformer($0, f: christiansProcess.syncronise) }
+    }
+}
+
+extension PerformerInteractor {
+    
+    private func processDJConnectionEvent(identfier: String, event: ConnectionEvent) {
+        
+        switch event {
             
-            guard let this = self else {
-                
-                return
-            }
+            case .Started: connectionStore.setConnectionState(identfier, connectionState: .Connecting)
             
-            this.resolvableStore.addResolvable($0)
-            this.performerDJPickerOutput.set(this.endpoint?.0, state: this.connectionState, identifiers: this.availableIdentifiers(), isReachable: this.wifiReachability?.isReachable() ?? false)
+            case .Succeeded: connectionStore.setConnectionState(identfier, connectionState: .Connected)
+            
+            case .Failed: connectionStore.clearConnectionState()
         }
         
-        let lost: (String, Resolvable) -> () = { [weak self] in
-            
-            guard let this = self else {
-                
-                return
-            }
-            
-            this.resolvableStore.removeResolvable($0.0)
-            this.performerDJPickerOutput.set(this.endpoint?.0, state: this.connectionState, identifiers: this.availableIdentifiers(), isReachable: this.wifiReachability?.isReachable() ?? false)
-        }
-        
-        let failed: () -> () = { [weak self] in
-        
-            guard let this = self else {
-                
-                return
-            }
-            
-            this.performerDJPickerOutput.set(this.endpoint?.0, state: this.connectionState, identifiers: this.availableIdentifiers(), isReachable: this.wifiReachability?.isReachable() ?? false)
-        }
-        
-        searchService = SearchService.searching(NetworkConfiguration.type, domain: NetworkConfiguration.domain, found: found, lost: lost, failed: failed)
+        setPerformerDJPickerOutput()
     }
     
-    func stopNetworkIO() {
+    private func processDJSearchEvent(event: SearchStreamEvent) {
         
-        searchService?.stop()
-        endpoint?.1.disconnect()
+        switch event {
+            
+            case .Found(let name, let resolvable): resolvableStore.addResolvable((name, resolvable))
+            
+            case .Lost(let name, _): resolvableStore.removeResolvable(name)
+        }
+        
+        setPerformerDJPickerOutput()
     }
+    
+    private func processDJSearchReachability(isReachable: Bool) {
+        
+        setPerformerDJPickerOutput()
+    }
+    
+    private func setPerformerDJPickerOutput() {
+        
+        dispatch_async(dispatch_get_main_queue()) { [weak self] in
+            
+            guard let this = self else {
+                
+                return
+            }
+            
+            let identifier = this.connectionStore.getConnectionIdentifer()
+            let state = this.connectionStore.getConnectionState()
+            let identifiers = this.resolvableStore.identifiers().filter() { $0 != this.connectionStore.getConnectionIdentifer() }
+            let isReachable = this.searchReachability?.isReachable() ?? false
+            
+            this.performerDJPickerOutput.set(identifier, state: state, identifiers: identifiers, isReachable: isReachable)
+        }
+    }
+}
+
+extension PerformerInteractor {
+    
+    
 }
 
 extension PerformerInteractor {
@@ -237,11 +226,11 @@ extension PerformerInteractor {
             
             case .Mute:
                 
-                handleMuteMessage(message as! MuteMessage)
+                toggleMuteAudio(true)
             
             case .Unmute:
                 
-                handleUnmuteMessage(message as! UnmuteMessage)
+                toggleMuteAudio(false)
         }
     }
     
@@ -255,8 +244,10 @@ extension PerformerInteractor {
     
     func handleStartMessage(message: StartMessage) {
         
+        /* DO NOT MOVE THESE TWO LINES OR YOU WILL BREAK THE SYNC. */
         audioloop?.loop.stop()
         audioloop = nil
+        /*-------------------------------------------------------- */
         
         let remote_now = remoteTime(christiansMap!)
         let latency = remote_now - message.timestamp
@@ -273,16 +264,6 @@ extension PerformerInteractor {
         audioloop = nil
         
         performerInstrumentsOutput.setColor(UIColor.lightGrayColor())
-    }
-    
-    func handleMuteMessage(message: MuteMessage) {
-        
-        toggleMuteAudio(true)
-    }
-    
-    func handleUnmuteMessage(message: UnmuteMessage) {
-        
-        toggleMuteAudio(false)
     }
 }
 
@@ -362,45 +343,25 @@ extension PerformerInteractor {
     }
 }
 
-extension PerformerInteractor {
-    
-    func christianSync(endpoint: Endpoint) {
-        
-        christiansProcess = ChristiansProcess(endpoint: endpoint)
-        christiansProcess!.delegate = self
-        christiansProcess!.syncronise()
-    }
-}
-
-extension PerformerInteractor: ChristiansProcessDelegate {
-    
-    func christiansProcessDidSynchronise(endpoint: Endpoint, local: NSTimeInterval, remote: NSTimeInterval) {
-        
-        christiansMap = (local: local, remote: remote)
-        endpoint.readData(Serialisation.terminator)
-        endpoint.readableDelegate = self
-        connectionState = .Connected
-        performerDJPickerOutput.set(self.endpoint?.0, state: connectionState, identifiers: availableIdentifiers(), isReachable: wifiReachability?.isReachable() ?? false)
-        debugPrint(christiansMap)
-    }
-}
-
 extension PerformerInteractor: ReadableDelegate {
     
     func didReadData(data: NSData) {
-        
+       
+        /*
         if let msg = MessageDeserializer.deserialize(data) {
             
             handleMessage(msg)
         }
         
         endpoint?.1.readData(Serialisation.terminator)
+ */
     }
     
 }
 
 extension PerformerInteractor {
     
+    /*
     func availableIdentifiers() -> [String] {
         
         guard let connected_name = endpoint?.0 else {
@@ -410,4 +371,307 @@ extension PerformerInteractor {
         
         return  resolvableStore.identifiers().filter() { $0 != connected_name }
     }
+ */
 }
+
+class ConnectionStore {
+    
+    private var lock: NSRecursiveLock = NSRecursiveLock()
+    
+    private var state: (identifer: String, connectionState: ConnectionState)?
+    
+    func clearConnectionState() {
+        
+        lock.lock()
+        state = nil
+        lock.unlock()
+    }
+    
+    func setConnectionState(identifer: String, connectionState: ConnectionState) {
+        
+        lock.lock()
+        state = (identifer: identifer, connectionState: connectionState)
+        lock.unlock()
+    }
+    
+    func getConnectionIdentifer() -> String? {
+        
+        return state?.identifer
+    }
+    
+    func getConnectionState() -> ConnectionState {
+        
+        return state?.connectionState ?? .NotConnected
+    }
+}
+
+enum ConnectionEvent {
+    
+    case Started
+    
+    case Succeeded
+    
+    case Failed
+}
+
+
+/*
+ func startNetworkIO() {
+ 
+ /*
+ let found: (String, Resolvable) -> () = { [weak self] in
+ 
+ guard let this = self else {
+ 
+ return
+ }
+ 
+ this.resolvableStore.addResolvable($0)
+ this.performerDJPickerOutput.set(this.endpoint?.0, state: this.connectionState, identifiers: this.availableIdentifiers(), isReachable: this.wifiReachability?.isReachable() ?? false)
+ }
+ 
+ let lost: (String, Resolvable) -> () = { [weak self] in
+ 
+ guard let this = self else {
+ 
+ return
+ }
+ 
+ this.resolvableStore.removeResolvable($0.0)
+ this.performerDJPickerOutput.set(this.endpoint?.0, state: this.connectionState, identifiers: this.availableIdentifiers(), isReachable: this.wifiReachability?.isReachable() ?? false)
+ }
+ 
+ let failed: () -> () = { [weak self] in
+ 
+ guard let this = self else {
+ 
+ return
+ }
+ 
+ this.performerDJPickerOutput.set(this.endpoint?.0, state: this.connectionState, identifiers: this.availableIdentifiers(), isReachable: this.wifiReachability?.isReachable() ?? false)
+ }
+ */
+ 
+ //   searchService = SearchService.searching(NetworkConfiguration.type, domain: NetworkConfiguration.domain, found: found, lost: lost, failed: failed)
+ }
+ 
+ func stopNetworkIO() {
+ 
+ // searchService?.stop()
+ //  endpoint?.1.disconnect()
+ }
+ */
+
+/*
+ class DJSearch {
+ 
+ private var reachability: Reachability!
+ 
+ private var service: SearchService!
+ 
+ func search() -> SignalProducer<SearchStreamEvent, NoError> {
+ 
+ let s = SearchService()
+ service = s
+ 
+ let r = try! Reachability.reachabilityForInternetConnection()
+ reachability = r
+ 
+ try! r.startNotifier()
+ 
+ return  WiFiReachability2.reachability(r)
+ .filter() { $0 == true }
+ .flatMap(.Latest) { _ in SearchService.start(s, type: NetworkConfiguration.type, domain: NetworkConfiguration.domain) }
+ }
+ 
+ func stopSearching() {
+ 
+ // service.stop()
+ reachability.stopNotifier()
+ }
+ }
+ */
+
+//djSearch = DJSearch()
+//djSearch?.search().startWithNext(processDJSearch)
+
+//SearchService.startx(searchService, type: NetworkConfiguration.type, domain: NetworkConfiguration.domain).startWithNext() { e in debugPrint(e) }
+
+//SearchService.startx(NetworkConfiguration.type, domain: NetworkConfiguration.domain).startWithNext() { e in debugPrint(e) }
+
+/*
+ let s = SearchService()
+ searchService = s
+ 
+ WiFiReachability2.reachability(reachability)
+ .filter() { $0 == true }
+ .flatMap(.Latest) { _ in SearchService.startx(s, type: NetworkConfiguration.type, domain: NetworkConfiguration.domain) }
+ .startWithNext() { e in debugPrint(e) }
+ 
+ try! reachability.startNotifier()
+ */
+
+//djPickerDisposable = WiFiReachability2.reachability()
+// .flatMap(.Latest) { r in SearchService.startx(NetworkConfiguration.type, domain: NetworkConfiguration.domain) }
+//  .startWithNext() { e in debugPrint(e) }
+
+//djPickerProducer?.startWithNext() { e in debugPrint(e) }
+/*
+ let wifi_reachable = { [weak self] in
+ 
+ guard let this = self else {
+ 
+ return
+ }
+ 
+ this.startDJSearch()
+ // this.startNetworkIO()
+ this.performerDJPickerOutput.set(this.endpoint?.0, state: this.connectionState, identifiers: this.availableIdentifiers(), isReachable: true)
+ debugPrint("WiFi available")
+ }
+ 
+ let wifi_unreachable = { [weak self] in
+ 
+ guard let this = self else {
+ 
+ return
+ }
+ 
+ //self?.stopNetworkIO()
+ this.performerDJPickerOutput.set(this.endpoint?.0, state: this.connectionState, identifiers: this.availableIdentifiers(), isReachable: false)
+ debugPrint("WiFi unavailable")
+ }
+ 
+ let wifi_failure = { [weak self] in
+ 
+ guard let this = self else {
+ 
+ return
+ }
+ 
+ this.performerDJPickerOutput.set(this.endpoint?.0, state: this.connectionState, identifiers: this.availableIdentifiers(), isReachable: false)
+ debugPrint("WiFi monitioring failure")
+ return
+ }
+ 
+ wifiReachability = WiFiReachability.monitoringReachability(wifi_reachable, unreachable: wifi_unreachable, failure: wifi_failure)
+ 
+ performerDJPickerOutput.set(endpoint?.0, state: connectionState, identifiers: availableIdentifiers(), isReachable: wifiReachability?.isReachable() ?? false)
+ */
+
+
+// wifiReachability?.stop()
+//stopNetworkIO()
+// stopDJSearch()
+
+//audioloop?.loop.stop()
+//audioloop = nil
+//wifiReachability = nil
+
+// searchService?.stop()
+// reachability.stopNotifier()
+//TODO: delete DJPickerStream
+
+//  djSearch?.stopSearching()
+//  djSearch = nil
+
+
+
+/*
+ let disconnected = { [weak self] in
+ 
+ guard let this = self else {
+ 
+ return
+ }
+ 
+ this.endpoint = nil
+ this.connectionState = .NotConnected
+ this.performerDJPickerOutput?.set(nil, state: this.connectionState, identifiers: this.availableIdentifiers(), isReachable: this.searchReachability?.isReachable() ?? false)
+ }
+ 
+ let connected: (String, DisconnectableEndpoint) -> () = { [weak self] i, e in
+ 
+ guard let this = self else {
+ 
+ return
+ }
+ 
+ this.socketConnector = nil
+ this.endpoint = (i, e)
+ e.onDisconnect(disconnected)
+ this.christianSync(e)
+ }
+ 
+ 
+ let resolve_success: (String, UInt16) -> () = { [weak self] in
+ 
+ guard let this = self else {
+ 
+ return
+ }
+ 
+ guard let connector = SocketConnector.connect(identifier, host: $0.0, port: $0.1, connected: connected) else {
+ 
+ this.connectionState = .NotConnected
+ this.performerDJPickerOutput?.set(this.endpoint?.0, state: this.connectionState, identifiers: this.availableIdentifiers(), isReachable: this.searchReachability?.isReachable() ?? false)
+ return
+ }
+ 
+ this.resolvableStore.removeResolvable(identifier)
+ this.socketConnector = connector
+ this.performerDJPickerOutput?.set(identifier, state: this.connectionState, identifiers: this.availableIdentifiers(), isReachable: this.searchReachability?.isReachable() ?? false)
+ }
+ 
+ let resolve_failure: ([String : NSNumber] -> ()) = {[weak self] _ in
+ 
+ guard let this = self else {
+ 
+ return
+ }
+ 
+ this.resolvableStore.removeResolvable(identifier)
+ this.connectionState = .NotConnected
+ this.performerDJPickerOutput?.set(this.endpoint?.0, state: this.connectionState, identifiers: this.availableIdentifiers(), isReachable: this.searchReachability?.isReachable() ?? false)
+ }
+ */
+
+//resolvable.resolve(5).flatMap {  transformer($0, f: socketConnector.connect) } /* DANGER TODO: Ensure this cannot be called after the promise is released. */
+// .flatMap() {  }
+
+
+/*
+ connectionState = .Connecting
+ let resolvable = resolvableStore.getResolvable(identifier)
+ resolvable?.resolveWithTimeout(5, success: resolve_success, failure: resolve_failure)
+ */
+
+/*
+ extension PerformerInteractor {
+ 
+ func christianSync(endpoint: Endpoint) {
+ 
+ //christiansProcess = ChristiansProcess(endpoint: endpoint)
+ //christiansProcess!.delegate = self
+ // christiansProcess!.syncronise()
+ }
+ }
+ 
+ // HERE -> Create a message signal from the syncronised endpoint.
+ 
+ /*
+ extension PerformerInteractor: ChristiansProcessDelegate {
+ 
+ func christiansProcessDidSynchronise(endpoint: Endpoint, local: NSTimeInterval, remote: NSTimeInterval) {
+ 
+ christiansMap = (local: local, remote: remote)
+ endpoint.readData(Serialisation.terminator)
+ endpoint.readableDelegate = self
+ connectionState = .Connected
+ performerDJPickerOutput?.set(self.endpoint?.0, state: connectionState, identifiers: availableIdentifiers(), isReachable: searchReachability?.isReachable() ?? false)
+ debugPrint(christiansMap)
+ }
+ }
+ */
+ 
+ */

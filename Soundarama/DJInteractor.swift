@@ -379,21 +379,13 @@ extension DJInteractor {
     
     func startSocketAcceptor() -> Bool {
         
-        let accepted: (String, DisconnectableEndpoint) -> () = { [weak self] e in
+        let accepted: (String, Endpoint) -> () = { [weak self] e in
             
             debugPrint("accepted endpoint")
             let cts = ChristiansTimeServer(address: e.0, endpoint: e.1)
             cts.delegate = self
             self?.christiansTimeServers[e.0] = cts
-            e.1.onDisconnect() {
-                
-                //TODO FIXME
-                
-                if self?.christiansTimeServers.removeValueForKey(e.0) != nil {
-                    
-                    //debugPrint("disconnected unsyncronised endpoint")
-                }
-            }
+            e.1.onDisconnect() { self?.christiansTimeServers.removeValueForKey(e.0) }
         }
     
         let stopped: () -> () = {
@@ -446,11 +438,9 @@ extension DJInteractor {
 
 extension DJInteractor: ChristiansTimeServerDelegate {
     
-    func christiansTimeServerDidSyncronise(timeServer: ChristiansTimeServer, endpoint: (String, DisconnectableEndpoint)) {
+    func christiansTimeServerDidSyncronise(timeServer: ChristiansTimeServer, endpoint: (String, Endpoint)) {
         
         debugPrint("syncronised")
-        //TODO FIXME
-        //christiansTimeServers.removeValueForKey(endpoint.0)
         
         endpoint.1.onDisconnect() { [weak self] in
             
@@ -461,6 +451,9 @@ extension DJInteractor: ChristiansTimeServerDelegate {
         
         endpointStore.addEndpoint(endpoint.0, endpoint: endpoint.1)
         djOutput.addPerformer(endpoint.0)
+        
+        debugPrint("TIME_SERVERS: " + "\(christiansTimeServers.count)")
+      //  christiansTimeServers.removeValueForKey(endpoint.0)
     }
 }
 

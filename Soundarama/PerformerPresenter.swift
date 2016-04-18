@@ -80,6 +80,7 @@ extension PerformerPresenter: UserInterfaceDelegate {
     
         if userInterface === pickDJUI {
             
+            pickDJInput.stopDJPickerInput()
             performerWireframe.dismissDJPickerUI()
             close()
         }

@@ -10,7 +10,7 @@
 
 protocol ChristiansTimeServerDelegate {
     
-    func christiansTimeServerDidSyncronise(timeServer: ChristiansTimeServer, endpoint: (String, DisconnectableEndpoint))
+    func christiansTimeServerDidSyncronise(timeServer: ChristiansTimeServer, endpoint: (String, Endpoint))
 }
 
 class ChristiansTimeServer {
@@ -19,11 +19,11 @@ class ChristiansTimeServer {
     
     var delegate: ChristiansTimeServerDelegate!
     
-    private let endpoint: (String, DisconnectableEndpoint)
+    private let endpoint: (String, Endpoint)
     
     private var trips = 0
     
-    init(address: String, endpoint: DisconnectableEndpoint) {
+    init(address: String, endpoint: Endpoint) {
         
         self.endpoint = (address, endpoint)
         endpoint.readableDelegate = self

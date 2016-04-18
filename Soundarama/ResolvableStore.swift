@@ -8,6 +8,8 @@
 
 class ResolvableStore {
     
+    private let lock = NSRecursiveLock()
+    
     private var resolvables: [String : Resolvable] = [ : ]
     
     func identifiers() -> [String] {
@@ -18,12 +20,16 @@ class ResolvableStore {
     
     func addResolvable(resolvable: (String, Resolvable)) {
         
+        lock.lock()
         resolvables[resolvable.0] = resolvable.1
+        lock.unlock()
     }
     
     func removeResolvable(resolvable: String) {
         
+        lock.lock()
         resolvables.removeValueForKey(resolvable)
+        lock.unlock()
     }
     
     func getResolvable(identifer: String) -> Resolvable? {

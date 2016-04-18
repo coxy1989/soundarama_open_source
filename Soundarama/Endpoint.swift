@@ -8,7 +8,9 @@
 
 import Foundation
 
-protocol  DisconnectableEndpoint: Disconnectable, Endpoint { }
+protocol Endpoint: Readable, Writeable, Disconnectable { }
+
+typealias Address = String
 
 protocol Disconnectable {
     
@@ -16,10 +18,6 @@ protocol Disconnectable {
     
     func onDisconnect(handler: () -> ())
 }
-
-protocol Endpoint: Readable, Writeable { }
-
-typealias Address = String
 
 protocol ReadableDelegate: class {
     
