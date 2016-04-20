@@ -55,6 +55,8 @@ class Reshake {
     
     private var handshake: Handshake?
     
+    private var cancelled: (() -> ())?
+    
     init(resolvable: Resolvable) {
         
         self.resolvable = resolvable
@@ -66,8 +68,9 @@ class Reshake {
         let hs = Handshake(resolvable: resolvable)
         handshake = hs
         
+        let cancel = SignalProducer<(Endpoint, ChristiansMap), HandshakeError> { [weak self] o,_ in self?.cancelled = { o.sendFailed(.Cancelled) } }
         
-        return handshake!.producer()
+        let reconnect = handshake!.producer()
             .flatMapError() { _ in timer(NetworkConfiguration.reconnectDelay, onScheduler: scheduler)
             .promoteErrors(HandshakeError)
             .flatMap(.Latest) { _ in hs.producer()} }
@@ -75,5 +78,12 @@ class Reshake {
             .retry(NetworkConfiguration.reconnectAttempts - 1)
             .take(1)
             .on(completed: { debugPrint("Done")}, disposed: { debugPrint("Disposed") })
+        
+        return SignalProducer(values: [reconnect, cancel]).flatten(.Merge)
+    }
+    
+    func cancel() {
+        
+        cancelled?()
     }
 }

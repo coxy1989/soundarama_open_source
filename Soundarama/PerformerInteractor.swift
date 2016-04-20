@@ -91,7 +91,8 @@ extension PerformerInteractor: PerformerConnectionInput {
         reactiveEndpoint?.stop()
         reactiveEndpoint = nil
         
-        // kill reshake
+        reshake?.cancel()
+        reshake = nil
     }
 }
 
