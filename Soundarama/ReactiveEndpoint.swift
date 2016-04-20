@@ -24,9 +24,9 @@ class ReactiveEndpoint {
         endpoint.readableDelegate = self
     }
     
-    static func start(reactiveEndpoint: ReactiveEndpoint) -> SignalProducer<NSData, NoError> {
+    static func start(reactiveEndpoint: ReactiveEndpoint, resolvable: Resolvable) -> SignalProducer<NSData, EndpointError> {
         
-        return SignalProducer<NSData, NoError> { observer, disposable in
+        return SignalProducer<NSData, EndpointError> { observer, disposable in
             
             reactiveEndpoint.readHandler = {
                 
@@ -40,7 +40,7 @@ class ReactiveEndpoint {
             
             reactiveEndpoint.endpoint.onDisconnect() {
                 
-                observer.sendCompleted()
+                observer.sendFailed(.Disconnected(resolvable))
             }
             
             reactiveEndpoint.endpoint.readData(Serialisation.terminator)
@@ -49,8 +49,8 @@ class ReactiveEndpoint {
     
     func stop() {
         
-        endpoint.disconnect()
         stopHandler?()
+        endpoint.disconnect()
     }
 }
 

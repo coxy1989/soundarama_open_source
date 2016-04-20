@@ -9,23 +9,9 @@
 import UIKit
 import TouchpressUI
 
-protocol CompassUserInterface: class {
-    
-    func setCompassValue(value: Double)
-}
-
-protocol ColoredUserInteface: class {
-    
-    func setColor(color: UIColor)
-}
-
-protocol ChargingUserInteface: class {
-    
-    func setCharge(value: Double)
-}
-
 class InstrumentsViewController: ViewController {
         
+    @IBOutlet weak var reconnectionLabel: UILabel!
     @IBOutlet weak var dashedCircleView: BorderedCircleView?
     @IBOutlet weak var compassView: CompassView?
     @IBOutlet weak var circleView: UIView?
@@ -38,6 +24,7 @@ class InstrumentsViewController: ViewController {
         
         super.viewDidLoad()
         
+        reconnectionLabel.hidden = true
         dashedCircleView!.transform = CGAffineTransformMakeScale(0.7, 0.7)
         circleView!.layer.cornerRadius = circleView!.frame.size.width * 0.5
         circleView!.clipsToBounds = true
@@ -88,6 +75,21 @@ extension InstrumentsViewController: CompassUserInterface {
         UIView.animateWithDuration(0.1) { [weak self] in
         
             self?.compassView?.transform = CGAffineTransformMakeRotation(-radians)
+        }
+    }
+}
+
+extension InstrumentsViewController: ReconnectionUserInterface {
+    
+    func updateWithReconnectionEvent(event: ReconnectionEvent) {
+        
+        switch event {
+            
+            case .Started: reconnectionLabel.hidden = false
+            
+            case .EndedFailure: reconnectionLabel.text = "Failed to reconnect"
+            
+            case .EndedSucceess: reconnectionLabel.hidden = true
         }
     }
 }

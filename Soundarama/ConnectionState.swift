@@ -8,5 +8,18 @@
 
 enum ConnectionState {
     
-    case Connected, Connecting, NotConnected
+    case Connected
+    
+    case Connecting
+    
+    case NotConnected
+}
+
+enum ReconnectionEvent {
+    
+    case Started
+    
+    case EndedSucceess
+    
+    case EndedFailure
 }

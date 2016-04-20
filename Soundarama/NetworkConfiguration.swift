@@ -19,4 +19,8 @@ struct NetworkConfiguration {
     static let connectTimeout: NSTimeInterval = 5
     
     static let syncTimeout: NSTimeInterval = 5
+    
+    static let reconnectAttempts: Int = 3
+    
+    static let reconnectDelay: NSTimeInterval = 5
 }

@@ -9,16 +9,6 @@
 import UIKit
 import TouchpressUI
 
-protocol PickDJUserInterface: class {
-    
-    func set(identifier: String?, state: ConnectionState, identifiers: [String], isReachable: Bool)
-}
-
-protocol PickDJUserInterfaceDelegate: class {
-    
-    func didPickIdentifier(identifier: String)
-}
-
 class PickDJViewController_iPadBackgroundViewController: ViewController {
     
     var onEmbeddedPickDJViewController: (PickDJViewController -> ())!

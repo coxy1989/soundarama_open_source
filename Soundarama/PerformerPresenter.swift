@@ -17,11 +17,15 @@ class PerformerPresenter {
     
     weak var instrumentsInput: PerformerInstrumentsInput!
     
+    weak var connectionInput: PerformerConnectionInput!
+    
     weak var compassUI: CompassUserInterface?
     
     weak var coloredUI: ColoredUserInteface?
     
     weak var chargingUI: ChargingUserInteface?
+    
+    weak var reconnectionUI: ReconnectionUserInterface?
     
     weak var pickDJUI: PickDJUserInterface?
     
@@ -66,6 +70,14 @@ extension PerformerPresenter: PerformerDJPickerOutput {
     }
 }
 
+extension PerformerPresenter: PerformerReconnectionOutput {
+    
+    func updateWithReconnectionEvent(event: ReconnectionEvent) {
+        
+        reconnectionUI?.updateWithReconnectionEvent(event)
+    }
+}
+
 extension PerformerPresenter: UserInterfaceDelegate {
     
     func userInterfaceWillAppear(userInterface: UserInterface) {
@@ -86,6 +98,7 @@ extension PerformerPresenter: UserInterfaceDelegate {
     
         if userInterface === pickDJUI {
             
+            connectionInput.cancelConnect()
             pickDJInput.stopDJPickerInput()
             performerWireframe.dismissDJPickerUI()
             close()
@@ -93,6 +106,7 @@ extension PerformerPresenter: UserInterfaceDelegate {
         
         else if userInterface === compassUI || userInterface === chargingUI {
             
+            connectionInput.disconnect()
             instrumentsInput.stopPerfromerInstrumentInput()
             performerWireframe.dismissInstrumentsUI(self)
         }
@@ -107,7 +121,7 @@ extension PerformerPresenter: PickDJUserInterfaceDelegate {
     
     func didPickIdentifier(identifier: String) {
         
-        pickDJInput.pickIdentifier(identifier)
+        connectionInput.connect(identifier)
     }
 }
 

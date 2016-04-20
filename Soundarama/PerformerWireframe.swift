@@ -38,6 +38,7 @@ class PerformerWireframe {
         presenter.compassUI = nil
         presenter.coloredUI = nil
         presenter.chargingUI = nil
+        presenter.reconnectionUI = nil
         navigationController?.popViewControllerAnimated(true)
     }
 }
@@ -47,6 +48,7 @@ extension PerformerWireframe {
     private func presentDJPickerUI_iPhone(navigationController: UINavigationController, presenter: PerformerPresenter) {
         
         let vc = PerformerWireframe.pickDJViewController_iPhone(presenter)
+        
         presenter.pickDJUI = vc
         self.navigationController = navigationController
         navigationController.pushViewController(vc, animated: true)
@@ -63,7 +65,6 @@ extension PerformerWireframe {
             presenter.pickDJUI = $0
             $0.delegate = presenter
             $0.userInterfaceDelegate = presenter
-            presenter.pickDJUI = $0
         }
     }
 }
@@ -77,6 +78,7 @@ extension PerformerWireframe {
         performerPresenter.compassUI = vc
         performerPresenter.coloredUI = vc
         performerPresenter.chargingUI = vc
+        performerPresenter.reconnectionUI = vc
         return vc
     }
     

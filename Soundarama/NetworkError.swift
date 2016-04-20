@@ -9,13 +9,15 @@
 import Result
 import PromiseK
 
-enum ConnectionError: ResultErrorType {
+enum HandshakeError: ResultErrorType {
     
     case ResolveFailed
     
     case ConnectFailed
     
     case SyncFailed
+    
+    case Cancelled
 }
 
 enum ParsingError: ResultErrorType {
@@ -29,15 +31,7 @@ enum ParsingError: ResultErrorType {
     case InvalidMessage
 }
 
-func transformer<T, U>(r: Result<T, ConnectionError>, f: T -> Promise<Result<U, ConnectionError>>) -> Promise<Result<U, ConnectionError>> {
+enum EndpointError: ResultErrorType {
     
-    return Promise<Result<U, ConnectionError>> { exec in
-        
-        switch r {
-            
-            case .Success(let v): exec(f(v))
-            
-            case .Failure(let e): exec(Promise<Result<U, ConnectionError>>(Result<U, ConnectionError>.Failure(e)))
-        }
-    }
+    case Disconnected(Resolvable)
 }

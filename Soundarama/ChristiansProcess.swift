@@ -10,6 +10,7 @@
 
 import PromiseK
 import Result
+import ReactiveCocoa
 
 struct ChristiansMap {
     
@@ -42,35 +43,35 @@ class ChristiansProcess {
     
     private var onSyncronised: (ChristiansMap -> ())!
     
-    private var onFailed: (() -> ())!
+    private var failed: (() -> ())?
+    
+    private var cancelled: (() -> ())?
     
     private var startUnix: NSTimeInterval!
 
-    func syncronise(endpoint: Endpoint) -> Promise<Result<(Endpoint, ChristiansMap), ConnectionError>> {
+    func syncronise(endpoint: Endpoint) -> SignalProducer<(Endpoint, ChristiansMap), HandshakeError> {
         
         self.endpoint = endpoint
         endpoint.readableDelegate = self
         endpoint.writeableDelegate = self
-        startUnix = NSDate().timeIntervalSince1970
-    
-        return Promise<Result<(Endpoint, ChristiansMap), ConnectionError>> { [weak self] execute in
+        
+        return SignalProducer<(Endpoint, ChristiansMap), HandshakeError> { [weak self] o, d in
             
-            self?.onSyncronised = {
-                
-                let result = Result<(Endpoint, ChristiansMap), ConnectionError>.Success(endpoint, $0)
-                let promise = Promise<Result<(Endpoint, ChristiansMap), ConnectionError>>(result)
-                execute(promise)
-            }
+            self?.onSyncronised = { o.sendNext((endpoint, $0)) }
             
-            self?.onFailed = {
-                
-                let result = Result<(Endpoint, ChristiansMap), ConnectionError>.Failure(ConnectionError.SyncFailed)
-                let promise = Promise<Result<(Endpoint, ChristiansMap), ConnectionError>>(result)
-                execute(promise)
-            }
+            self?.failed = { o.sendFailed(.SyncFailed) }
             
+            self?.cancelled = { o.sendFailed(.Cancelled) }
+            
+            self?.startUnix = NSDate().timeIntervalSince1970
             self?.takeTrip()
         }
+    }
+    
+    func cancel() {
+        
+        endpoint?.disconnect()
+        cancelled?()
     }
 }
 
@@ -87,7 +88,7 @@ extension ChristiansProcess {
         guard NSDate().timeIntervalSince1970 - startUnix < NetworkConfiguration.syncTimeout else {
             
             endpoint?.disconnect()
-            onFailed()
+            failed?()
             return
         }
         
@@ -150,16 +151,18 @@ extension ChristiansProcess {
         
         let dat = Serialisation.getPayload(data)
         
-        guard let dic = NSKeyedUnarchiver.unarchiveObjectWithData(dat) else {
+        guard let obj = NSKeyedUnarchiver.unarchiveObjectWithData(dat) else {
             
             return nil
         }
         
-        guard let t = dic["timestamp"] as? Double else {
-                
+        guard let dic = obj as? [String : Double] else {
+            
             return nil
         }
         
-        return t
+        let value = dic["timestamp"]
+        
+        return value
     }
 }

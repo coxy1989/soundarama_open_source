@@ -8,14 +8,16 @@
 
 import Foundation
 import CocoaAsyncSocket
-import PromiseK
 import Result
+import ReactiveCocoa
 
 class SocketConnector: NSObject {
     
-    private var onConnected: (Endpoint -> ())!
+    private var onConnected: (Endpoint -> ())?
     
-    private var onDisconnected: (() -> ())!
+    private var onDisconnected: (() -> ())?
+    
+    private var cancelled: (() -> ())?
     
     private lazy var socket: AsyncSocket = {
         
@@ -24,36 +26,31 @@ class SocketConnector: NSObject {
         return s
     }()
     
-    func connect(host: String, port: UInt16) -> Promise<Result<Endpoint, ConnectionError>> {
-    
-        return Promise<Result<Endpoint, ConnectionError>> { [weak self] execute in
+    func connect(host: String, port: UInt16) -> SignalProducer<Endpoint, HandshakeError> {
+        
+        return SignalProducer<Endpoint, HandshakeError> { [weak self ] o, d in
             
-            self?.onConnected = { e in
-                
-                let result = Result<Endpoint, ConnectionError>.Success(e)
-                let promise = Promise<Result<Endpoint, ConnectionError>>(result)
-                execute(promise)
-            }
+            self?.onConnected = { o.sendNext($0) }
             
-            self?.onDisconnected = {
-                
-                let result = Result<Endpoint, ConnectionError>.Failure(ConnectionError.ConnectFailed)
-                let promise = Promise<Result<Endpoint, ConnectionError>>(result)
-                execute(promise)
-            }
+            self?.onDisconnected = { o.sendFailed(.ConnectFailed) }
+            
+            self?.cancelled = { o.sendFailed(.Cancelled) }
             
             do {
                 
                 try self?.socket.connectToHost(host, onPort: port, withTimeout: NetworkConfiguration.connectTimeout)
-            }
-            
-            catch {
                 
-                let result = Result<Endpoint, ConnectionError>.Failure(ConnectionError.ConnectFailed)
-                let promise = Promise<Result<Endpoint, ConnectionError>>(result)
-                execute(promise)
+            } catch {
+                
+                o.sendFailed(.ConnectFailed)
             }
         }
+    }
+    
+    func cancel() {
+        
+        socket.disconnect()
+        cancelled?()
     }
 }
 
@@ -63,12 +60,12 @@ extension SocketConnector: AsyncSocketDelegate {
     func onSocket(sock: AsyncSocket!, didConnectToHost host: String!, port: UInt16) {
         
         debugPrint("Socket connector connected socket")
-        onConnected(NetworkEndpoint(socket: sock))
+        onConnected?(NetworkEndpoint(socket: sock))
     }
     
     func onSocketDidDisconnect(sock: AsyncSocket!) {
         
         debugPrint("Socket connector disconnected socket")
-        onDisconnected()
+        onDisconnected?()
     }
 }

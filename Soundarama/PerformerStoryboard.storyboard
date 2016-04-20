@@ -244,12 +244,20 @@
                                     <action selector="didPressBackButton:" destination="x8l-Qe-jsB" eventType="touchUpInside" id="FSw-fg-gbb"/>
                                 </connections>
                             </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Reconnecting" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="78Y-TH-1R7">
+                                <rect key="frame" x="474.5" y="571" width="105.5" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="IRr-Tg-YW5" firstAttribute="centerX" secondItem="3A5-Ka-Dqu" secondAttribute="centerX" id="6m9-1o-wHg"/>
                             <constraint firstAttribute="trailing" secondItem="AJb-4F-miM" secondAttribute="trailing" id="EeC-TW-De7"/>
+                            <constraint firstItem="Ei2-uS-487" firstAttribute="top" secondItem="78Y-TH-1R7" secondAttribute="bottom" constant="8" id="FJC-g7-UY2"/>
                             <constraint firstItem="AJb-4F-miM" firstAttribute="leading" secondItem="3A5-Ka-Dqu" secondAttribute="leading" id="Glg-9P-wHy"/>
+                            <constraint firstAttribute="trailing" secondItem="78Y-TH-1R7" secondAttribute="trailing" constant="20" id="NCZ-qP-tgF"/>
                             <constraint firstItem="dWK-Ms-9aU" firstAttribute="top" secondItem="3A5-Ka-Dqu" secondAttribute="top" constant="8" id="NKA-hw-pon"/>
                             <constraint firstItem="Ei2-uS-487" firstAttribute="top" secondItem="AJb-4F-miM" secondAttribute="bottom" id="QOJ-QP-CNm"/>
                             <constraint firstItem="AJb-4F-miM" firstAttribute="top" secondItem="3A5-Ka-Dqu" secondAttribute="top" id="RNg-b8-6OI"/>
@@ -261,6 +269,7 @@
                         <outlet property="circleView" destination="giF-dY-YF3" id="Od1-s7-iQb"/>
                         <outlet property="compassView" destination="IRr-Tg-YW5" id="4Zd-QW-MQu"/>
                         <outlet property="dashedCircleView" destination="BEz-yR-s05" id="1g5-XM-dHn"/>
+                        <outlet property="reconnectionLabel" destination="78Y-TH-1R7" id="v9Y-nv-nar"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hrN-V0-Oda" userLabel="First Responder" sceneMemberID="firstResponder"/>

@@ -8,13 +8,13 @@
 
 import UIKit
 
+/* Input */
+
 protocol PerformerDJPickerInput: class {
     
     func startDJPickerInput()
     
     func stopDJPickerInput()
-    
-    func pickIdentifier(identifier: String)
 }
 
 protocol PerformerInstrumentsInput: class {
@@ -23,6 +23,17 @@ protocol PerformerInstrumentsInput: class {
     
     func stopPerfromerInstrumentInput()
 }
+
+protocol PerformerConnectionInput: class {
+    
+    func connect(identifier: String)
+    
+    func disconnect()
+    
+    func cancelConnect()
+}
+
+/* Output */
 
 protocol PerformerDJPickerOutput: class {
     
@@ -36,4 +47,9 @@ protocol PerformerInstrumentsOutput: class {
     func setCharge(value: Double)
     
     func setColor(color: UIColor)
+}
+
+protocol PerformerReconnectionOutput: class {
+    
+    func updateWithReconnectionEvent(event: ReconnectionEvent)
 }
