@@ -77,7 +77,6 @@ class Reshake {
             .on(failed: {e in debugPrint("Failed reconnect attempt: \(e)")})
             .retry(NetworkConfiguration.reconnectAttempts - 1)
             .take(1)
-            .on(completed: { debugPrint("Done")}, disposed: { debugPrint("Disposed") })
         
         return SignalProducer(values: [reconnect, cancel]).flatten(.Merge)
     }
@@ -87,3 +86,4 @@ class Reshake {
         cancelled?()
     }
 }
+
