@@ -36,12 +36,10 @@ class PerformerInteractor {
     private let audioConfig: AudioConfiguration = AudioConfigurationStore.getConfiguration()
     
     private var audioloop: (loop: MultiAudioLoop, paths: Set<TaggedAudioPath>)?
-    
-    /* Discovery */
+
+    /* Connection */
     
     private let discovery = AssertiveDiscovery()
-    
-    /* Connection */
     
     private var handshake: Handshake?
     
@@ -65,7 +63,9 @@ extension PerformerInteractor: PerformerDJPickerInput {
     
     func startDJPickerInput() {
     
+        /* TODO: Inject UI side effect on Failure of discovery signal. */
         discovery.discover(NetworkConfiguration.type, domain: NetworkConfiguration.domain).startWithNext(updateDJPickerOutputWithDiscoveryEvent)
+        
         setPerformerDJPickerOutput()
     }
     

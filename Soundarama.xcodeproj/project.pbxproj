@@ -22,6 +22,7 @@
 		421022C21CC9032E00D29CF2 /* AssertiveDiscovery.swift in Sources */ = {isa = PBXBuildFile; fileRef = 421022C11CC9032E00D29CF2 /* AssertiveDiscovery.swift */; };
 		421022C41CC90FF600D29CF2 /* ConnectionStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 421022C31CC90FF600D29CF2 /* ConnectionStore.swift */; };
 		421022C61CC9101000D29CF2 /* DiscoveryStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 421022C51CC9101000D29CF2 /* DiscoveryStore.swift */; };
+		421022C81CC9201B00D29CF2 /* Reshake.swift in Sources */ = {isa = PBXBuildFile; fileRef = 421022C71CC9201B00D29CF2 /* Reshake.swift */; };
 		421468551C56345700892786 /* TP2P.swift in Sources */ = {isa = PBXBuildFile; fileRef = 421468541C56345700892786 /* TP2P.swift */; };
 		421468571C56404C00892786 /* DJUserInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = 421468561C56404C00892786 /* DJUserInterface.swift */; };
 		421468611C56672500892786 /* Serialisation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 421468601C56672500892786 /* Serialisation.swift */; };
@@ -186,6 +187,7 @@
 		421022C11CC9032E00D29CF2 /* AssertiveDiscovery.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AssertiveDiscovery.swift; sourceTree = "<group>"; };
 		421022C31CC90FF600D29CF2 /* ConnectionStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConnectionStore.swift; sourceTree = "<group>"; };
 		421022C51CC9101000D29CF2 /* DiscoveryStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DiscoveryStore.swift; sourceTree = "<group>"; };
+		421022C71CC9201B00D29CF2 /* Reshake.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Reshake.swift; sourceTree = "<group>"; };
 		421468541C56345700892786 /* TP2P.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TP2P.swift; sourceTree = "<group>"; };
 		421468561C56404C00892786 /* DJUserInterface.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DJUserInterface.swift; sourceTree = "<group>"; };
 		421468601C56672500892786 /* Serialisation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Serialisation.swift; sourceTree = "<group>"; };
@@ -476,6 +478,7 @@
 			isa = PBXGroup;
 			children = (
 				424992021CC7768300BC36D9 /* Handshake.swift */,
+				421022C71CC9201B00D29CF2 /* Reshake.swift */,
 				426A6AAC1CC286ED0063DFDC /* Resolve */,
 				426A6AAF1CC287A20063DFDC /* Connect */,
 				424991F71CC666B600BC36D9 /* Sync */,
@@ -1102,6 +1105,7 @@
 				42E6236E1CB2CA2B00A3443A /* SocketConnector.swift in Sources */,
 				428047F71CC8DE7B001B6E60 /* DJIdentifier.swift in Sources */,
 				42A727B21C552E5D00BFCA47 /* DJWireframe.swift in Sources */,
+				421022C81CC9201B00D29CF2 /* Reshake.swift in Sources */,
 				426A6AAE1CC286FF0063DFDC /* Resolvable.swift in Sources */,
 				424991F91CC669DE00BC36D9 /* GCD.swift in Sources */,
 				420AA6AB1C55288E00F7BB25 /* DecideWireframe.swift in Sources */,

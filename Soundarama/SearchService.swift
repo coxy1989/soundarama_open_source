@@ -9,7 +9,6 @@
 import ReactiveCocoa
 import enum Result.NoError
 
-
 struct ResolvableEnvelope {
     
     let resolvable: Resolvable
@@ -41,20 +40,19 @@ class SearchService: NSObject {
         self.browser.delegate = self
     }
     
-    // TODO: make this an instance method
     
-    static func start(searchService: SearchService, type: String, domain: String) -> SignalProducer<SearchStreamEvent, NoError> {
+    func start(type: String, domain: String) -> SignalProducer<SearchStreamEvent, NoError> {
         
-        searchService.browser.searchForServicesOfType(type, inDomain: domain)
+        self.browser.searchForServicesOfType(type, inDomain: domain)
         
         return SignalProducer<SearchStreamEvent, NoError> { s, d in
             
-            searchService.stream = {
+            self.stream = {
                 
                 s.sendNext($0)
             }
             
-            searchService.stopped = {
+            self.stopped = {
                 
                 s.sendCompleted()
             }

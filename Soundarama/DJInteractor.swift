@@ -11,11 +11,15 @@ import TouchpressUI
 
 class DJInteractor {
     
+    /* Viper */
+    
     weak var djOutput: DJOutput!
     
     weak var djAudioStemPickerOutput: DJAudioStemPickerOutput!
     
     weak var djBroadcastConfigurationOutput: DJBroadcastConfigurationOutput?
+    
+    /* State */
     
     private let suiteStore = SuiteStore(number: UIDevice.isPad() ? 9 : 4)
     
@@ -27,21 +31,39 @@ class DJInteractor {
     
     private let referenceTimestampStore = ReferenceTimestampStore()
     
+    private lazy var audioStemStore: AudioStemStore =  { AudioStemStore() } ()
+    
+    /* Connect */
+    
     private var christiansTimeServers: [String : ChristiansTimeServer] = [ : ]
     
     private var socketAcceptor: SocketAcceptor?
     
-    private var searchcastService: SearchcastService?
+   // private var searchcastService: SearchcastService?
     
     private var wifiReachability: WiFiReachability!
-    
-    private lazy var audioStemStore: AudioStemStore =  { AudioStemStore() } ()
+
+    private var discovery: ReceptiveDiscovery?
 }
 
 extension DJInteractor: DJInput {
     
     func startDJ() {
         
+        discovery = ReceptiveDiscovery()
+        
+        discovery?.discover(NetworkConfiguration.type, domain: NetworkConfiguration.domain, name: UIDevice.currentDevice().name)
+            
+            .on(failed: { e in
+                
+                debugPrint("FAILED: \(e)") })
+        
+            .on(next: { n in
+                
+                 debugPrint("NEXT: \(n)") })
+            
+            .start()
+        /*
         let wifi_reachable = { [weak self] in
             
             self?.startNetworkIO()
@@ -69,6 +91,12 @@ extension DJInteractor: DJInput {
         djOutput.setBroadcastStatusMessage("Not Broadcasting")
         djOutput.setUISuite(UISuiteTransformer.transform(suiteStore.suite))
         djOutput.setGroupingMode(true)
+ */
+        //wifiReachability = WiFiReachability.monitoringReachability(wifi_reachable, unreachable: wifi_unreachable, failure: wifi_failure)
+        djOutput.setBroadcastStatusMessage("Not Broadcasting")
+        djOutput.setUISuite(UISuiteTransformer.transform(suiteStore.suite))
+        djOutput.setGroupingMode(true)
+        
     }
     
     func stopDJ() {
@@ -287,7 +315,7 @@ extension DJInteractor: DJBroadcastConfigurationInput {
         broadcastStore.setUserBroadcastIdentifer(identifier)
         let poststate = broadcastStore.getState()
         didChangeBroadcastState(prestate, toState: poststate)
-        searchcastService?.broadcast(NetworkConfiguration.type, domain: NetworkConfiguration.domain, port: Int32(NetworkConfiguration.port), identifier: identifier)
+     //   searchcastService?.broadcast(NetworkConfiguration.type, domain: NetworkConfiguration.domain, port: Int32(NetworkConfiguration.port), identifier: identifier)
     }
 }
 
@@ -373,7 +401,7 @@ extension DJInteractor {
     func stopNetworkIO() {
         
         socketAcceptor?.stop()
-        searchcastService?.stop()
+      //  searchcastService?.stop()
         endpointStore.getEndpoints().forEach() { $0.disconnect() }
     }
     
@@ -394,7 +422,7 @@ extension DJInteractor {
             return
         }
         
-        guard let acceptor = SocketAcceptor.accepting(NetworkConfiguration.port, accepted: accepted, stopped: stopped) else {
+        guard let acceptor = SocketAcceptor.accepting(NetworkConfiguration.port16, accepted: accepted, stopped: stopped) else {
             
             return false
         }
@@ -432,7 +460,7 @@ extension DJInteractor {
             this.didChangeBroadcastState(prestate, toState: poststate)
         }
         
-        searchcastService = SearchcastService.searching(NetworkConfiguration.type, domain: NetworkConfiguration.domain, added: added, removed: removed)
+     //   searchcastService = SearchcastService.searching(NetworkConfiguration.type, domain: NetworkConfiguration.domain, added: added, removed: removed)
     }
 }
 

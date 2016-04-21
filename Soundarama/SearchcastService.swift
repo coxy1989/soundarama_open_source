@@ -6,6 +6,7 @@
 //  Copyright © 2016 Touchpress Ltd. All rights reserved.
 //
 
+/*
 class SearchcastService {
     
     private var search: SearchService?
@@ -21,7 +22,7 @@ class SearchcastService {
     
     func broadcast(type: String, domain: String, port: Int32, identifier: String) {
         
-        broadcast = BroadcastService.broadcasting(domain, type: type, name: identifier, port: port)
+       // broadcast = BroadcastService.broadcasting(domain, type: type, name: identifier, port: port)
     }
     
     func stop() {
@@ -30,3 +31,5 @@ class SearchcastService {
         broadcast?.stop()
     }
 }
+
+ */

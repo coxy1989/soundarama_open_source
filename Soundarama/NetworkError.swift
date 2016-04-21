@@ -9,10 +9,21 @@
 import Result
 import PromiseK
 
-enum AssertiveDiscoveryError: ResultErrorType {
+enum ReceptiveDiscoveryError: ResultErrorType {
     
     case ReachabilityFailed
     
+    case BroadcastFailed
+}
+
+enum BroadcastError: ResultErrorType {
+    
+    case BroadcastFailed
+}
+
+enum DiscoveryError: ResultErrorType {
+    
+    case ReachabilityFailed
 }
 
 enum HandshakeError: ResultErrorType {

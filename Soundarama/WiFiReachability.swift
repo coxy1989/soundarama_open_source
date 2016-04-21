@@ -19,9 +19,9 @@ class WiFiReachability {
     
     private var failure: (() -> ())!
     
-    func reactiveReachability() -> SignalProducer<Bool, AssertiveDiscoveryError> {
+    func reactiveReachability() -> SignalProducer<Bool, DiscoveryError> {
         
-        return SignalProducer<Bool, AssertiveDiscoveryError> { [weak self] observer, disposable in
+        return SignalProducer<Bool, DiscoveryError> { [weak self] observer, disposable in
 
             do {
                 
