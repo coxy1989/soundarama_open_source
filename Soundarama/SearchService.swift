@@ -9,16 +9,21 @@
 import ReactiveCocoa
 import enum Result.NoError
 
-protocol Stoppable {
+
+struct ResolvableEnvelope {
     
-    func stop()
+    let resolvable: Resolvable
+    
+    let name: String
+    
+    let id: Int
 }
 
 enum SearchStreamEvent {
     
-    case Found (String, Resolvable)
+    case Found (ResolvableEnvelope)
     
-    case Lost (String, Resolvable)
+    case Lost (ResolvableEnvelope)
 }
 
 class SearchService: NSObject {
@@ -35,6 +40,8 @@ class SearchService: NSObject {
         self.browser = NSNetServiceBrowser()
         self.browser.delegate = self
     }
+    
+    // TODO: make this an instance method
     
     static func start(searchService: SearchService, type: String, domain: String) -> SignalProducer<SearchStreamEvent, NoError> {
         
@@ -55,7 +62,7 @@ class SearchService: NSObject {
     }
 } 
 
-extension SearchService: Stoppable {
+extension SearchService {
     
     func stop() {
         
@@ -94,12 +101,14 @@ extension SearchService: NSNetServiceBrowserDelegate {
     @objc func netServiceBrowser(browser: NSNetServiceBrowser, didFindService service: NSNetService, moreComing: Bool) {
         
         debugPrint("Browser found service \(service.name)")
-        stream(SearchStreamEvent.Found(service.name, ResolvableNetService(netService: service)))
+        let e = ResolvableEnvelope(resolvable: ResolvableNetService(netService: service), name: service.name, id: service.hash)
+        stream(SearchStreamEvent.Found(e))
     }
     
     @objc func netServiceBrowser(browser: NSNetServiceBrowser, didRemoveService service: NSNetService, moreComing: Bool) {
         
         debugPrint("Browser removed service")
-        stream(SearchStreamEvent.Lost(service.name, ResolvableNetService(netService: service)))
+        let e = ResolvableEnvelope(resolvable: ResolvableNetService(netService: service), name: service.name, id: service.hash)
+        stream(SearchStreamEvent.Lost(e))
     }
 }

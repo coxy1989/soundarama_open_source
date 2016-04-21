@@ -18,6 +18,10 @@
 		420AA6A91C55236F00F7BB25 /* DecideUserInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = 420AA6A81C55236F00F7BB25 /* DecideUserInterface.swift */; };
 		420AA6AB1C55288E00F7BB25 /* DecideWireframe.swift in Sources */ = {isa = PBXBuildFile; fileRef = 420AA6AA1C55288E00F7BB25 /* DecideWireframe.swift */; };
 		420AA6AD1C55296E00F7BB25 /* DecidePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 420AA6AC1C55296E00F7BB25 /* DecidePresenter.swift */; };
+		421022BF1CC8E53500D29CF2 /* Section.swift in Sources */ = {isa = PBXBuildFile; fileRef = 421022BE1CC8E53500D29CF2 /* Section.swift */; };
+		421022C21CC9032E00D29CF2 /* AssertiveDiscovery.swift in Sources */ = {isa = PBXBuildFile; fileRef = 421022C11CC9032E00D29CF2 /* AssertiveDiscovery.swift */; };
+		421022C41CC90FF600D29CF2 /* ConnectionStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 421022C31CC90FF600D29CF2 /* ConnectionStore.swift */; };
+		421022C61CC9101000D29CF2 /* DiscoveryStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 421022C51CC9101000D29CF2 /* DiscoveryStore.swift */; };
 		421468551C56345700892786 /* TP2P.swift in Sources */ = {isa = PBXBuildFile; fileRef = 421468541C56345700892786 /* TP2P.swift */; };
 		421468571C56404C00892786 /* DJUserInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = 421468561C56404C00892786 /* DJUserInterface.swift */; };
 		421468611C56672500892786 /* Serialisation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 421468601C56672500892786 /* Serialisation.swift */; };
@@ -51,6 +55,7 @@
 		4273BC631C87673C002E9EF9 /* UISuiteTransformer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4273BC621C87673C002E9EF9 /* UISuiteTransformer.swift */; };
 		4277FBF41C9729FB0042B051 /* DJAudioStemPickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4277FBF31C9729FB0042B051 /* DJAudioStemPickerViewController.swift */; };
 		427B05C41CBBB71B0009EF75 /* CompassView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 427B05C31CBBB71B0009EF75 /* CompassView.swift */; };
+		428047F71CC8DE7B001B6E60 /* DJIdentifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 428047F61CC8DE7B001B6E60 /* DJIdentifier.swift */; };
 		4280C0D81C5D1A8A00B2C9B3 /* DJCommandTransformer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4280C0D71C5D1A8A00B2C9B3 /* DJCommandTransformer.swift */; };
 		4280C0DA1C5D25DC00B2C9B3 /* CommandTransformerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4280C0D91C5D25DC00B2C9B3 /* CommandTransformerTests.swift */; };
 		42889BF51CA0468B00ACC3B9 /* Flickometer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42889BF41CA0468B00ACC3B9 /* Flickometer.swift */; };
@@ -58,7 +63,7 @@
 		42899B791C886CC600ECA105 /* GroupTransformerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42899B781C886CC600ECA105 /* GroupTransformerTests.swift */; };
 		428A89011C9975DC0070BE7F /* Sounds in Resources */ = {isa = PBXBuildFile; fileRef = 428A89001C9975DC0070BE7F /* Sounds */; };
 		428AF2A81CA02DA80023FCC9 /* Accelerometer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 428AF2A71CA02DA80023FCC9 /* Accelerometer.swift */; };
-		428AF2AC1CA0327C0023FCC9 /* ConnectionState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 428AF2AB1CA0327C0023FCC9 /* ConnectionState.swift */; };
+		428AF2AC1CA0327C0023FCC9 /* Connection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 428AF2AB1CA0327C0023FCC9 /* Connection.swift */; };
 		428AF2AE1CA032BF0023FCC9 /* Level.swift in Sources */ = {isa = PBXBuildFile; fileRef = 428AF2AD1CA032BF0023FCC9 /* Level.swift */; };
 		428AF2B01CA0396F0023FCC9 /* LevelStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 428AF2AF1CA0396F0023FCC9 /* LevelStore.swift */; };
 		429523A91CAE89BC005B26FA /* WiFiReachability.swift in Sources */ = {isa = PBXBuildFile; fileRef = 429523A81CAE89BC005B26FA /* WiFiReachability.swift */; };
@@ -177,6 +182,10 @@
 		420AA6A81C55236F00F7BB25 /* DecideUserInterface.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DecideUserInterface.swift; sourceTree = "<group>"; };
 		420AA6AA1C55288E00F7BB25 /* DecideWireframe.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DecideWireframe.swift; sourceTree = "<group>"; };
 		420AA6AC1C55296E00F7BB25 /* DecidePresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DecidePresenter.swift; sourceTree = "<group>"; };
+		421022BE1CC8E53500D29CF2 /* Section.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Section.swift; sourceTree = "<group>"; };
+		421022C11CC9032E00D29CF2 /* AssertiveDiscovery.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AssertiveDiscovery.swift; sourceTree = "<group>"; };
+		421022C31CC90FF600D29CF2 /* ConnectionStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConnectionStore.swift; sourceTree = "<group>"; };
+		421022C51CC9101000D29CF2 /* DiscoveryStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DiscoveryStore.swift; sourceTree = "<group>"; };
 		421468541C56345700892786 /* TP2P.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TP2P.swift; sourceTree = "<group>"; };
 		421468561C56404C00892786 /* DJUserInterface.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DJUserInterface.swift; sourceTree = "<group>"; };
 		421468601C56672500892786 /* Serialisation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Serialisation.swift; sourceTree = "<group>"; };
@@ -210,6 +219,7 @@
 		4273BC621C87673C002E9EF9 /* UISuiteTransformer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UISuiteTransformer.swift; sourceTree = "<group>"; };
 		4277FBF31C9729FB0042B051 /* DJAudioStemPickerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DJAudioStemPickerViewController.swift; sourceTree = "<group>"; };
 		427B05C31CBBB71B0009EF75 /* CompassView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CompassView.swift; sourceTree = "<group>"; };
+		428047F61CC8DE7B001B6E60 /* DJIdentifier.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DJIdentifier.swift; sourceTree = "<group>"; };
 		4280C0D71C5D1A8A00B2C9B3 /* DJCommandTransformer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DJCommandTransformer.swift; sourceTree = "<group>"; };
 		4280C0D91C5D25DC00B2C9B3 /* CommandTransformerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommandTransformerTests.swift; sourceTree = "<group>"; };
 		42889BF41CA0468B00ACC3B9 /* Flickometer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Flickometer.swift; sourceTree = "<group>"; };
@@ -217,7 +227,7 @@
 		42899B781C886CC600ECA105 /* GroupTransformerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GroupTransformerTests.swift; sourceTree = "<group>"; };
 		428A89001C9975DC0070BE7F /* Sounds */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Sounds; path = Resources/Sounds; sourceTree = "<group>"; };
 		428AF2A71CA02DA80023FCC9 /* Accelerometer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Accelerometer.swift; sourceTree = "<group>"; };
-		428AF2AB1CA0327C0023FCC9 /* ConnectionState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConnectionState.swift; sourceTree = "<group>"; };
+		428AF2AB1CA0327C0023FCC9 /* Connection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Connection.swift; sourceTree = "<group>"; };
 		428AF2AD1CA032BF0023FCC9 /* Level.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Level.swift; sourceTree = "<group>"; };
 		428AF2AF1CA0396F0023FCC9 /* LevelStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LevelStore.swift; sourceTree = "<group>"; };
 		429523A81CAE89BC005B26FA /* WiFiReachability.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WiFiReachability.swift; sourceTree = "<group>"; };
@@ -425,6 +435,24 @@
 			name = UIKit;
 			sourceTree = "<group>";
 		};
+		421022BD1CC8E52800D29CF2 /* Presentation */ = {
+			isa = PBXGroup;
+			children = (
+				421022BE1CC8E53500D29CF2 /* Section.swift */,
+			);
+			name = Presentation;
+			sourceTree = "<group>";
+		};
+		421022C01CC9025E00D29CF2 /* Net Service */ = {
+			isa = PBXGroup;
+			children = (
+				42ED6C621CABFDA4002A7211 /* BroadcastService.swift */,
+				42ED6C671CAC02D5002A7211 /* SearchService.swift */,
+				42ED6C721CAD7741002A7211 /* SearchcastService.swift */,
+			);
+			name = "Net Service";
+			sourceTree = "<group>";
+		};
 		42177FA01C9AAB0E008411B0 /* TPFoundationToAdd */ = {
 			isa = PBXGroup;
 			children = (
@@ -479,7 +507,8 @@
 				42ED6C6D1CAC30BA002A7211 /* AudioConfiguration.swift */,
 				42D9F8A51C88A7AB0056957B /* AudioStem.swift */,
 				42C1D2271CAAC5F0005D0347 /* Command.swift */,
-				428AF2AB1CA0327C0023FCC9 /* ConnectionState.swift */,
+				428AF2AB1CA0327C0023FCC9 /* Connection.swift */,
+				428047F61CC8DE7B001B6E60 /* DJIdentifier.swift */,
 				42D9F89F1C88A70F0056957B /* Group.swift */,
 				4249B59A1C5792490096872D /* Message.swift */,
 				42ED6C6F1CAC30C7002A7211 /* NetworkConfiguration.swift */,
@@ -601,13 +630,14 @@
 		42A727B91C553A7C00BFCA47 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				429EC9871C85AEE0002FDBCC /* Stores (Disk) */,
-				42C45A821C57DE5700888EA8 /* Stores (Memory) */,
 				425CC3261C74B8A100B39AB5 /* Audio */,
-				42AFC6511C5542DA00AD4B9B /* Network */,
 				42B3D1E81C99B2540065842D /* Instrumentation */,
+				42AFC6511C5542DA00AD4B9B /* Network */,
+				421022BD1CC8E52800D29CF2 /* Presentation */,
 				4249B5991C5792190096872D /* Representation */,
 				42AFC6661C55806A00AD4B9B /* Serialisation */,
+				429EC9871C85AEE0002FDBCC /* Stores (Disk) */,
+				42C45A821C57DE5700888EA8 /* Stores (Memory) */,
 				4280C0D61C5D166400B2C9B3 /* Transformation */,
 			);
 			name = Model;
@@ -616,7 +646,6 @@
 		42AFC6511C5542DA00AD4B9B /* Network */ = {
 			isa = PBXGroup;
 			children = (
-				42F64F6F1CB3D55400565F4B /* Reach */,
 				42F64F6D1CB3D52300565F4B /* Discover */,
 				424992011CC7766600BC36D9 /* Handshake */,
 				42F64F6E1CB3D52E00565F4B /* Read / Write */,
@@ -655,6 +684,8 @@
 				429EC9851C85AECE002FDBCC /* GroupStore.swift */,
 				42C1D2291CAACBD5005D0347 /* ReferenceTimestampStore.swift */,
 				4200803A1C5BD289009009E8 /* SuiteStore.swift */,
+				421022C31CC90FF600D29CF2 /* ConnectionStore.swift */,
+				421022C51CC9101000D29CF2 /* DiscoveryStore.swift */,
 			);
 			name = "Stores (Memory)";
 			sourceTree = "<group>";
@@ -750,9 +781,9 @@
 		42F64F6D1CB3D52300565F4B /* Discover */ = {
 			isa = PBXGroup;
 			children = (
-				42ED6C621CABFDA4002A7211 /* BroadcastService.swift */,
-				42ED6C671CAC02D5002A7211 /* SearchService.swift */,
-				42ED6C721CAD7741002A7211 /* SearchcastService.swift */,
+				421022C11CC9032E00D29CF2 /* AssertiveDiscovery.swift */,
+				421022C01CC9025E00D29CF2 /* Net Service */,
+				42F64F6F1CB3D55400565F4B /* Reachabilty */,
 			);
 			name = Discover;
 			sourceTree = "<group>";
@@ -767,13 +798,13 @@
 			name = "Read / Write";
 			sourceTree = "<group>";
 		};
-		42F64F6F1CB3D55400565F4B /* Reach */ = {
+		42F64F6F1CB3D55400565F4B /* Reachabilty */ = {
 			isa = PBXGroup;
 			children = (
 				429523A81CAE89BC005B26FA /* WiFiReachability.swift */,
 				42160E311CAEB34700EBCBB6 /* Reachability.swift */,
 			);
-			name = Reach;
+			name = Reachabilty;
 			sourceTree = "<group>";
 		};
 		42F90EE61C5D740F0010F1C5 /* Theme */ = {
@@ -1010,6 +1041,7 @@
 				42FC502A1CAD832E00591803 /* BroadcastStateTransformer.swift in Sources */,
 				42A727B01C552E2800BFCA47 /* DJModule.swift in Sources */,
 				42F64F681CB3BAF600565F4B /* ResolvableStore.swift in Sources */,
+				421022C21CC9032E00D29CF2 /* AssertiveDiscovery.swift in Sources */,
 				42B3D1F21C99DDBB0065842D /* MultiAudioLoop.swift in Sources */,
 				420756391CA0036B00A4666A /* InstrumentsViewController.swift in Sources */,
 				425498E31C987F8000793640 /* UnderlinedTextButton.swift in Sources */,
@@ -1017,6 +1049,7 @@
 				42A727B61C552E8D00BFCA47 /* DJInteractor.swift in Sources */,
 				42F64F711CB3FB1A00565F4B /* EndpointStore.swift in Sources */,
 				42A727A61C552D3800BFCA47 /* PerformerPresenter.swift in Sources */,
+				421022BF1CC8E53500D29CF2 /* Section.swift in Sources */,
 				42C45A861C57DF2100888EA8 /* AudioStemStore.swift in Sources */,
 				42160E381CAEDB5000EBCBB6 /* SocketAcceptor.swift in Sources */,
 				42C1D22A1CAACBD5005D0347 /* ReferenceTimestampStore.swift in Sources */,
@@ -1031,7 +1064,7 @@
 				428AF2AE1CA032BF0023FCC9 /* Level.swift in Sources */,
 				4249B59D1C5797920096872D /* ChristiansTimeServer.swift in Sources */,
 				42FDDD151CBE80CF00776C06 /* CompassChargeVolumeController.swift in Sources */,
-				428AF2AC1CA0327C0023FCC9 /* ConnectionState.swift in Sources */,
+				428AF2AC1CA0327C0023FCC9 /* Connection.swift in Sources */,
 				429EC9671C84770C002FDBCC /* SwiftyJSON.swift in Sources */,
 				421468551C56345700892786 /* TP2P.swift in Sources */,
 				42D9F8A61C88A7AB0056957B /* AudioStem.swift in Sources */,
@@ -1045,6 +1078,7 @@
 				4200803B1C5BD289009009E8 /* SuiteStore.swift in Sources */,
 				42B3D1EE1C99CDF00065842D /* Compass.swift in Sources */,
 				42B3D1E51C99B0F50065842D /* TaggedAudioPathStore.swift in Sources */,
+				421022C41CC90FF600D29CF2 /* ConnectionStore.swift in Sources */,
 				4249B59B1C5792490096872D /* Message.swift in Sources */,
 				427B05C41CBBB71B0009EF75 /* CompassView.swift in Sources */,
 				42ED6C701CAC30C7002A7211 /* NetworkConfiguration.swift in Sources */,
@@ -1057,6 +1091,7 @@
 				4280C0D81C5D1A8A00B2C9B3 /* DJCommandTransformer.swift in Sources */,
 				424992031CC7768300BC36D9 /* Handshake.swift in Sources */,
 				429EC95F1C847666002FDBCC /* PerformerAudioController.swift in Sources */,
+				421022C61CC9101000D29CF2 /* DiscoveryStore.swift in Sources */,
 				429EC9571C8475A8002FDBCC /* AppDelegate.swift in Sources */,
 				42ED6C731CAD7741002A7211 /* SearchcastService.swift in Sources */,
 				4273BC611C876708002E9EF9 /* GroupTransformer.swift in Sources */,
@@ -1065,6 +1100,7 @@
 				42F64F731CB563B600565F4B /* ChristiansConstants.swift in Sources */,
 				42F64F751CB6507000565F4B /* NetworkEndpoint.swift in Sources */,
 				42E6236E1CB2CA2B00A3443A /* SocketConnector.swift in Sources */,
+				428047F71CC8DE7B001B6E60 /* DJIdentifier.swift in Sources */,
 				42A727B21C552E5D00BFCA47 /* DJWireframe.swift in Sources */,
 				426A6AAE1CC286FF0063DFDC /* Resolvable.swift in Sources */,
 				424991F91CC669DE00BC36D9 /* GCD.swift in Sources */,

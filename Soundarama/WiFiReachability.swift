@@ -9,34 +9,6 @@
 import ReactiveCocoa
 import enum Result.NoError
 
-class WifiError: ErrorType {
-    
-}
-
-class WiFiReachability2 {
-    
-    static func reachability(r: Reachability) -> SignalProducer<Bool, Result.NoError> {
-        
-        return SignalProducer<Bool, NoError> { observer, disposable in
-    
-            r.whenReachable = { reachability in
-                
-                reachability.isReachableViaWiFi() ? observer.sendNext(true) : observer.sendNext(false)
-            }
-            
-            r.whenUnreachable = { reachability in
-                
-                observer.sendNext(false)
-            }
-            
-            r.whenStopped = {
-                
-                observer.sendCompleted()
-            }
-        }
-    }
-}
-
 class WiFiReachability {
     
     private var reachability: Reachability?
@@ -46,6 +18,39 @@ class WiFiReachability {
     private var unreachable: (() -> ())!
     
     private var failure: (() -> ())!
+    
+    func reactiveReachability() -> SignalProducer<Bool, AssertiveDiscoveryError> {
+        
+        return SignalProducer<Bool, AssertiveDiscoveryError> { [weak self] observer, disposable in
+
+            do {
+                
+                self?.reachability = try Reachability.reachabilityForInternetConnection()
+                try self?.reachability?.startNotifier()
+            }
+                
+            catch {
+                
+                observer.sendFailed(.ReachabilityFailed)
+            }
+            
+            self?.reachability?.whenReachable = { reachability in
+                
+                reachability.isReachableViaWiFi() ? observer.sendNext(true) : observer.sendNext(false)
+            }
+            
+            self?.reachability?.whenUnreachable = { reachability in
+                
+                observer.sendNext(false)
+            }
+            
+            self?.reachability?.whenStopped = {
+                
+                observer.sendCompleted()
+            }
+        }
+    }
+    
     
     func isReachable() -> Bool {
         

@@ -32,14 +32,15 @@ class PickDJViewController: ViewController {
     
     @IBAction private func didPressDismissButton(sender: AnyObject) { userInterfaceDelegate?.userInterfaceDidNavigateBack(self) }
     
-    private var sections: [Section] = []
+    private var sections: [Section<UIDJIdentifier>] = []
     
     private var connectionState: ConnectionState = .NotConnected
+    
 }
 
 extension PickDJViewController: PickDJUserInterface {
     
-    func set(identifier: String?, state: ConnectionState, identifiers: [String], isReachable: Bool) {
+    func set(identifier: UIDJIdentifier?, state: ConnectionState, identifiers: [UIDJIdentifier], isReachable: Bool) {
         
         connectionState = state
         let prestate = sections
@@ -47,8 +48,9 @@ extension PickDJViewController: PickDJUserInterface {
         sections = poststate
         updateTableView(prestate, to: poststate)
     }
-    
-    private func sectionZero(identifier: String?, state: ConnectionState, isReachable: Bool) -> Section? {
+
+
+    private func sectionZero(identifier: UIDJIdentifier?, state: ConnectionState, isReachable: Bool) -> Section<UIDJIdentifier>? {
         
         guard isReachable else {
             
@@ -70,7 +72,7 @@ extension PickDJViewController: PickDJUserInterface {
         return Section(header: header, rows: [id])
     }
     
-    private func sectionOne(identifiers: [String], isReachable: Bool)  -> Section? {
+    private func sectionOne(identifiers: [UIDJIdentifier], isReachable: Bool)  -> Section<UIDJIdentifier>? {
         
         guard isReachable else {
             
@@ -78,8 +80,8 @@ extension PickDJViewController: PickDJUserInterface {
         }
         
         let header = identifiers.count == 0 ? "There are no available DJs" : "Available DJs"
-        
-        return Section(header: header, rows: identifiers.sort(<))
+    
+        return Section(header: header, rows: identifiers.sort() {$0.name > $1.name})
     }
 }
 
@@ -91,7 +93,7 @@ extension PickDJViewController: UITableViewDataSource {
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        
+      
         let s = sections[indexPath.section]
         let r = s.rows[indexPath.row]
         let isConnectionCell = sections.count > 1 && indexPath.section == 0
@@ -113,6 +115,7 @@ extension PickDJViewController: UITableViewDelegate {
     
     func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         
+        
         let c = tableView.dequeueReusableCellWithIdentifier("HeaderCell") as! HeaderCell
         c.label.text = sections[section].header
         let v = c.contentView
@@ -130,80 +133,18 @@ extension PickDJViewController: UITableViewDelegate {
             return
         }
         
-        delegate.didPickIdentifier(sections[indexPath.section].rows[indexPath.row])
+        let identifer: UIDJIdentifier = sections[indexPath.section].rows[indexPath.row]
+        delegate.didPickIdentifier(identifer.id)
     }
 }
 
-extension PickDJViewController {
-    
-    private func updateTableView(from: [Section], to: [Section]) {
-        
-        CATransaction.begin()
-        CATransaction.setCompletionBlock() { [weak self] in self?.tableView.reloadData() }
-        
-        tableView.beginUpdates()
-        tableView.insertSections(insertedSections(from, to: to), withRowAnimation: .Automatic)
-        tableView.deleteSections(deletedSections(from, to: to), withRowAnimation: .Automatic)
-        tableView.insertRowsAtIndexPaths(insertedRows(from, to: to), withRowAnimation: .Automatic)
-        tableView.deleteRowsAtIndexPaths(deletedRows(from, to: to), withRowAnimation: .Automatic)
-        tableView.endUpdates()
-        
-        CATransaction.commit()
-    }
-    
-    private func insertedSections(from: [Section], to: [Section]) -> NSIndexSet {
-        
-        let preidx = from.enumerate().map() { $0.index }, postidx = to.enumerate().map() { $0.index }
-        let inserted_sections = Set(postidx).subtract(Set(preidx))
-        let indexSet = NSMutableIndexSet()
-        inserted_sections.forEach() { indexSet.addIndex($0) }
-        return indexSet
-    }
-    
-    private func insertedRows(from: Section, to: Section) -> NSIndexSet {
-        
-        let preidx = from.rows.enumerate().map() { $0.index }, postidx = to.rows.enumerate().map() { $0.index }
-        let inserted_rows = Set(postidx).subtract(Set(preidx))
-        let indexSet = NSMutableIndexSet()
-        inserted_rows.forEach() { indexSet.addIndex($0) }
-        return indexSet
-    }
-    
-    private func deletedSections(from: [Section], to: [Section]) -> NSIndexSet {
-        
-        let preidx = from.enumerate().map() { $0.index }, postidx = to.enumerate().map() { $0.index }
-        let deleted_sections = Set(preidx).subtract(Set(postidx))
-        let indexSet = NSMutableIndexSet()
-        deleted_sections.forEach() { indexSet.addIndex($0) }
-        return indexSet
-    }
-    
-    private func deletedRows(from: Section, to: Section) -> NSIndexSet {
-        
-        let preidx = from.rows.enumerate().map() { $0.index }, postidx = to.rows.enumerate().map() { $0.index }
-        let deleted_rows = Set(preidx).subtract(Set(postidx))
-        let indexSet = NSMutableIndexSet()
-        deleted_rows.forEach() { indexSet.addIndex($0) }
-        return indexSet
-    }
-    
-    private func insertedRows(from: [Section], to: [Section]) -> [NSIndexPath] {
-        
-        return Array(zip(from, to).enumerate().map() { idx, secs in insertedRows(secs.0, to: secs.1).map() { NSIndexPath(forRow: $0, inSection: idx )}}.flatten())
-    }
-    
-    private func deletedRows(from: [Section], to: [Section]) -> [NSIndexPath] {
-        
-        return Array(zip(from, to).enumerate().map() { idx, secs in deletedRows(secs.0, to: secs.1).map() { NSIndexPath(forRow: $0, inSection: idx )}}.flatten())
-    }
-}
 
 extension PickDJViewController {
     
-    func connectionCell(identifier: String) -> UITableViewCell {
+    func connectionCell(identifier: UIDJIdentifier) -> UITableViewCell {
         
         let c = tableView.dequeueReusableCellWithIdentifier("ActivityIndicatorCell") as! ActivityIndicatorCell
-        c.titleLabel.text = identifier
+        c.titleLabel.text = identifier.name
         
         if connectionState == .Connected {
             
@@ -222,28 +163,75 @@ extension PickDJViewController {
         return c
     }
     
-    func availableCell(identifier: String) -> UITableViewCell {
+    func availableCell(identifier: UIDJIdentifier) -> UITableViewCell {
         
         let c = tableView.dequeueReusableCellWithIdentifier("TitleCell") as! TitleCell
-        c.titleLabel.text = identifier
+        c.titleLabel.text = identifier.name
         return c
     }
 }
 
-private struct Section: Hashable {
+ extension PickDJViewController {
     
-    let header: String
-    let rows: [String]
     
-    private var hashValue: Int {
+    private func updateTableView(from: [Section<UIDJIdentifier>], to: [Section<UIDJIdentifier>]) {
         
-        return header.hash ^ rows.reduce(0) { $0 ^ $1.hashValue }
+        CATransaction.begin()
+        CATransaction.setCompletionBlock() { [weak self] in self?.tableView.reloadData() }
+        
+        tableView.beginUpdates()
+        tableView.insertSections(insertedSections(from, to: to), withRowAnimation: .Automatic)
+        tableView.deleteSections(deletedSections(from, to: to), withRowAnimation: .Automatic)
+        tableView.insertRowsAtIndexPaths(insertedRows(from, to: to), withRowAnimation: .Automatic)
+        tableView.deleteRowsAtIndexPaths(deletedRows(from, to: to), withRowAnimation: .Automatic)
+        tableView.endUpdates()
+        
+        CATransaction.commit()
     }
-}
-
-private func == (lhs: Section, rhs: Section) -> Bool {
     
-    let eq_rows = zip(lhs.rows, rhs.rows).map() { $0.0 == $0.1 }.filter() { $0 == false }.count == 0
-    let eq_headers = lhs.header == rhs.header
-    return eq_rows && eq_headers
+    private func insertedSections(from: [Section<UIDJIdentifier>], to: [Section<UIDJIdentifier>]) -> NSIndexSet {
+        
+        let preidx = from.enumerate().map() { $0.index }, postidx = to.enumerate().map() { $0.index }
+        let inserted_sections = Set(postidx).subtract(Set(preidx))
+        let indexSet = NSMutableIndexSet()
+        inserted_sections.forEach() { indexSet.addIndex($0) }
+        return indexSet
+    }
+    
+    private func insertedRows(from: Section<UIDJIdentifier>, to: Section<UIDJIdentifier>) -> NSIndexSet {
+        
+        let preidx = from.rows.enumerate().map() { $0.index }, postidx = to.rows.enumerate().map() { $0.index }
+        let inserted_rows = Set(postidx).subtract(Set(preidx))
+        let indexSet = NSMutableIndexSet()
+        inserted_rows.forEach() { indexSet.addIndex($0) }
+        return indexSet
+    }
+    
+    private func deletedSections(from: [Section<UIDJIdentifier>], to: [Section<UIDJIdentifier>]) -> NSIndexSet {
+        
+        let preidx = from.enumerate().map() { $0.index }, postidx = to.enumerate().map() { $0.index }
+        let deleted_sections = Set(preidx).subtract(Set(postidx))
+        let indexSet = NSMutableIndexSet()
+        deleted_sections.forEach() { indexSet.addIndex($0) }
+        return indexSet
+    }
+    
+    private func deletedRows(from: Section<UIDJIdentifier>, to: Section<UIDJIdentifier>) -> NSIndexSet {
+        
+        let preidx = from.rows.enumerate().map() { $0.index }, postidx = to.rows.enumerate().map() { $0.index }
+        let deleted_rows = Set(preidx).subtract(Set(postidx))
+        let indexSet = NSMutableIndexSet()
+        deleted_rows.forEach() { indexSet.addIndex($0) }
+        return indexSet
+    }
+    
+    private func insertedRows(from: [Section<UIDJIdentifier>], to: [Section<UIDJIdentifier>]) -> [NSIndexPath] {
+        
+        return Array(zip(from, to).enumerate().map() { idx, secs in insertedRows(secs.0, to: secs.1).map() { NSIndexPath(forRow: $0, inSection: idx )}}.flatten())
+    }
+    
+    private func deletedRows(from: [Section<UIDJIdentifier>], to: [Section<UIDJIdentifier>]) -> [NSIndexPath] {
+        
+        return Array(zip(from, to).enumerate().map() { idx, secs in deletedRows(secs.0, to: secs.1).map() { NSIndexPath(forRow: $0, inSection: idx )}}.flatten())
+    }
 }

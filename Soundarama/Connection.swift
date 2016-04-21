@@ -23,3 +23,12 @@ enum ReconnectionEvent {
     
     case EndedFailure
 }
+
+enum ConnectionEvent {
+    
+    case Started
+    
+    case Succeeded
+    
+    case Failed
+}

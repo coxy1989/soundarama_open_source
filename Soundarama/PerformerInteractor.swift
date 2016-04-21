@@ -13,11 +13,15 @@ import Result
 
 class PerformerInteractor {
  
+    /* Viper */
+    
     weak var performerDJPickerOutput: PerformerDJPickerOutput!
     
     weak var performerInstrumentsOutput: PerformerInstrumentsOutput!
     
     weak var performerReconnectionOutput: PerformerReconnectionOutput!
+    
+    /* State */
     
     private let audioStemStore = AudioStemStore()
     
@@ -25,25 +29,31 @@ class PerformerInteractor {
     
     private var connectionStore = ConnectionStore()
     
+    private var discoveryStore = DiscoveryStore()
+    
+    /* Audio */
+    
     private let audioConfig: AudioConfiguration = AudioConfigurationStore.getConfiguration()
+    
+    private var audioloop: (loop: MultiAudioLoop, paths: Set<TaggedAudioPath>)?
+    
+    /* Discovery */
+    
+    private let discovery = AssertiveDiscovery()
+    
+    /* Connection */
     
     private var handshake: Handshake?
     
     private var reshake: Reshake?
     
-    private var audioloop: (loop: MultiAudioLoop, paths: Set<TaggedAudioPath>)?
-
-    private var connectionState = ConnectionState.NotConnected
+    private var reactiveEndpoint: ReactiveEndpoint?
+    
+    /* Instruments */
     
     private var compass: Compass?
     
     private var danceometer: Danceometer?
-    
-    private var searchService: SearchService?
-    
-    private var searchReachability: Reachability?
-    
-    private var reactiveEndpoint: ReactiveEndpoint?
     
     deinit {
         
@@ -51,11 +61,27 @@ class PerformerInteractor {
     }
 }
 
+extension PerformerInteractor: PerformerDJPickerInput {
+    
+    func startDJPickerInput() {
+    
+        discovery.discover(NetworkConfiguration.type, domain: NetworkConfiguration.domain).startWithNext(updateDJPickerOutputWithDiscoveryEvent)
+        setPerformerDJPickerOutput()
+    }
+    
+    func stopDJPickerInput() {
+        
+        discovery.stop()
+        resolvableStore.removeAllEnvelopes()
+        connectionStore.clearConnectionState()
+    }
+}
+
 extension PerformerInteractor: PerformerConnectionInput {
     
-    func connect(identifier: String) {
+    func connect(identifier: Int) {
         
-        guard let resolvable = resolvableStore.getResolvable(identifier) else {
+        guard let envelope = resolvableStore.getEnvelope(identifier) else {
             
             updateDJPickerOutputWithConnectionEvent(identifier, event: .Failed)
             return
@@ -63,19 +89,19 @@ extension PerformerInteractor: PerformerConnectionInput {
         
         updateDJPickerOutputWithConnectionEvent(identifier, event: .Started)
         
-        handshake = Handshake(resolvable: resolvable)
+        handshake = Handshake(resolvable: envelope.resolvable)
         
         handshake!.producer()
             
             .on(next: { [weak self] in
-            
-            debugPrint("Successfully connected")
-            self?.onConnected($0.0, resolvable: resolvable, time_map: $0.1)
-            self?.updateDJPickerOutputWithConnectionEvent(identifier, event: .Succeeded)})
+                
+                debugPrint("Successfully connected")
+                self?.onSuccessfulHandshake($0.0, resolvable: envelope.resolvable, time_map: $0.1)
+                self?.updateDJPickerOutputWithConnectionEvent(identifier, event: .Succeeded)})
             
             .on(failed: { [weak self] e in
                 
-                debugPrint("Failed to connect: \(e)")
+                 debugPrint("Failed to connect: \(e)")
                 self?.updateDJPickerOutputWithConnectionEvent(identifier, event: .Failed)})
             
             .start()
@@ -93,32 +119,6 @@ extension PerformerInteractor: PerformerConnectionInput {
         
         reshake?.cancel()
         reshake = nil
-    }
-}
-
-extension PerformerInteractor: PerformerDJPickerInput {
-    
-    func startDJPickerInput() {
-    
-        searchService = SearchService()
-        SearchService.start(searchService!, type: NetworkConfiguration.type, domain: NetworkConfiguration.domain).startWithNext(updateDJPickerOutputWithDJSearchEvent)
-        
-        searchReachability = try! Reachability.reachabilityForInternetConnection()
-        WiFiReachability2.reachability(searchReachability!).startWithNext(updateDJPickerOutpuWithReachabilityState)
-        
-        setPerformerDJPickerOutput()
-    }
-    
-    func stopDJPickerInput() {
-        
-        searchService?.stop()
-        searchService = nil
-        
-        searchReachability?.stopNotifier()
-        searchReachability = nil
-        
-        resolvableStore.removeAllResolvables()
-        connectionStore.clearConnectionState()
     }
 }
 
@@ -141,12 +141,12 @@ extension PerformerInteractor: PerformerInstrumentsInput {
 
 extension PerformerInteractor {
     
-    func onConnected(endpoint: Endpoint, resolvable: Resolvable, time_map: ChristiansMap) {
+    func onSuccessfulHandshake(endpoint: Endpoint, resolvable: Resolvable, time_map: ChristiansMap) {
         
         reactiveEndpoint = ReactiveEndpoint(endpoint: endpoint)
         
         ReactiveEndpoint.start(reactiveEndpoint!, resolvable: resolvable)
-            .on(failed: attemptReconnect)
+            .on(failed: attemptReshake)
             .map(MessageDeserializer.deserialize)
             .startWithNext() { [weak self] in
                 
@@ -159,7 +159,7 @@ extension PerformerInteractor {
         }
     }
     
-    func attemptReconnect(error: EndpointError) {
+    func attemptReshake(error: EndpointError) {
     
         performerReconnectionOutput.updateWithReconnectionEvent(.Started)
         
@@ -174,7 +174,7 @@ extension PerformerInteractor {
                     .on(next: { [weak self] in
                         
                         debugPrint("Successfully reconnected")
-                        self?.onConnected($0.0, resolvable: resolvable, time_map: $0.1)
+                        self?.onSuccessfulHandshake($0.0, resolvable: resolvable, time_map: $0.1)
                         self?.performerReconnectionOutput.updateWithReconnectionEvent(.EndedSucceess)
                     })
                     
@@ -191,7 +191,7 @@ extension PerformerInteractor {
 
 extension PerformerInteractor {
     
-    private func updateDJPickerOutputWithConnectionEvent(identfier: String, event: ConnectionEvent) {
+    private func updateDJPickerOutputWithConnectionEvent(identfier: Int, event: ConnectionEvent) {
         
         switch event {
             
@@ -205,13 +205,17 @@ extension PerformerInteractor {
         setPerformerDJPickerOutput()
     }
     
-    private func updateDJPickerOutputWithDJSearchEvent(event: SearchStreamEvent) {
+    private func updateDJPickerOutputWithDiscoveryEvent(event: AssertiveDiscoveryEvent) {
         
         switch event {
             
-            case .Found(let name, let resolvable): resolvableStore.addResolvable((name, resolvable))
+            case .Found(let envelope): resolvableStore.addEnvelope(envelope)
             
-            case .Lost(let name, _): resolvableStore.removeResolvable(name)
+            case .Lost(let envelope): resolvableStore.removeEnvelope(envelope.id)
+            
+            case .Up: discoveryStore.setIsUp(true)
+            
+            case .Down: discoveryStore.setIsUp(false)
         }
         
         setPerformerDJPickerOutput()
@@ -231,16 +235,15 @@ extension PerformerInteractor {
                 return
             }
             
-            let identifier = this.connectionStore.getConnectionIdentifer()
+            let identifier = this.connectionStore.getConnectionIdentifer().flatMap() { this.resolvableStore.getEnvelope($0)}.flatMap() { UIDJIdentifier(name: $0.name, id: $0.id) }
             let state = this.connectionStore.getConnectionState()
-            let identifiers = this.resolvableStore.identifiers().filter() { $0 != this.connectionStore.getConnectionIdentifer() }
-            let isReachable = this.searchReachability?.isReachable() ?? false
+            let identifiers = this.resolvableStore.getEnvelopes().filter() { $0.id != this.connectionStore.getConnectionIdentifer() }.map() { UIDJIdentifier(name: $0.name, id: $0.id) }
+            let isReachable = this.discoveryStore.getIsUp()
             
             this.performerDJPickerOutput.set(identifier, state: state, identifiers: identifiers, isReachable: isReachable)
         }
     }
 }
-
 
 extension PerformerInteractor {
     
@@ -373,44 +376,4 @@ extension PerformerInteractor {
             handler($0)
         }
     }
-}
-
-class ConnectionStore {
-    
-    private var lock: NSRecursiveLock = NSRecursiveLock()
-    
-    private var state: (identifer: String, connectionState: ConnectionState)?
-    
-    func clearConnectionState() {
-        
-        lock.lock()
-        state = nil
-        lock.unlock()
-    }
-    
-    func setConnectionState(identifer: String, connectionState: ConnectionState) {
-        
-        lock.lock()
-        state = (identifer: identifer, connectionState: connectionState)
-        lock.unlock()
-    }
-    
-    func getConnectionIdentifer() -> String? {
-        
-        return state?.identifer
-    }
-    
-    func getConnectionState() -> ConnectionState {
-        
-        return state?.connectionState ?? .NotConnected
-    }
-}
-
-enum ConnectionEvent {
-    
-    case Started
-    
-    case Succeeded
-    
-    case Failed
 }

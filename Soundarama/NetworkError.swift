@@ -9,6 +9,12 @@
 import Result
 import PromiseK
 
+enum AssertiveDiscoveryError: ResultErrorType {
+    
+    case ReachabilityFailed
+    
+}
+
 enum HandshakeError: ResultErrorType {
     
     case ResolveFailed

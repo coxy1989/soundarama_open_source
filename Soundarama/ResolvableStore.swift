@@ -10,37 +10,36 @@ class ResolvableStore {
     
     private let lock = NSRecursiveLock()
     
-    private var resolvables: [String : Resolvable] = [ : ]
+    private var envelopes: [ResolvableEnvelope] = []
     
-    func identifiers() -> [String] {
+    func getEnvelopes() -> [ResolvableEnvelope] {
         
-        let keys = resolvables.keys
-        return keys.count > 0 ? Array(keys) : []
+        return envelopes
     }
     
-    func addResolvable(resolvable: (String, Resolvable)) {
+    func addEnvelope(envelope: ResolvableEnvelope) {
         
         lock.lock()
-        resolvables[resolvable.0] = resolvable.1
+        envelopes.append(envelope)
         lock.unlock()
     }
     
-    func removeResolvable(resolvable: String) {
+    func removeEnvelope(id: Int) {
         
         lock.lock()
-        resolvables.removeValueForKey(resolvable)
+        envelopes = envelopes.filter() { $0.id != id }
         lock.unlock()
     }
     
-    func removeAllResolvables() {
+    func removeAllEnvelopes() {
         
         lock.lock()
-        resolvables.keys.forEach() { resolvables.removeValueForKey($0) }
+        envelopes.removeAll()
         lock.unlock()
     }
     
-    func getResolvable(identifer: String) -> Resolvable? {
+    func getEnvelope(id: Int) -> ResolvableEnvelope? {
         
-        return resolvables[identifer]
+        return envelopes.filter() { $0.id == id }.first
     }
 }

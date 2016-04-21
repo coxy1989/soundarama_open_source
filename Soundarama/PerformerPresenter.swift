@@ -59,7 +59,7 @@ extension PerformerPresenter: PerformerInstrumentsOutput {
 
 extension PerformerPresenter: PerformerDJPickerOutput {
     
-    func set(identifier: String?, state: ConnectionState, identifiers: [String], isReachable: Bool) {
+    func set(identifier: UIDJIdentifier?, state: ConnectionState, identifiers: [UIDJIdentifier], isReachable: Bool) {
      
         pickDJUI?.set(identifier, state: state, identifiers: identifiers, isReachable: isReachable)
         
@@ -119,7 +119,7 @@ extension PerformerPresenter: UserInterfaceDelegate {
 
 extension PerformerPresenter: PickDJUserInterfaceDelegate {
     
-    func didPickIdentifier(identifier: String) {
+    func didPickIdentifier(identifier: Int) {
         
         connectionInput.connect(identifier)
     }

@@ -19,6 +19,8 @@ class BroadcastService: NSObject {
         
         let bs = BroadcastService()
     
+        //TODO: move constants to NetworkConfig
+        
         bs.service = NSNetService(domain: "local", type: "_soundarama_coxy._tcp.", name: name, port: port)
         bs.service.delegate = bs
         bs.service.publish()

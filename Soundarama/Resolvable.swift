@@ -11,7 +11,7 @@ import PromiseK
 import Result
 import ReactiveCocoa
 
-protocol Resolvable {
+protocol Resolvable: class {
     
     func resolve() -> SignalProducer<(String, UInt16), HandshakeError>
     

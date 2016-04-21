@@ -31,10 +31,10 @@ protocol ReconnectionUserInterface: class {
 
 protocol PickDJUserInterface: class {
     
-    func set(identifier: String?, state: ConnectionState, identifiers: [String], isReachable: Bool)
+    func set(identifier: UIDJIdentifier?, state: ConnectionState, identifiers: [UIDJIdentifier], isReachable: Bool)
 }
 
 protocol PickDJUserInterfaceDelegate: class {
     
-    func didPickIdentifier(identifier: String)
+    func didPickIdentifier(identifier: Int)
 }
