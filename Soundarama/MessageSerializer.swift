@@ -14,23 +14,23 @@ class MessageSerializer {
             
             case .Start:
                 
-            let m = message as! StartMessage
-            return Serialisation.setPayload(startMessageSerialization(m))
+                let m = message as! StartMessage
+                return Serialisation.setPayload(startMessageSerialization(m))
         
             case .Stop:
                 
-            let m = message as! StopMessage
-            return Serialisation.setPayload(stopMessageSerialization(m))
+                let m = message as! StopMessage
+                return Serialisation.setPayload(stopMessageSerialization(m))
             
             case .Mute:
             
-            let m = message as! MuteMessage
-            return Serialisation.setPayload(muteMessageSerialization(m))
+                let m = message as! MuteMessage
+                return Serialisation.setPayload(muteMessageSerialization(m))
             
             case .Unmute:
             
-            let m = message as! UnmuteMessage
-            return Serialisation.setPayload(unmuteMessageSerialization(m))
+                let m = message as! UnmuteMessage
+                return Serialisation.setPayload(unmuteMessageSerialization(m))
         }
     }
 }
@@ -62,16 +62,3 @@ extension MessageSerializer {
         return [ MessageSerialisationKeys.type : message.type.rawValue ]
     }
 }
-
-/*
- let json = [
- "timestamp" : message.timestamp,
- "sessionTimestamp" : message.sessionTimestamp,
- "reference" : message.reference,
- "loopLength" : message.loopLength,
- "command" : message.command.rawValue,
- "muted" : message.muted
- ]
- 
- return Serialisation.setPayload(json)
- */

@@ -39,7 +39,7 @@ class PerformerInteractor {
 
     /* Connection */
     
-    private let discovery = AssertiveDiscovery()
+    private var discovery: AssertiveDiscovery?
     
     private var handshake: Handshake?
     
@@ -63,15 +63,28 @@ extension PerformerInteractor: PerformerDJPickerInput {
     
     func startDJPickerInput() {
     
-        /* TODO: Inject UI side effect on Failure of discovery signal. */
-        discovery.discover(NetworkConfiguration.type, domain: NetworkConfiguration.domain).startWithNext(updateDJPickerOutputWithDiscoveryEvent)
+        discovery = AssertiveDiscovery()
+        
+        /* 
+            TODO: 
+            - Inject UI side effect on Failure of discovery signal.
+            - Retry discovery signal on failure.
+         */
+        
+        discovery?.discover(NetworkConfiguration.type, domain: NetworkConfiguration.domain)
+            .on(next: { [weak self] in
+                debugPrint("Discovery event: \($0)")
+                self?.updateDJPickerOutputWithDiscoveryEvent($0) })
+            .on(failed: {e in
+                debugPrint("Discovery error: \(e)") })
+            .start()
         
         setPerformerDJPickerOutput()
     }
     
     func stopDJPickerInput() {
         
-        discovery.stop()
+        discovery?.stop()
         resolvableStore.removeAllEnvelopes()
         connectionStore.clearConnectionState()
     }
@@ -95,13 +108,13 @@ extension PerformerInteractor: PerformerConnectionInput {
             
             .on(next: { [weak self] in
                 
-                debugPrint("Successfully connected")
+                debugPrint("Handshake Succeeded")
                 self?.onSuccessfulHandshake($0.0, resolvable: envelope.resolvable, time_map: $0.1)
                 self?.updateDJPickerOutputWithConnectionEvent(identifier, event: .Succeeded)})
             
             .on(failed: { [weak self] e in
                 
-                 debugPrint("Failed to connect: \(e)")
+                 debugPrint("Handshake Failed: \(e)")
                 self?.updateDJPickerOutputWithConnectionEvent(identifier, event: .Failed)})
             
             .start()

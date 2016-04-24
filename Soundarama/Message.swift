@@ -6,6 +6,8 @@
 //  Copyright © 2016 Touchpress Ltd. All rights reserved.
 //
 
+// TODO: Rename `Action`Message
+
 protocol Message {
     
     var type: MessageType { get }

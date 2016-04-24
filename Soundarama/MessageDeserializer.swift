@@ -10,6 +10,8 @@ import Result
 
 class MessageDeserializer {
     
+    //TODO: flat map this mess
+    
     static func deserialize(data: NSData)  -> Result<Message, ParsingError> {
         
         let payload = Serialisation.getPayload(data)
@@ -24,7 +26,6 @@ class MessageDeserializer {
             return Result<Message, ParsingError>.Failure(.InvalidJSON)
         }
      
-    
         if type == MessageType.Start.rawValue {
             
             return deserialiseStartMessage(json)

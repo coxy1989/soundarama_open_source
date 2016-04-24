@@ -23,6 +23,7 @@
 		421022C41CC90FF600D29CF2 /* ConnectionStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 421022C31CC90FF600D29CF2 /* ConnectionStore.swift */; };
 		421022C61CC9101000D29CF2 /* DiscoveryStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 421022C51CC9101000D29CF2 /* DiscoveryStore.swift */; };
 		421022C81CC9201B00D29CF2 /* Reshake.swift in Sources */ = {isa = PBXBuildFile; fileRef = 421022C71CC9201B00D29CF2 /* Reshake.swift */; };
+		421022CA1CC93A6600D29CF2 /* ReceptiveDiscovery.swift in Sources */ = {isa = PBXBuildFile; fileRef = 421022C91CC93A6600D29CF2 /* ReceptiveDiscovery.swift */; };
 		421468551C56345700892786 /* TP2P.swift in Sources */ = {isa = PBXBuildFile; fileRef = 421468541C56345700892786 /* TP2P.swift */; };
 		421468571C56404C00892786 /* DJUserInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = 421468561C56404C00892786 /* DJUserInterface.swift */; };
 		421468611C56672500892786 /* Serialisation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 421468601C56672500892786 /* Serialisation.swift */; };
@@ -32,6 +33,13 @@
 		42160E321CAEB34700EBCBB6 /* Reachability.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42160E311CAEB34700EBCBB6 /* Reachability.swift */; };
 		42160E381CAEDB5000EBCBB6 /* SocketAcceptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42160E371CAEDB5000EBCBB6 /* SocketAcceptor.swift */; };
 		42177FA21C9AAB29008411B0 /* Functional.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42177FA11C9AAB29008411B0 /* Functional.swift */; };
+		421B7BEF1CCCCCE100E90C71 /* NetworkEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 421B7BEE1CCCCCE100E90C71 /* NetworkEvent.swift */; };
+		421B7BF11CCCFEF900E90C71 /* ParsingError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 421B7BF01CCCFEF900E90C71 /* ParsingError.swift */; };
+		421B7BF51CCD165C00E90C71 /* SyncMessageDeserializer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 421B7BF41CCD165C00E90C71 /* SyncMessageDeserializer.swift */; };
+		421B7BF71CCD166F00E90C71 /* SyncMessageSerializer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 421B7BF61CCD166F00E90C71 /* SyncMessageSerializer.swift */; };
+		421B7BF91CCD173900E90C71 /* MessageSerialisation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 421B7BF81CCD173900E90C71 /* MessageSerialisation.swift */; };
+		421B7BFB1CCD176000E90C71 /* SyncMessageSerialisation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 421B7BFA1CCD176000E90C71 /* SyncMessageSerialisation.swift */; };
+		421B7BFD1CCD179800E90C71 /* SyncMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 421B7BFC1CCD179800E90C71 /* SyncMessage.swift */; };
 		422EB05A1C8DBA2200B27134 /* DJAudioStemsPickerUserInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = 422EB0591C8DBA2200B27134 /* DJAudioStemsPickerUserInterface.swift */; };
 		422EB05C1C8DC39500B27134 /* UIAudioStemTransformer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 422EB05B1C8DC39500B27134 /* UIAudioStemTransformer.swift */; };
 		4244598D1CA2EB5F00547B3C /* AGaramondPro-Italic.otf in Resources */ = {isa = PBXBuildFile; fileRef = 4244598B1CA2EB5F00547B3C /* AGaramondPro-Italic.otf */; };
@@ -188,6 +196,7 @@
 		421022C31CC90FF600D29CF2 /* ConnectionStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConnectionStore.swift; sourceTree = "<group>"; };
 		421022C51CC9101000D29CF2 /* DiscoveryStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DiscoveryStore.swift; sourceTree = "<group>"; };
 		421022C71CC9201B00D29CF2 /* Reshake.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Reshake.swift; sourceTree = "<group>"; };
+		421022C91CC93A6600D29CF2 /* ReceptiveDiscovery.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReceptiveDiscovery.swift; sourceTree = "<group>"; };
 		421468541C56345700892786 /* TP2P.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TP2P.swift; sourceTree = "<group>"; };
 		421468561C56404C00892786 /* DJUserInterface.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DJUserInterface.swift; sourceTree = "<group>"; };
 		421468601C56672500892786 /* Serialisation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Serialisation.swift; sourceTree = "<group>"; };
@@ -197,6 +206,13 @@
 		42160E311CAEB34700EBCBB6 /* Reachability.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Reachability.swift; sourceTree = "<group>"; };
 		42160E371CAEDB5000EBCBB6 /* SocketAcceptor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SocketAcceptor.swift; sourceTree = "<group>"; };
 		42177FA11C9AAB29008411B0 /* Functional.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Functional.swift; sourceTree = "<group>"; };
+		421B7BEE1CCCCCE100E90C71 /* NetworkEvent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkEvent.swift; sourceTree = "<group>"; };
+		421B7BF01CCCFEF900E90C71 /* ParsingError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ParsingError.swift; sourceTree = "<group>"; };
+		421B7BF41CCD165C00E90C71 /* SyncMessageDeserializer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SyncMessageDeserializer.swift; sourceTree = "<group>"; };
+		421B7BF61CCD166F00E90C71 /* SyncMessageSerializer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SyncMessageSerializer.swift; sourceTree = "<group>"; };
+		421B7BF81CCD173900E90C71 /* MessageSerialisation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessageSerialisation.swift; sourceTree = "<group>"; };
+		421B7BFA1CCD176000E90C71 /* SyncMessageSerialisation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SyncMessageSerialisation.swift; sourceTree = "<group>"; };
+		421B7BFC1CCD179800E90C71 /* SyncMessage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SyncMessage.swift; sourceTree = "<group>"; };
 		422EB0591C8DBA2200B27134 /* DJAudioStemsPickerUserInterface.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DJAudioStemsPickerUserInterface.swift; sourceTree = "<group>"; };
 		422EB05B1C8DC39500B27134 /* UIAudioStemTransformer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIAudioStemTransformer.swift; sourceTree = "<group>"; };
 		4244598B1CA2EB5F00547B3C /* AGaramondPro-Italic.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "AGaramondPro-Italic.otf"; path = "Resources/Font/AGaramondPro-Italic.otf"; sourceTree = "<group>"; };
@@ -464,6 +480,26 @@
 			name = TPFoundationToAdd;
 			sourceTree = "<group>";
 		};
+		421B7BF21CCD12F600E90C71 /* Sync */ = {
+			isa = PBXGroup;
+			children = (
+				421B7BFA1CCD176000E90C71 /* SyncMessageSerialisation.swift */,
+				421B7BF41CCD165C00E90C71 /* SyncMessageDeserializer.swift */,
+				421B7BF61CCD166F00E90C71 /* SyncMessageSerializer.swift */,
+			);
+			name = Sync;
+			sourceTree = "<group>";
+		};
+		421B7BF31CCD12FB00E90C71 /* Action */ = {
+			isa = PBXGroup;
+			children = (
+				421B7BF81CCD173900E90C71 /* MessageSerialisation.swift */,
+				42C1D2231CAA9DCE005D0347 /* MessageDeserializer.swift */,
+				42AFC6641C55805300AD4B9B /* MessageSerializer.swift */,
+			);
+			name = Action;
+			sourceTree = "<group>";
+		};
 		424991F71CC666B600BC36D9 /* Sync */ = {
 			isa = PBXGroup;
 			children = (
@@ -515,21 +551,17 @@
 				42D9F89F1C88A70F0056957B /* Group.swift */,
 				4249B59A1C5792490096872D /* Message.swift */,
 				42ED6C6F1CAC30C7002A7211 /* NetworkConfiguration.swift */,
+				425571DC1CC430290066EABE /* NetworkError.swift */,
+				421B7BEE1CCCCCE100E90C71 /* NetworkEvent.swift */,
+				421B7BF01CCCFEF900E90C71 /* ParsingError.swift */,
 				42D9F8A31C88A7950056957B /* Performer.swift */,
 				420080381C5BCA44009009E8 /* Suite.swift */,
+				421B7BFC1CCD179800E90C71 /* SyncMessage.swift */,
 				42B3D1E61C99B1910065842D /* TaggedAudioPath.swift */,
 				42889BF81CA047BF00ACC3B9 /* Tags.swift */,
 				42D9F8A11C88A7460056957B /* Workspace.swift */,
 			);
 			name = Representation;
-			sourceTree = "<group>";
-		};
-		425571DB1CC430130066EABE /* Error */ = {
-			isa = PBXGroup;
-			children = (
-				425571DC1CC430290066EABE /* NetworkError.swift */,
-			);
-			name = Error;
 			sourceTree = "<group>";
 		};
 		425CC3241C74B84000B39AB5 /* Extras */ = {
@@ -652,7 +684,6 @@
 				42F64F6D1CB3D52300565F4B /* Discover */,
 				424992011CC7766600BC36D9 /* Handshake */,
 				42F64F6E1CB3D52E00565F4B /* Read / Write */,
-				425571DB1CC430130066EABE /* Error */,
 			);
 			name = Network;
 			sourceTree = "<group>";
@@ -661,8 +692,8 @@
 			isa = PBXGroup;
 			children = (
 				421468601C56672500892786 /* Serialisation.swift */,
-				42C1D2231CAA9DCE005D0347 /* MessageDeserializer.swift */,
-				42AFC6641C55805300AD4B9B /* MessageSerializer.swift */,
+				421B7BF31CCD12FB00E90C71 /* Action */,
+				421B7BF21CCD12F600E90C71 /* Sync */,
 			);
 			name = Serialisation;
 			sourceTree = "<group>";
@@ -785,6 +816,7 @@
 			isa = PBXGroup;
 			children = (
 				421022C11CC9032E00D29CF2 /* AssertiveDiscovery.swift */,
+				421022C91CC93A6600D29CF2 /* ReceptiveDiscovery.swift */,
 				421022C01CC9025E00D29CF2 /* Net Service */,
 				42F64F6F1CB3D55400565F4B /* Reachabilty */,
 			);
@@ -1057,10 +1089,12 @@
 				42160E381CAEDB5000EBCBB6 /* SocketAcceptor.swift in Sources */,
 				42C1D22A1CAACBD5005D0347 /* ReferenceTimestampStore.swift in Sources */,
 				42F90EEA1C5D74920010F1C5 /* UIFont.swift in Sources */,
+				421B7BEF1CCCCCE100E90C71 /* NetworkEvent.swift in Sources */,
 				429523A91CAE89BC005B26FA /* WiFiReachability.swift in Sources */,
 				42AFC6631C55802000AD4B9B /* ReadableMessageAdapter.swift in Sources */,
 				4249B5961C578A160096872D /* BroadcastSocketEndpoint.swift in Sources */,
 				421468571C56404C00892786 /* DJUserInterface.swift in Sources */,
+				421B7BFB1CCD176000E90C71 /* SyncMessageSerialisation.swift in Sources */,
 				42F90EE81C5D74280010F1C5 /* UIColor.swift in Sources */,
 				42D9F8A41C88A7950056957B /* Performer.swift in Sources */,
 				42AFC6571C554F5A00AD4B9B /* DJUseCase.swift in Sources */,
@@ -1069,10 +1103,13 @@
 				42FDDD151CBE80CF00776C06 /* CompassChargeVolumeController.swift in Sources */,
 				428AF2AC1CA0327C0023FCC9 /* Connection.swift in Sources */,
 				429EC9671C84770C002FDBCC /* SwiftyJSON.swift in Sources */,
+				421B7BF11CCCFEF900E90C71 /* ParsingError.swift in Sources */,
+				421B7BFD1CCD179800E90C71 /* SyncMessage.swift in Sources */,
 				421468551C56345700892786 /* TP2P.swift in Sources */,
 				42D9F8A61C88A7AB0056957B /* AudioStem.swift in Sources */,
 				42ED6C6C1CAC2D8D002A7211 /* BroadcastStore.swift in Sources */,
 				42E49DAE1C58F20D00B9C127 /* SoundZoneCollectionViewCell.swift in Sources */,
+				421B7BF51CCD165C00E90C71 /* SyncMessageDeserializer.swift in Sources */,
 				42ED6C661CAC028E002A7211 /* Host.swift in Sources */,
 				42F64F6C1CB3D02000565F4B /* Endpoint.swift in Sources */,
 				DFBAD41F1C64C346004C1D47 /* SpringMesh.swift in Sources */,
@@ -1114,6 +1151,7 @@
 				424991FB1CC6791700BC36D9 /* PerformerUserInterface.swift in Sources */,
 				42A727A41C552D0200BFCA47 /* PerformerWireframe.swift in Sources */,
 				42B3D1EA1C99B3130065842D /* CompassLevelVolumeController.swift in Sources */,
+				421B7BF91CCD173900E90C71 /* MessageSerialisation.swift in Sources */,
 				42160E321CAEB34700EBCBB6 /* Reachability.swift in Sources */,
 				42B3D1E71C99B1910065842D /* TaggedAudioPath.swift in Sources */,
 				42889BF91CA047BF00ACC3B9 /* Tags.swift in Sources */,
@@ -1125,12 +1163,14 @@
 				421468641C567E9600892786 /* SearchStrategy.swift in Sources */,
 				429EC9651C8476A1002FDBCC /* VolumeControl.m in Sources */,
 				4249B59F1C57979E0096872D /* ChristiansProcess.swift in Sources */,
+				421022CA1CC93A6600D29CF2 /* ReceptiveDiscovery.swift in Sources */,
 				421468611C56672500892786 /* Serialisation.swift in Sources */,
 				42ED6C6E1CAC30BA002A7211 /* AudioConfiguration.swift in Sources */,
 				42ED6C6A1CAC1F32002A7211 /* DJBroadcastConfigurationViewController.swift in Sources */,
 				420AA6AD1C55296E00F7BB25 /* DecidePresenter.swift in Sources */,
 				4277FBF41C9729FB0042B051 /* DJAudioStemPickerViewController.swift in Sources */,
 				42ED6C681CAC02D5002A7211 /* SearchService.swift in Sources */,
+				421B7BF71CCD166F00E90C71 /* SyncMessageSerializer.swift in Sources */,
 				42E6236C1CB2740900A3443A /* PickDJViewController.swift in Sources */,
 				42A727A81C552D5D00BFCA47 /* PerformerModule.swift in Sources */,
 				42C1D2281CAAC5F0005D0347 /* Command.swift in Sources */,

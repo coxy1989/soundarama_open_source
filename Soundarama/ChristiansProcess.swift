@@ -8,7 +8,6 @@
 
 /* Christian's Algorithm: https://en.wikipedia.org/wiki/Cristian%27s_algorithm */
 
-import PromiseK
 import Result
 import ReactiveCocoa
 
@@ -41,7 +40,7 @@ class ChristiansProcess {
     
     private var trips: [RoundTrip] = []
     
-    private var onSyncronised: (ChristiansMap -> ())!
+    private var success: (ChristiansMap -> ())?
     
     private var failed: (() -> ())?
     
@@ -55,17 +54,35 @@ class ChristiansProcess {
         endpoint.readableDelegate = self
         endpoint.writeableDelegate = self
         
-        return SignalProducer<(Endpoint, ChristiansMap), HandshakeError> { [weak self] o, d in
+        
+        let sync = SignalProducer<(Endpoint, ChristiansMap), HandshakeError> { [weak self] o, d in
             
-            self?.onSyncronised = { o.sendNext((endpoint, $0)) }
+            self?.success = {
+                
+                o.sendNext((endpoint, $0))
+                o.sendCompleted()
+            }
             
-            self?.failed = { o.sendFailed(.SyncFailed) }
+            self?.failed = {
+                
+               self?.endpoint?.disconnect()
+                o.sendFailed(.SyncFailed)
+            }
             
-            self?.cancelled = { o.sendFailed(.Cancelled) }
+            self?.cancelled = {
+                
+                o.sendFailed(.Cancelled)
+            }
             
             self?.startUnix = NSDate().timeIntervalSince1970
-            self?.takeTrip()
+            
+            debugPrint("Christian's process started")
+            self?.start()
         }
+        
+        return sync
+                .timeoutWithError(.SyncFailed, afterInterval: 5, onScheduler: QueueScheduler(queue: dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)))
+                .on(failed: {[weak self] _ in debugPrint("FAILED") ; self?.endpoint?.disconnect() })
     }
     
     func cancel() {
@@ -77,6 +94,108 @@ class ChristiansProcess {
 
 extension ChristiansProcess {
     
+    func start() {
+        
+        endpoint?.readData(Serialisation.terminator)
+        sendMessage(TimeProcessSyncStartMessage())
+    }
+}
+
+extension ChristiansProcess: WriteableDelegate {
+    
+    func didWriteData() {
+        
+       // debugPrint("Christian's process wrote data")
+        currentTrip = RoundTrip(requestStamp: NSDate().timeIntervalSince1970, responseStamp: nil, timestamp:nil)
+    }
+}
+
+extension ChristiansProcess: ReadableDelegate {
+    
+    func didReadData(data: NSData) {
+        
+        switch TimeServerSyncMessageDeserializer.deserialize(data) {
+            
+            case .Success(let m):
+                
+                handleMessage(m)
+            
+            case .Failure(let e):
+                
+                failed?()
+                debugPrint("Christian's process failed to deserialize data: \(e)")
+        }
+    
+        endpoint?.readData(Serialisation.terminator)
+        //debugPrint("Christian's process read data")
+    }
+}
+
+extension ChristiansProcess {
+    
+    func handleMessage(message: TimeServerSyncMessage) {
+        
+        switch message.type {
+            
+            case .Time:
+                
+                debugPrint("TIME MESSAGE")
+                handleTimeMessage(message as! TimeServerSyncTimeMessage)
+            
+            
+            case .Stop:
+               
+                success?(calculateResult())
+                debugPrint("STOP MESSAGE")
+        }
+    }
+    
+    func handleTimeMessage(message: TimeServerSyncTimeMessage) {
+        
+        guard var trip = currentTrip else {
+            
+            // TODO: End the process with error
+            debugPrint("WIERD STATE")
+            return
+        }
+        
+      //  debugPrint("Made Trip")
+        trip.responseStamp = NSDate().timeIntervalSince1970
+        trip.timestamp = message.timestamp
+        trips.append(trip)
+        sendMessage(TimeProcessSyncAcknowledgeMessage())
+        
+    }
+    
+    func sendMessage(message: TimeProcessSyncMessage) {
+        
+        endpoint?.writeData(TimeProcessSyncMessageSerializer.serialize(message))
+    }
+}
+
+extension ChristiansProcess {
+    
+    private func calculateResult() -> (ChristiansMap) {
+        
+        let sortedTrips = trips.sort() { $0.latency() < $1.latency() }
+        let shortestTrip = sortedTrips.first!
+        let longestTrip = sortedTrips.last!
+        let remote = shortestTrip.timestamp + (shortestTrip.latency() * 0.5)
+        let local = shortestTrip.responseStamp
+        
+        debugPrint("------------ Longest Trip ------------")
+        debugPrint(" Latency: \(longestTrip.latency()) \n Master Clock: \(longestTrip.timestamp) \n Request: \(longestTrip.requestStamp) \n Response: \(longestTrip.responseStamp)")
+        debugPrint("------------ Shortest Trip ------------")
+        debugPrint(" Latency: \(shortestTrip.latency()) \n Master Clock: \(shortestTrip.timestamp) \n Request: \(shortestTrip.requestStamp) \n Response: \(shortestTrip.responseStamp)")
+        debugPrint("---------------------------------------")
+        
+        return ChristiansMap(local: local, remote: remote)
+    }
+}
+
+/*
+extension ChristiansProcess {
+    
     private func takeTrip() {
         
         endpoint?.writeData(Serialisation.terminator)
@@ -85,6 +204,7 @@ extension ChristiansProcess {
     
     private func takeTripIfNeeded() {
         
+        
         guard NSDate().timeIntervalSince1970 - startUnix < NetworkConfiguration.syncTimeout else {
             
             endpoint?.disconnect()
@@ -92,7 +212,8 @@ extension ChristiansProcess {
             return
         }
         
-        trips.count < ChristiansConstants.numberOfTrips ? takeTrip() : onSyncronised(calculateResult())
+        debugPrint("\(trips.count)")
+        trips.count < ChristiansConstants.numberOfTrips ? takeTrip() : success?(calculateResult())
     }
 
     private func calculateResult() -> (ChristiansMap) {
@@ -119,7 +240,7 @@ extension ChristiansProcess: WriteableDelegate {
     
     func didWriteData() {
         
-        /* debugPrint("Christian's process wrote data") */
+         debugPrint("Christian's process wrote data")
         currentTrip = RoundTrip(requestStamp: NSDate().timeIntervalSince1970, responseStamp: nil, timestamp:nil)
     }
 }
@@ -130,7 +251,7 @@ extension ChristiansProcess: ReadableDelegate {
 
         if let d = getTimestamp(data) {
             
-            /* debugPrint("Christian's process read data") */
+            debugPrint("Christian's process read data")
             currentTrip!.responseStamp = NSDate().timeIntervalSince1970
             currentTrip!.timestamp = d
             trips.append(currentTrip!)
@@ -138,7 +259,7 @@ extension ChristiansProcess: ReadableDelegate {
             
         else {
             
-                debugPrint("Christian's process FAILED to read data")
+            debugPrint("Christian's process FAILED to read data")
         }
         
         takeTripIfNeeded()
@@ -166,3 +287,4 @@ extension ChristiansProcess {
         return value
     }
 }
+*/

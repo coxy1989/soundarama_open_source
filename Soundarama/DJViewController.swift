@@ -25,7 +25,7 @@ class DJViewController: ViewController {
     
     private var uiWorkspaces: [UIWorkspace]!
     
-    @IBAction func didPressBroadcastingButton(sender: AnyObject) { delegate.didRequestConfigureBroadcast() }
+    //@IBAction func didPressBroadcastingButton(sender: AnyObject) { delegate.didRequestConfigureBroadcast() }
     
     @IBAction func didPressBackButton(sender: AnyObject) { userInterfaceDelegate?.userInterfaceDidNavigateBack(self) }
     

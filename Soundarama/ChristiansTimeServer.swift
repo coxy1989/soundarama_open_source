@@ -8,50 +8,103 @@
 
 /* Christian's Algorithm: https://en.wikipedia.org/wiki/Cristian%27s_algorithm */
 
-protocol ChristiansTimeServerDelegate {
-    
-    func christiansTimeServerDidSyncronise(timeServer: ChristiansTimeServer, endpoint: (String, Endpoint))
-}
+import ReactiveCocoa
 
 class ChristiansTimeServer {
     
     static let timestamp = NSDate().timeIntervalSince1970
     
-    var delegate: ChristiansTimeServerDelegate!
+    private var socketHandlers: [ChristiansSocketHandler] = []
     
-    private let endpoint: (String, Endpoint)
+    func syncronise(address: String, endpoint: Endpoint) -> SignalProducer<(String, Endpoint), ReceptiveHandshakeError> {
+        
+        let handler = ChristiansSocketHandler()
+        socketHandlers.append(handler)
+        return handler.syncronise(address, endpoint: endpoint)
+    }
+}
+
+private class ChristiansSocketHandler {
+    
+    private var endpoint: Endpoint!
+    
+    private var address: String!
     
     private var trips = 0
     
-    init(address: String, endpoint: Endpoint) {
+    private var success: (() -> ())?
+    
+    func syncronise(address: String, endpoint: Endpoint) -> SignalProducer<(String, Endpoint), ReceptiveHandshakeError> {
         
-        self.endpoint = (address, endpoint)
+        self.endpoint = endpoint
+        self.address = address
         endpoint.readableDelegate = self
+        
+        let sync = SignalProducer<(String, Endpoint), ReceptiveHandshakeError> { [weak self] o, d in
+            
+            self?.success = {
+                
+                o.sendNext((address, endpoint))
+                o.sendCompleted()
+            }
+            
+            endpoint.readData(Serialisation.terminator)
+        }
+            
+        return sync
+                .timeoutWithError(.SyncTimeout, afterInterval: 5, onScheduler: QueueScheduler(queue: dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)))
+                .on(failed: {[weak self] _ in debugPrint("FAILED") ; self?.endpoint.disconnect() })
+    }
+}
+
+extension ChristiansSocketHandler: ReadableDelegate {
+    
+    func didReadData(data: NSData) {
+        
+        switch TimeProcessSyncMessageDeserializer.deserialize(data) {
+            
+            case .Success(let m): handleMessage(m)
+            
+            case .Failure(let e): debugPrint("Failed to deserialize sync message: \(e)")
+        }
+        
         endpoint.readData(Serialisation.terminator)
     }
 }
 
-extension ChristiansTimeServer: ReadableDelegate {
+extension ChristiansSocketHandler {
     
-    func didReadData(data: NSData) {
+    private func handleMessage(message: TimeProcessSyncMessage) {
         
-        endpoint.1.writeData(setTimestamp())
-        endpoint.1.readData(Serialisation.terminator)
-        trips = trips + 1
-        
-        if trips == ChristiansConstants.numberOfTrips {
+        switch message.type {
             
-            delegate.christiansTimeServerDidSyncronise(self, endpoint: endpoint)
+            case .Start:
+            
+                debugPrint("Recieved Start Message")
+                sendMessage(TimeServerSyncTimeMessage(timestamp: NSDate().timeIntervalSince1970))
+            
+            case .Acknowledge:
+            
+                debugPrint("Recieved Ack Message")
+                trips = trips + 1
+                
+                if  trips == ChristiansConstants.numberOfTrips {
+                    
+                    debugPrint("Sending done message")
+                    sendMessage(TimeServerSyncStopMessage())
+                }
+                    
+                else {
+                    
+                    debugPrint("Sending Time Message")
+                    sendMessage(TimeServerSyncTimeMessage(timestamp: NSDate().timeIntervalSince1970))
+                    success?()
+                }
         }
     }
-}
-
-extension ChristiansTimeServer {
     
-    func setTimestamp() -> NSData {
+    private func sendMessage(message: TimeServerSyncMessage) {
         
-        let d = ["timestamp" : NSDate().timeIntervalSince1970]
-        let dat = Serialisation.setPayload(d)
-        return dat
+        endpoint.writeData(TimeServerSyncMessageSerializer.serialize(message))
     }
 }

@@ -40,6 +40,7 @@ class DJWireframe {
         djViewController.presentViewController(vc, animated: true, completion: nil)
     }
     
+    /*
     func presentBroadcastConfigurationUserInterface() {
         
         let vc = djBroadcastConfigurationViewController()
@@ -53,6 +54,7 @@ class DJWireframe {
         vc.popoverPresentationController?.permittedArrowDirections = []
         djViewController.presentViewController(vc, animated: true, completion: nil)
     }
+ */
     
     func dismissDJUserInterface() {
         

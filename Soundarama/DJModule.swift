@@ -27,7 +27,7 @@ class DJModule {
         presenter.djWireframe = wireframe
         presenter.djInput = interactor
         presenter.djAudioStemPickerInput = interactor
-        presenter.djBroadcastConfigurationInput = interactor
+        //presenter.djBroadcastConfigurationInput = interactor
         interactor.djOutput = presenter
         interactor.djAudioStemPickerOutput = presenter
         interactor.djBroadcastConfigurationOutput = presenter

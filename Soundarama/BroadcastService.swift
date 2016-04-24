@@ -10,29 +10,36 @@ import ReactiveCocoa
 
 class BroadcastService: NSObject {
     
-    private var service: NSNetService!
+    private var service: NSNetService?
     
-    private var failed: (() -> ())?
+    private var events: ((BroadcastEvent) -> ())?
+    
+    private var errors: ((BroadcastError) -> ())?
     
     private var stopped: (() -> ())?
     
     func stop() {
         
+        service?.stop()
         stopped?()
-        service.stop()
     }
     
-    func broadcast(domain: String, type: String, name: String, port: Int32) -> SignalProducer<ReceptiveDiscoveryEvent, BroadcastError> {
+    func broadcast(domain: String, type: String, name: String, port: Int32) -> SignalProducer<BroadcastEvent, BroadcastError> {
         
-        service = NSNetService(domain: "local", type: "_soundarama_coxy._tcp.", name: name, port: port)
-        service.delegate = self
-        service.publish()
+        return SignalProducer<BroadcastEvent, BroadcastError> { [weak self] o, d in
         
-        return SignalProducer<ReceptiveDiscoveryEvent, BroadcastError> { [weak self] o, d in
+            self?.service = NSNetService(domain: domain, type: type, name: name, port: port)
+            self?.service?.delegate = self
+            self?.service?.publish()
             
-            self?.failed = {
+            self?.events = {
                 
-                o.sendFailed(.BroadcastFailed)
+                o.sendNext($0)
+            }
+            
+            self?.errors = {
+                
+                o.sendFailed($0)
             }
             
             self?.stopped = {
@@ -53,12 +60,13 @@ extension BroadcastService: NSNetServiceDelegate {
     @objc func netServiceDidPublish(sender: NSNetService) {
         
         debugPrint("BroadcastService service published...")
+        events?(.Up)
     }
     
     @objc func netService(sender: NSNetService, didNotPublish errorDict: [String : NSNumber]) {
         
         debugPrint("BroadcastService service failed to publish")
-        failed?()
+        errors?(.BroadcastFailed)
     }
     
     @objc func netServiceDidResolveAddress(sender: NSNetService) {

@@ -23,7 +23,7 @@ class DJPresenter { //: DJModule {
     
     weak var djAudioStemPickerInput: DJAudioStemPickerInput!
     
-    weak var djBroadcastConfigurationInput: DJBroadcastConfigurationInput!
+    //weak var djBroadcastConfigurationInput: DJBroadcastConfigurationInput!
     
     private var close: (() -> ())!
     
@@ -151,10 +151,12 @@ extension DJPresenter: UserInterfaceDelegate {
             djAudioStemPickerInput.startDJAudioStemPicker()
         }
         
+            /*
         else if userInterface === djBroadcastConfigurationUI {
          
             djBroadcastConfigurationInput.startBroadcastConfiguration()
         }
+ */
     }
     
     func userInterfaceDidNavigateBack(userInterface: UserInterface) {
@@ -179,10 +181,12 @@ extension DJPresenter: UserInterfaceDelegate {
 
 extension DJPresenter: DJUserInterfaceDelegate {
     
+    /*
     func didRequestConfigureBroadcast() {
         
        djWireframe.presentBroadcastConfigurationUserInterface()
     }
+ */
     
     func didRequestToggleMuteInWorkspace(workspaceID: WorkspaceID) {
         
@@ -315,6 +319,7 @@ extension DJPresenter: DJBroadcastConfigurationOutput {
     }
 }
 
+/*
 extension DJPresenter: DJBroadcastConfigurationUserInterfaceDelegate {
     
     func didRequestAddIdentifier(identifier: String) {
@@ -322,3 +327,5 @@ extension DJPresenter: DJBroadcastConfigurationUserInterfaceDelegate {
         djBroadcastConfigurationInput.requestAddIdentifier(identifier)
     }
 }
+
+ */

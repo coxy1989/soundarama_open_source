@@ -33,36 +33,95 @@ class DJInteractor {
     
     private lazy var audioStemStore: AudioStemStore =  { AudioStemStore() } ()
     
-    /* Connect */
+    /* Accept */
     
-    private var christiansTimeServers: [String : ChristiansTimeServer] = [ : ]
+    private var discovery: ReceptiveDiscovery?
     
     private var socketAcceptor: SocketAcceptor?
     
-   // private var searchcastService: SearchcastService?
-    
-    private var wifiReachability: WiFiReachability!
-
-    private var discovery: ReceptiveDiscovery?
+    private var server: ChristiansTimeServer?
 }
 
 extension DJInteractor: DJInput {
-    
+   
     func startDJ() {
-        
+
         discovery = ReceptiveDiscovery()
+        socketAcceptor = SocketAcceptor()
+        server = ChristiansTimeServer()
         
         discovery?.discover(NetworkConfiguration.type, domain: NetworkConfiguration.domain, name: UIDevice.currentDevice().name)
-            
             .on(failed: { e in
-                
-                debugPrint("FAILED: \(e)") })
-        
-            .on(next: { n in
-                
-                 debugPrint("NEXT: \(n)") })
-            
+                /* TODO: retry + UI */
+                debugPrint("Discovery Error: \(e)")})
+            .on(next: { e in
+                /* TODO: UI */
+                debugPrint("Discovery Event: \(e)")})
             .start()
+        
+        socketAcceptor?.accept(NetworkConfiguration.port16)
+            .on(failed: {e in
+                /* TODO: retry + UI */
+                debugPrint("Socket acceptor Error: \(e)")})
+            .on(next: { [weak self] e in
+                /* TODO: retry + UI */
+                self?.onEndpoint(e.0, ep: e.1)
+                debugPrint("Socket acceptor Event: \(e)")})
+            .start()
+        
+        djOutput.setBroadcastStatusMessage("Not Broadcasting")
+        djOutput.setUISuite(UISuiteTransformer.transform(suiteStore.suite))
+        djOutput.setGroupingMode(true)
+    }
+    
+    func onEndpoint(id: String, ep: Endpoint) {
+        
+        server?.syncronise(id, endpoint: ep)
+            .on(next: { e in
+                debugPrint("Successfully synced endpoint: \(e.0)")
+            })
+            .on(failed: { e in
+                 debugPrint("Failed to sync endpoint: \(e)")
+            })
+            .start()
+    }
+    
+    func stopDJ() {
+        
+        discovery?.stop()
+    }
+    
+    /*
+    func startDJ() {
+       
+        /*
+        discovery = ReceptiveDiscovery()
+        
+        let acceptor = SocketAcceptor()
+        
+        self.acceptor = acceptor
+        
+        discovery?.discover(NetworkConfiguration.type, domain: NetworkConfiguration.domain, name: UIDevice.currentDevice().name)
+            .flatMap(.Latest) { _ in acceptor.connect(NetworkConfiguration.port16) }
+            .startWithNext(accept)
+        
+        */
+        //TODO: WiFi Reachability in parallell
+        
+        
+        //TODO: Move Accept + Sync into receptive handshake
+    
+        /*
+        wifiReachability = WiFiReachability()
+        
+        wifiReachability?.reactiveReachability()
+            .on(next: handleReachabilityEvent)
+            .on(failed: handleReachabilityError)
+            .start()
+        
+        
+            */
+            
         /*
         let wifi_reachable = { [weak self] in
             
@@ -98,12 +157,18 @@ extension DJInteractor: DJInput {
         djOutput.setGroupingMode(true)
         
     }
+ */
     
+    /*
     func stopDJ() {
         
-        wifiReachability.stop()
-        stopNetworkIO()
+      //  stopAccepting()
+       // wifiReachability?.stop()
+
+        //wifiReachability.stop()
+        //stopNetworkIO()
     }
+ */
     
     func getStemKeys() -> [String] {
         
@@ -299,26 +364,6 @@ extension DJInteractor: DJAudioStemPickerInput {
     }
 }
 
-extension DJInteractor: DJBroadcastConfigurationInput {
-    
-    func startBroadcastConfiguration() {
-        
-        let reachable = wifiReachability.isReachable()
-        let identifiers = reachable ? broadcastStore.getState().resolvableIdentifiers.sort() : []
-        djBroadcastConfigurationOutput?.setIdentifiers(identifiers)
-        djBroadcastConfigurationOutput?.setReachabilityState(reachable)
-    }
-    
-    func requestAddIdentifier(identifier: String) {
-    
-        let prestate = broadcastStore.getState()
-        broadcastStore.setUserBroadcastIdentifer(identifier)
-        let poststate = broadcastStore.getState()
-        didChangeBroadcastState(prestate, toState: poststate)
-     //   searchcastService?.broadcast(NetworkConfiguration.type, domain: NetworkConfiguration.domain, port: Int32(NetworkConfiguration.port), identifier: identifier)
-    }
-}
-
 extension DJInteractor {
     
     func didChangeSuite(fromSuite: Suite, toSuite: Suite) {
@@ -385,108 +430,6 @@ extension DJInteractor {
 
 extension DJInteractor {
     
-    func startNetworkIO() {
-        
-        if startSocketAcceptor() {
-            
-            startSearchcast()
-        }
-        
-        else {
-            
-            //TODO: This represents a nasty IO fuck up. Give some "check internet connection and restart the app"  messaging.
-        }
-    }
-    
-    func stopNetworkIO() {
-        
-        socketAcceptor?.stop()
-      //  searchcastService?.stop()
-        endpointStore.getEndpoints().forEach() { $0.disconnect() }
-    }
-    
-    func startSocketAcceptor() -> Bool {
-        
-        let accepted: (String, Endpoint) -> () = { [weak self] e in
-            
-            debugPrint("accepted endpoint")
-            let cts = ChristiansTimeServer(address: e.0, endpoint: e.1)
-            cts.delegate = self
-            self?.christiansTimeServers[e.0] = cts
-            e.1.onDisconnect() { self?.christiansTimeServers.removeValueForKey(e.0) }
-        }
-    
-        let stopped: () -> () = {
-            
-            debugPrint("stopped accepting endpoints")
-            return
-        }
-        
-        guard let acceptor = SocketAcceptor.accepting(NetworkConfiguration.port16, accepted: accepted, stopped: stopped) else {
-            
-            return false
-        }
-        
-        socketAcceptor = acceptor
-        
-        return true
-    }
-    
-    func startSearchcast() {
-        
-        let added: String -> () = { [weak self] in
-            
-            guard let this = self else {
-                
-                return
-            }
-            
-            let prestate = this.broadcastStore.getState()
-            this.broadcastStore.addResolvableIdentifier($0)
-            let poststate = this.broadcastStore.getState()
-            this.didChangeBroadcastState(prestate, toState: poststate)
-        }
-        
-        let removed: String -> () = { [weak self] in
-            
-            guard let this = self else {
-                
-                return
-            }
-            
-            let prestate = this.broadcastStore.getState()
-            this.broadcastStore.removeResolvableIdentifier($0)
-            let poststate = this.broadcastStore.getState()
-            this.didChangeBroadcastState(prestate, toState: poststate)
-        }
-        
-     //   searchcastService = SearchcastService.searching(NetworkConfiguration.type, domain: NetworkConfiguration.domain, added: added, removed: removed)
-    }
-}
-
-extension DJInteractor: ChristiansTimeServerDelegate {
-    
-    func christiansTimeServerDidSyncronise(timeServer: ChristiansTimeServer, endpoint: (String, Endpoint)) {
-        
-        debugPrint("syncronised")
-        
-        endpoint.1.onDisconnect() { [weak self] in
-            
-            self?.endpointStore.removeEndpoint(endpoint.0)
-            self?.djOutput.removePerformer(endpoint.0)
-            debugPrint("disconnected syncronised endpoint")
-        }
-        
-        endpointStore.addEndpoint(endpoint.0, endpoint: endpoint.1)
-        djOutput.addPerformer(endpoint.0)
-        
-        debugPrint("TIME_SERVERS: " + "\(christiansTimeServers.count)")
-      //  christiansTimeServers.removeValueForKey(endpoint.0)
-    }
-}
-
-extension DJInteractor {
-    
     func didChangeBroadcastState(fromState: BroadcastState, toState: BroadcastState) {
         
         if let ub = toState.userBroadcastIdentifier where toState.resolvableIdentifiers.contains(ub) {
@@ -502,3 +445,189 @@ extension DJInteractor {
         djBroadcastConfigurationOutput?.setIdentifiers(toState.resolvableIdentifiers.sort())
     }
 }
+
+
+/*
+ extension DJInteractor {
+ 
+ 
+ func startNetworkIO() {
+ 
+ if startSocketAcceptor() {
+ 
+ startSearchcast()
+ }
+ 
+ else {
+ 
+ //TODO: This represents a nasty IO fuck up. Give some "check internet connection and restart the app"  messaging.
+ }
+ }
+ 
+ func stopNetworkIO() {
+ 
+ socketAcceptor?.stop()
+ //  searchcastService?.stop()
+ endpointStore.getEndpoints().forEach() { $0.disconnect() }
+ }
+ 
+ func startSocketAcceptor() -> Bool {
+ 
+ let accepted: (String, Endpoint) -> () = { [weak self] e in
+ 
+ debugPrint("accepted endpoint")
+ let cts = ChristiansTimeServer(address: e.0, endpoint: e.1)
+ cts.delegate = self
+ self?.christiansTimeServers[e.0] = cts
+ e.1.onDisconnect() { self?.christiansTimeServers.removeValueForKey(e.0) }
+ }
+ 
+ let stopped: () -> () = {
+ 
+ debugPrint("stopped accepting endpoints")
+ return
+ }
+ 
+ guard let acceptor = SocketAcceptor.accepting(NetworkConfiguration.port16, accepted: accepted, stopped: stopped) else {
+ 
+ return false
+ }
+ 
+ socketAcceptor = acceptor
+ 
+ return true
+ }
+ 
+ /*
+ func startSearchcast() {
+ 
+ let added: String -> () = { [weak self] in
+ 
+ guard let this = self else {
+ 
+ return
+ }
+ 
+ let prestate = this.broadcastStore.getState()
+ this.broadcastStore.addResolvableIdentifier($0)
+ let poststate = this.broadcastStore.getState()
+ this.didChangeBroadcastState(prestate, toState: poststate)
+ }
+ 
+ let removed: String -> () = { [weak self] in
+ 
+ guard let this = self else {
+ 
+ return
+ }
+ 
+ let prestate = this.broadcastStore.getState()
+ this.broadcastStore.removeResolvableIdentifier($0)
+ let poststate = this.broadcastStore.getState()
+ this.didChangeBroadcastState(prestate, toState: poststate)
+ }
+ 
+ //   searchcastService = SearchcastService.searching(NetworkConfiguration.type, domain: NetworkConfiguration.domain, added: added, removed: removed)
+ }
+ */
+ }
+ 
+ extension DJInteractor: ChristiansTimeServerDelegate {
+ 
+ func christiansTimeServerDidSyncronise(timeServer: ChristiansTimeServer, endpoint: (String, Endpoint)) {
+ 
+ debugPrint("syncronised")
+ 
+ endpoint.1.onDisconnect() { [weak self] in
+ 
+ self?.endpointStore.removeEndpoint(endpoint.0)
+ self?.djOutput.removePerformer(endpoint.0)
+ debugPrint("disconnected syncronised endpoint")
+ }
+ 
+ endpointStore.addEndpoint(endpoint.0, endpoint: endpoint.1)
+ djOutput.addPerformer(endpoint.0)
+ 
+ debugPrint("TIME_SERVERS: " + "\(christiansTimeServers.count)")
+ //  christiansTimeServers.removeValueForKey(endpoint.0)
+ }
+ }
+ */
+
+
+extension DJInteractor {
+    
+    /*
+     func handleReachabilityEvent(isReachable: Bool) {
+     
+     debugPrint("Reachability changed: \(isReachable)")
+     isReachable ? startAccepting() : stopAccepting()
+     }
+     
+     func startAccepting() {
+     
+     let acceptor = SocketAcceptor()
+     
+     discovery = ReceptiveDiscovery()
+     
+     self.acceptor = acceptor
+     
+     discovery?.discover(NetworkConfiguration.type, domain: NetworkConfiguration.domain, name: UIDevice.currentDevice().name)
+     .flatMap(.Latest) { _ in acceptor.connect(NetworkConfiguration.port16) }
+     //.on(failed: { e in debugPrint("TODO HANDLEME: \(e)") })
+     .startWithNext(accept)
+     }
+     
+     func accept(address: String, endpoint: Endpoint) {
+     
+     let server = ChristiansTimeServer()
+     servers.append(server)
+     server.syncronise(address, endpoint: endpoint).startWithNext() { x in
+     
+     debugPrint("DONE")
+     }
+     }
+     
+     func stopAccepting() {
+     
+     discovery?.stop()
+     discovery = nil
+     }
+     */
+    
+    /*
+     func accept(address: String, endpoint: Endpoint) {
+     
+     let server = ChristiansTimeServer()
+     servers.append(server)
+     server.syncronise(address, endpoint: endpoint).startWithNext() { x in
+     
+     debugPrint("DONE")
+     }
+     }
+     */
+}
+
+/*
+ extension DJInteractor: DJBroadcastConfigurationInput {
+ 
+ func startBroadcastConfiguration() {
+ 
+ //let reachable = wifiReachability.isReachable()
+ //let identifiers = reachable ? broadcastStore.getState().resolvableIdentifiers.sort() : []
+ //djBroadcastConfigurationOutput?.setIdentifiers(identifiers)
+ //djBroadcastConfigurationOutput?.setReachabilityState(reachable)
+ }
+ 
+ 
+ func requestAddIdentifier(identifier: String) {
+ 
+ let prestate = broadcastStore.getState()
+ broadcastStore.setUserBroadcastIdentifer(identifier)
+ let poststate = broadcastStore.getState()
+ didChangeBroadcastState(prestate, toState: poststate)
+ //   searchcastService?.broadcast(NetworkConfiguration.type, domain: NetworkConfiguration.domain, port: Int32(NetworkConfiguration.port), identifier: identifier)
+ }
+ }
+ 
+ */

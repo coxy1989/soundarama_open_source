@@ -30,11 +30,20 @@ class SocketConnector: NSObject {
         
         return SignalProducer<Endpoint, HandshakeError> { [weak self ] o, d in
             
-            self?.onConnected = { o.sendNext($0) }
+            self?.onConnected = {
+                
+                o.sendNext($0)
+            }
             
-            self?.onDisconnected = { o.sendFailed(.ConnectFailed) }
+            self?.onDisconnected = {
+                
+                o.sendFailed(.ConnectFailed)
+            }
             
-            self?.cancelled = { o.sendFailed(.Cancelled) }
+            self?.cancelled = {
+                
+                o.sendFailed(.Cancelled)
+            }
             
             do {
                 
@@ -53,7 +62,6 @@ class SocketConnector: NSObject {
         cancelled?()
     }
 }
-
 
 extension SocketConnector: AsyncSocketDelegate {
     

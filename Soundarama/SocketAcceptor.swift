@@ -7,12 +7,15 @@
 //
 
 import CocoaAsyncSocket
+import ReactiveCocoa
 
 class SocketAcceptor {
     
-    private var accepted: ((String, Endpoint) -> ())!
+    private var accepted: ((String, Endpoint) -> ())?
     
-    private var stopped: (() -> ())!
+    private var stopped: (() -> ())?
+    
+    private var disconnected: (() -> ())?
     
     lazy var socket: AsyncSocket = {
         
@@ -23,7 +26,41 @@ class SocketAcceptor {
     
     func stop() {
         
+        stopped?()
         socket.disconnect()
+    }
+    
+    func accept(port: UInt16) -> SignalProducer<(String, Endpoint), ReceptiveHandshakeError> {
+        
+        return SignalProducer<(String, Endpoint), ReceptiveHandshakeError> { [weak self] o, d in
+            
+            self?.accepted = {
+                
+                o.sendNext($0)
+            }
+            
+            self?.stopped = {
+                
+                o.sendCompleted()
+            }
+            
+            self?.disconnected = {
+                
+                o.sendFailed(.AcceptorDisconnected)
+            }
+            
+            do {
+                
+                try self?.socket.acceptOnPort(port)
+                debugPrint("Accepting on port: \(port)")
+            }
+                
+            catch {
+                
+                debugPrint("Failed to accept on port: \(port)")
+                o.sendFailed(.AcceptorFailed)
+            }
+        }
     }
     
     static func accepting(port: UInt16, accepted: (String, Endpoint) -> (), stopped: () -> ()) -> SocketAcceptor? {
@@ -56,15 +93,14 @@ extension SocketAcceptor: AsyncSocketDelegate {
     
     @objc func onSocket(sock: AsyncSocket!, didAcceptNewSocket newSocket: AsyncSocket!) {
         
-        debugPrint("Sock: \(sock.connectedHost()) Accepted Socket: \(newSocket.connectedHost())")
+        debugPrint("Accepted socket: \(newSocket.connectedHost())")
         
-        accepted(newSocket.connectedHost(), NetworkEndpoint(socket: newSocket))
+        accepted?(newSocket.connectedHost(), NetworkEndpoint(socket: newSocket))
     }
     
     @objc func onSocketDidDisconnect(sock: AsyncSocket!) {
         
         debugPrint("Socket acceptor disconnected")
-        stopped()
-        
+        disconnected?()
     }
 }

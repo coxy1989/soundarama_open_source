@@ -9,24 +9,51 @@
 import Result
 import PromiseK
 
-enum ReceptiveDiscoveryError: ResultErrorType {
-    
-    case ReachabilityFailed
-    
-    case BroadcastFailed
-}
+/* Reachability */
 
-enum BroadcastError: ResultErrorType {
-    
-    case BroadcastFailed
-}
-
-enum DiscoveryError: ResultErrorType {
+enum WifiReachabilityError: ErrorType {
     
     case ReachabilityFailed
 }
 
-enum HandshakeError: ResultErrorType {
+/* Discovery */
+
+enum ReceptiveDiscoveryError: ErrorType {
+    
+    case BroadcastFailed
+    
+    case ReachabilityFailed
+}
+
+enum AssertiveDiscoveryError: ErrorType {
+    
+    case SearchFailed
+    
+    case ReachabilityFailed
+}
+
+enum BroadcastError: ErrorType {
+    
+    case BroadcastFailed
+}
+
+enum SearchError: ErrorType {
+    
+    case SearchFailed
+}
+
+/* Handshake */
+
+enum ReceptiveHandshakeError: ErrorType {
+    
+    case AcceptorFailed
+    
+    case AcceptorDisconnected
+    
+    case SyncTimeout
+}
+
+enum HandshakeError: ErrorType {
     
     case ResolveFailed
     
@@ -37,18 +64,19 @@ enum HandshakeError: ResultErrorType {
     case Cancelled
 }
 
-enum ParsingError: ResultErrorType {
+/* Sync */
+
+enum ChristiansSocketHandlerError {
     
-    case FailedToUnarchiveJSON
+    case Timeout
     
-    case InvalidJSON
-    
-    case InvalidStartMessage
-    
-    case InvalidMessage
+    case ParsingError
 }
 
-enum EndpointError: ResultErrorType {
+/* Endpoint */
+
+enum EndpointError: ErrorType {
     
     case Disconnected(Resolvable)
 }
+

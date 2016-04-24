@@ -9,27 +9,13 @@
 import ReactiveCocoa
 import enum Result.NoError
 
-struct ResolvableEnvelope {
-    
-    let resolvable: Resolvable
-    
-    let name: String
-    
-    let id: Int
-}
-
-enum SearchStreamEvent {
-    
-    case Found (ResolvableEnvelope)
-    
-    case Lost (ResolvableEnvelope)
-}
-
 class SearchService: NSObject {
     
     private var browser: NSNetServiceBrowser!
     
-    private var stream: (SearchStreamEvent -> ())!
+    private var events: (SearchEvent -> ())?
+    
+    private var errors: (SearchError -> ())?
     
     private var stopped: (() -> ())?
     
@@ -41,13 +27,13 @@ class SearchService: NSObject {
     }
     
     
-    func start(type: String, domain: String) -> SignalProducer<SearchStreamEvent, NoError> {
+    func start(type: String, domain: String) -> SignalProducer<SearchEvent, SearchError> {
         
         self.browser.searchForServicesOfType(type, inDomain: domain)
         
-        return SignalProducer<SearchStreamEvent, NoError> { s, d in
+        return SignalProducer<SearchEvent, SearchError> { s, d in
             
-            self.stream = {
+            self.events = {
                 
                 s.sendNext($0)
             }
@@ -55,6 +41,11 @@ class SearchService: NSObject {
             self.stopped = {
                 
                 s.sendCompleted()
+            }
+            
+            self.errors = {
+                
+                s.sendFailed($0)
             }
         }
     }
@@ -89,6 +80,7 @@ extension SearchService: NSNetServiceBrowserDelegate {
     @objc func netServiceBrowser(browser: NSNetServiceBrowser, didNotSearch errorDict: [String : NSNumber]) {
         
         debugPrint("Browser did not search \(errorDict)")
+        errors?(.SearchFailed)
     }
     
     @objc func netServiceBrowser(browser: NSNetServiceBrowser, didRemoveDomain domainString: String, moreComing: Bool) {
@@ -100,13 +92,13 @@ extension SearchService: NSNetServiceBrowserDelegate {
         
         debugPrint("Browser found service \(service.name)")
         let e = ResolvableEnvelope(resolvable: ResolvableNetService(netService: service), name: service.name, id: service.hash)
-        stream(SearchStreamEvent.Found(e))
+        events?(SearchEvent.Found(e))
     }
     
     @objc func netServiceBrowser(browser: NSNetServiceBrowser, didRemoveService service: NSNetService, moreComing: Bool) {
         
         debugPrint("Browser removed service")
         let e = ResolvableEnvelope(resolvable: ResolvableNetService(netService: service), name: service.name, id: service.hash)
-        stream(SearchStreamEvent.Lost(e))
+        events?(SearchEvent.Lost(e))
     }
 }

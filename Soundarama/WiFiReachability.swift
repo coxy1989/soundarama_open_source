@@ -9,6 +9,13 @@
 import ReactiveCocoa
 import enum Result.NoError
 
+enum WifiReachabilityEvent {
+    
+    case Reachable
+    
+    case Unreachable
+}
+
 class WiFiReachability {
     
     private var reachability: Reachability?
@@ -19,9 +26,9 @@ class WiFiReachability {
     
     private var failure: (() -> ())!
     
-    func reactiveReachability() -> SignalProducer<Bool, DiscoveryError> {
+    func reactiveReachability() -> SignalProducer<WifiReachabilityEvent, WifiReachabilityError> {
         
-        return SignalProducer<Bool, DiscoveryError> { [weak self] observer, disposable in
+        return SignalProducer<WifiReachabilityEvent, WifiReachabilityError> { [weak self] observer, disposable in
 
             do {
                 
@@ -36,12 +43,12 @@ class WiFiReachability {
             
             self?.reachability?.whenReachable = { reachability in
                 
-                reachability.isReachableViaWiFi() ? observer.sendNext(true) : observer.sendNext(false)
+                reachability.isReachableViaWiFi() ? observer.sendNext(.Reachable) : observer.sendNext(.Unreachable)
             }
             
             self?.reachability?.whenUnreachable = { reachability in
                 
-                observer.sendNext(false)
+                observer.sendNext(.Unreachable)
             }
             
             self?.reachability?.whenStopped = {
