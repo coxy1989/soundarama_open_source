@@ -16,11 +16,22 @@ class ChristiansTimeServer {
     
     private var socketHandlers: [ChristiansSocketHandler] = []
     
-    func syncronise(address: String, endpoint: Endpoint) -> SignalProducer<(String, Endpoint), ReceptiveHandshakeError> {
+    func syncronise(address: String, endpoint: Endpoint) -> SignalProducer<(String, Endpoint), ChristiansTimeServerError> {
         
         let handler = ChristiansSocketHandler()
         socketHandlers.append(handler)
-        return handler.syncronise(address, endpoint: endpoint)
+        return handler.syncronise(address, endpoint: endpoint).on(completed: { [weak self] in self?.removeHandler(address) })
+    }
+    
+    func stop() {
+        
+        socketHandlers.forEach() { $0.stop() }
+        socketHandlers.removeAll()
+    }
+    
+    private func removeHandler(address: String) {
+        
+        socketHandlers = socketHandlers.filter() { $0.address != address }
     }
 }
 
@@ -34,13 +45,17 @@ private class ChristiansSocketHandler {
     
     private var success: (() -> ())?
     
-    func syncronise(address: String, endpoint: Endpoint) -> SignalProducer<(String, Endpoint), ReceptiveHandshakeError> {
+    private var cancel: (() -> ())?
+    
+    func syncronise(address: String, endpoint: Endpoint) -> SignalProducer<(String, Endpoint), ChristiansTimeServerError> {
         
         self.endpoint = endpoint
         self.address = address
         endpoint.readableDelegate = self
         
-        let sync = SignalProducer<(String, Endpoint), ReceptiveHandshakeError> { [weak self] o, d in
+        let scheduler = QueueScheduler(queue: dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0))
+        
+        let sync = SignalProducer<(String, Endpoint), ChristiansTimeServerError> { [weak self] o, d in
             
             self?.success = {
                 
@@ -48,12 +63,26 @@ private class ChristiansSocketHandler {
                 o.sendCompleted()
             }
             
-            endpoint.readData(Serialisation.terminator)
-        }
+            self?.cancel = {
+                
+                o.sendFailed(.Cancelled(endpoint))
+            }
             
+            debugPrint("Christians sync start for address: \(address)")
+            endpoint.readData(Serialisation.terminator)
+            
+        }.delay(0, onScheduler: scheduler)
+        
         return sync
-                .timeoutWithError(.SyncTimeout, afterInterval: 5, onScheduler: QueueScheduler(queue: dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)))
-                .on(failed: {[weak self] _ in debugPrint("FAILED") ; self?.endpoint.disconnect() })
+                .timeoutWithError(.Timeout(endpoint), afterInterval: NetworkConfiguration.christiansTimeServerTimeout, onScheduler: scheduler)
+                .on(completed: { debugPrint("Christians signal completed")})
+                .on(failed: { e in debugPrint("Christians signal failed: \(e)")})
+                .on(disposed: { debugPrint("Chritians signal disposed")})
+    }
+    
+    func stop() {
+        
+        cancel?()
     }
 }
 
@@ -72,6 +101,16 @@ extension ChristiansSocketHandler: ReadableDelegate {
     }
 }
 
+extension ChristiansSocketHandler: WriteableDelegate {
+    
+    private func didWriteData() {
+        
+        /* NB: This delegate must only be set after sync has happened. */
+        debugPrint("Successfully wrote done message")
+        success?()
+    }
+}
+
 extension ChristiansSocketHandler {
     
     private func handleMessage(message: TimeProcessSyncMessage) {
@@ -80,26 +119,35 @@ extension ChristiansSocketHandler {
             
             case .Start:
             
-                debugPrint("Recieved Start Message")
+                //debugPrint("Recieved Start Message")
                 sendMessage(TimeServerSyncTimeMessage(timestamp: NSDate().timeIntervalSince1970))
             
             case .Acknowledge:
             
-                debugPrint("Recieved Ack Message")
+                //debugPrint("Recieved Ack Message")
                 trips = trips + 1
-                
-                if  trips == ChristiansConstants.numberOfTrips {
-                    
-                    debugPrint("Sending done message")
-                    sendMessage(TimeServerSyncStopMessage())
-                }
-                    
-                else {
-                    
-                    debugPrint("Sending Time Message")
-                    sendMessage(TimeServerSyncTimeMessage(timestamp: NSDate().timeIntervalSince1970))
-                    success?()
-                }
+                reply()
+            
+            case .Repeat:
+            
+                //debugPrint("Recieved Repeat Message")
+                reply()
+        }
+    }
+    
+    private func reply() {
+        
+        if  trips == ChristiansConstants.numberOfTrips {
+            
+            //debugPrint("Sending stop message")
+            endpoint.writeableDelegate = self
+            sendMessage(TimeServerSyncStopMessage())
+        }
+            
+        else {
+            
+            //debugPrint("Sending Time Message")
+            sendMessage(TimeServerSyncTimeMessage(timestamp: NSDate().timeIntervalSince1970))
         }
     }
     

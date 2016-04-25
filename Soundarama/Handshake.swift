@@ -16,8 +16,6 @@ class Handshake {
     
     private var socketConnector: SocketConnector?
     
-    private var cancelled: (() -> ())?
-    
     init(resolvable: Resolvable) {
         
         self.resolvable = resolvable
@@ -32,12 +30,14 @@ class Handshake {
         self.socketConnector = socketConnector
         
         let connect = resolvable.resolve()
-            .flatMap(.Latest, transform: socketConnector.connect)
-            .flatMap(.Latest, transform: christiansProcess.syncronise)
+            .flatMap(.Concat, transform: socketConnector.connect)
+            .flatMap(.Concat, transform: christiansProcess.syncronise)
+            .take(1)
         
-        let cancel = SignalProducer<(Endpoint, ChristiansMap), HandshakeError> { [weak self] o, _ in self?.cancelled = { o.sendFailed(.Cancelled) } }
-        
-        return SignalProducer(values: [connect, cancel]).flatten(.Merge)
+        return connect
+            .on(next: { debugPrint("Handshake signal sent next: \($0)")})
+            .on(failed: { debugPrint("Handshake signal failed: \($0)")})
+            .on(disposed: { debugPrint("Handshake signal disposed")})
     }
     
     func cancel() {
@@ -45,6 +45,5 @@ class Handshake {
         resolvable.cancel()
         christiansProcess?.cancel()
         socketConnector?.cancel()
-        cancelled?()
     }
 }

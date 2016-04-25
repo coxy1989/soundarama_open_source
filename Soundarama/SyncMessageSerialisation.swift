@@ -20,6 +20,8 @@ enum TimeProcessSyncMessageType: String {
     case Start = "Start"
     
     case Acknowledge = "Ack"
+    
+    case Repeat = "Repeat"
 }
 
 struct TimeServerSyncMessageSerialisationKeys {

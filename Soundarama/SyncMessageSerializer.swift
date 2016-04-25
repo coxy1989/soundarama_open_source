@@ -12,12 +12,7 @@ class TimeProcessSyncMessageSerializer {
     
     static func serialize(message: TimeProcessSyncMessage) -> NSData {
         
-        return Serialisation.setPayload(getJSON(message))
-    }
-    
-    static func getJSON(message: TimeProcessSyncMessage) -> [String : AnyObject] {
-        
-        return messageSerialization(message)
+        return Serialisation.setPayload(messageSerialization(message))
     }
     
     static func messageSerialization(message: TimeProcessSyncMessage) -> [String : AnyObject] {

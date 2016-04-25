@@ -30,9 +30,9 @@ class SocketAcceptor {
         socket.disconnect()
     }
     
-    func accept(port: UInt16) -> SignalProducer<(String, Endpoint), ReceptiveHandshakeError> {
+    func accept(port: UInt16) -> SignalProducer<(String, Endpoint), SocketAcceptorError> {
         
-        return SignalProducer<(String, Endpoint), ReceptiveHandshakeError> { [weak self] o, d in
+        return SignalProducer<(String, Endpoint), SocketAcceptorError> { [weak self] o, d in
             
             self?.accepted = {
                 
@@ -46,7 +46,7 @@ class SocketAcceptor {
             
             self?.disconnected = {
                 
-                o.sendFailed(.AcceptorDisconnected)
+                o.sendFailed(.Disconnected)
             }
             
             do {
@@ -58,7 +58,7 @@ class SocketAcceptor {
             catch {
                 
                 debugPrint("Failed to accept on port: \(port)")
-                o.sendFailed(.AcceptorFailed)
+                o.sendFailed(.Failed)
             }
         }
     }

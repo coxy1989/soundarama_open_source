@@ -438,7 +438,6 @@
 				422EB0591C8DBA2200B27134 /* DJAudioStemsPickerUserInterface.swift */,
 				42C45A871C58CA8C00888EA8 /* DJViewController.swift */,
 				4277FBF31C9729FB0042B051 /* DJAudioStemPickerViewController.swift */,
-				42ED6C691CAC1F32002A7211 /* DJBroadcastConfigurationViewController.swift */,
 				42A727A11C552C4800BFCA47 /* DJStoryboard.storyboard */,
 				42E49DAC1C58E4CB00B9C127 /* Views */,
 			);
@@ -712,7 +711,6 @@
 		42C45A821C57DE5700888EA8 /* Stores (Memory) */ = {
 			isa = PBXGroup;
 			children = (
-				42ED6C6B1CAC2D8D002A7211 /* BroadcastStore.swift */,
 				42F64F671CB3BAF600565F4B /* ResolvableStore.swift */,
 				42F64F701CB3FB1A00565F4B /* EndpointStore.swift */,
 				429EC9851C85AECE002FDBCC /* GroupStore.swift */,
@@ -781,6 +779,8 @@
 		42E8BE191C54FB730034F1C8 /* Legacy */ = {
 			isa = PBXGroup;
 			children = (
+				42ED6C6B1CAC2D8D002A7211 /* BroadcastStore.swift */,
+				42ED6C691CAC1F32002A7211 /* DJBroadcastConfigurationViewController.swift */,
 				428AF2AD1CA032BF0023FCC9 /* Level.swift */,
 				4207563B1CA00E0400A4666A /* xCompassView.swift */,
 				42B3D1EF1C99D7D80065842D /* Altimeter.swift */,

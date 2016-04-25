@@ -65,18 +65,14 @@ extension PerformerInteractor: PerformerDJPickerInput {
     
         discovery = AssertiveDiscovery()
         
-        /* 
-            TODO: 
-            - Inject UI side effect on Failure of discovery signal.
-            - Retry discovery signal on failure.
-         */
-        
         discovery?.discover(NetworkConfiguration.type, domain: NetworkConfiguration.domain)
             .on(next: { [weak self] in
                 debugPrint("Discovery event: \($0)")
                 self?.updateDJPickerOutputWithDiscoveryEvent($0) })
             .on(failed: {e in
+                /* TODO: UI */
                 debugPrint("Discovery error: \(e)") })
+            .on(disposed: { debugPrint("Discovery signal disposed") })
             .start()
         
         setPerformerDJPickerOutput()
@@ -114,9 +110,17 @@ extension PerformerInteractor: PerformerConnectionInput {
             
             .on(failed: { [weak self] e in
                 
-                 debugPrint("Handshake Failed: \(e)")
+                debugPrint("Handshake Failed: \(e)")
+                
+                switch e {
+                    
+                    case .SyncFailed(let e): e.disconnect()
+                    
+                    default: return
+                }
+                
                 self?.updateDJPickerOutputWithConnectionEvent(identifier, event: .Failed)})
-            
+
             .start()
     }
     
@@ -129,7 +133,6 @@ extension PerformerInteractor: PerformerConnectionInput {
         
         reactiveEndpoint?.stop()
         reactiveEndpoint = nil
-        
         reshake?.cancel()
         reshake = nil
     }
@@ -146,7 +149,6 @@ extension PerformerInteractor: PerformerInstrumentsInput {
         
         compass?.stop()
         compass = nil
-        
         danceometer?.stop()
         danceometer = nil
     }
@@ -160,6 +162,7 @@ extension PerformerInteractor {
         
         ReactiveEndpoint.start(reactiveEndpoint!, resolvable: resolvable)
             .on(failed: attemptReshake)
+            .on(disposed: {debugPrint("reactive endpoint signal disposed")})
             .map(MessageDeserializer.deserialize)
             .startWithNext() { [weak self] in
                 
@@ -196,6 +199,9 @@ extension PerformerInteractor {
                         debugPrint("Failed to reconnect: \(e)")
                         self?.performerReconnectionOutput.updateWithReconnectionEvent(.EndedFailure)
                     })
+                    
+                    
+                    .on(disposed: {debugPrint("reshake signal disposed")})
                     
                     .start()
         }

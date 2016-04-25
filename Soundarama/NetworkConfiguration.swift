@@ -20,6 +20,10 @@ struct NetworkConfiguration {
     
     static let connectTimeout: NSTimeInterval = 5
     
+    static let christiansTimeServerTimeout: NSTimeInterval = 5
+    
+    static let christiansProcessTimeout: NSTimeInterval = 5
+    
     static let syncTimeout: NSTimeInterval = 5
     
     static let reconnectAttempts: Int = 3

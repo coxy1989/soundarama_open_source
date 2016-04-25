@@ -42,14 +42,21 @@ extension ResolvableNetService: Resolvable {
         
         return SignalProducer<(String, UInt16), HandshakeError> { [weak self] o, d in
             
-            self?.success = { o.sendNext($0) }
+            self?.success = {
+                o.sendNext($0)
+                o.sendCompleted()
+            }
             
             self?.failure = { _ in o.sendFailed(.ResolveFailed) }
             
-            self?.cancelled = { _ in o.sendFailed(.Cancelled) }
+            self?.cancelled = { _ in o.sendFailed(.ResolveCancelled) }
             
             self?.netService.resolveWithTimeout(NetworkConfiguration.resolveTimeout)
         }
+        .on(next: { debugPrint("resolve signal sent next: \($0)")})
+        .on(completed: { debugPrint("resolve signal completed")})
+        .on(failed: { debugPrint("resolve signal failed: \($0)")})
+        .on(disposed: { debugPrint("resolve signal disposed")})
     }
     
     func cancel() {
@@ -85,8 +92,8 @@ extension ResolvableNetService: NSNetServiceDelegate {
         
         debugPrint("Net Service resolved address")
         
-        netService.stop()
         success?(host, UInt16(sender.port))
+        netService.stop()
     }
     
     func netService(sender: NSNetService, didNotResolve errorDict: [String : NSNumber]) {

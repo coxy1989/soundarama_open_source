@@ -6,6 +6,8 @@
 //  Copyright © 2016 Touchpress Ltd. All rights reserved.
 //
 
+/*
+
 class BroadcastStore {
     
     private var userBroadcastIdentifier: String?
@@ -39,3 +41,4 @@ struct BroadcastState {
     
     let resolvableIdentifiers: Set<String>
 }
+ */

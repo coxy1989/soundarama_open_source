@@ -321,20 +321,11 @@
                                     <action selector="didPressBackButton:" destination="oB8-AN-WvL" eventType="touchUpInside" id="Y9q-eq-twX"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DQj-ud-Ruv">
-                                <rect key="frame" x="147" y="695" width="120" height="33"/>
-                                <fontDescription key="fontDescription" name="Avenir-Medium" family="Avenir" pointSize="15"/>
-                                <state key="normal" title="Not Broadcasting">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="DQj-ud-Ruv" firstAttribute="centerX" secondItem="VBZ-HG-M8P" secondAttribute="centerX" id="DZI-ah-UYo"/>
                             <constraint firstItem="ZyW-pL-8UL" firstAttribute="top" secondItem="VBZ-HG-M8P" secondAttribute="top" id="HZa-Oe-VHs"/>
                             <constraint firstItem="BMF-zI-ckm" firstAttribute="top" secondItem="lOu-zl-DQn" secondAttribute="bottom" id="K0m-ow-lEC"/>
-                            <constraint firstItem="BMF-zI-ckm" firstAttribute="top" secondItem="DQj-ud-Ruv" secondAttribute="bottom" constant="8" id="TGG-lx-mFI"/>
                             <constraint firstItem="lOu-zl-DQn" firstAttribute="top" secondItem="ZyW-pL-8UL" secondAttribute="bottom" id="U1e-aZ-q0x"/>
                             <constraint firstItem="ZyW-pL-8UL" firstAttribute="leading" secondItem="VBZ-HG-M8P" secondAttribute="leading" id="Ygx-I6-7O1"/>
                             <constraint firstItem="lOu-zl-DQn" firstAttribute="leading" secondItem="VBZ-HG-M8P" secondAttribute="leading" id="aaH-s7-fTk"/>
@@ -346,7 +337,6 @@
                     </view>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina55"/>
                     <connections>
-                        <outlet property="broadcastingButton" destination="DQj-ud-Ruv" id="hef-AN-chz"/>
                         <outlet property="collectionView" destination="ZyW-pL-8UL" id="Jhm-7g-yvh"/>
                         <outlet property="devicesTrayView" destination="lOu-zl-DQn" id="zYo-oO-dKZ"/>
                     </connections>
@@ -367,16 +357,6 @@
                         <rect key="frame" x="0.0" y="0.0" width="1024" height="768"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ON3-02-yGl">
-                                <rect key="frame" x="804" y="8" width="200" height="33"/>
-                                <fontDescription key="fontDescription" name="Avenir-Medium" family="Avenir" pointSize="15"/>
-                                <state key="normal" title="Not Broadcasting">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="didPressBroadcastingButton:" destination="uQ1-Om-b5x" eventType="touchUpInside" id="sOi-f5-xDf"/>
-                                </connections>
-                            </button>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bg-device-tray" translatesAutoresizingMaskIntoConstraints="NO" id="AKs-S5-nc4">
                                 <rect key="frame" x="784" y="0.0" width="240" height="768"/>
                                 <constraints>
@@ -436,24 +416,20 @@
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="ON3-02-yGl" firstAttribute="leading" secondItem="ouy-Va-85x" secondAttribute="trailing" constant="20" id="9kR-RP-XIR"/>
                             <constraint firstAttribute="trailing" secondItem="AKs-S5-nc4" secondAttribute="trailing" id="Auq-s0-rNc"/>
                             <constraint firstItem="AKs-S5-nc4" firstAttribute="top" secondItem="yCS-Yo-hZo" secondAttribute="top" id="Gxd-OD-bYO"/>
                             <constraint firstItem="ouy-Va-85x" firstAttribute="top" secondItem="yCS-Yo-hZo" secondAttribute="top" id="evL-Wx-zO1"/>
                             <constraint firstItem="AKs-S5-nc4" firstAttribute="leading" secondItem="ouy-Va-85x" secondAttribute="trailing" id="fYj-UB-fYd"/>
                             <constraint firstItem="3Hb-bt-rZ9" firstAttribute="top" secondItem="AKs-S5-nc4" secondAttribute="bottom" id="gb4-R2-PoT"/>
-                            <constraint firstAttribute="trailing" secondItem="ON3-02-yGl" secondAttribute="trailing" constant="20" id="gqt-Ty-HDJ"/>
                             <constraint firstItem="baD-GV-FXh" firstAttribute="top" secondItem="yCS-Yo-hZo" secondAttribute="top" constant="6" id="iMv-s3-6XV"/>
                             <constraint firstItem="ouy-Va-85x" firstAttribute="leading" secondItem="yCS-Yo-hZo" secondAttribute="leading" id="o28-aD-tdr"/>
                             <constraint firstItem="3Hb-bt-rZ9" firstAttribute="top" secondItem="ouy-Va-85x" secondAttribute="bottom" id="w3s-Pv-iyT"/>
-                            <constraint firstItem="ON3-02-yGl" firstAttribute="top" secondItem="yCS-Yo-hZo" secondAttribute="top" constant="8" id="yGM-HE-Mi3"/>
                             <constraint firstItem="baD-GV-FXh" firstAttribute="leading" secondItem="yCS-Yo-hZo" secondAttribute="leading" constant="10" id="yq0-mG-BlR"/>
                         </constraints>
                     </view>
                     <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="iPad"/>
                     <connections>
-                        <outlet property="broadcastingButton" destination="ON3-02-yGl" id="TMn-vN-4Nq"/>
                         <outlet property="collectionView" destination="ouy-Va-85x" id="Wde-uO-Lxo"/>
                         <outlet property="devicesTrayView" destination="AKs-S5-nc4" id="WHz-kn-hOz"/>
                     </connections>
@@ -851,7 +827,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="90W-53-kG8" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="577" y="-1136"/>
+            <point key="canvasLocation" x="627" y="-1309"/>
         </scene>
     </scenes>
     <resources>

@@ -44,6 +44,7 @@ enum SearchError: ErrorType {
 
 /* Handshake */
 
+/*
 enum ReceptiveHandshakeError: ErrorType {
     
     case AcceptorFailed
@@ -51,6 +52,16 @@ enum ReceptiveHandshakeError: ErrorType {
     case AcceptorDisconnected
     
     case SyncTimeout
+    
+    case Cancelled
+}
+ */
+
+enum SocketAcceptorError: ErrorType {
+    
+    case Failed
+    
+    case Disconnected
 }
 
 enum HandshakeError: ErrorType {
@@ -59,18 +70,24 @@ enum HandshakeError: ErrorType {
     
     case ConnectFailed
     
-    case SyncFailed
+    case ResolveCancelled
     
-    case Cancelled
+    case ConnectCancelled
+
+    case ReshakeCancelled
+    
+    case SyncCancelled(Endpoint)
+    
+    case SyncFailed(Endpoint)
 }
 
 /* Sync */
 
-enum ChristiansSocketHandlerError {
+enum ChristiansTimeServerError: ErrorType {
     
-    case Timeout
+    case Timeout(Endpoint)
     
-    case ParsingError
+    case Cancelled(Endpoint)
 }
 
 /* Endpoint */

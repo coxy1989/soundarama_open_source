@@ -33,6 +33,7 @@ class SocketConnector: NSObject {
             self?.onConnected = {
                 
                 o.sendNext($0)
+                o.sendCompleted()
             }
             
             self?.onDisconnected = {
@@ -42,7 +43,7 @@ class SocketConnector: NSObject {
             
             self?.cancelled = {
                 
-                o.sendFailed(.Cancelled)
+                o.sendFailed(.ConnectCancelled)
             }
             
             do {
@@ -53,7 +54,9 @@ class SocketConnector: NSObject {
                 
                 o.sendFailed(.ConnectFailed)
             }
-        }
+            }.on(next: { debugPrint("connect signal sent next: \($0)")})
+            .on(failed: { debugPrint("connect signal failed: \($0)")})
+            .on(disposed: { debugPrint("connect signal disposed")})
     }
     
     func cancel() {

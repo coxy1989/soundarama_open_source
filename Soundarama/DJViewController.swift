@@ -17,15 +17,11 @@ class DJViewController: ViewController {
 
     weak var delegate: DJUserInterfaceDelegate!
     
-    @IBOutlet weak var broadcastingButton: UIButton!
-    
     @IBOutlet private weak var collectionView: UICollectionView!
     
     @IBOutlet private weak var devicesTrayView: UIImageView!
     
     private var uiWorkspaces: [UIWorkspace]!
-    
-    //@IBAction func didPressBroadcastingButton(sender: AnyObject) { delegate.didRequestConfigureBroadcast() }
     
     @IBAction func didPressBackButton(sender: AnyObject) { userInterfaceDelegate?.userInterfaceDidNavigateBack(self) }
     
@@ -74,12 +70,7 @@ class DJViewController: ViewController {
 }
 
 extension DJViewController: DJUserInterface {
-    
-    func setBroadcastingStatusMessage(message: String) {
         
-        broadcastingButton.setTitle(message, forState: .Normal)
-    }
-    
     func setUISuite(uiSuite: UISuite) {
         
         uiWorkspaces = uiSuite.sort({ $0.workspaceID > $1.workspaceID })

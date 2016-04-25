@@ -25,6 +25,11 @@ struct TimeProcessSyncAcknowledgeMessage: TimeProcessSyncMessage {
     let type: TimeProcessSyncMessageType = .Acknowledge
 }
 
+struct TimeProcessSyncRepeatMessage: TimeProcessSyncMessage {
+    
+    let type: TimeProcessSyncMessageType = .Repeat
+}
+
 /* Server */
 
 protocol TimeServerSyncMessage {

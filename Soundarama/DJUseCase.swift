@@ -93,12 +93,6 @@ protocol DJOutput: class {
     func deselectGroup(groupID: GroupID)
     
     func moveGroup(groupID: GroupID, translation: CGPoint)
-    
-    func showBroadcastSuccessful()
-    
-    func setBroadcastStatusMessage(message: String)
-    
-    func setReachabilityState(isReachable: Bool)
 }
 
 protocol DJAudioStemPickerInput: class {

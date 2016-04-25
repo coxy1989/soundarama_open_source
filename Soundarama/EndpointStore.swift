@@ -10,6 +10,8 @@ import Foundation
 
 class EndpointStore {
     
+    private let lock = NSRecursiveLock()
+    
     private var endpoints: [String : Endpoint] = [ : ]
     
     func getEndpoint(address: String) -> Endpoint {
@@ -19,12 +21,16 @@ class EndpointStore {
     
     func addEndpoint(address: String, endpoint: Endpoint) {
         
+        lock.lock()
         endpoints[address] = endpoint
+        lock.unlock()
     }
     
     func removeEndpoint(address: String) {
         
+        lock.lock()
         endpoints.removeValueForKey(address)
+        lock.unlock()
     }
     
     func getEndpoints() -> [Endpoint] {

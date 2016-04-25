@@ -35,6 +35,11 @@ class TimeProcessSyncMessageDeserializer {
                return Result<TimeProcessSyncMessage, SyncMessageParsingError>.Success(TimeProcessSyncAcknowledgeMessage())
         }
         
+        else if type == TimeProcessSyncMessageType.Repeat.rawValue {
+            
+            return Result<TimeProcessSyncMessage, SyncMessageParsingError>.Success(TimeProcessSyncRepeatMessage())
+        }
+        
         return Result<TimeProcessSyncMessage, SyncMessageParsingError>.Failure(.InvalidMessage)
     }
 }
@@ -83,9 +88,7 @@ class TimeServerSyncMessageDeserializer {
 private func getJSON(data: NSData) -> Result<AnyObject, SyncMessageParsingError> {
     
     let payload = Serialisation.getPayload(data)
-    //debugPrint("GOT PAYLOAD: \(data.length) bytes")
     let obj = NSKeyedUnarchiver.unarchiveObjectWithData(payload)
-    //debugPrint("GOT OBJ: \(obj)")
     if let o = obj {
         return Result<AnyObject, SyncMessageParsingError>.Success(o)
     }

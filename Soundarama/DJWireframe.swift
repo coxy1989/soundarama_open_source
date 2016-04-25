@@ -67,12 +67,6 @@ class DJWireframe {
         vc.dismissViewControllerAnimated(true, completion: nil)
     }
     
-    func dismissBroadcastConfigurationUserInterface(broadcastConfigurationUserInterface: DJBroadcastConfigurationUserInterface) {
-        
-        let vc = broadcastConfigurationUserInterface as! UIViewController
-        vc.dismissViewControllerAnimated(true, completion: nil)
-    }
-    
     func djAudioStemPickerUserInterface() -> DJAudioStemPickerUserInterface  {
         
         let vc = UIDevice.isPad() ? djAudioStemPickerViewController_iPad() : djAudioStemPickerViewController_iPhone()
@@ -103,10 +97,5 @@ extension DJWireframe {
     private func djAudioStemPickerViewController_iPad() -> DJAudioStemPickerViewController {
         
         return storyboard.instantiateViewControllerWithIdentifier("DJAudioStemPickerViewController_iPad") as! DJAudioStemPickerViewController
-    }
-    
-    private func djBroadcastConfigurationViewController() -> DJBroadcastConfigurationViewController {
-        
-        return storyboard.instantiateViewControllerWithIdentifier("DJBroadcastConfigurationViewController") as! DJBroadcastConfigurationViewController
     }
 }

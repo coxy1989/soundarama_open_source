@@ -9,7 +9,7 @@
 import UIKit
 import TouchpressUI
 
-class DJPresenter { //: DJModule {
+class DJPresenter {
     
     weak var djWireframe: DJWireframe!
     
@@ -17,13 +17,9 @@ class DJPresenter { //: DJModule {
     
     weak var djAudioStemPickerUI: DJAudioStemPickerUserInterface!
     
-    weak var djBroadcastConfigurationUI: DJBroadcastConfigurationUserInterface?
-    
     weak var djInput: DJInput!
     
     weak var djAudioStemPickerInput: DJAudioStemPickerInput!
-    
-    //weak var djBroadcastConfigurationInput: DJBroadcastConfigurationInput!
     
     private var close: (() -> ())!
     
@@ -114,26 +110,6 @@ extension DJPresenter: DJOutput {
     func moveGroup(groupID: GroupID, translation: CGPoint) {
         
         djUI.moveGroup(groupID, translation: translation)
-    }
-
-    func showBroadcastSuccessful() {
-    
-        guard let configUI = djBroadcastConfigurationUI else {
-            
-            return
-        }
-        
-        djWireframe.dismissBroadcastConfigurationUserInterface(configUI)
-    }
-    
-    func setBroadcastStatusMessage(message: String) {
-        
-        djUI.setBroadcastingStatusMessage(message)
-    }
-    
-    func setReachabilityState(isReachable: Bool) {
-        
-        djBroadcastConfigurationUI?.setReachability(isReachable)
     }
 }
 
@@ -310,22 +286,3 @@ extension DJPresenter: DJAudioStemPickerOutput {
         djAudioStemPickerUI.setSelectedKey(key)
     }
 }
-
-extension DJPresenter: DJBroadcastConfigurationOutput {
-    
-    func setIdentifiers(identifiers: [String]) {
-        
-        djBroadcastConfigurationUI?.setIdentifiers(identifiers)
-    }
-}
-
-/*
-extension DJPresenter: DJBroadcastConfigurationUserInterfaceDelegate {
-    
-    func didRequestAddIdentifier(identifier: String) {
-        
-        djBroadcastConfigurationInput.requestAddIdentifier(identifier)
-    }
-}
-
- */
