@@ -8,23 +8,23 @@
 
 class DJMessageTransformer {
     
-    static func transform(startCommand: DJStartCommand, timestamp: NSTimeInterval, sessionTimestamp: NSTimeInterval, referenceTimestamp: NSTimeInterval) -> StartMessage {
+    static func transform(startCommand: DJStartCommand, timestamp: NSTimeInterval, sessionTimestamp: NSTimeInterval, referenceTimestamp: NSTimeInterval) -> StartActionMessage {
         
-        return StartMessage(timestamp: timestamp, reference: startCommand.reference, sessionTimestamp: sessionTimestamp, referenceTimestamp: referenceTimestamp, muted: startCommand.muted)
+        return StartActionMessage(timestamp: timestamp, reference: startCommand.reference, sessionTimestamp: sessionTimestamp, referenceTimestamp: referenceTimestamp, muted: startCommand.muted)
     }
     
-    static func transform(stopCommand: DJStopCommand) -> StopMessage {
+    static func transform(stopCommand: DJStopCommand) -> StopActionMessage {
         
-        return StopMessage()
+        return StopActionMessage()
     }
     
-    static func transform(muteCommand: DJMuteCommand) -> MuteMessage {
+    static func transform(muteCommand: DJMuteCommand) -> MuteActionMessage {
         
-        return MuteMessage()
+        return MuteActionMessage()
     }
     
-    static func transform(unmuteCommand: DJUnmuteCommand) -> UnmuteMessage {
+    static func transform(unmuteCommand: DJUnmuteCommand) -> UnmuteActionMessage {
         
-        return UnmuteMessage()
+        return UnmuteActionMessage()
     }
 }

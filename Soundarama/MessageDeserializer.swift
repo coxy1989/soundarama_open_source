@@ -8,79 +8,79 @@
 
 import Result
 
-class MessageDeserializer {
+class ActionMessageDeserializer {
     
     //TODO: flat map this mess
     
-    static func deserialize(data: NSData)  -> Result<Message, ParsingError> {
+    static func deserialize(data: NSData)  -> Result<ActionMessage, ParsingError> {
         
         let payload = Serialisation.getPayload(data)
         
         guard let json = NSKeyedUnarchiver.unarchiveObjectWithData(payload) else {
             
-            return Result<Message, ParsingError>.Failure(.FailedToUnarchiveJSON)
+            return Result<ActionMessage, ParsingError>.Failure(.FailedToUnarchiveJSON)
         }
         
-        guard let type = json[MessageSerialisationKeys.type] as? String else {
+        guard let type = json[ActionMessageSerialisationKeys.type] as? String else {
             
-            return Result<Message, ParsingError>.Failure(.InvalidJSON)
+            return Result<ActionMessage, ParsingError>.Failure(.InvalidJSON)
         }
      
-        if type == MessageType.Start.rawValue {
+        if type == ActionMessageType.Start.rawValue {
             
             return deserialiseStartMessage(json)
         }
         
-        else if type == MessageType.Stop.rawValue {
+        else if type == ActionMessageType.Stop.rawValue {
             
-            return Result<Message, ParsingError>.Success(StopMessage())
+            return Result<ActionMessage, ParsingError>.Success(StopActionMessage())
         }
         
-        else if type == MessageType.Mute.rawValue {
+        else if type == ActionMessageType.Mute.rawValue {
             
-            return Result<Message, ParsingError>.Success(MuteMessage())
+            return Result<ActionMessage, ParsingError>.Success(MuteActionMessage())
         }
         
-        else if type == MessageType.Unmute.rawValue {
+        else if type == ActionMessageType.Unmute.rawValue {
             
-             return Result<Message, ParsingError>.Success(UnmuteMessage())
+             return Result<ActionMessage, ParsingError>.Success(UnmuteActionMessage())
         }
         
         else {
     
-            return Result<Message, ParsingError>.Failure(.InvalidMessage)
+            return Result<ActionMessage, ParsingError>.Failure(.InvalidMessage)
         }
     }
 }
 
-extension MessageDeserializer {
+extension ActionMessageDeserializer {
     
-    static func deserialiseStartMessage(json: AnyObject) -> Result<Message, ParsingError> {
+    static func deserialiseStartMessage(json: AnyObject) -> Result<ActionMessage, ParsingError> {
         
-        guard let timestamp = json[StartMessageSerialisationKeys.timestamp] as? Double,
-                reference = json[StartMessageSerialisationKeys.reference] as?  String,
-                sessionTimestamp = json[StartMessageSerialisationKeys.sessionTimestamp] as? Double,
-                referenceTimestamp = json[StartMessageSerialisationKeys.referenceTimestamp] as? Double,
-                muted = json[StartMessageSerialisationKeys.muted] as? Bool else {
+        guard let timestamp = json[StartActionMessageSerialisationKeys.timestamp] as? Double,
+                reference = json[StartActionMessageSerialisationKeys.reference] as?  String,
+                sessionTimestamp = json[StartActionMessageSerialisationKeys.sessionTimestamp] as? Double,
+                referenceTimestamp = json[StartActionMessageSerialisationKeys.referenceTimestamp] as? Double,
+                muted = json[StartActionMessageSerialisationKeys.muted] as? Bool else {
                     
-            return Result<Message, ParsingError>.Failure(.InvalidStartMessage)
+            return Result<ActionMessage, ParsingError>.Failure(.InvalidStartMessage)
         }
         
-        return Result<Message, ParsingError>.Success( StartMessage(timestamp: timestamp, reference: reference, sessionTimestamp: sessionTimestamp, referenceTimestamp: referenceTimestamp, muted: muted))
+        return Result<ActionMessage, ParsingError>.Success( StartActionMessage(timestamp: timestamp, reference: reference, sessionTimestamp: sessionTimestamp, referenceTimestamp: referenceTimestamp, muted: muted))
     }
     
-    static func deserializeStopMessage(json: AnyObject) -> StopMessage? {
+    static func deserializeStopMessage(json: AnyObject) -> StopActionMessage? {
         
-        return StopMessage()
+        return StopActionMessage()
     }
     
-    static func deserializeMuteMessage(json: AnyObject) -> MuteMessage? {
+    static func deserializeMuteMessage(json: AnyObject) -> MuteActionMessage? {
         
-        return MuteMessage()
+        return MuteActionMessage()
     }
     
-    static func deserializeUnmuteMessage(json: AnyObject) -> UnmuteMessage? {
+    static func deserializeUnmuteMessage(json: AnyObject) -> UnmuteActionMessage? {
         
-        return UnmuteMessage()
+        return UnmuteActionMessage()
     }
 }

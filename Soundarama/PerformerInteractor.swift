@@ -163,7 +163,7 @@ extension PerformerInteractor {
         ReactiveEndpoint.start(reactiveEndpoint!, resolvable: resolvable)
             .on(failed: attemptReshake)
             .on(disposed: {debugPrint("reactive endpoint signal disposed")})
-            .map(MessageDeserializer.deserialize)
+            .map(ActionMessageDeserializer.deserialize)
             .startWithNext() { [weak self] in
                 
                 switch $0 {
@@ -266,17 +266,17 @@ extension PerformerInteractor {
 
 extension PerformerInteractor {
     
-    func handleMessage(message: Message, timeMap: ChristiansMap) {
+    func handleMessage(message: ActionMessage, timeMap: ChristiansMap) {
         
         switch message.type {
             
             case .Start:
                 
-                handleStartMessage(message as! StartMessage, timeMap: timeMap)
+                handleStartMessage(message as! StartActionMessage, timeMap: timeMap)
             
             case .Stop:
                 
-                handleStopMessage(message as! StopMessage)
+                handleStopMessage(message as! StopActionMessage)
             
             case .Mute:
                 
@@ -296,7 +296,7 @@ extension PerformerInteractor {
         return remote_now
     }
     
-    func handleStartMessage(message: StartMessage, timeMap: ChristiansMap) {
+    func handleStartMessage(message: StartActionMessage, timeMap: ChristiansMap) {
         
         /* DO NOT MOVE THESE TWO LINES OR YOU WILL BREAK THE SYNC. */
         audioloop?.loop.stop()
@@ -312,7 +312,7 @@ extension PerformerInteractor {
         performerInstrumentsOutput.setColor(self.audioStemStore.audioStem(message.reference)!.colour)
     }
     
-    func handleStopMessage(message: StopMessage) {
+    func handleStopMessage(message: StopActionMessage) {
         
         audioloop?.loop.stop()
         audioloop = nil

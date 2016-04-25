@@ -358,7 +358,7 @@ extension DJInteractor {
         
         let commands = DJCommandTransformer.transform(fromSuite, toSuite: toSuite)
         
-        let messages: [(Address, Message)] = commands.map() {
+        let messages: [(Address, ActionMessage)] = commands.map() {
             
             switch $0.type {
                 
@@ -382,7 +382,7 @@ extension DJInteractor {
             }
         }
         
-          messages.forEach() { endpointStore.getEndpoint($0.0).writeData(MessageSerializer.serialize($0.1)) }
+          messages.forEach() { endpointStore.getEndpoint($0.0).writeData(ActionMessageSerializer.serialize($0.1)) }
     }
     
     func calculateStartTimestamps(reference: String) -> (unix: NSTimeInterval, reference_unix: NSTimeInterval) {

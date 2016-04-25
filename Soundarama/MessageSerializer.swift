@@ -6,59 +6,59 @@
 //  Copyright © 2016 Touchpress Ltd. All rights reserved.
 //
 
-class MessageSerializer {
+class ActionMessageSerializer {
     
-    static func serialize(message: Message) -> NSData {
+    static func serialize(message: ActionMessage) -> NSData {
         
         switch message.type {
             
             case .Start:
                 
-                let m = message as! StartMessage
+                let m = message as! StartActionMessage
                 return Serialisation.setPayload(startMessageSerialization(m))
         
             case .Stop:
                 
-                let m = message as! StopMessage
+                let m = message as! StopActionMessage
                 return Serialisation.setPayload(stopMessageSerialization(m))
             
             case .Mute:
             
-                let m = message as! MuteMessage
+                let m = message as! MuteActionMessage
                 return Serialisation.setPayload(muteMessageSerialization(m))
             
             case .Unmute:
             
-                let m = message as! UnmuteMessage
+                let m = message as! UnmuteActionMessage
                 return Serialisation.setPayload(unmuteMessageSerialization(m))
         }
     }
 }
 
-extension MessageSerializer {
+extension ActionMessageSerializer {
     
-    static func startMessageSerialization(message: StartMessage) -> [String : AnyObject] {
+    static func startMessageSerialization(message: StartActionMessage) -> [String : AnyObject] {
         
-        return [ MessageSerialisationKeys.type : message.type.rawValue,
-                 StartMessageSerialisationKeys.timestamp : message.timestamp,
-                 StartMessageSerialisationKeys.reference : message.reference,
-                 StartMessageSerialisationKeys.sessionTimestamp : message.sessionTimestamp,
-                 StartMessageSerialisationKeys.referenceTimestamp : message.referenceTimestamp,
-                 StartMessageSerialisationKeys.muted : message.muted ]
+        return [ ActionMessageSerialisationKeys.type : message.type.rawValue,
+                 StartActionMessageSerialisationKeys.timestamp : message.timestamp,
+                 StartActionMessageSerialisationKeys.reference : message.reference,
+                 StartActionMessageSerialisationKeys.sessionTimestamp : message.sessionTimestamp,
+                 StartActionMessageSerialisationKeys.referenceTimestamp : message.referenceTimestamp,
+                 StartActionMessageSerialisationKeys.muted : message.muted ]
     }
     
-    static func stopMessageSerialization(message: StopMessage) -> [String : AnyObject] {
+    static func stopMessageSerialization(message: StopActionMessage) -> [String : AnyObject] {
         
-         return [ MessageSerialisationKeys.type : message.type.rawValue ]
+         return [ ActionMessageSerialisationKeys.type : message.type.rawValue ]
     }
     
-    static func muteMessageSerialization(message: MuteMessage) -> [String : AnyObject] {
+    static func muteMessageSerialization(message: MuteActionMessage) -> [String : AnyObject] {
         
-        return [ MessageSerialisationKeys.type : message.type.rawValue ]
+        return [ ActionMessageSerialisationKeys.type : message.type.rawValue ]
     }
     
-    static func unmuteMessageSerialization(message: UnmuteMessage) -> [String : AnyObject] {
+    static func unmuteMessageSerialization(message: UnmuteActionMessage) -> [String : AnyObject] {
         
-        return [ MessageSerialisationKeys.type : message.type.rawValue ]
+        return [ ActionMessageSerialisationKeys.type : message.type.rawValue ]
     }
 }

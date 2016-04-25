@@ -8,12 +8,12 @@
 
 // TODO: Rename `Action`Message
 
-protocol Message {
+protocol ActionMessage {
     
-    var type: MessageType { get }
+    var type: ActionMessageType { get }
 }
 
-enum MessageType: String {
+enum ActionMessageType: String {
     
     case Start = "Start"
     
@@ -24,9 +24,9 @@ enum MessageType: String {
     case Unmute = "Unmute"
 }
 
-struct StartMessage: Message {
+struct StartActionMessage: ActionMessage {
     
-    let type: MessageType = .Start
+    let type: ActionMessageType = .Start
     
     let timestamp: NSTimeInterval
     
@@ -49,19 +49,9 @@ struct StartMessage: Message {
     }
 }
 
-struct StopMessage: Message {
+struct StopActionMessage: ActionMessage {
     
-    let type: MessageType = .Stop
-    
-    var hashValue: Int {
-        
-        return type.hashValue
-    }
-}
-
-struct MuteMessage: Message {
-    
-    let type: MessageType = .Mute
+    let type: ActionMessageType = .Stop
     
     var hashValue: Int {
         
@@ -69,9 +59,9 @@ struct MuteMessage: Message {
     }
 }
 
-struct UnmuteMessage: Message {
+struct MuteActionMessage: ActionMessage {
     
-    let type: MessageType = .Unmute
+    let type: ActionMessageType = .Mute
     
     var hashValue: Int {
         
@@ -79,7 +69,17 @@ struct UnmuteMessage: Message {
     }
 }
 
-func == (lhs: StartMessage, rhs: StartMessage) -> Bool {
+struct UnmuteActionMessage: ActionMessage {
+    
+    let type: ActionMessageType = .Unmute
+    
+    var hashValue: Int {
+        
+        return type.hashValue
+    }
+}
+
+func == (lhs: StartActionMessage, rhs: StartActionMessage) -> Bool {
     
     return lhs.type == rhs.type
         && lhs.timestamp == rhs.timestamp
@@ -89,17 +89,17 @@ func == (lhs: StartMessage, rhs: StartMessage) -> Bool {
         && lhs.muted == rhs.muted
 }
 
-func == (lhs: StopMessage, rhs: StopMessage) -> Bool {
+func == (lhs: StopActionMessage, rhs: StopActionMessage) -> Bool {
     
     return lhs.type == rhs.type
 }
 
-func == (lhs: MuteMessage, rhs: MuteMessage) -> Bool {
+func == (lhs: MuteActionMessage, rhs: MuteActionMessage) -> Bool {
     
     return lhs.type == rhs.type
 }
 
-func == (lhs: UnmuteMessage, rhs: UnmuteMessage) -> Bool {
+func == (lhs: UnmuteActionMessage, rhs: UnmuteActionMessage) -> Bool {
     
     return lhs.type == rhs.type
 }

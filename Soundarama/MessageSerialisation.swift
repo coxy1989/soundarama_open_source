@@ -8,14 +8,12 @@
 
 import Foundation
 
-// TODO: Rename `ActionMessage` SerialisationKeys
-
-struct MessageSerialisationKeys {
+struct ActionMessageSerialisationKeys {
     
     static let type = "Type"
 }
 
-struct StartMessageSerialisationKeys {
+struct StartActionMessageSerialisationKeys {
     
     static let timestamp = "Timestamp"
     
