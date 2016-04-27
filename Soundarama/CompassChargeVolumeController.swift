@@ -39,7 +39,7 @@ struct CompassChargeVolumeController {
         
         /* Interpolate between 360 == 0, 180 == 1, 90 == 0.5, 270 == 0.5 */
         
-        let compass_transform = (1 - abs(compassValue - 180) / 180)
+        let compass_transform = pow((1 - sin(2 * M_PI  * ( (compassValue/360) + 0.25))) / 2, 0.8)
         
         n_lt.forEach() { ret[$0] =  Float( (1 - compass_transform)) }
         
@@ -66,7 +66,7 @@ struct CompassChargeVolumeController {
         
         /* Interpolate between 360 == 0, 180 == 1, 90 == 0.5, 270 == 0.5 */
         
-        let compass_transform = (1 - abs(compassValue - 180) / 180)
+        let compass_transform = pow((1 - sin(2 * M_PI  * ( (compassValue/360) + 0.25))) / 2, 0.8)
         
         n_gt.forEach() { ret[$0] =  Float( (1 - compass_transform)) }
         
