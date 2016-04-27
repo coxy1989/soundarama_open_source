@@ -37,7 +37,7 @@ class Danceometer {
                 gravity = 0.001
             }
             
-            let resistance: Double = 1700 * max(0.05, pow(this.score,2))
+            let resistance: Double = 900 * max(0.05, pow(this.score,2))
             
             if this.score < 0.15 {
                 
@@ -46,7 +46,7 @@ class Danceometer {
                 
             else {
                 
-                charge_thresh = 1.0
+                charge_thresh = 0.8
             }
             
             let time = NSDate().timeIntervalSince1970
