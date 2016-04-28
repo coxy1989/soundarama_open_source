@@ -417,31 +417,3 @@ extension DJInteractor {
         }
     }
 }
-
-
-/*
- let messages: [(Address, ActionMessage)] = commands.map() {
- 
- switch $0.type {
- 
- case .Start:
- 
- let timestamps = calculateStartTimestamps(($0 as! DJStartCommand).reference)
- 
- return ($0.performer, DJMessageTransformer.transform(($0 as! DJStartCommand), timestamp: timestamps.unix, sessionTimestamp: ChristiansTimeServer.timestamp, referenceTimestamp: ChristiansTimeServer.timestamp))
- 
- case .Stop:
- 
- return ($0.performer, DJMessageTransformer.transform($0 as! DJStopCommand))
- 
- case .Mute:
- 
- return ($0.performer, DJMessageTransformer.transform($0 as! DJMuteCommand))
- 
- case .Unmute:
- 
- return ($0.performer, DJMessageTransformer.transform($0 as! DJUnmuteCommand))
- }
- }
- */
-// messages.forEach() { endpointStore.getEndpoint($0.0).writeData(ActionMessageSerializer.serialize($0.1)) }
