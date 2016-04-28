@@ -90,7 +90,7 @@ extension ChristiansProcess {
     
     func start() {
         
-        endpoint?.readData(Serialisation.terminator)
+        endpoint?.readData(Serialization.terminator)
         sendMessage(TimeProcessSyncStartMessage())
     }
 }
@@ -119,7 +119,7 @@ extension ChristiansProcess: ReadableDelegate {
                 sendMessage(TimeProcessSyncRepeatMessage())
         }
     
-        endpoint?.readData(Serialisation.terminator)
+        endpoint?.readData(Serialization.terminator)
     }
 }
 

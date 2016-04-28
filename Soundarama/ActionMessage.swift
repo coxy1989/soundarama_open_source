@@ -6,6 +6,8 @@
 //  Copyright © 2016 Touchpress Ltd. All rights reserved.
 //
 
+/*
+
 protocol ActionMessage {
     
     var type: ActionMessageType { get }
@@ -103,3 +105,5 @@ func == (lhs: UnmuteActionMessage, rhs: UnmuteActionMessage) -> Bool {
     return lhs.type == rhs.type
 }
 
+
+ */

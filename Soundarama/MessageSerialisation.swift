@@ -6,6 +6,7 @@
 //  Copyright © 2016 Touchpress Ltd. All rights reserved.
 //
 
+/*
 import Foundation
 
 struct ActionMessageSerialisationKeys {
@@ -36,3 +37,4 @@ enum ActionMessageParsingError: ErrorType {
     
     case InvalidMessage
 }
+ */

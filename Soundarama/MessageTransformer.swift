@@ -6,6 +6,7 @@
 //  Copyright © 2016 Touchpress Ltd. All rights reserved.
 //
 
+/*
 class DJMessageTransformer {
     
     static func transform(startCommand: DJStartCommand, timestamp: NSTimeInterval, sessionTimestamp: NSTimeInterval, referenceTimestamp: NSTimeInterval) -> StartActionMessage {
@@ -28,3 +29,5 @@ class DJMessageTransformer {
         return UnmuteActionMessage()
     }
 }
+
+ */

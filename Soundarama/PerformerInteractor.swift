@@ -177,6 +177,8 @@ extension PerformerInteractor {
     
     func updateAudioStem(stateMessage m: StateMessage, time_map: ChristiansMap) {
         
+        /* TODO: refactor this garbage! */
+        
         let get_ws: Workspace -> Bool = { $0.performers.contains(m.performer) }
         let prestate = stateMessage?.suite.filter(get_ws).first
         let poststate = m.suite.filter(get_ws).first
@@ -449,79 +451,3 @@ extension PerformerInteractor {
         }
     }
 }
-
-/*
- ReactiveEndpoint.start(reactiveEndpoint!, resolvable: resolvable)
- .on(failed: attemptReshake)
- .on(disposed: {debugPrint("reactive endpoint signal disposed")})
- .map(ActionMessageDeserializer.deserialize)
- 
- .startWithNext() { [weak self] in
- 
- switch $0 {
- 
- case .Success(let m): self?.handleMessage(m, timeMap: time_map)
- 
- case .Failure(let e): debugPrint("Failed to unarchive message: \(e)")
- }
- }
- */
-
-/*
- extension PerformerInteractor {
- 
- func handleMessage(message: ActionMessage, timeMap: ChristiansMap) {
- 
- switch message.type {
- 
- case .Start:
- 
- handleStartMessage(message as! StartActionMessage, timeMap: timeMap)
- 
- case .Stop:
- 
- handleStopMessage(message as! StopActionMessage)
- 
- case .Mute:
- 
- toggleMuteAudio(true)
- 
- case .Unmute:
- 
- toggleMuteAudio(false)
- }
- }
- 
- func remoteTime(timeMap: ChristiansMap) -> NSTimeInterval {
- 
- let local_now = NSDate().timeIntervalSince1970
- let elapsed = local_now - timeMap.local
- let remote_now = timeMap.remote + elapsed
- return remote_now
- }
- 
- func handleStartMessage(message: StartActionMessage, timeMap: ChristiansMap) {
- 
- /* DO NOT MOVE THESE TWO LINES OR YOU WILL BREAK THE SYNC. */
- audioloop?.loop.stop()
- audioloop = nil
- /*-------------------------------------------------------- */
- 
- let remote_now = remoteTime(timeMap)
- let latency = remote_now - message.timestamp
- let time_elapsed = message.timestamp - message.referenceTimestamp + latency
- let time_modulus = time_elapsed % audioConfig.audioFileLength
- 
- startAudio(TaggedAudioPathStore.taggedAudioPaths(message.reference), afterDelay: 0, atTime: time_modulus, muted: message.muted)
- performerInstrumentsOutput.setColor(self.audioStemStore.audioStem(message.reference)!.colour)
- }
- 
- func handleStopMessage(message: StopActionMessage) {
- 
- audioloop?.loop.stop()
- audioloop = nil
- 
- performerInstrumentsOutput.setColor(UIColor.lightGrayColor())
- }
- }
- */

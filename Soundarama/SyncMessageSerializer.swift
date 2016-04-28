@@ -12,12 +12,15 @@ class TimeProcessSyncMessageSerializer {
     
     static func serialize(message: TimeProcessSyncMessage) -> NSData {
         
-        return Serialisation.setPayload(messageSerialization(message))
+        let json = toJSON(message)
+        let data = try! NSJSONSerialization.dataWithJSONObject(json, options: NSJSONWritingOptions(rawValue: 0)).mutableCopy()
+        data.appendData(Serialization.terminator)
+        return data as! NSData
     }
     
-    static func messageSerialization(message: TimeProcessSyncMessage) -> [String : AnyObject] {
+    static func toJSON(message: TimeProcessSyncMessage) -> [String : AnyObject] {
         
-        return [ TimeProcessSyncMessageSerialisationKeys.type : message.type.rawValue ]
+        return [ TimeProcessSyncMessageSerializationKeys.type : message.type.rawValue ]
     }
 }
 
@@ -25,10 +28,13 @@ class TimeServerSyncMessageSerializer {
     
     static func serialize(message: TimeServerSyncMessage) -> NSData {
         
-        return Serialisation.setPayload(getJSON(message))
+        let json = toJSON(message)
+        let data = try! NSJSONSerialization.dataWithJSONObject(json, options: NSJSONWritingOptions(rawValue: 0)).mutableCopy()
+        data.appendData(Serialization.terminator)
+        return data as! NSData
     }
     
-    static func getJSON(message: TimeServerSyncMessage) -> [String : AnyObject] {
+    static func toJSON(message: TimeServerSyncMessage) -> [String : AnyObject] {
         
         switch message.type {
             
@@ -46,12 +52,12 @@ class TimeServerSyncMessageSerializer {
     
     static func  timeMessageSerialization(message: TimeServerSyncTimeMessage) -> [String : AnyObject] {
      
-        return [ TimeServerSyncMessageSerialisationKeys.type : message.type.rawValue,
-                 TimeServerSyncMessageSerialisationKeys.timestamp : message.timestamp ]
+        return [ TimeServerSyncMessageSerializationKeys.type : message.type.rawValue,
+                 TimeServerSyncMessageSerializationKeys.timestamp : message.timestamp ]
     }
      
     static func stopMessageSerialization(message: TimeServerSyncStopMessage) -> [String : AnyObject] {
      
-        return [ TimeServerSyncMessageSerialisationKeys.type : message.type.rawValue ]
+        return [ TimeServerSyncMessageSerializationKeys.type : message.type.rawValue ]
     }
 }

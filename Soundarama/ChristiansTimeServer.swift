@@ -69,7 +69,7 @@ private class ChristiansSocketHandler {
             }
             
             debugPrint("Christians sync start for address: \(address)")
-            endpoint.readData(Serialisation.terminator)
+            endpoint.readData(Serialization.terminator)
             
         }.delay(0, onScheduler: scheduler)
         
@@ -97,7 +97,7 @@ extension ChristiansSocketHandler: ReadableDelegate {
             case .Failure(let e): debugPrint("Failed to deserialize sync message: \(e)")
         }
         
-        endpoint.readData(Serialisation.terminator)
+        endpoint.readData(Serialization.terminator)
     }
 }
 

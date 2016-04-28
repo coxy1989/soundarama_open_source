@@ -13,14 +13,15 @@ class TimeProcessSyncMessageDeserializer {
     
     static func deserialize(data: NSData)  -> Result<TimeProcessSyncMessage, SyncMessageParsingError> {
         
-        return getJSON(data)
+        return Serialization.getJSON(data)
+            .flatMapError() { _ in Result<AnyObject, SyncMessageParsingError>.Failure(SyncMessageParsingError.FailedToUnarchiveJSON) }
             .flatMap(getType)
             .flatMap(getMessage)
     }
     
     static func getType(object: AnyObject) -> Result<String, SyncMessageParsingError> {
         
-        return (object[TimeProcessSyncMessageSerialisationKeys.type] as? String).map() { Result<String, SyncMessageParsingError>.Success($0) } ?? Result<String, SyncMessageParsingError>.Failure(.InvalidJSON)
+        return (object[TimeProcessSyncMessageSerializationKeys.type] as? String).map() { Result<String, SyncMessageParsingError>.Success($0) } ?? Result<String, SyncMessageParsingError>.Failure(.InvalidJSON)
     }
     
     static func getMessage(type: String) -> Result<TimeProcessSyncMessage, SyncMessageParsingError> {
@@ -48,14 +49,15 @@ class TimeServerSyncMessageDeserializer {
     
     static func deserialize(data: NSData)  -> Result<TimeServerSyncMessage, SyncMessageParsingError> {
         
-        return getJSON(data)
+        return Serialization.getJSON(data)
+            .flatMapError() { _ in Result<AnyObject, SyncMessageParsingError>.Failure(SyncMessageParsingError.FailedToUnarchiveJSON) }
             .flatMap(getType)
             .flatMap(getMessage)
     }
     
     static func getType(json: AnyObject) -> Result<(String, AnyObject), SyncMessageParsingError> {
         
-        return (json[TimeServerSyncMessageSerialisationKeys.type] as? String).map() { Result<(String, AnyObject), SyncMessageParsingError>.Success($0, json) } ?? Result<(String, AnyObject), SyncMessageParsingError>.Failure(.InvalidJSON)
+        return (json[TimeServerSyncMessageSerializationKeys.type] as? String).map() { Result<(String, AnyObject), SyncMessageParsingError>.Success($0, json) } ?? Result<(String, AnyObject), SyncMessageParsingError>.Failure(.InvalidJSON)
     }
     
     static func getMessage(type: String, json: AnyObject) -> Result<TimeServerSyncMessage, SyncMessageParsingError> {
@@ -75,26 +77,11 @@ class TimeServerSyncMessageDeserializer {
     
     static func deserializeTimeMessage(json: AnyObject) -> Result<TimeServerSyncMessage, SyncMessageParsingError> {
         
-        guard let timestamp = json[TimeServerSyncMessageSerialisationKeys.timestamp] as? NSTimeInterval else {
+        guard let timestamp = json[TimeServerSyncMessageSerializationKeys.timestamp] as? NSTimeInterval else {
             
             return Result<TimeServerSyncMessage, SyncMessageParsingError>.Failure(.InvalidMessage)
         }
         
         return Result<TimeServerSyncMessage, SyncMessageParsingError>.Success(TimeServerSyncTimeMessage(timestamp: timestamp))
     }
-}
-
-//TODO: share this function. It is duplicated across deserializers currently.
-
-private func getJSON(data: NSData) -> Result<AnyObject, SyncMessageParsingError> {
-    
-    let payload = Serialisation.getPayload(data)
-    let obj = NSKeyedUnarchiver.unarchiveObjectWithData(payload)
-    if let o = obj {
-        return Result<AnyObject, SyncMessageParsingError>.Success(o)
-    }
-    else {
-        return Result<AnyObject, SyncMessageParsingError>.Failure(.FailedToUnarchiveJSON)
-    }
-    //return NSKeyedUnarchiver.unarchiveObjectWithData(payload).map() { Result<AnyObject, SyncMessageParsingError>.Success($0) } ?? Result<AnyObject, SyncMessageParsingError>.Failure(.FailedToUnarchiveJSON)
 }

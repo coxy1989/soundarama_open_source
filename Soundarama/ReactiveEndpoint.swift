@@ -40,7 +40,7 @@ class ReactiveEndpoint {
                 observer.sendFailed(.Disconnected(resolvable))
             }
             
-            self?.endpoint.readData(Serialisation.terminator)
+            self?.endpoint.readData(Serialization.terminator)
         }
     }
     
@@ -56,6 +56,6 @@ extension ReactiveEndpoint: ReadableDelegate {
     func didReadData(data: NSData) {
         
         readHandler?(data)
-        endpoint.readData(Serialisation.terminator)
+        endpoint.readData(Serialization.terminator)
     }
 }

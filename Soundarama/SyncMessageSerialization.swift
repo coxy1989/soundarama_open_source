@@ -8,14 +8,14 @@
 
 import Foundation
 
-struct TimeServerSyncMessageSerialisationKeys {
+struct TimeServerSyncMessageSerializationKeys {
     
     static let type = "Type"
     
     static let timestamp = "Timestamp"
 }
 
-struct TimeProcessSyncMessageSerialisationKeys {
+struct TimeProcessSyncMessageSerializationKeys {
     
     static let type = "Type"
 }

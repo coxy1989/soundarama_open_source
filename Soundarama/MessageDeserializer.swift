@@ -6,6 +6,7 @@
 //  Copyright © 2016 Touchpress Ltd. All rights reserved.
 //
 
+/*
 import Result
 
 class ActionMessageDeserializer {
@@ -84,3 +85,5 @@ extension ActionMessageDeserializer {
         return UnmuteActionMessage()
     }
 }
+
+ */
