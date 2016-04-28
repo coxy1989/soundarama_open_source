@@ -18,6 +18,7 @@ import XCTest
 
 */
 
+/*I
 class MessageTransformerTests: XCTestCase {
     
     var audioStem: AudioStem!
@@ -709,3 +710,4 @@ extension MessageTransformerTests {
         XCTAssertEqual(res.count, 1)
     }
 }
+*/

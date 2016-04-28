@@ -33,8 +33,8 @@ class EndpointStore {
         lock.unlock()
     }
     
-    func getEndpoints() -> [Endpoint] {
+    func getEndpoints() -> [String : Endpoint] {
         
-        return endpoints.map() { $0.1 }
+        return endpoints
     }
 }

@@ -33,22 +33,36 @@ class DJInteractor {
     
     /* Accept */
     
-    private var discovery: ReceptiveDiscovery?
+    private let discovery = ReceptiveDiscovery()
     
-    private var socketAcceptor: SocketAcceptor?
+    private var socketAcceptor = SocketAcceptor()
     
-    private var server: ChristiansTimeServer?
+    private var server = ChristiansTimeServer()
+    
+    /* Heartbeat */
+    
+    private var heartbeat: NSTimer?
 }
 
 extension DJInteractor: DJInput {
    
+    @objc func beatHeart() {
+        
+        endpointStore.getEndpoints().forEach() { address, endpoint in
+            
+            debugPrint("Sending Heartbeat")
+            endpoint.writeData(StateMessageSerializer.serialize(StateMessage(suite: suiteStore.suite, performer: address, referenceTimestamps: referenceTimestampStore.getTimestamps(), timestamp: NSDate().timeIntervalSince1970)))
+        }
+    }
+    
     func startDJ() {
 
-        discovery = ReceptiveDiscovery()
-        socketAcceptor = SocketAcceptor()
-        server = ChristiansTimeServer()
+        heartbeat = NSTimer.scheduledTimerWithTimeInterval(3, target: self, selector: #selector(beatHeart), userInfo: nil, repeats: true)
         
-        discovery?.discover(NetworkConfiguration.type, domain: NetworkConfiguration.domain, name: UIDevice.currentDevice().name)
+        djOutput.setUISuite(UISuiteTransformer.transform(suiteStore.suite, name: audioStemStore.name, colors: audioStemStore.color))
+        djOutput.setGroupingMode(true)
+        
+        discovery.discover(NetworkConfiguration.type, domain: NetworkConfiguration.domain, name: UIDevice.currentDevice().name)
             
             .on(failed: { e in
                 
@@ -65,7 +79,7 @@ extension DJInteractor: DJInput {
             
             .start()
         
-        socketAcceptor?.accept(NetworkConfiguration.port16)
+        socketAcceptor.accept(NetworkConfiguration.port16)
             
             .on(failed: {e in
                 
@@ -80,28 +94,25 @@ extension DJInteractor: DJInput {
             .on(disposed: { debugPrint("Disposed acceptor signal")})
             
             .start()
-        
-        
-        djOutput.setUISuite(UISuiteTransformer.transform(suiteStore.suite))
-        djOutput.setGroupingMode(true)
     }
     
     func stopDJ() {
         
-        discovery?.stop()
-        socketAcceptor?.stop()
-        server?.stop()
-        endpointStore.getEndpoints().forEach() { $0.disconnect() }
+        discovery.stop()
+        socketAcceptor.stop()
+        server.stop()
+        endpointStore.getEndpoints().forEach() { $0.1.disconnect() }
+        heartbeat?.invalidate()
     }
     
     func getStemKeys() -> [String] {
         
-        return AudioStemStore.keys
+        return AudioStemStore.categoryKeys
     }
     
     func getStemKeyColors() -> [String : UIColor] {
         
-        return AudioStemStore.colors
+        return AudioStemStore.categoryColors
     }
     
     func getStemsIndex() -> [CategoryKey : [SongKey : Set<UIAudioStem>]] {
@@ -124,7 +135,7 @@ extension DJInteractor: DJInput {
         suiteStore.toggleMute(workspaceID)
         let poststate = suiteStore.suite
         didChangeSuite(prestate, toSuite: poststate)
-        djOutput.setUISuite(UISuiteTransformer.transform(poststate))
+        djOutput.setUISuite(UISuiteTransformer.transform(poststate, name: audioStemStore.name, colors: audioStemStore.color))
     }
     
     func requestToggleSoloInWorkspace(workspaceID: WorkspaceID) {
@@ -133,7 +144,7 @@ extension DJInteractor: DJInput {
         suiteStore.toggleSolo(workspaceID)
         let poststate = suiteStore.suite
         didChangeSuite(prestate, toSuite: poststate)
-        djOutput.setUISuite(UISuiteTransformer.transform(poststate))
+        djOutput.setUISuite(UISuiteTransformer.transform(poststate, name: audioStemStore.name, colors: audioStemStore.color))
     }
     
     func requestAudioStemInWorkspace(audioStemID: AudioStemID, workspaceID: WorkspaceID) {
@@ -148,7 +159,7 @@ extension DJInteractor: DJInput {
         suiteStore.setAudioStem(audioStem, workspaceID: workspaceID)
         let poststate = suiteStore.suite
         didChangeSuite(prestate, toSuite: poststate)
-        djOutput.setUISuite(UISuiteTransformer.transform(poststate))
+        djOutput.setUISuite(UISuiteTransformer.transform(poststate, name: audioStemStore.name, colors: audioStemStore.color))
     }
     
     func requestMovePerformer(performer: Performer, translation: CGPoint) {
@@ -172,7 +183,7 @@ extension DJInteractor: DJInput {
         suiteStore.addPerformer(performer, workspaceID: workspaceID)
         let poststate = suiteStore.suite
         didChangeSuite(prestate, toSuite: poststate)
-        djOutput.setUISuite(UISuiteTransformer.transform(poststate))
+        djOutput.setUISuite(UISuiteTransformer.transform(poststate, name: audioStemStore.name, colors: audioStemStore.color))
     }
     
     func requestRemovePerformerFromWorkspace(performer: Performer) {
@@ -185,7 +196,7 @@ extension DJInteractor: DJInput {
         suiteStore.removePerformer(performer)
         let poststate = suiteStore.suite
         didChangeSuite(prestate, toSuite: poststate)
-        djOutput.setUISuite(UISuiteTransformer.transform(poststate))
+        djOutput.setUISuite(UISuiteTransformer.transform(poststate, name: audioStemStore.name, colors: audioStemStore.color))
     }
     
     func requestSelectPerformer(performer: Performer) {
@@ -292,7 +303,7 @@ extension DJInteractor {
     
     func onEndpoint(id: String, ep: Endpoint) {
         
-        server?.syncronise(id, endpoint: ep)
+        server.syncronise(id, endpoint: ep)
             .on(next: onSyncronised)
             .on(failed: onSyncFailed)
             .on(disposed: { debugPrint("Disposed syncronise signal")})
@@ -328,6 +339,8 @@ extension DJInteractor {
         
         debugPrint("Performer disconnected: \(performer)")
         
+        /* TODO: There is a bug here. Need to remove performer from group too. */
+        suiteStore.removePerformer(performer)
         endpointStore.removeEndpoint(performer)
         outputRemovePerformer(performer)
     }
@@ -354,35 +367,24 @@ extension DJInteractor {
 
 extension DJInteractor {
     
+    
     func didChangeSuite(fromSuite: Suite, toSuite: Suite) {
         
         let commands = DJCommandTransformer.transform(fromSuite, toSuite: toSuite)
         
-        let messages: [(Address, ActionMessage)] = commands.map() {
+        commands.forEach() {
             
-            switch $0.type {
+            if $0.type == .Start {
                 
-                case .Start:
-
-                    let timestamps = calculateStartTimestamps(($0 as! DJStartCommand).reference)
-                    
-                    return ($0.performer, DJMessageTransformer.transform(($0 as! DJStartCommand), timestamp: timestamps.unix, sessionTimestamp: ChristiansTimeServer.timestamp, referenceTimestamp: ChristiansTimeServer.timestamp))
-                
-                case .Stop:
-                    
-                    return ($0.performer, DJMessageTransformer.transform($0 as! DJStopCommand))
-                
-                case .Mute:
-                    
-                    return ($0.performer, DJMessageTransformer.transform($0 as! DJMuteCommand))
-                
-                case .Unmute:
-                    
-                    return ($0.performer, DJMessageTransformer.transform($0 as! DJUnmuteCommand))
+                calculateStartTimestamps(($0 as! DJStartCommand).reference)
             }
         }
         
-          messages.forEach() { endpointStore.getEndpoint($0.0).writeData(ActionMessageSerializer.serialize($0.1)) }
+        endpointStore.getEndpoints().forEach() { address, endpoint in
+            
+            debugPrint("Sending state change")
+            endpoint.writeData(StateMessageSerializer.serialize(StateMessage(suite: suiteStore.suite, performer: address, referenceTimestamps: referenceTimestampStore.getTimestamps(), timestamp: NSDate().timeIntervalSince1970)))
+        }
     }
     
     func calculateStartTimestamps(reference: String) -> (unix: NSTimeInterval, reference_unix: NSTimeInterval) {
@@ -415,3 +417,31 @@ extension DJInteractor {
         }
     }
 }
+
+
+/*
+ let messages: [(Address, ActionMessage)] = commands.map() {
+ 
+ switch $0.type {
+ 
+ case .Start:
+ 
+ let timestamps = calculateStartTimestamps(($0 as! DJStartCommand).reference)
+ 
+ return ($0.performer, DJMessageTransformer.transform(($0 as! DJStartCommand), timestamp: timestamps.unix, sessionTimestamp: ChristiansTimeServer.timestamp, referenceTimestamp: ChristiansTimeServer.timestamp))
+ 
+ case .Stop:
+ 
+ return ($0.performer, DJMessageTransformer.transform($0 as! DJStopCommand))
+ 
+ case .Mute:
+ 
+ return ($0.performer, DJMessageTransformer.transform($0 as! DJMuteCommand))
+ 
+ case .Unmute:
+ 
+ return ($0.performer, DJMessageTransformer.transform($0 as! DJUnmuteCommand))
+ }
+ }
+ */
+// messages.forEach() { endpointStore.getEndpoint($0.0).writeData(ActionMessageSerializer.serialize($0.1)) }

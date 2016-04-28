@@ -12,18 +12,18 @@ class ActionMessageDeserializer {
     
     //TODO: flat map this mess
     
-    static func deserialize(data: NSData)  -> Result<ActionMessage, ParsingError> {
+    static func deserialize(data: NSData)  -> Result<ActionMessage, ActionMessageParsingError> {
         
         let payload = Serialisation.getPayload(data)
         
         guard let json = NSKeyedUnarchiver.unarchiveObjectWithData(payload) else {
             
-            return Result<ActionMessage, ParsingError>.Failure(.FailedToUnarchiveJSON)
+            return Result<ActionMessage, ActionMessageParsingError>.Failure(.FailedToUnarchiveJSON)
         }
         
         guard let type = json[ActionMessageSerialisationKeys.type] as? String else {
             
-            return Result<ActionMessage, ParsingError>.Failure(.InvalidJSON)
+            return Result<ActionMessage, ActionMessageParsingError>.Failure(.InvalidJSON)
         }
      
         if type == ActionMessageType.Start.rawValue {
@@ -33,29 +33,29 @@ class ActionMessageDeserializer {
         
         else if type == ActionMessageType.Stop.rawValue {
             
-            return Result<ActionMessage, ParsingError>.Success(StopActionMessage())
+            return Result<ActionMessage, ActionMessageParsingError>.Success(StopActionMessage())
         }
         
         else if type == ActionMessageType.Mute.rawValue {
             
-            return Result<ActionMessage, ParsingError>.Success(MuteActionMessage())
+            return Result<ActionMessage, ActionMessageParsingError>.Success(MuteActionMessage())
         }
         
         else if type == ActionMessageType.Unmute.rawValue {
             
-             return Result<ActionMessage, ParsingError>.Success(UnmuteActionMessage())
+             return Result<ActionMessage, ActionMessageParsingError>.Success(UnmuteActionMessage())
         }
         
         else {
     
-            return Result<ActionMessage, ParsingError>.Failure(.InvalidMessage)
+            return Result<ActionMessage, ActionMessageParsingError>.Failure(.InvalidMessage)
         }
     }
 }
 
 extension ActionMessageDeserializer {
     
-    static func deserialiseStartMessage(json: AnyObject) -> Result<ActionMessage, ParsingError> {
+    static func deserialiseStartMessage(json: AnyObject) -> Result<ActionMessage, ActionMessageParsingError> {
         
         guard let timestamp = json[StartActionMessageSerialisationKeys.timestamp] as? Double,
                 reference = json[StartActionMessageSerialisationKeys.reference] as?  String,
@@ -63,10 +63,10 @@ extension ActionMessageDeserializer {
                 referenceTimestamp = json[StartActionMessageSerialisationKeys.referenceTimestamp] as? Double,
                 muted = json[StartActionMessageSerialisationKeys.muted] as? Bool else {
                     
-            return Result<ActionMessage, ParsingError>.Failure(.InvalidStartMessage)
+            return Result<ActionMessage, ActionMessageParsingError>.Failure(.InvalidStartMessage)
         }
         
-        return Result<ActionMessage, ParsingError>.Success( StartActionMessage(timestamp: timestamp, reference: reference, sessionTimestamp: sessionTimestamp, referenceTimestamp: referenceTimestamp, muted: muted))
+        return Result<ActionMessage, ActionMessageParsingError>.Success( StartActionMessage(timestamp: timestamp, reference: reference, sessionTimestamp: sessionTimestamp, referenceTimestamp: referenceTimestamp, muted: muted))
     }
     
     static func deserializeStopMessage(json: AnyObject) -> StopActionMessage? {

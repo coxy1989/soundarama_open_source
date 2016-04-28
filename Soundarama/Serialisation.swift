@@ -9,7 +9,7 @@
 struct Serialisation {
     
     static let terminator = ";".dataUsingEncoding(NSUTF8StringEncoding)!
-    
+        
     static func setPayload(object: AnyObject) -> NSData {
         
         let dat = NSKeyedArchiver.archivedDataWithRootObject(object).mutableCopy()

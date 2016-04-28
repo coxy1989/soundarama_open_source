@@ -31,6 +31,9 @@ class PerformerInteractor {
     
     private var discoveryStore = DiscoveryStore()
     
+    //TODO: Move to thread safe store
+    private var stateMessage: StateMessage?
+    
     /* Audio */
     
     private let audioConfig: AudioConfiguration = AudioConfigurationStore.getConfiguration()
@@ -53,6 +56,7 @@ class PerformerInteractor {
     
     private var danceometer: Danceometer?
     
+
     deinit {
         
         debugPrint("deinit PerformerInteractor")
@@ -116,7 +120,7 @@ extension PerformerInteractor: PerformerConnectionInput {
                     
                     case .SyncFailed(let e): e.disconnect()
                     
-                    default: return
+                    default: break
                 }
                 
                 self?.updateDJPickerOutputWithConnectionEvent(identifier, event: .Failed)})
@@ -156,23 +160,105 @@ extension PerformerInteractor: PerformerInstrumentsInput {
 
 extension PerformerInteractor {
     
+    func handleMessage(message: Result<StateMessage, StateMessageSerializationError>, time_map: ChristiansMap) {
+        
+        switch message {
+            
+            case .Success(let m):
+            
+                updateAudioStem(stateMessage: m, time_map: time_map)
+            
+            
+            case .Failure(let e):
+            
+                debugPrint("Got message with error: \(e)")
+        }
+    }
+    
+    func updateAudioStem(stateMessage m: StateMessage, time_map: ChristiansMap) {
+        
+        let get_ws: Workspace -> Bool = { $0.performers.contains(m.performer) }
+        let prestate = stateMessage?.suite.filter(get_ws).first
+        let poststate = m.suite.filter(get_ws).first
+        stateMessage = m
+        
+        let muteState = poststate == nil ? false : (poststate!.isAntiSolo || poststate!.isMuted)
+        
+        if (poststate?.isMuted != prestate?.isMuted) || (poststate?.isAntiSolo != prestate?.isAntiSolo) {
+         
+            debugPrint("Changed mute state: \(muteState)")
+            toggleMuteAudio(muteState)
+        }
+        
+        if poststate?.audioStem == prestate?.audioStem {
+            
+            debugPrint("Audio stem hasn't changed")
+            return
+        }
+        
+        if prestate?.audioStem == nil && poststate?.audioStem != nil {
+            
+            guard let ts = m.referenceTimestamps[poststate!.audioStem!] else {
+                
+                debugPrint("No reference timestamp, this is a logical error")
+                return
+            }
+            
+            debugPrint("Started an audio stem")
+            scheduleStartAudio(poststate!.audioStem!, timeMap: time_map, timestamp: m.timestamp, referenceTimestamp: ts, muted: muteState)
+            
+            let c = audioStemStore.color(poststate!.audioStem!)
+            
+            dispatch_async(dispatch_get_main_queue()) { [weak self] in
+                
+                self?.performerInstrumentsOutput.setColor(c)
+            }
+        }
+        
+        if prestate?.audioStem != nil  && poststate?.audioStem == nil {
+            
+            debugPrint("Stopped an audio stem")
+            stopAudio()
+            
+            dispatch_async(dispatch_get_main_queue()) { [weak self] in
+                
+                self?.performerInstrumentsOutput.setColor(UIColor.grayColor())
+            }
+        }
+        
+        if prestate?.audioStem != nil && poststate?.audioStem != nil {
+            
+            guard let ts = m.referenceTimestamps[poststate!.audioStem!] else {
+                
+                debugPrint("No reference timestamp, this is a logical error")
+                return
+            }
+            
+            debugPrint("Changed audio stem")
+            stopAudio()
+            scheduleStartAudio(poststate!.audioStem!, timeMap: time_map, timestamp: m.timestamp, referenceTimestamp: ts, muted: muteState)
+            
+            let c = audioStemStore.color(poststate!.audioStem!)
+            
+            dispatch_async(dispatch_get_main_queue()) { [weak self] in
+                
+                self?.performerInstrumentsOutput.setColor(c)
+            }
+        }
+    }
+}
+
+extension PerformerInteractor {
+    
     func onSuccessfulHandshake(endpoint: Endpoint, resolvable: Resolvable, time_map: ChristiansMap) {
         
-        reactiveEndpoint = ReactiveEndpoint(endpoint: endpoint)
-        
-        ReactiveEndpoint.start(reactiveEndpoint!, resolvable: resolvable)
+        reactiveEndpoint = ReactiveEndpoint()
+        reactiveEndpoint?.producer(endpoint, resolvable: resolvable)
+            .map(StateMessageDeserializer.deserialize)
             .on(failed: attemptReshake)
+            .on(next: { [weak self] msg in  self?.handleMessage(msg, time_map: time_map)})
             .on(disposed: {debugPrint("reactive endpoint signal disposed")})
-            .map(ActionMessageDeserializer.deserialize)
-            .startWithNext() { [weak self] in
-                
-                switch $0 {
-                    
-                    case .Success(let m): self?.handleMessage(m, timeMap: time_map)
-                    
-                    case .Failure(let e): debugPrint("Failed to unarchive message: \(e)")
-                }
-        }
+            .start()
     }
     
     func attemptReshake(error: EndpointError) {
@@ -266,62 +352,23 @@ extension PerformerInteractor {
 
 extension PerformerInteractor {
     
-    func handleMessage(message: ActionMessage, timeMap: ChristiansMap) {
-        
-        switch message.type {
+    private func scheduleStartAudio(reference: String, timeMap: ChristiansMap, timestamp: NSTimeInterval, referenceTimestamp: NSTimeInterval, muted: Bool) {
+    
+        func remoteTime(timeMap: ChristiansMap) -> NSTimeInterval {
             
-            case .Start:
-                
-                handleStartMessage(message as! StartActionMessage, timeMap: timeMap)
-            
-            case .Stop:
-                
-                handleStopMessage(message as! StopActionMessage)
-            
-            case .Mute:
-                
-                toggleMuteAudio(true)
-            
-            case .Unmute:
-                
-                toggleMuteAudio(false)
+            let local_now = NSDate().timeIntervalSince1970
+            let elapsed = local_now - timeMap.local
+            let remote_now = timeMap.remote + elapsed
+            return remote_now
         }
-    }
-    
-    func remoteTime(timeMap: ChristiansMap) -> NSTimeInterval {
-        
-        let local_now = NSDate().timeIntervalSince1970
-        let elapsed = local_now - timeMap.local
-        let remote_now = timeMap.remote + elapsed
-        return remote_now
-    }
-    
-    func handleStartMessage(message: StartActionMessage, timeMap: ChristiansMap) {
-        
-        /* DO NOT MOVE THESE TWO LINES OR YOU WILL BREAK THE SYNC. */
-        audioloop?.loop.stop()
-        audioloop = nil
-        /*-------------------------------------------------------- */
         
         let remote_now = remoteTime(timeMap)
-        let latency = remote_now - message.timestamp
-        let time_elapsed = message.timestamp - message.referenceTimestamp + latency
+        let latency = remote_now - timestamp
+        let time_elapsed = timestamp - referenceTimestamp + latency
         let time_modulus = time_elapsed % audioConfig.audioFileLength
         
-        startAudio(TaggedAudioPathStore.taggedAudioPaths(message.reference), afterDelay: 0, atTime: time_modulus, muted: message.muted)
-        performerInstrumentsOutput.setColor(self.audioStemStore.audioStem(message.reference)!.colour)
+        startAudio(TaggedAudioPathStore.taggedAudioPaths(reference), afterDelay: 0, atTime: time_modulus, muted: muted)
     }
-    
-    func handleStopMessage(message: StopActionMessage) {
-        
-        audioloop?.loop.stop()
-        audioloop = nil
-        
-        performerInstrumentsOutput.setColor(UIColor.lightGrayColor())
-    }
-}
-
-extension PerformerInteractor {
     
     private func startAudio(paths: Set<TaggedAudioPath>, afterDelay: NSTimeInterval, atTime: NSTimeInterval, muted: Bool) {
         
@@ -333,6 +380,12 @@ extension PerformerInteractor {
     private func toggleMuteAudio(isMuted: Bool) {
         
         audioloop?.loop.setMuted(isMuted)
+    }
+    
+    func stopAudio() {
+        
+        audioloop?.loop.stop()
+        audioloop = nil
     }
 }
 
@@ -396,3 +449,79 @@ extension PerformerInteractor {
         }
     }
 }
+
+/*
+ ReactiveEndpoint.start(reactiveEndpoint!, resolvable: resolvable)
+ .on(failed: attemptReshake)
+ .on(disposed: {debugPrint("reactive endpoint signal disposed")})
+ .map(ActionMessageDeserializer.deserialize)
+ 
+ .startWithNext() { [weak self] in
+ 
+ switch $0 {
+ 
+ case .Success(let m): self?.handleMessage(m, timeMap: time_map)
+ 
+ case .Failure(let e): debugPrint("Failed to unarchive message: \(e)")
+ }
+ }
+ */
+
+/*
+ extension PerformerInteractor {
+ 
+ func handleMessage(message: ActionMessage, timeMap: ChristiansMap) {
+ 
+ switch message.type {
+ 
+ case .Start:
+ 
+ handleStartMessage(message as! StartActionMessage, timeMap: timeMap)
+ 
+ case .Stop:
+ 
+ handleStopMessage(message as! StopActionMessage)
+ 
+ case .Mute:
+ 
+ toggleMuteAudio(true)
+ 
+ case .Unmute:
+ 
+ toggleMuteAudio(false)
+ }
+ }
+ 
+ func remoteTime(timeMap: ChristiansMap) -> NSTimeInterval {
+ 
+ let local_now = NSDate().timeIntervalSince1970
+ let elapsed = local_now - timeMap.local
+ let remote_now = timeMap.remote + elapsed
+ return remote_now
+ }
+ 
+ func handleStartMessage(message: StartActionMessage, timeMap: ChristiansMap) {
+ 
+ /* DO NOT MOVE THESE TWO LINES OR YOU WILL BREAK THE SYNC. */
+ audioloop?.loop.stop()
+ audioloop = nil
+ /*-------------------------------------------------------- */
+ 
+ let remote_now = remoteTime(timeMap)
+ let latency = remote_now - message.timestamp
+ let time_elapsed = message.timestamp - message.referenceTimestamp + latency
+ let time_modulus = time_elapsed % audioConfig.audioFileLength
+ 
+ startAudio(TaggedAudioPathStore.taggedAudioPaths(message.reference), afterDelay: 0, atTime: time_modulus, muted: message.muted)
+ performerInstrumentsOutput.setColor(self.audioStemStore.audioStem(message.reference)!.colour)
+ }
+ 
+ func handleStopMessage(message: StopActionMessage) {
+ 
+ audioloop?.loop.stop()
+ audioloop = nil
+ 
+ performerInstrumentsOutput.setColor(UIColor.lightGrayColor())
+ }
+ }
+ */

@@ -25,3 +25,14 @@ struct StartActionMessageSerialisationKeys {
     
     static let muted = "Muted"
 }
+
+enum ActionMessageParsingError: ErrorType {
+    
+    case FailedToUnarchiveJSON
+    
+    case InvalidJSON
+    
+    case InvalidStartMessage
+    
+    case InvalidMessage
+}

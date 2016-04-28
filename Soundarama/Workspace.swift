@@ -13,7 +13,7 @@ typealias WorkspaceID = String
 struct Workspace: Hashable {
     
     let identifier: WorkspaceID
-    let audioStem: AudioStem?
+    let audioStem: AudioStemID?
     let performers: Set<Performer>
     let isMuted: Bool
     let isSolo: Bool

@@ -84,6 +84,7 @@ class TimeServerSyncMessageDeserializer {
     }
 }
 
+//TODO: share this function. It is duplicated across deserializers currently.
 
 private func getJSON(data: NSData) -> Result<AnyObject, SyncMessageParsingError> {
     

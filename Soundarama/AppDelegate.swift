@@ -20,6 +20,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         audioSetup()
         appSetup()
         soundarama = Soundarama.start(UIWindow(frame: UIScreen.mainScreen().bounds))
+        
         return true
     }
 }
@@ -39,4 +40,3 @@ extension AppDelegate {
         UIApplication.sharedApplication().idleTimerDisabled = true
     }
 }
-

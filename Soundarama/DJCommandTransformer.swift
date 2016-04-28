@@ -19,7 +19,9 @@ class DJCommandTransformer {
         let solosTo = Set(toSuite.filter({$0.isSolo}))
         let solosFrom = Set(fromSuite.filter({$0.isSolo}))
         
-        toSuite.forEach() {
+        
+        toSuite.forEach() { 
+           
             
             let from = fromTable[$0.identifier]!
             
@@ -59,7 +61,7 @@ class DJCommandTransformer {
             }
         }
         
-        return filter(records)
+       return filter(records)
     }
 }
 
@@ -114,7 +116,7 @@ extension DJCommandTransformer {
 
 extension DJCommandTransformer {
     
-    
+
     private static func addedPerformer(from: Workspace, to: Workspace, toSolos: Set<Workspace>) -> DJCommand? {
         
         guard let stem = to.audioStem else {
@@ -129,9 +131,10 @@ extension DJCommandTransformer {
             return nil
         }
         
-        return DJStartCommand(performer: added.first!, reference: stem.reference, muted: effectiveMute(workspace: to, solos: toSolos))
+        return DJStartCommand(performer: added.first!, reference: stem, muted: effectiveMute(workspace: to, solos: toSolos))
         
     }
+
     
     private static func removedPerformer(from: Workspace, to: Workspace, toSolos: Set<Workspace>) -> DJCommand? {
         
@@ -166,7 +169,7 @@ extension DJCommandTransformer {
             return nil
         }
         
-        return to.performers.map() { DJStartCommand(performer: $0, reference: audioStem.reference, muted: effectiveMute(workspace: to, solos: toSolos)) }
+        return to.performers.map() { DJStartCommand(performer: $0, reference: audioStem, muted: effectiveMute(workspace: to, solos: toSolos)) }
     }
     
     private static func fromAudioStem(from: Workspace, to: Workspace, toSolos: Set<Workspace>) -> [DJCommand]? {
@@ -189,12 +192,12 @@ extension DJCommandTransformer {
             return nil
         }
         
-        guard toStem.reference != fromStem.reference else {
+        guard toStem != fromStem else {
             
             return nil
         }
         
-        return to.performers.map() { DJStartCommand(performer: $0, reference: toStem.reference, muted: effectiveMute(workspace: to, solos: toSolos)) }
+        return to.performers.map() { DJStartCommand(performer: $0, reference: toStem, muted: effectiveMute(workspace: to, solos: toSolos)) }
     }
     
 }

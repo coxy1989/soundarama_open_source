@@ -8,22 +8,6 @@
 
 import Foundation
 
-enum TimeServerSyncMessageType: String {
-    
-    case Time = "Time"
-    
-    case Stop = "Stop"
-}
-
-enum TimeProcessSyncMessageType: String {
-    
-    case Start = "Start"
-    
-    case Acknowledge = "Ack"
-    
-    case Repeat = "Repeat"
-}
-
 struct TimeServerSyncMessageSerialisationKeys {
     
     static let type = "Type"
@@ -34,4 +18,13 @@ struct TimeServerSyncMessageSerialisationKeys {
 struct TimeProcessSyncMessageSerialisationKeys {
     
     static let type = "Type"
+}
+
+enum SyncMessageParsingError: ErrorType {
+    
+    case FailedToUnarchiveJSON
+    
+    case InvalidJSON
+    
+    case InvalidMessage
 }

@@ -62,14 +62,6 @@ class SocketAcceptor {
             }
         }
     }
-    
-    static func accepting(port: UInt16, accepted: (String, Endpoint) -> (), stopped: () -> ()) -> SocketAcceptor? {
-        
-        let acceptor = SocketAcceptor()
-        acceptor.accepted = accepted
-        acceptor.stopped = stopped
-        return acceptor.start(port) ?? nil
-    }
 }
 
 extension SocketAcceptor {

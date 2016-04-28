@@ -12,20 +12,22 @@ typealias CategoryKey = String
 
 typealias SongKey = String
 
+// TODO: Make me thread safe
+
 class AudioStemStore {
     
     var index: [CategoryKey : [SongKey : Set<AudioStem>]]!
     
     static let firstKey = union
     
-    static let keys = [union] + categories
+    static let categoryKeys = [union] + categories
     
-    static let colors = ["All" : UIColor.whiteColor(),
+    static let categoryColors = ["All" : UIColor.whiteColor(),
                         "Synth" : UIColor(rgba: "#9CE7F0"),
                         "Bass" : UIColor(rgba: "#C2F0B4"),
                         "Hats" : UIColor(rgba: "#E5C0F0"),
                         "Kick" : UIColor(rgba: "#F0A49C")]
-    
+ 
     private static let union = "All"
     
     private static let categories = ["Synth", "Bass", "Hats", "Kick"]
@@ -42,6 +44,16 @@ class AudioStemStore {
     func audioStem(reference: String) -> AudioStem? {
         
         return cache[reference]
+    }
+    
+    func color(reference: String) -> UIColor {
+        
+        return cache[reference]?.colour ?? UIColor.grayColor()
+    }
+    
+    func name(reference: String) -> String {
+        
+        return cache[reference]?.name ?? "Unknown"
     }
 }
 

@@ -6,8 +6,6 @@
 //  Copyright © 2016 Touchpress Ltd. All rights reserved.
 //
 
-// TODO: Rename `Action`Message
-
 protocol ActionMessage {
     
     var type: ActionMessageType { get }
@@ -37,6 +35,7 @@ struct StartActionMessage: ActionMessage {
     let referenceTimestamp: NSTimeInterval
     
     let muted: Bool
+    
     
     var hashValue: Int {
         

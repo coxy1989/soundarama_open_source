@@ -8,9 +8,16 @@
 
 typealias Reference = String
 
+// TODO: Lock threads
+
 class ReferenceTimestampStore {
     
     private var timestamps: [Reference : NSTimeInterval] = [ : ]
+    
+    func getTimestamps() -> [Reference : NSTimeInterval] {
+        
+        return timestamps
+    }
     
     func getTimestamp(reference: Reference) -> NSTimeInterval? {
         

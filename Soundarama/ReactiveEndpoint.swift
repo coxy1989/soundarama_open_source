@@ -12,38 +12,35 @@ import enum Result.NoError
 
 class ReactiveEndpoint {
     
-    let endpoint: Endpoint
+    var endpoint: Endpoint!
     
     var readHandler: (NSData -> ())?
     
     var stopHandler: (() -> ())?
     
-    init(endpoint: Endpoint) {
+    func producer(endpoint: Endpoint, resolvable: Resolvable) -> SignalProducer<NSData, EndpointError> {
         
         self.endpoint = endpoint
         endpoint.readableDelegate = self
-    }
-    
-    static func start(reactiveEndpoint: ReactiveEndpoint, resolvable: Resolvable) -> SignalProducer<NSData, EndpointError> {
         
-        return SignalProducer<NSData, EndpointError> { observer, disposable in
+        return SignalProducer<NSData, EndpointError> { [weak self] observer, disposable in
             
-            reactiveEndpoint.readHandler = {
+            self?.readHandler = {
                 
                 observer.sendNext($0)
             }
             
-            reactiveEndpoint.stopHandler = {
+            self?.stopHandler = {
                 
                 observer.sendCompleted()
             }
             
-            reactiveEndpoint.endpoint.onDisconnect() {
+            self?.endpoint.onDisconnect() {
                 
                 observer.sendFailed(.Disconnected(resolvable))
             }
             
-            reactiveEndpoint.endpoint.readData(Serialisation.terminator)
+            self?.endpoint.readData(Serialisation.terminator)
         }
     }
     

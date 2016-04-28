@@ -10,6 +10,15 @@ import Foundation
 
 /* Process */
 
+enum TimeProcessSyncMessageType: String {
+    
+    case Start = "Start"
+    
+    case Acknowledge = "Ack"
+    
+    case Repeat = "Repeat"
+}
+
 protocol TimeProcessSyncMessage {
     
     var type: TimeProcessSyncMessageType { get }
@@ -31,6 +40,13 @@ struct TimeProcessSyncRepeatMessage: TimeProcessSyncMessage {
 }
 
 /* Server */
+
+enum TimeServerSyncMessageType: String {
+    
+    case Time = "Time"
+    
+    case Stop = "Stop"
+}
 
 protocol TimeServerSyncMessage {
     

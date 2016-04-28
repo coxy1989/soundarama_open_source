@@ -181,6 +181,7 @@ extension SuiteStoreTests {
 
 extension SuiteStoreTests {
     
+    /*
     func testSetAudioStem_setsAudioStem() {
         
             /*
@@ -214,6 +215,7 @@ extension SuiteStoreTests {
         store.setAudioStem(aud, workspaceID: ws1.identifier)
         XCTAssertTrue(store.suite.first!.audioStem! == aud)
     }
+ */
 }
 
 /* Test: Toggle Mute */

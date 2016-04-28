@@ -151,7 +151,7 @@ extension SuiteStore {
     
     private func workspaceWithAudioStem(workspace: Workspace, audioStem: AudioStem) -> Workspace {
         
-        return Workspace(identifier: workspace.identifier, audioStem: audioStem, performers: workspace.performers, isMuted: workspace.isMuted, isSolo: workspace.isSolo, isAntiSolo: workspace.isAntiSolo)
+        return Workspace(identifier: workspace.identifier, audioStem: audioStem.reference, performers: workspace.performers, isMuted: workspace.isMuted, isSolo: workspace.isSolo, isAntiSolo: workspace.isAntiSolo)
     }
     
     private func workspaceWithMuteState(workspace: Workspace, muteState: Bool) -> Workspace {

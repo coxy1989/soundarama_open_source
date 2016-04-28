@@ -34,7 +34,6 @@
 		42160E381CAEDB5000EBCBB6 /* SocketAcceptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42160E371CAEDB5000EBCBB6 /* SocketAcceptor.swift */; };
 		42177FA21C9AAB29008411B0 /* Functional.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42177FA11C9AAB29008411B0 /* Functional.swift */; };
 		421B7BEF1CCCCCE100E90C71 /* NetworkEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 421B7BEE1CCCCCE100E90C71 /* NetworkEvent.swift */; };
-		421B7BF11CCCFEF900E90C71 /* ParsingError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 421B7BF01CCCFEF900E90C71 /* ParsingError.swift */; };
 		421B7BF51CCD165C00E90C71 /* SyncMessageDeserializer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 421B7BF41CCD165C00E90C71 /* SyncMessageDeserializer.swift */; };
 		421B7BF71CCD166F00E90C71 /* SyncMessageSerializer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 421B7BF61CCD166F00E90C71 /* SyncMessageSerializer.swift */; };
 		421B7BF91CCD173900E90C71 /* MessageSerialisation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 421B7BF81CCD173900E90C71 /* MessageSerialisation.swift */; };
@@ -50,7 +49,7 @@
 		424992031CC7768300BC36D9 /* Handshake.swift in Sources */ = {isa = PBXBuildFile; fileRef = 424992021CC7768300BC36D9 /* Handshake.swift */; };
 		4249B5961C578A160096872D /* BroadcastSocketEndpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4249B5951C578A160096872D /* BroadcastSocketEndpoint.swift */; };
 		4249B5981C578A5A0096872D /* SearchSocketEndpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4249B5971C578A5A0096872D /* SearchSocketEndpoint.swift */; };
-		4249B59B1C5792490096872D /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4249B59A1C5792490096872D /* Message.swift */; };
+		4249B59B1C5792490096872D /* ActionMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4249B59A1C5792490096872D /* ActionMessage.swift */; };
 		4249B59D1C5797920096872D /* ChristiansTimeServer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4249B59C1C5797920096872D /* ChristiansTimeServer.swift */; };
 		4249B59F1C57979E0096872D /* ChristiansProcess.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4249B59E1C57979E0096872D /* ChristiansProcess.swift */; };
 		425498E31C987F8000793640 /* UnderlinedTextButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 425498E21C987F8000793640 /* UnderlinedTextButton.swift */; };
@@ -67,6 +66,10 @@
 		428047F71CC8DE7B001B6E60 /* DJIdentifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 428047F61CC8DE7B001B6E60 /* DJIdentifier.swift */; };
 		4280C0D81C5D1A8A00B2C9B3 /* DJCommandTransformer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4280C0D71C5D1A8A00B2C9B3 /* DJCommandTransformer.swift */; };
 		4280C0DA1C5D25DC00B2C9B3 /* CommandTransformerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4280C0D91C5D25DC00B2C9B3 /* CommandTransformerTests.swift */; };
+		4280F0C21CCF68AD00B0BAED /* HeartbeatMessageSerialisation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4280F0C11CCF68AD00B0BAED /* HeartbeatMessageSerialisation.swift */; };
+		4280F0C41CCF68C600B0BAED /* HeartbeatMessageSerializer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4280F0C31CCF68C600B0BAED /* HeartbeatMessageSerializer.swift */; };
+		4280F0C61CCF68D600B0BAED /* HeartbeatMessageDeserializer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4280F0C51CCF68D600B0BAED /* HeartbeatMessageDeserializer.swift */; };
+		4280F0C91CCF694B00B0BAED /* HeartbeatMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4280F0C81CCF694B00B0BAED /* HeartbeatMessage.swift */; };
 		42889BF51CA0468B00ACC3B9 /* Flickometer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42889BF41CA0468B00ACC3B9 /* Flickometer.swift */; };
 		42889BF91CA047BF00ACC3B9 /* Tags.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42889BF81CA047BF00ACC3B9 /* Tags.swift */; };
 		42899B791C886CC600ECA105 /* GroupTransformerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42899B781C886CC600ECA105 /* GroupTransformerTests.swift */; };
@@ -109,7 +112,7 @@
 		42B3D1F21C99DDBB0065842D /* MultiAudioLoop.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42B3D1F11C99DDBB0065842D /* MultiAudioLoop.swift */; };
 		42C1D2241CAA9DCE005D0347 /* MessageDeserializer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42C1D2231CAA9DCE005D0347 /* MessageDeserializer.swift */; };
 		42C1D2261CAAC5CA005D0347 /* MessageTransformer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42C1D2251CAAC5CA005D0347 /* MessageTransformer.swift */; };
-		42C1D2281CAAC5F0005D0347 /* Command.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42C1D2271CAAC5F0005D0347 /* Command.swift */; };
+		42C1D2281CAAC5F0005D0347 /* DJCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42C1D2271CAAC5F0005D0347 /* DJCommand.swift */; };
 		42C1D22A1CAACBD5005D0347 /* ReferenceTimestampStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42C1D2291CAACBD5005D0347 /* ReferenceTimestampStore.swift */; };
 		42C1D22C1CABD2AE005D0347 /* AudioConfigStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42C1D22B1CABD2AE005D0347 /* AudioConfigStore.swift */; };
 		42C1D22E1CABD704005D0347 /* AudioConfigurationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42C1D22D1CABD704005D0347 /* AudioConfigurationTests.swift */; };
@@ -134,6 +137,8 @@
 		42ED6C6E1CAC30BA002A7211 /* AudioConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42ED6C6D1CAC30BA002A7211 /* AudioConfiguration.swift */; };
 		42ED6C701CAC30C7002A7211 /* NetworkConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42ED6C6F1CAC30C7002A7211 /* NetworkConfiguration.swift */; };
 		42ED6C731CAD7741002A7211 /* SearchcastService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42ED6C721CAD7741002A7211 /* SearchcastService.swift */; };
+		42F022EA1CCF89590031BE97 /* StateMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42F022E91CCF89590031BE97 /* StateMessage.swift */; };
+		42F022EC1CD0CABC0031BE97 /* StateMessageDeserializerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42F022EB1CD0CABC0031BE97 /* StateMessageDeserializerTests.swift */; };
 		42F64F681CB3BAF600565F4B /* ResolvableStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42F64F671CB3BAF600565F4B /* ResolvableStore.swift */; };
 		42F64F6C1CB3D02000565F4B /* Endpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42F64F6B1CB3D02000565F4B /* Endpoint.swift */; };
 		42F64F711CB3FB1A00565F4B /* EndpointStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42F64F701CB3FB1A00565F4B /* EndpointStore.swift */; };
@@ -207,7 +212,6 @@
 		42160E371CAEDB5000EBCBB6 /* SocketAcceptor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SocketAcceptor.swift; sourceTree = "<group>"; };
 		42177FA11C9AAB29008411B0 /* Functional.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Functional.swift; sourceTree = "<group>"; };
 		421B7BEE1CCCCCE100E90C71 /* NetworkEvent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkEvent.swift; sourceTree = "<group>"; };
-		421B7BF01CCCFEF900E90C71 /* ParsingError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ParsingError.swift; sourceTree = "<group>"; };
 		421B7BF41CCD165C00E90C71 /* SyncMessageDeserializer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SyncMessageDeserializer.swift; sourceTree = "<group>"; };
 		421B7BF61CCD166F00E90C71 /* SyncMessageSerializer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SyncMessageSerializer.swift; sourceTree = "<group>"; };
 		421B7BF81CCD173900E90C71 /* MessageSerialisation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessageSerialisation.swift; sourceTree = "<group>"; };
@@ -223,7 +227,7 @@
 		424992021CC7768300BC36D9 /* Handshake.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Handshake.swift; sourceTree = "<group>"; };
 		4249B5951C578A160096872D /* BroadcastSocketEndpoint.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BroadcastSocketEndpoint.swift; sourceTree = "<group>"; };
 		4249B5971C578A5A0096872D /* SearchSocketEndpoint.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchSocketEndpoint.swift; sourceTree = "<group>"; };
-		4249B59A1C5792490096872D /* Message.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
+		4249B59A1C5792490096872D /* ActionMessage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActionMessage.swift; sourceTree = "<group>"; };
 		4249B59C1C5797920096872D /* ChristiansTimeServer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChristiansTimeServer.swift; sourceTree = "<group>"; };
 		4249B59E1C57979E0096872D /* ChristiansProcess.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChristiansProcess.swift; sourceTree = "<group>"; };
 		425498E21C987F8000793640 /* UnderlinedTextButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UnderlinedTextButton.swift; sourceTree = "<group>"; };
@@ -240,6 +244,10 @@
 		428047F61CC8DE7B001B6E60 /* DJIdentifier.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DJIdentifier.swift; sourceTree = "<group>"; };
 		4280C0D71C5D1A8A00B2C9B3 /* DJCommandTransformer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DJCommandTransformer.swift; sourceTree = "<group>"; };
 		4280C0D91C5D25DC00B2C9B3 /* CommandTransformerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommandTransformerTests.swift; sourceTree = "<group>"; };
+		4280F0C11CCF68AD00B0BAED /* HeartbeatMessageSerialisation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HeartbeatMessageSerialisation.swift; sourceTree = "<group>"; };
+		4280F0C31CCF68C600B0BAED /* HeartbeatMessageSerializer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HeartbeatMessageSerializer.swift; sourceTree = "<group>"; };
+		4280F0C51CCF68D600B0BAED /* HeartbeatMessageDeserializer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HeartbeatMessageDeserializer.swift; sourceTree = "<group>"; };
+		4280F0C81CCF694B00B0BAED /* HeartbeatMessage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HeartbeatMessage.swift; sourceTree = "<group>"; };
 		42889BF41CA0468B00ACC3B9 /* Flickometer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Flickometer.swift; sourceTree = "<group>"; };
 		42889BF81CA047BF00ACC3B9 /* Tags.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Tags.swift; sourceTree = "<group>"; };
 		42899B781C886CC600ECA105 /* GroupTransformerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GroupTransformerTests.swift; sourceTree = "<group>"; };
@@ -285,7 +293,7 @@
 		42B3D1F11C99DDBB0065842D /* MultiAudioLoop.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MultiAudioLoop.swift; sourceTree = "<group>"; };
 		42C1D2231CAA9DCE005D0347 /* MessageDeserializer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessageDeserializer.swift; sourceTree = "<group>"; };
 		42C1D2251CAAC5CA005D0347 /* MessageTransformer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessageTransformer.swift; sourceTree = "<group>"; };
-		42C1D2271CAAC5F0005D0347 /* Command.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Command.swift; sourceTree = "<group>"; };
+		42C1D2271CAAC5F0005D0347 /* DJCommand.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DJCommand.swift; sourceTree = "<group>"; };
 		42C1D2291CAACBD5005D0347 /* ReferenceTimestampStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReferenceTimestampStore.swift; sourceTree = "<group>"; };
 		42C1D22B1CABD2AE005D0347 /* AudioConfigStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AudioConfigStore.swift; sourceTree = "<group>"; };
 		42C1D22D1CABD704005D0347 /* AudioConfigurationTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AudioConfigurationTests.swift; sourceTree = "<group>"; };
@@ -310,6 +318,8 @@
 		42ED6C6D1CAC30BA002A7211 /* AudioConfiguration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AudioConfiguration.swift; sourceTree = "<group>"; };
 		42ED6C6F1CAC30C7002A7211 /* NetworkConfiguration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkConfiguration.swift; sourceTree = "<group>"; };
 		42ED6C721CAD7741002A7211 /* SearchcastService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchcastService.swift; sourceTree = "<group>"; };
+		42F022E91CCF89590031BE97 /* StateMessage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StateMessage.swift; sourceTree = "<group>"; };
+		42F022EB1CD0CABC0031BE97 /* StateMessageDeserializerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StateMessageDeserializerTests.swift; sourceTree = "<group>"; };
 		42F64F671CB3BAF600565F4B /* ResolvableStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResolvableStore.swift; sourceTree = "<group>"; };
 		42F64F6B1CB3D02000565F4B /* Endpoint.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Endpoint.swift; sourceTree = "<group>"; };
 		42F64F701CB3FB1A00565F4B /* EndpointStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EndpointStore.swift; sourceTree = "<group>"; };
@@ -384,6 +394,7 @@
 				429EC9881C85AF9F002FDBCC /* GroupStoreTests.swift */,
 				42899B781C886CC600ECA105 /* GroupTransformerTests.swift */,
 				42C1D22D1CABD704005D0347 /* AudioConfigurationTests.swift */,
+				42F022EB1CD0CABC0031BE97 /* StateMessageDeserializerTests.swift */,
 			);
 			name = "Test Cases";
 			sourceTree = "<group>";
@@ -542,23 +553,11 @@
 		4249B5991C5792190096872D /* Representation */ = {
 			isa = PBXGroup;
 			children = (
-				42ED6C6D1CAC30BA002A7211 /* AudioConfiguration.swift */,
-				42D9F8A51C88A7AB0056957B /* AudioStem.swift */,
-				42C1D2271CAAC5F0005D0347 /* Command.swift */,
-				428AF2AB1CA0327C0023FCC9 /* Connection.swift */,
-				428047F61CC8DE7B001B6E60 /* DJIdentifier.swift */,
-				42D9F89F1C88A70F0056957B /* Group.swift */,
-				4249B59A1C5792490096872D /* Message.swift */,
-				42ED6C6F1CAC30C7002A7211 /* NetworkConfiguration.swift */,
-				425571DC1CC430290066EABE /* NetworkError.swift */,
-				421B7BEE1CCCCCE100E90C71 /* NetworkEvent.swift */,
-				421B7BF01CCCFEF900E90C71 /* ParsingError.swift */,
-				42D9F8A31C88A7950056957B /* Performer.swift */,
-				420080381C5BCA44009009E8 /* Suite.swift */,
-				421B7BFC1CCD179800E90C71 /* SyncMessage.swift */,
-				42B3D1E61C99B1910065842D /* TaggedAudioPath.swift */,
-				42889BF81CA047BF00ACC3B9 /* Tags.swift */,
-				42D9F8A11C88A7460056957B /* Workspace.swift */,
+				4280F0CA1CCF695600B0BAED /* Audio */,
+				4280F0CC1CCF698600B0BAED /* DJ */,
+				4280F0C71CCF692F00B0BAED /* Message */,
+				4280F0CB1CCF696400B0BAED /* Network */,
+				4280F0CD1CCF69AB00B0BAED /* Perform */,
 			);
 			name = Representation;
 			sourceTree = "<group>";
@@ -629,6 +628,69 @@
 			name = Transformation;
 			sourceTree = "<group>";
 		};
+		4280F0C01CCF688000B0BAED /* Heartbeat */ = {
+			isa = PBXGroup;
+			children = (
+				4280F0C11CCF68AD00B0BAED /* HeartbeatMessageSerialisation.swift */,
+				4280F0C31CCF68C600B0BAED /* HeartbeatMessageSerializer.swift */,
+				4280F0C51CCF68D600B0BAED /* HeartbeatMessageDeserializer.swift */,
+			);
+			name = Heartbeat;
+			sourceTree = "<group>";
+		};
+		4280F0C71CCF692F00B0BAED /* Message */ = {
+			isa = PBXGroup;
+			children = (
+				42F022E91CCF89590031BE97 /* StateMessage.swift */,
+				4249B59A1C5792490096872D /* ActionMessage.swift */,
+				4280F0C81CCF694B00B0BAED /* HeartbeatMessage.swift */,
+				421B7BFC1CCD179800E90C71 /* SyncMessage.swift */,
+			);
+			name = Message;
+			sourceTree = "<group>";
+		};
+		4280F0CA1CCF695600B0BAED /* Audio */ = {
+			isa = PBXGroup;
+			children = (
+				42B3D1E61C99B1910065842D /* TaggedAudioPath.swift */,
+				42889BF81CA047BF00ACC3B9 /* Tags.swift */,
+				42ED6C6D1CAC30BA002A7211 /* AudioConfiguration.swift */,
+				42D9F8A51C88A7AB0056957B /* AudioStem.swift */,
+			);
+			name = Audio;
+			sourceTree = "<group>";
+		};
+		4280F0CB1CCF696400B0BAED /* Network */ = {
+			isa = PBXGroup;
+			children = (
+				428AF2AB1CA0327C0023FCC9 /* Connection.swift */,
+				42ED6C6F1CAC30C7002A7211 /* NetworkConfiguration.swift */,
+				425571DC1CC430290066EABE /* NetworkError.swift */,
+				421B7BEE1CCCCCE100E90C71 /* NetworkEvent.swift */,
+			);
+			name = Network;
+			sourceTree = "<group>";
+		};
+		4280F0CC1CCF698600B0BAED /* DJ */ = {
+			isa = PBXGroup;
+			children = (
+				42D9F8A11C88A7460056957B /* Workspace.swift */,
+				420080381C5BCA44009009E8 /* Suite.swift */,
+				42D9F8A31C88A7950056957B /* Performer.swift */,
+				42D9F89F1C88A70F0056957B /* Group.swift */,
+				42C1D2271CAAC5F0005D0347 /* DJCommand.swift */,
+			);
+			name = DJ;
+			sourceTree = "<group>";
+		};
+		4280F0CD1CCF69AB00B0BAED /* Perform */ = {
+			isa = PBXGroup;
+			children = (
+				428047F61CC8DE7B001B6E60 /* DJIdentifier.swift */,
+			);
+			name = Perform;
+			sourceTree = "<group>";
+		};
 		429EC9871C85AEE0002FDBCC /* Stores (Disk) */ = {
 			isa = PBXGroup;
 			children = (
@@ -691,8 +753,9 @@
 			isa = PBXGroup;
 			children = (
 				421468601C56672500892786 /* Serialisation.swift */,
-				421B7BF31CCD12FB00E90C71 /* Action */,
 				421B7BF21CCD12F600E90C71 /* Sync */,
+				4280F0C01CCF688000B0BAED /* Heartbeat */,
+				421B7BF31CCD12FB00E90C71 /* Action */,
 			);
 			name = Serialisation;
 			sourceTree = "<group>";
@@ -1058,6 +1121,7 @@
 				42B3D1EC1C99B7260065842D /* CompassLevelVolumeControllerTests.swift in Sources */,
 				42E81E8F1C5E37E100A9FC57 /* SuiteStoreTests.swift in Sources */,
 				429EC9891C85AF9F002FDBCC /* GroupStoreTests.swift in Sources */,
+				42F022EC1CD0CABC0031BE97 /* StateMessageDeserializerTests.swift in Sources */,
 				42C1D22E1CABD704005D0347 /* AudioConfigurationTests.swift in Sources */,
 				42899B791C886CC600ECA105 /* GroupTransformerTests.swift in Sources */,
 				4280C0DA1C5D25DC00B2C9B3 /* CommandTransformerTests.swift in Sources */,
@@ -1079,7 +1143,9 @@
 				421022C21CC9032E00D29CF2 /* AssertiveDiscovery.swift in Sources */,
 				42B3D1F21C99DDBB0065842D /* MultiAudioLoop.swift in Sources */,
 				420756391CA0036B00A4666A /* InstrumentsViewController.swift in Sources */,
+				42F022EA1CCF89590031BE97 /* StateMessage.swift in Sources */,
 				425498E31C987F8000793640 /* UnderlinedTextButton.swift in Sources */,
+				4280F0C41CCF68C600B0BAED /* HeartbeatMessageSerializer.swift in Sources */,
 				424991F61CC51A9A00BC36D9 /* ReactiveEndpoint.swift in Sources */,
 				42A727B61C552E8D00BFCA47 /* DJInteractor.swift in Sources */,
 				42F64F711CB3FB1A00565F4B /* EndpointStore.swift in Sources */,
@@ -1103,7 +1169,6 @@
 				42FDDD151CBE80CF00776C06 /* CompassChargeVolumeController.swift in Sources */,
 				428AF2AC1CA0327C0023FCC9 /* Connection.swift in Sources */,
 				429EC9671C84770C002FDBCC /* SwiftyJSON.swift in Sources */,
-				421B7BF11CCCFEF900E90C71 /* ParsingError.swift in Sources */,
 				421B7BFD1CCD179800E90C71 /* SyncMessage.swift in Sources */,
 				421468551C56345700892786 /* TP2P.swift in Sources */,
 				42D9F8A61C88A7AB0056957B /* AudioStem.swift in Sources */,
@@ -1119,7 +1184,7 @@
 				42B3D1EE1C99CDF00065842D /* Compass.swift in Sources */,
 				42B3D1E51C99B0F50065842D /* TaggedAudioPathStore.swift in Sources */,
 				421022C41CC90FF600D29CF2 /* ConnectionStore.swift in Sources */,
-				4249B59B1C5792490096872D /* Message.swift in Sources */,
+				4249B59B1C5792490096872D /* ActionMessage.swift in Sources */,
 				427B05C41CBBB71B0009EF75 /* CompassView.swift in Sources */,
 				42ED6C701CAC30C7002A7211 /* NetworkConfiguration.swift in Sources */,
 				428AF2A81CA02DA80023FCC9 /* Accelerometer.swift in Sources */,
@@ -1135,6 +1200,7 @@
 				429EC9571C8475A8002FDBCC /* AppDelegate.swift in Sources */,
 				42ED6C731CAD7741002A7211 /* SearchcastService.swift in Sources */,
 				4273BC611C876708002E9EF9 /* GroupTransformer.swift in Sources */,
+				4280F0C21CCF68AD00B0BAED /* HeartbeatMessageSerialisation.swift in Sources */,
 				429EC9861C85AECE002FDBCC /* GroupStore.swift in Sources */,
 				42D9F8A21C88A7460056957B /* Workspace.swift in Sources */,
 				42F64F731CB563B600565F4B /* ChristiansConstants.swift in Sources */,
@@ -1163,6 +1229,7 @@
 				421468641C567E9600892786 /* SearchStrategy.swift in Sources */,
 				429EC9651C8476A1002FDBCC /* VolumeControl.m in Sources */,
 				4249B59F1C57979E0096872D /* ChristiansProcess.swift in Sources */,
+				4280F0C61CCF68D600B0BAED /* HeartbeatMessageDeserializer.swift in Sources */,
 				421022CA1CC93A6600D29CF2 /* ReceptiveDiscovery.swift in Sources */,
 				421468611C56672500892786 /* Serialisation.swift in Sources */,
 				42ED6C6E1CAC30BA002A7211 /* AudioConfiguration.swift in Sources */,
@@ -1171,9 +1238,10 @@
 				4277FBF41C9729FB0042B051 /* DJAudioStemPickerViewController.swift in Sources */,
 				42ED6C681CAC02D5002A7211 /* SearchService.swift in Sources */,
 				421B7BF71CCD166F00E90C71 /* SyncMessageSerializer.swift in Sources */,
+				4280F0C91CCF694B00B0BAED /* HeartbeatMessage.swift in Sources */,
 				42E6236C1CB2740900A3443A /* PickDJViewController.swift in Sources */,
 				42A727A81C552D5D00BFCA47 /* PerformerModule.swift in Sources */,
-				42C1D2281CAAC5F0005D0347 /* Command.swift in Sources */,
+				42C1D2281CAAC5F0005D0347 /* DJCommand.swift in Sources */,
 				42889BF51CA0468B00ACC3B9 /* Flickometer.swift in Sources */,
 				42D9F8A01C88A70F0056957B /* Group.swift in Sources */,
 				429EC9691C847740002FDBCC /* UIColor+Hex.swift in Sources */,
