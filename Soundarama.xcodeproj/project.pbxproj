@@ -118,9 +118,15 @@
 		42D9F8A21C88A7460056957B /* Workspace.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42D9F8A11C88A7460056957B /* Workspace.swift */; };
 		42D9F8A41C88A7950056957B /* Performer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42D9F8A31C88A7950056957B /* Performer.swift */; };
 		42D9F8A61C88A7AB0056957B /* AudioStem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42D9F8A51C88A7AB0056957B /* AudioStem.swift */; };
+		42DCE5F91CD8B0450041B513 /* PickDJUserInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42DCE5F81CD8B0450041B513 /* PickDJUserInterface.swift */; };
+		42DCE5FB1CD8B3790041B513 /* InstructionView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 42DCE5FA1CD8B3790041B513 /* InstructionView.xib */; };
+		42DCE5FD1CD8B5BE0041B513 /* InstructionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42DCE5FC1CD8B5BE0041B513 /* InstructionView.swift */; };
+		42DCE6001CD8E1F60041B513 /* Instructions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42DCE5FF1CD8E1F60041B513 /* Instructions.swift */; };
+		42DCE6021CD8E6DB0041B513 /* PerformerOnboardingStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42DCE6011CD8E6DB0041B513 /* PerformerOnboardingStore.swift */; };
 		42E269F71CD22EE9002FAD2A /* StateMessageSerialization.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42E269F61CD22EE9002FAD2A /* StateMessageSerialization.swift */; };
 		42E269F91CD22F49002FAD2A /* StateMessageDeserializer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42E269F81CD22F49002FAD2A /* StateMessageDeserializer.swift */; };
 		42E269FB1CD22F5E002FAD2A /* StateMessageSerializer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42E269FA1CD22F5E002FAD2A /* StateMessageSerializer.swift */; };
+		42E269FD1CD26715002FAD2A /* ColorStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42E269FC1CD26715002FAD2A /* ColorStore.swift */; };
 		42E49DAE1C58F20D00B9C127 /* SoundZoneCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42E49DAD1C58F20D00B9C127 /* SoundZoneCollectionViewCell.swift */; };
 		42E6236C1CB2740900A3443A /* PickDJViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42E6236B1CB2740900A3443A /* PickDJViewController.swift */; };
 		42E6236E1CB2CA2B00A3443A /* SocketConnector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42E6236D1CB2CA2B00A3443A /* SocketConnector.swift */; };
@@ -298,9 +304,15 @@
 		42D9F8A11C88A7460056957B /* Workspace.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Workspace.swift; sourceTree = "<group>"; };
 		42D9F8A31C88A7950056957B /* Performer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Performer.swift; sourceTree = "<group>"; };
 		42D9F8A51C88A7AB0056957B /* AudioStem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AudioStem.swift; sourceTree = "<group>"; };
+		42DCE5F81CD8B0450041B513 /* PickDJUserInterface.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PickDJUserInterface.swift; sourceTree = "<group>"; };
+		42DCE5FA1CD8B3790041B513 /* InstructionView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = InstructionView.xib; sourceTree = "<group>"; };
+		42DCE5FC1CD8B5BE0041B513 /* InstructionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InstructionView.swift; sourceTree = "<group>"; };
+		42DCE5FF1CD8E1F60041B513 /* Instructions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Instructions.swift; sourceTree = "<group>"; };
+		42DCE6011CD8E6DB0041B513 /* PerformerOnboardingStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PerformerOnboardingStore.swift; sourceTree = "<group>"; };
 		42E269F61CD22EE9002FAD2A /* StateMessageSerialization.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StateMessageSerialization.swift; sourceTree = "<group>"; };
 		42E269F81CD22F49002FAD2A /* StateMessageDeserializer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StateMessageDeserializer.swift; sourceTree = "<group>"; };
 		42E269FA1CD22F5E002FAD2A /* StateMessageSerializer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StateMessageSerializer.swift; sourceTree = "<group>"; };
+		42E269FC1CD26715002FAD2A /* ColorStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ColorStore.swift; sourceTree = "<group>"; };
 		42E49DAD1C58F20D00B9C127 /* SoundZoneCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SoundZoneCollectionViewCell.swift; sourceTree = "<group>"; };
 		42E6236B1CB2740900A3443A /* PickDJViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PickDJViewController.swift; sourceTree = "<group>"; };
 		42E6236D1CB2CA2B00A3443A /* SocketConnector.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SocketConnector.swift; sourceTree = "<group>"; };
@@ -402,6 +414,8 @@
 			children = (
 				42FDDD121CBE429F00776C06 /* ChargerView.swift */,
 				427B05C31CBBB71B0009EF75 /* CompassView.swift */,
+				42DCE5FC1CD8B5BE0041B513 /* InstructionView.swift */,
+				42DCE5FA1CD8B3790041B513 /* InstructionView.xib */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -433,6 +447,7 @@
 			children = (
 				424991FA1CC6791700BC36D9 /* PerformerUserInterface.swift */,
 				420756381CA0036B00A4666A /* InstrumentsViewController.swift */,
+				42DCE5F81CD8B0450041B513 /* PickDJUserInterface.swift */,
 				42E6236B1CB2740900A3443A /* PickDJViewController.swift */,
 				420AA6A41C551AB300F7BB25 /* PerformerStoryboard.storyboard */,
 				4207563A1CA00DE400A4666A /* Views */,
@@ -678,15 +693,16 @@
 			name = Perform;
 			sourceTree = "<group>";
 		};
-		429EC9871C85AEE0002FDBCC /* Stores (Disk) */ = {
+		429EC9871C85AEE0002FDBCC /* Stores (Read) */ = {
 			isa = PBXGroup;
 			children = (
 				42C1D22B1CABD2AE005D0347 /* AudioConfigStore.swift */,
 				42C45A851C57DF2100888EA8 /* AudioStemStore.swift */,
+				42E269FC1CD26715002FAD2A /* ColorStore.swift */,
 				429EC9661C84770C002FDBCC /* SwiftyJSON.swift */,
 				42B3D1E41C99B0F50065842D /* TaggedAudioPathStore.swift */,
 			);
-			name = "Stores (Disk)";
+			name = "Stores (Read)";
 			sourceTree = "<group>";
 		};
 		42A55C121C0F2AE900FD6C7D /* Resources */ = {
@@ -716,11 +732,12 @@
 				425CC3261C74B8A100B39AB5 /* Audio */,
 				42B3D1E81C99B2540065842D /* Instrumentation */,
 				42AFC6511C5542DA00AD4B9B /* Network */,
+				42DCE5FE1CD8E1DB0041B513 /* Onboarding */,
 				421022BD1CC8E52800D29CF2 /* Presentation */,
 				4249B5991C5792190096872D /* Representation */,
 				42AFC6661C55806A00AD4B9B /* Serialisation */,
-				429EC9871C85AEE0002FDBCC /* Stores (Disk) */,
-				42C45A821C57DE5700888EA8 /* Stores (Memory) */,
+				429EC9871C85AEE0002FDBCC /* Stores (Read) */,
+				42C45A821C57DE5700888EA8 /* Stores (ReadWrite) */,
 				4280C0D61C5D166400B2C9B3 /* Transformation */,
 			);
 			name = Model;
@@ -757,18 +774,27 @@
 			name = Instrumentation;
 			sourceTree = "<group>";
 		};
-		42C45A821C57DE5700888EA8 /* Stores (Memory) */ = {
+		42C45A821C57DE5700888EA8 /* Stores (ReadWrite) */ = {
 			isa = PBXGroup;
 			children = (
-				42F64F671CB3BAF600565F4B /* ResolvableStore.swift */,
-				42F64F701CB3FB1A00565F4B /* EndpointStore.swift */,
-				429EC9851C85AECE002FDBCC /* GroupStore.swift */,
-				42C1D2291CAACBD5005D0347 /* ReferenceTimestampStore.swift */,
-				4200803A1C5BD289009009E8 /* SuiteStore.swift */,
 				421022C31CC90FF600D29CF2 /* ConnectionStore.swift */,
 				421022C51CC9101000D29CF2 /* DiscoveryStore.swift */,
+				42F64F701CB3FB1A00565F4B /* EndpointStore.swift */,
+				429EC9851C85AECE002FDBCC /* GroupStore.swift */,
+				42DCE6011CD8E6DB0041B513 /* PerformerOnboardingStore.swift */,
+				42C1D2291CAACBD5005D0347 /* ReferenceTimestampStore.swift */,
+				42F64F671CB3BAF600565F4B /* ResolvableStore.swift */,
+				4200803A1C5BD289009009E8 /* SuiteStore.swift */,
 			);
-			name = "Stores (Memory)";
+			name = "Stores (ReadWrite)";
+			sourceTree = "<group>";
+		};
+		42DCE5FE1CD8E1DB0041B513 /* Onboarding */ = {
+			isa = PBXGroup;
+			children = (
+				42DCE5FF1CD8E1F60041B513 /* Instructions.swift */,
+			);
+			name = Onboarding;
 			sourceTree = "<group>";
 		};
 		42E269F51CD22D80002FAD2A /* State */ = {
@@ -1065,6 +1091,7 @@
 				E26EBAA31C18AF4700747726 /* Localizable.strings in Resources */,
 				4244598E1CA2EB5F00547B3C /* AGaramondPro-Regular.otf in Resources */,
 				42A727A21C552C4800BFCA47 /* DJStoryboard.storyboard in Resources */,
+				42DCE5FB1CD8B3790041B513 /* InstructionView.xib in Resources */,
 				4244598D1CA2EB5F00547B3C /* AGaramondPro-Italic.otf in Resources */,
 				420AA6991C55055F00F7BB25 /* DecideStoryboard.storyboard in Resources */,
 				428A89011C9975DC0070BE7F /* Sounds in Resources */,
@@ -1150,6 +1177,7 @@
 				42C45A861C57DF2100888EA8 /* AudioStemStore.swift in Sources */,
 				42160E381CAEDB5000EBCBB6 /* SocketAcceptor.swift in Sources */,
 				42C1D22A1CAACBD5005D0347 /* ReferenceTimestampStore.swift in Sources */,
+				42E269FD1CD26715002FAD2A /* ColorStore.swift in Sources */,
 				42F90EEA1C5D74920010F1C5 /* UIFont.swift in Sources */,
 				421B7BEF1CCCCCE100E90C71 /* NetworkEvent.swift in Sources */,
 				429523A91CAE89BC005B26FA /* WiFiReachability.swift in Sources */,
@@ -1171,7 +1199,9 @@
 				42ED6C6C1CAC2D8D002A7211 /* BroadcastStore.swift in Sources */,
 				42E49DAE1C58F20D00B9C127 /* SoundZoneCollectionViewCell.swift in Sources */,
 				421B7BF51CCD165C00E90C71 /* SyncMessageDeserializer.swift in Sources */,
+				42DCE5F91CD8B0450041B513 /* PickDJUserInterface.swift in Sources */,
 				42ED6C661CAC028E002A7211 /* Host.swift in Sources */,
+				42DCE5FD1CD8B5BE0041B513 /* InstructionView.swift in Sources */,
 				42F64F6C1CB3D02000565F4B /* Endpoint.swift in Sources */,
 				42E269FB1CD22F5E002FAD2A /* StateMessageSerializer.swift in Sources */,
 				DFBAD41F1C64C346004C1D47 /* SpringMesh.swift in Sources */,
@@ -1207,7 +1237,9 @@
 				428047F71CC8DE7B001B6E60 /* DJIdentifier.swift in Sources */,
 				42A727B21C552E5D00BFCA47 /* DJWireframe.swift in Sources */,
 				421022C81CC9201B00D29CF2 /* Reshake.swift in Sources */,
+				42DCE6021CD8E6DB0041B513 /* PerformerOnboardingStore.swift in Sources */,
 				426A6AAE1CC286FF0063DFDC /* Resolvable.swift in Sources */,
+				42DCE6001CD8E1F60041B513 /* Instructions.swift in Sources */,
 				424991F91CC669DE00BC36D9 /* GCD.swift in Sources */,
 				420AA6AB1C55288E00F7BB25 /* DecideWireframe.swift in Sources */,
 				42C1D22C1CABD2AE005D0347 /* AudioConfigStore.swift in Sources */,

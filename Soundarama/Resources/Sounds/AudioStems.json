@@ -8,25 +8,25 @@
     [
                     {
                         "Name" : "Synth Example",
-                        "Colour" : "#9CE7F0",
+     
                         "Category" : "Synth",
                         "Ref" : "Synth"
                     },
                     {
                         "Name" : "Bass Example",
-                        "Colour" : "#C2F0B4",
+     
                         "Category" : "Bass",
                         "Ref" : "Bass"
                     },
                     {
                         "Name" : "Hats Example",
-                        "Colour" : "#E5C0F0",
+     
                         "Category" : "Hats",
                         "Ref" : "Hats"
                     },
                     {
                         "Name" : "Kick Example",
-                        "Colour" : "#F0A49C",
+                        
                         "Category" : "Kick",
                         "Ref" : "Kick"
                     }

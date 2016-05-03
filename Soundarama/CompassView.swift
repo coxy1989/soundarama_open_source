@@ -10,10 +10,11 @@ import UIKit
 
 class CompassView: UIView {
     
+    private let circle_layer = CAShapeLayer()
+    
     private lazy var north_point: UIView = {
        
         let v = UIView()
-        v.backgroundColor = UIColor.whiteColor()
         v.frame.size = CGSizeMake(40, 40)
         v.layer.cornerRadius = 20
         v.clipsToBounds = false
@@ -23,26 +24,26 @@ class CompassView: UIView {
     private lazy var south_point: UIView = {
         
         let v = UIView()
-        v.backgroundColor = UIColor.whiteColor()
         v.frame.size = CGSizeMake(40, 40)
         v.layer.cornerRadius = 20
         v.clipsToBounds = false
         return v
     }()
     
-    private lazy var circle_layer: CAShapeLayer = {
+    private lazy var circle_gradient_layer: CAGradientLayer = {
         
-        let l = CAShapeLayer()
-        l.lineWidth = 2
-        l.fillColor = UIColor.clearColor().CGColor
-        l.strokeColor = UIColor.whiteColor().CGColor
+        let l = CAGradientLayer()
+        l.startPoint = CGPoint(x: 0, y: 0)
+        l.endPoint = CGPoint(x: 0, y: 1)
         return l
     }()
     
-    func setColor(color: UIColor) {
+    func setColors(colors: [UIColor]) {
         
-        north_point.backgroundColor = color
-        south_point.backgroundColor = color
+        north_point.backgroundColor = colors[0]
+        circle_layer.fillColor = colors[3].CGColor
+        south_point.backgroundColor = colors[4]
+        circle_gradient_layer.colors = [colors[0], colors[4] ].map() { $0.colorWithAlphaComponent(0.4).CGColor }
     }
     
     override init(frame: CGRect) {
@@ -62,16 +63,19 @@ class CompassView: UIView {
     private func commonInit() {
         
         clipsToBounds = false
+        layer.addSublayer(circle_gradient_layer)
+        layer.addSublayer(circle_layer)
         addSubview(north_point)
         addSubview(south_point)
-        layer.addSublayer(circle_layer)
     }
     
     override func layoutSubviews() {
         
         super.layoutSubviews()
         
-        circle_layer.path = UIBezierPath(ovalInRect: bounds).CGPath
+        circle_gradient_layer.frame = bounds
+        circle_gradient_layer.cornerRadius = bounds.size.width * 0.5
+        circle_layer.path = UIBezierPath(ovalInRect: CGRectInset(bounds, 3, 3)).CGPath
         north_point.center = CGPointMake(bounds.size.width * 0.5, 0)
         south_point.center = CGPointMake(bounds.size.width * 0.5, bounds.size.height)
     }

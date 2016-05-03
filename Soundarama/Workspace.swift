@@ -33,7 +33,7 @@ struct UIWorkspace: Hashable {
     let soloSelected: Bool
     let antiSoloSelected: Bool
     let hasAudio: Bool
-    let color: UIColor?
+    let colors: [UIColor]?
     
     var hashValue: Int {
         

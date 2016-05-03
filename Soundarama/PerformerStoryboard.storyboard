@@ -208,33 +208,11 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bg" translatesAutoresizingMaskIntoConstraints="NO" id="AJb-4F-miM">
-                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
-                            </imageView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="IRr-Tg-YW5" customClass="CompassView" customModule="Soundarama" customModuleProvider="target">
-                                <rect key="frame" x="150" y="150" width="300" height="300"/>
-                                <subviews>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="giF-dY-YF3">
-                                        <rect key="frame" x="0.0" y="0.0" width="300" height="300"/>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                    </view>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BEz-yR-s05" customClass="BorderedCircleView" customModule="Soundarama" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="0.0" width="300" height="300"/>
-                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                    </view>
-                                </subviews>
+                                <rect key="frame" x="108" y="108" width="384" height="384"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
-                                    <constraint firstItem="giF-dY-YF3" firstAttribute="top" secondItem="IRr-Tg-YW5" secondAttribute="top" id="2Qw-eH-9h1"/>
-                                    <constraint firstAttribute="bottom" secondItem="giF-dY-YF3" secondAttribute="bottom" id="BXj-FT-R15"/>
-                                    <constraint firstAttribute="trailing" secondItem="giF-dY-YF3" secondAttribute="trailing" id="Fo7-yL-Dgj"/>
-                                    <constraint firstItem="BEz-yR-s05" firstAttribute="leading" secondItem="IRr-Tg-YW5" secondAttribute="leading" id="Lzu-1S-uzv"/>
-                                    <constraint firstAttribute="bottom" secondItem="BEz-yR-s05" secondAttribute="bottom" id="YAd-aG-4Uj"/>
-                                    <constraint firstAttribute="trailing" secondItem="BEz-yR-s05" secondAttribute="trailing" id="dD0-Rk-RPQ"/>
-                                    <constraint firstItem="giF-dY-YF3" firstAttribute="leading" secondItem="IRr-Tg-YW5" secondAttribute="leading" id="gaa-jT-KdA"/>
                                     <constraint firstAttribute="width" secondItem="IRr-Tg-YW5" secondAttribute="height" multiplier="1:1" id="mRY-lx-9rH"/>
-                                    <constraint firstAttribute="width" constant="300" id="oaS-l8-8PW"/>
-                                    <constraint firstItem="BEz-yR-s05" firstAttribute="top" secondItem="IRr-Tg-YW5" secondAttribute="top" id="wjg-xK-nKc"/>
                                 </constraints>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dWK-Ms-9aU">
@@ -244,35 +222,116 @@
                                     <action selector="didPressBackButton:" destination="x8l-Qe-jsB" eventType="touchUpInside" id="FSw-fg-gbb"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Reconnecting" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="78Y-TH-1R7">
-                                <rect key="frame" x="474.5" y="571" width="105.5" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Coxy is the king. Amen." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="W11-do-vSB">
+                                <rect key="frame" x="168" y="30" width="263" height="22"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="263" id="F1o-Mo-YMa"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="Avenir-Light" family="Avenir" pointSize="16"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <imageView contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="dance" translatesAutoresizingMaskIntoConstraints="NO" id="m7x-Da-xg1">
+                                <rect key="frame" x="342" y="532" width="17" height="33"/>
+                                <gestureRecognizers/>
+                                <connections>
+                                    <outletCollection property="gestureRecognizers" destination="Igp-1g-akR" appends="YES" id="CHE-Ks-TwX"/>
+                                </connections>
+                            </imageView>
+                            <label opaque="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Turn" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="udR-rS-rsr">
+                                <rect key="frame" x="216" y="563" width="27.5" height="19.5"/>
+                                <gestureRecognizers/>
+                                <fontDescription key="fontDescription" name="Avenir-Roman" family="Avenir" pointSize="14"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                                <connections>
+                                    <outletCollection property="gestureRecognizers" destination="pTe-Kr-vFY" appends="YES" id="p2x-gK-bF4"/>
+                                </connections>
+                            </label>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uXu-2k-RzA">
+                                <rect key="frame" x="283" y="533" width="34" height="32"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="34" id="HIs-bW-5Oo"/>
+                                    <constraint firstAttribute="height" constant="32" id="yq3-39-B3O"/>
+                                </constraints>
+                            </view>
+                            <imageView contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="turn" translatesAutoresizingMaskIntoConstraints="NO" id="c4t-2c-uri">
+                                <rect key="frame" x="213" y="536" width="35" height="25"/>
+                                <gestureRecognizers/>
+                                <connections>
+                                    <outletCollection property="gestureRecognizers" destination="VNs-wK-uSK" appends="YES" id="pCB-lw-0ke"/>
+                                </connections>
+                            </imageView>
+                            <label opaque="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Dance" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="J1F-EH-1Q9">
+                                <rect key="frame" x="330" y="563" width="40" height="20"/>
+                                <gestureRecognizers/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="40" id="DLr-vw-BDv"/>
+                                    <constraint firstAttribute="height" constant="20" id="x2s-sU-NsW"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="Avenir-Roman" family="Avenir" pointSize="14"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                                <connections>
+                                    <outletCollection property="gestureRecognizers" destination="ucP-SK-xGu" appends="YES" id="mgR-a0-SOL"/>
+                                </connections>
+                            </label>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" red="0.43529411759999997" green="0.4431372549" blue="0.47450980390000003" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
+                            <constraint firstItem="uXu-2k-RzA" firstAttribute="leading" secondItem="c4t-2c-uri" secondAttribute="trailing" constant="35" id="2Ui-KF-FzG"/>
+                            <constraint firstItem="J1F-EH-1Q9" firstAttribute="centerX" secondItem="m7x-Da-xg1" secondAttribute="centerX" id="2lq-ZO-Dga"/>
+                            <constraint firstItem="Ei2-uS-487" firstAttribute="top" secondItem="uXu-2k-RzA" secondAttribute="bottom" constant="35" id="5RI-IR-5Tr"/>
                             <constraint firstItem="IRr-Tg-YW5" firstAttribute="centerX" secondItem="3A5-Ka-Dqu" secondAttribute="centerX" id="6m9-1o-wHg"/>
-                            <constraint firstAttribute="trailing" secondItem="AJb-4F-miM" secondAttribute="trailing" id="EeC-TW-De7"/>
-                            <constraint firstItem="Ei2-uS-487" firstAttribute="top" secondItem="78Y-TH-1R7" secondAttribute="bottom" constant="8" id="FJC-g7-UY2"/>
-                            <constraint firstItem="AJb-4F-miM" firstAttribute="leading" secondItem="3A5-Ka-Dqu" secondAttribute="leading" id="Glg-9P-wHy"/>
-                            <constraint firstAttribute="trailing" secondItem="78Y-TH-1R7" secondAttribute="trailing" constant="20" id="NCZ-qP-tgF"/>
+                            <constraint firstItem="m7x-Da-xg1" firstAttribute="centerY" secondItem="uXu-2k-RzA" secondAttribute="centerY" id="LAn-m8-DTN"/>
                             <constraint firstItem="dWK-Ms-9aU" firstAttribute="top" secondItem="3A5-Ka-Dqu" secondAttribute="top" constant="8" id="NKA-hw-pon"/>
-                            <constraint firstItem="Ei2-uS-487" firstAttribute="top" secondItem="AJb-4F-miM" secondAttribute="bottom" id="QOJ-QP-CNm"/>
-                            <constraint firstItem="AJb-4F-miM" firstAttribute="top" secondItem="3A5-Ka-Dqu" secondAttribute="top" id="RNg-b8-6OI"/>
+                            <constraint firstItem="IRr-Tg-YW5" firstAttribute="top" relation="greaterThanOrEqual" secondItem="W11-do-vSB" secondAttribute="bottom" constant="20" id="UF9-Vr-KCb"/>
+                            <constraint firstItem="m7x-Da-xg1" firstAttribute="leading" secondItem="uXu-2k-RzA" secondAttribute="trailing" constant="25" id="Ync-8W-4CL"/>
+                            <constraint firstItem="uXu-2k-RzA" firstAttribute="centerX" secondItem="3A5-Ka-Dqu" secondAttribute="centerX" id="aTN-we-3qJ"/>
                             <constraint firstItem="IRr-Tg-YW5" firstAttribute="centerY" secondItem="3A5-Ka-Dqu" secondAttribute="centerY" id="bla-KD-9oO"/>
+                            <constraint firstItem="W11-do-vSB" firstAttribute="centerX" secondItem="3A5-Ka-Dqu" secondAttribute="centerX" id="bvE-9X-GqJ"/>
                             <constraint firstItem="dWK-Ms-9aU" firstAttribute="leading" secondItem="3A5-Ka-Dqu" secondAttribute="leading" constant="8" id="cjL-4p-7dT"/>
+                            <constraint firstItem="udR-rS-rsr" firstAttribute="centerX" secondItem="c4t-2c-uri" secondAttribute="centerX" id="dH1-V3-nZE"/>
+                            <constraint firstItem="m7x-Da-xg1" firstAttribute="top" secondItem="IRr-Tg-YW5" secondAttribute="bottom" constant="40" id="goa-dW-pVe"/>
+                            <constraint firstItem="J1F-EH-1Q9" firstAttribute="centerY" secondItem="udR-rS-rsr" secondAttribute="centerY" id="gyl-Nc-HTa"/>
+                            <constraint firstItem="c4t-2c-uri" firstAttribute="centerY" secondItem="uXu-2k-RzA" secondAttribute="centerY" id="jZE-G7-NJC"/>
+                            <constraint firstItem="IRr-Tg-YW5" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="3A5-Ka-Dqu" secondAttribute="leadingMargin" constant="25" id="s1e-7v-Fo5"/>
+                            <constraint firstItem="W11-do-vSB" firstAttribute="top" secondItem="dWK-Ms-9aU" secondAttribute="bottom" id="zLS-El-4kU"/>
+                            <constraint firstAttribute="trailingMargin" relation="greaterThanOrEqual" secondItem="IRr-Tg-YW5" secondAttribute="trailing" constant="25" id="zhl-hH-IFm"/>
+                            <constraint firstItem="udR-rS-rsr" firstAttribute="top" secondItem="c4t-2c-uri" secondAttribute="bottom" constant="2" id="zwq-iI-j3h"/>
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="circleView" destination="giF-dY-YF3" id="Od1-s7-iQb"/>
                         <outlet property="compassView" destination="IRr-Tg-YW5" id="4Zd-QW-MQu"/>
-                        <outlet property="dashedCircleView" destination="BEz-yR-s05" id="1g5-XM-dHn"/>
-                        <outlet property="reconnectionLabel" destination="78Y-TH-1R7" id="v9Y-nv-nar"/>
+                        <outlet property="danceIcon" destination="m7x-Da-xg1" id="w71-5k-Iu8"/>
+                        <outlet property="danceLabel" destination="J1F-EH-1Q9" id="zqZ-ZD-JZh"/>
+                        <outlet property="topLabel" destination="W11-do-vSB" id="VjP-Sn-2LU"/>
+                        <outlet property="turnIcon" destination="c4t-2c-uri" id="T8p-8s-tNj"/>
+                        <outlet property="turnLabel" destination="udR-rS-rsr" id="ZSm-Br-Dwo"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hrN-V0-Oda" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <tapGestureRecognizer id="VNs-wK-uSK">
+                    <connections>
+                        <action selector="turnIconWasTapped:" destination="x8l-Qe-jsB" id="LzS-Lq-evb"/>
+                    </connections>
+                </tapGestureRecognizer>
+                <tapGestureRecognizer id="pTe-Kr-vFY">
+                    <connections>
+                        <action selector="turnIconWasTapped:" destination="x8l-Qe-jsB" id="sTH-Oo-zQn"/>
+                    </connections>
+                </tapGestureRecognizer>
+                <tapGestureRecognizer id="Igp-1g-akR">
+                    <connections>
+                        <action selector="danceIconWasTapped:" destination="x8l-Qe-jsB" id="ddX-Vi-vq9"/>
+                    </connections>
+                </tapGestureRecognizer>
+                <tapGestureRecognizer id="ucP-SK-xGu">
+                    <connections>
+                        <action selector="danceIconWasTapped:" destination="x8l-Qe-jsB" id="prm-8O-Yhz"/>
+                    </connections>
+                </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="367" y="363"/>
         </scene>
@@ -505,8 +564,9 @@
     </scenes>
     <resources>
         <image name="back-btn" width="13" height="22"/>
-        <image name="bg" width="375" height="667"/>
         <image name="bg-robot-wars" width="1366" height="1024"/>
         <image name="checkmark" width="39" height="30"/>
+        <image name="dance" width="17" height="33"/>
+        <image name="turn" width="35" height="25"/>
     </resources>
 </document>

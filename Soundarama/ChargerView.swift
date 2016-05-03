@@ -8,22 +8,34 @@
 
 import UIKit
 
-class ChargerView: UIView {
-    
-    private lazy var movingCircle: UIView = {
-        
-        let v = CircleView()
-        v.backgroundColor = UIColor.orangeColor()
-        v.translatesAutoresizingMaskIntoConstraints = false
-        return v
-    }()
+// TODO: apply gradient to the dotted line
 
-    private lazy var fixedCircle: UIView = {
+class CircleView: UIView {
+    
+    override func layoutSubviews() {
         
-        let v = BorderedCircleView()
-        v.backgroundColor = UIColor.purpleColor()
-        v.translatesAutoresizingMaskIntoConstraints = false
-        return v
+        super.layoutSubviews()
+        
+        let sl0 = CAShapeLayer()
+        sl0.fillColor = UIColor.grayColor().CGColor
+        layer.addSublayer(sl0)
+        sl0.path = UIBezierPath(ovalInRect: bounds).CGPath
+    }
+}
+
+class ChargeLevelView: UIView {
+    
+    private var colors: [UIColor]?
+    
+    private lazy var dashed_layer : CAShapeLayer = {
+        
+        let l = CAShapeLayer()
+        l.fillColor = UIColor.clearColor().CGColor
+        l.lineWidth = 4
+        l.strokeColor = UIColor.whiteColor().CGColor
+        l.lineDashPattern = [ 0, l.lineWidth * 3]
+        l.lineCap = "round"
+        return l
     }()
     
     override init(frame: CGRect) {
@@ -43,60 +55,68 @@ class ChargerView: UIView {
     private func commonInit() {
         
         clipsToBounds = false
-        addSubview(fixedCircle)
-        addSubview(movingCircle)
-        backgroundColor = UIColor.redColor()
-        translatesAutoresizingMaskIntoConstraints = false
+        layer.addSublayer(dashed_layer)
     }
+    
     
     override func layoutSubviews() {
         
         super.layoutSubviews()
         
-        fixedCircle.frame = bounds
-        movingCircle.frame = bounds
+        dashed_layer.path = UIBezierPath(ovalInRect: CGRectInset(bounds, 10, 10)).CGPath
     }
     
-    func setValue(value: Double) {
+    func setColors(colors: [UIColor]) {
+
+        self.colors = colors
+    }
+    
+    func setUnderColor() {
         
-        UIView.animateWithDuration(1) { [weak self] in
-            
-            self?.movingCircle.transform = CGAffineTransformMakeScale(1.5, 1.5)
-        }
+        dashed_layer.strokeColor = UIColor.whiteColor().colorWithAlphaComponent(0.5).CGColor
+    }
+    
+    func setOverColor() {
+        
+        dashed_layer.strokeColor = colors?[3].CGColor ?? UIColor.whiteColor().CGColor
     }
 }
 
-class CircleView: UIView {
+class ChargeGradientView: UIView {
+    
+    override class func layerClass() -> AnyClass {
+        
+        return CAGradientLayer.self
+    }
+    
+    override init(frame: CGRect) {
+        
+        super.init(frame: frame)
+        
+        commonInit()
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        
+        super.init(coder: aDecoder)
+        
+        commonInit()
+    }
     
     override func layoutSubviews() {
         
         super.layoutSubviews()
-        
-        let sl0 = CAShapeLayer()
-        sl0.fillColor = UIColor.grayColor().CGColor
-        layer.addSublayer(sl0)
-        sl0.path = UIBezierPath(ovalInRect: bounds).CGPath
-    }
-}
-
-class BorderedCircleView: UIView {
-    
-    private let l = CAShapeLayer()
-    
-    override func layoutSubviews() {
-        
-        super.layoutSubviews()
-        
-        l.fillColor = UIColor.clearColor().CGColor
-        l.lineWidth = 3.0
-        l.strokeColor = UIColor.whiteColor().CGColor
-        l.lineDashPattern = [ 5, 9 ]
-        layer.addSublayer(l)
-        l.path = UIBezierPath(ovalInRect: bounds).CGPath
+        layer.cornerRadius = bounds.size.width * 0.5
     }
     
-    func setColor(color: UIColor) {
+    private func commonInit() {
         
-        l.strokeColor = color.CGColor
+        (layer as! CAGradientLayer).startPoint = CGPoint(x: 0, y: 0)
+        (layer as! CAGradientLayer).endPoint = CGPoint(x: 0, y: 1)
+    }
+    
+    func setColors(colors: [UIColor]) {
+        
+        (layer as! CAGradientLayer).colors = [colors[0], colors[4] ].map() { $0.CGColor }
     }
 }

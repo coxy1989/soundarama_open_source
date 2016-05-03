@@ -34,11 +34,8 @@ class PerformerWireframe {
     }
     
     func dismissInstrumentsUI(presenter: PerformerPresenter) {
-        
-        presenter.compassUI = nil
-        presenter.coloredUI = nil
-        presenter.chargingUI = nil
-        presenter.reconnectionUI = nil
+    
+        presenter.performerUserInterface = nil
         navigationController?.popViewControllerAnimated(true)
     }
 }
@@ -75,10 +72,9 @@ extension PerformerWireframe {
         
         let vc = sb.instantiateViewControllerWithIdentifier("InstrumentsViewController") as! InstrumentsViewController
         vc.userInterfaceDelegate = performerPresenter
-        performerPresenter.compassUI = vc
-        performerPresenter.coloredUI = vc
-        performerPresenter.chargingUI = vc
-        performerPresenter.reconnectionUI = vc
+        performerPresenter.performerUserInterface = vc
+        vc.requestShowInstruction = performerPresenter.requestShowInstruction
+        vc.requestHideInstruction = performerPresenter.requestHideInstruction
         return vc
     }
     

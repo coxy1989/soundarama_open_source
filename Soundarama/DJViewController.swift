@@ -439,8 +439,8 @@ extension DJViewController: UICollectionViewDataSource {
         szv.muteSelected = ws.muteSelected
         szv.soloSelected = ws.soloSelected
         szv.color = UIColor.darkGrayColor()
-        if !ws.muteSelected && ws.color != nil && ws.antiSoloSelected == false {
-            szv.color = ws.color!
+        if !ws.muteSelected && ws.colors != nil && ws.antiSoloSelected == false {
+            szv.color = ws.colors!.first!
             szv.setAlphaRegular()
         }
         if ws.hasAudio {

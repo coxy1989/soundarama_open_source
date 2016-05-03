@@ -9,19 +9,39 @@
 import Foundation
 import UIKit
 
+protocol PerformerUserInterface: CurrentlyPerformingUserInterface, CompassUserInterface, ColoredUserInteface, ChargingUserInteface, ReconnectionUserInterface, PerformerInstructionUserInterface, FlashingUserinterface {}
+
+protocol FlashingUserinterface: class {
+    
+    func startFlashing()
+    
+    func stopFlashing()
+    
+    func flash(opacity: CGFloat, duration: NSTimeInterval)
+}
+
+protocol CurrentlyPerformingUserInterface: class {
+    
+    func setCurrentlyPerforming(name: String?)
+}
+
 protocol CompassUserInterface: class {
     
     func setCompassValue(value: Double)
-}
-
-protocol ColoredUserInteface: class {
     
-    func setColor(color: UIColor)
+    func setCompassActive(value: Bool)
 }
 
 protocol ChargingUserInteface: class {
     
     func setCharge(value: Double)
+    
+    func setChargeActive(value: Bool)
+}
+
+protocol ColoredUserInteface: class {
+    
+    func setColors(colours: [UIColor])
 }
 
 protocol ReconnectionUserInterface: class {
@@ -29,12 +49,9 @@ protocol ReconnectionUserInterface: class {
     func updateWithReconnectionEvent(event: ReconnectionEvent)
 }
 
-protocol PickDJUserInterface: class {
+protocol PerformerInstructionUserInterface {
     
-    func set(identifier: UIDJIdentifier?, state: ConnectionState, identifiers: [UIDJIdentifier], isReachable: Bool)
-}
-
-protocol PickDJUserInterfaceDelegate: class {
+    func showInstruction(instruction: PerformerInstruction)
     
-    func didPickIdentifier(identifier: Int)
+    func hideInstruction()
 }

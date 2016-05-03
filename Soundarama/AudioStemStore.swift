@@ -16,18 +16,12 @@ typealias SongKey = String
 
 class AudioStemStore {
     
-    var index: [CategoryKey : [SongKey : Set<AudioStem>]]!
-    
     static let firstKey = union
     
     static let categoryKeys = [union] + categories
     
-    static let categoryColors = ["All" : UIColor.whiteColor(),
-                        "Synth" : UIColor(rgba: "#9CE7F0"),
-                        "Bass" : UIColor(rgba: "#C2F0B4"),
-                        "Hats" : UIColor(rgba: "#E5C0F0"),
-                        "Kick" : UIColor(rgba: "#F0A49C")]
- 
+    var index: [CategoryKey : [SongKey : Set<AudioStem>]]!
+    
     private static let union = "All"
     
     private static let categories = ["Synth", "Bass", "Hats", "Kick"]
@@ -46,10 +40,12 @@ class AudioStemStore {
         return cache[reference]
     }
     
+    /*
     func color(reference: String) -> UIColor {
         
         return cache[reference]?.colour ?? UIColor.grayColor()
     }
+ */
     
     func name(reference: String) -> String {
         
@@ -127,6 +123,13 @@ extension AudioStemStore {
     
     private func audioStem(json: JSON) -> AudioStem? {
         
+        if let  name = json["Name"].string, category = json["Category"].string, reference = json["Ref"].string {
+            return AudioStem(name: name, category: category, reference: reference, loopLength: 1.9512195122)
+        }
+        else {
+            return nil
+        }
+        /*
         if let  name = json["Name"].string, colourString = json["Colour"].string, category = json["Category"].string, reference = json["Ref"].string {
             let colour = UIColor(rgba: colourString, defaultColor: UIColor.grayColor())
             return AudioStem(name: name, colour: colour, category: category, reference: reference, loopLength: 1.9512195122)
@@ -134,5 +137,6 @@ extension AudioStemStore {
         else {
             return nil
         }
+ */
     }
 }

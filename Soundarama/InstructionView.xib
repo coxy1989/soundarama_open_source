@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10116" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="InstructionView" customModule="Soundarama" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="127"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Turn on the spot to change the timbre of your current sound" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Fun-hA-m1q">
+                    <rect key="frame" x="21" y="59" width="334" height="44"/>
+                    <fontDescription key="fontDescription" name="Avenir-Roman" family="Avenir" pointSize="16"/>
+                    <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EB3-bK-b0C">
+                    <rect key="frame" x="13" y="8" width="16" height="16"/>
+                    <constraints>
+                        <constraint firstAttribute="width" secondItem="EB3-bK-b0C" secondAttribute="height" multiplier="1:1" id="5Xq-J3-AnF"/>
+                        <constraint firstAttribute="width" constant="16" id="yRB-dz-gNa"/>
+                    </constraints>
+                    <state key="normal" image="cross-btn"/>
+                    <connections>
+                        <action selector="didPressCloseButton:" destination="iN0-l3-epB" eventType="touchUpInside" id="p19-cz-p1b"/>
+                    </connections>
+                </button>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Turn Around" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9Eu-kj-wqY">
+                    <rect key="frame" x="138" y="24" width="99" height="23.5"/>
+                    <fontDescription key="fontDescription" name="Avenir-Heavy" family="Avenir" pointSize="17"/>
+                    <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+            </subviews>
+            <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstItem="EB3-bK-b0C" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="13" id="65u-31-Ho7"/>
+                <constraint firstItem="9Eu-kj-wqY" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="PUP-nM-77r"/>
+                <constraint firstItem="Fun-hA-m1q" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="TDj-Vh-vl1"/>
+                <constraint firstItem="EB3-bK-b0C" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="8" id="UNd-li-TNc"/>
+                <constraint firstItem="Fun-hA-m1q" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="iN0-l3-epB" secondAttribute="leading" constant="8" id="eMe-Wj-951"/>
+                <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="Fun-hA-m1q" secondAttribute="trailing" constant="8" id="j7I-Ak-tvc"/>
+                <constraint firstItem="Fun-hA-m1q" firstAttribute="top" secondItem="9Eu-kj-wqY" secondAttribute="bottom" constant="12" id="mYP-YQ-Ddz"/>
+                <constraint firstItem="9Eu-kj-wqY" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="24" id="oqP-hO-TNd"/>
+            </constraints>
+            <nil key="simulatedStatusBarMetrics"/>
+            <nil key="simulatedTopBarMetrics"/>
+            <nil key="simulatedBottomBarMetrics"/>
+            <simulatedOrientationMetrics key="simulatedOrientationMetrics"/>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <connections>
+                <outlet property="messageLabel" destination="Fun-hA-m1q" id="MnB-u3-KCq"/>
+                <outlet property="titleLabel" destination="9Eu-kj-wqY" id="ZQw-dQ-q9w"/>
+            </connections>
+            <point key="canvasLocation" x="317.5" y="247.5"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="cross-btn" width="16" height="16"/>
+    </resources>
+</document>

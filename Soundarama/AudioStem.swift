@@ -13,7 +13,7 @@ typealias AudioStemID = String
 func == (lhs: AudioStem, rhs: AudioStem) -> Bool {
     
     return lhs.name == rhs.name
-        && lhs.colour == rhs.colour
+       // && lhs.colour == rhs.colour
         && lhs.category == rhs.category
         && lhs.reference == rhs.reference
         && lhs.loopLength == rhs.loopLength
@@ -22,14 +22,14 @@ func == (lhs: AudioStem, rhs: AudioStem) -> Bool {
 struct AudioStem: Hashable {
     
     let name: String
-    let colour: UIColor
+    //let colour: UIColor
     let category: String
     let reference: String /* TODO: Change to 'Identifier' */
     let loopLength: NSTimeInterval
     
     var hashValue: Int {
         
-        return name.hashValue ^ colour.hashValue ^ category.hashValue ^ reference.hashValue ^ loopLength.hashValue
+        return name.hashValue ^ category.hashValue ^ reference.hashValue ^ loopLength.hashValue
     }
 }
 
@@ -39,7 +39,6 @@ struct UIAudioStem: Hashable {
     let subtitle: String
     let audioStemID: AudioStemID
     let colour: UIColor
-    
     
     var hashValue: Int {
         

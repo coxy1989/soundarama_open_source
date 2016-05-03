@@ -6,6 +6,7 @@
 //  Copyright © 2016 Touchpress Ltd. All rights reserved.
 //
 
+/*
 import Foundation
 import Accelerate
 
@@ -271,3 +272,4 @@ func makeMesh() {
 }
 
 
+*/

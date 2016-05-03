@@ -30,10 +30,14 @@ class PerformerModule {
         
         presenter.performerWireframe = wireframe
         presenter.instrumentsInput = interactor
+        presenter.instructionInput = interactor
         presenter.pickDJInput = interactor
         presenter.connectionInput = interactor
+        
         interactor.performerDJPickerOutput = presenter
         interactor.performerInstrumentsOutput = presenter
         interactor.performerReconnectionOutput = presenter
+        interactor.performerInstructionOutput = presenter
+        interactor.performerFlashingOutput = presenter
     }
 }

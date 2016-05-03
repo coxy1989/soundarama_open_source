@@ -59,7 +59,7 @@ extension DJInteractor: DJInput {
 
         heartbeat = NSTimer.scheduledTimerWithTimeInterval(3, target: self, selector: #selector(beatHeart), userInfo: nil, repeats: true)
         
-        djOutput.setUISuite(UISuiteTransformer.transform(suiteStore.suite, name: audioStemStore.name, colors: audioStemStore.color))
+        djOutput.setUISuite(UISuiteTransformer.transform(suiteStore.suite, name: audioStemStore.name, colors: ColorStore.colors))
         djOutput.setGroupingMode(true)
         
         discovery.discover(NetworkConfiguration.type, domain: NetworkConfiguration.domain, name: UIDevice.currentDevice().name)
@@ -112,7 +112,7 @@ extension DJInteractor: DJInput {
     
     func getStemKeyColors() -> [String : UIColor] {
         
-        return AudioStemStore.categoryColors
+        return ColorStore.lowColors
     }
     
     func getStemsIndex() -> [CategoryKey : [SongKey : Set<UIAudioStem>]] {
@@ -122,7 +122,7 @@ extension DJInteractor: DJInput {
         audioStemStore.index.forEach() { ck, sm in
             
             var songidx: [String : Set<UIAudioStem>] = [ : ]
-            sm.forEach() { sk, stems in songidx[sk] = UIAudioStemTransformer.transform(stems) }
+            sm.forEach() { sk, stems in songidx[sk] = UIAudioStemTransformer.transform(stems, color: ColorStore.colors) }
             idx[ck] = songidx
         }
         
@@ -135,7 +135,7 @@ extension DJInteractor: DJInput {
         suiteStore.toggleMute(workspaceID)
         let poststate = suiteStore.suite
         didChangeSuite(prestate, toSuite: poststate)
-        djOutput.setUISuite(UISuiteTransformer.transform(poststate, name: audioStemStore.name, colors: audioStemStore.color))
+        djOutput.setUISuite(UISuiteTransformer.transform(poststate, name: audioStemStore.name, colors: ColorStore.colors))
     }
     
     func requestToggleSoloInWorkspace(workspaceID: WorkspaceID) {
@@ -144,7 +144,7 @@ extension DJInteractor: DJInput {
         suiteStore.toggleSolo(workspaceID)
         let poststate = suiteStore.suite
         didChangeSuite(prestate, toSuite: poststate)
-        djOutput.setUISuite(UISuiteTransformer.transform(poststate, name: audioStemStore.name, colors: audioStemStore.color))
+        djOutput.setUISuite(UISuiteTransformer.transform(poststate, name: audioStemStore.name, colors: ColorStore.colors))
     }
     
     func requestAudioStemInWorkspace(audioStemID: AudioStemID, workspaceID: WorkspaceID) {
@@ -159,7 +159,7 @@ extension DJInteractor: DJInput {
         suiteStore.setAudioStem(audioStem, workspaceID: workspaceID)
         let poststate = suiteStore.suite
         didChangeSuite(prestate, toSuite: poststate)
-        djOutput.setUISuite(UISuiteTransformer.transform(poststate, name: audioStemStore.name, colors: audioStemStore.color))
+        djOutput.setUISuite(UISuiteTransformer.transform(poststate, name: audioStemStore.name, colors: ColorStore.colors))
     }
     
     func requestMovePerformer(performer: Performer, translation: CGPoint) {
@@ -183,7 +183,7 @@ extension DJInteractor: DJInput {
         suiteStore.addPerformer(performer, workspaceID: workspaceID)
         let poststate = suiteStore.suite
         didChangeSuite(prestate, toSuite: poststate)
-        djOutput.setUISuite(UISuiteTransformer.transform(poststate, name: audioStemStore.name, colors: audioStemStore.color))
+        djOutput.setUISuite(UISuiteTransformer.transform(poststate, name: audioStemStore.name, colors: ColorStore.colors))
     }
     
     func requestRemovePerformerFromWorkspace(performer: Performer) {
@@ -196,7 +196,7 @@ extension DJInteractor: DJInput {
         suiteStore.removePerformer(performer)
         let poststate = suiteStore.suite
         didChangeSuite(prestate, toSuite: poststate)
-        djOutput.setUISuite(UISuiteTransformer.transform(poststate, name: audioStemStore.name, colors: audioStemStore.color))
+        djOutput.setUISuite(UISuiteTransformer.transform(poststate, name: audioStemStore.name, colors: ColorStore.colors))
     }
     
     func requestSelectPerformer(performer: Performer) {

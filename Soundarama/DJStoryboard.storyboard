@@ -39,7 +39,9 @@
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="htU-E3-P8X" customClass="UnderlinedTextButton" customModule="Soundarama" customModuleProvider="target">
                                         <rect key="frame" x="55" y="33" width="30" height="33"/>
                                         <fontDescription key="fontDescription" name="Avenir-Roman" family="Avenir" pointSize="15"/>
-                                        <state key="normal" title="All"/>
+                                        <state key="normal" title="All">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
                                         <connections>
                                             <action selector="buttonWasPressed:" destination="ofg-K2-weq" eventType="touchUpInside" id="Cdt-vD-w5X"/>
                                         </connections>
@@ -462,7 +464,9 @@
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6hh-gs-RLi" customClass="UnderlinedTextButton" customModule="Soundarama" customModuleProvider="target">
                                         <rect key="frame" x="55" y="33" width="30" height="33"/>
                                         <fontDescription key="fontDescription" name="Avenir-Roman" family="Avenir" pointSize="15"/>
-                                        <state key="normal" title="All"/>
+                                        <state key="normal" title="All">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
                                         <connections>
                                             <action selector="buttonWasPressed:" destination="bna-Ea-wXf" eventType="touchUpInside" id="PAq-fg-A4R"/>
                                         </connections>

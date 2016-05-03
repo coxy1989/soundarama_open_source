@@ -21,6 +21,10 @@ class PerformerInteractor {
     
     weak var performerReconnectionOutput: PerformerReconnectionOutput!
     
+    weak var performerInstructionOutput: PerformerInstructionOutput!
+    
+    weak var performerFlashingOutput: PerformerFlashingOutput!
+    
     /* State */
     
     private let audioStemStore = AudioStemStore()
@@ -30,6 +34,12 @@ class PerformerInteractor {
     private var connectionStore = ConnectionStore()
     
     private var discoveryStore = DiscoveryStore()
+    
+    private var onboardingStore: PerformerOnboardingStore?
+    
+    private var compassValueStore: CompassValueStore?
+    
+    private var flashingStore: FlashingStore?
     
     //TODO: Move to thread safe store
     private var stateMessage: StateMessage?
@@ -70,13 +80,17 @@ extension PerformerInteractor: PerformerDJPickerInput {
         discovery = AssertiveDiscovery()
         
         discovery?.discover(NetworkConfiguration.type, domain: NetworkConfiguration.domain)
+            
             .on(next: { [weak self] in
                 debugPrint("Discovery event: \($0)")
                 self?.updateDJPickerOutputWithDiscoveryEvent($0) })
+            
             .on(failed: {e in
                 /* TODO: UI */
                 debugPrint("Discovery error: \(e)") })
+            
             .on(disposed: { debugPrint("Discovery signal disposed") })
+            
             .start()
         
         setPerformerDJPickerOutput()
@@ -147,14 +161,62 @@ extension PerformerInteractor: PerformerInstrumentsInput {
     func startPerformerInstrumentInput() {
         
         startInstruments()
+        performerInstrumentsOutput.setColors(ColorStore.nullColors())
+        performerInstrumentsOutput.setCurrentlyPerforming(nil)
+        //performerInstrumentsOutput.setCurrentlyPerforming("Mother Fucker")
+        //performerInstrumentsOutput.setColors(ColorStore.colors("Bass"))
+        
+        performerInstrumentsOutput.setChargeActive(false)
+        performerInstrumentsOutput.setCompassActive(false)
+        compassValueStore = CompassValueStore(interval: 0.5) {
+            
+            let active = $0 > 1
+            
+            dispatch_async(dispatch_get_main_queue()) { [weak self] in
+                
+                self?.performerInstrumentsOutput.setCompassActive(active)
+            }
+        }
+        
+        compassValueStore?.startSampling()
     }
     
     func stopPerfromerInstrumentInput() {
         
         compass?.stop()
         compass = nil
+        
         danceometer?.stop()
         danceometer = nil
+        
+        compassValueStore?.stopSampling()
+        compassValueStore = nil
+    }
+}
+
+extension PerformerInteractor: PerformerInstructionInput {
+    
+    func startPerformerInstructionInput() {
+        
+        startOnboardingIfNeeded()
+    }
+    
+    func stopPerformerInstructionInput() {
+        
+        onboardingStore?.stop()
+        onboardingStore = nil
+    }
+    
+    func requestShowInstruction(instruction: PerformerInstruction) {
+        
+        performerInstructionOutput.showInstruction(instruction)
+    }
+    
+    func requestHideInstruction(instruction: PerformerInstruction) {
+        
+        onboardingStore?.descheduleInstruction(instruction)
+        onboardingStore?.scheduleNextInstruction()
+        performerInstructionOutput.hideInstruction()
     }
 }
 
@@ -208,12 +270,17 @@ extension PerformerInteractor {
             
             debugPrint("Started an audio stem")
             scheduleStartAudio(poststate!.audioStem!, timeMap: time_map, timestamp: m.timestamp, referenceTimestamp: ts, muted: muteState)
+            startOnboardingIfNeeded()
+            startFlashingOutput(ts)
             
-            let c = audioStemStore.color(poststate!.audioStem!)
+            
+            let c = ColorStore.colors(poststate!.audioStem!)
+            let n = audioStemStore.audioStem(poststate!.audioStem!)?.name
             
             dispatch_async(dispatch_get_main_queue()) { [weak self] in
                 
-                self?.performerInstrumentsOutput.setColor(c)
+                self?.performerInstrumentsOutput.setCurrentlyPerforming(n)
+                self?.performerInstrumentsOutput.setColors(c)
             }
         }
         
@@ -221,10 +288,12 @@ extension PerformerInteractor {
             
             debugPrint("Stopped an audio stem")
             stopAudio()
+            stopFlashingOutput()
             
             dispatch_async(dispatch_get_main_queue()) { [weak self] in
                 
-                self?.performerInstrumentsOutput.setColor(UIColor.grayColor())
+                self?.performerInstrumentsOutput.setCurrentlyPerforming(nil)
+                self?.performerInstrumentsOutput.setColors(ColorStore.nullColors())
             }
         }
         
@@ -240,11 +309,13 @@ extension PerformerInteractor {
             stopAudio()
             scheduleStartAudio(poststate!.audioStem!, timeMap: time_map, timestamp: m.timestamp, referenceTimestamp: ts, muted: muteState)
             
-            let c = audioStemStore.color(poststate!.audioStem!)
+            let c = ColorStore.colors(poststate!.audioStem!)
+            let n = audioStemStore.audioStem(poststate!.audioStem!)?.name
             
             dispatch_async(dispatch_get_main_queue()) { [weak self] in
                 
-                self?.performerInstrumentsOutput.setColor(c)
+                self?.performerInstrumentsOutput.setCurrentlyPerforming(n)
+                self?.performerInstrumentsOutput.setColors(c)
             }
         }
     }
@@ -354,6 +425,87 @@ extension PerformerInteractor {
 
 extension PerformerInteractor {
     
+    private func startOnboardingIfNeeded() {
+        
+        guard onboardingStore == nil else {
+            
+            return
+        }
+        
+        onboardingStore = PerformerOnboardingStore() { [weak self] in self?.performerInstructionOutput.showInstruction($0) }
+        onboardingStore?.scheduleNextInstruction()
+    }
+}
+
+extension PerformerInteractor {
+    
+    private func startFlashingOutput(referenceTime: NSTimeInterval) {
+        
+        performerFlashingOutput.startFlashing()
+        flashingStore = FlashingStore(referenceTime: referenceTime) { [weak self] opac, dur in
+            
+            self?.performerFlashingOutput.flash(opac, duration: dur)
+        }
+        flashingStore?.start()
+    }
+    
+    private func stopFlashingOutput() {
+        
+        flashingStore?.stop()
+        flashingStore = nil
+        performerFlashingOutput.stopFlashing()
+    }
+}
+
+class FlashingStore {
+    
+    private static let loop_time = 1.9512195122 / 2
+    
+    private let referenceTime: NSTimeInterval
+    
+    private let handler: (CGFloat, NSTimeInterval) -> ()
+    
+    private var timer: NSTimer?
+    
+    init(referenceTime: NSTimeInterval, handler: (CGFloat, NSTimeInterval) -> ()) {
+        
+        self.referenceTime = referenceTime
+        self.handler = handler
+    }
+    
+    func start() {
+        
+        //let t = referenceTime % loop_time
+        
+       // let looptime = dispatch_time(DISPATCH_TIME_NOW, Int64(45.0 * Double(NSEC_PER_SEC)))
+       // dispatch_after(looptime, dispatch_get_main_queue()) { [weak self] in
+            
+       // }
+        
+        handler(0.25, 0)
+        peak()
+    }
+    
+    func stop() {
+        
+        timer?.invalidate()
+    }
+    
+    @objc private func trough() {
+        
+        handler(0.25,Double(FlashingStore.loop_time * 0.1))
+        timer = NSTimer.scheduledTimerWithTimeInterval(FlashingStore.loop_time * 0.1, target: self, selector: #selector(peak), userInfo: nil, repeats: false)
+    }
+    
+    @objc private func peak() {
+        
+        handler(CGFloat(0), Double(FlashingStore.loop_time * 0.9))
+        timer = NSTimer.scheduledTimerWithTimeInterval(FlashingStore.loop_time * 0.9, target: self, selector: #selector(trough), userInfo: nil, repeats: false)
+    }
+}
+
+extension PerformerInteractor {
+    
     private func scheduleStartAudio(reference: String, timeMap: ChristiansMap, timestamp: NSTimeInterval, referenceTimestamp: NSTimeInterval, muted: Bool) {
     
         func remoteTime(timeMap: ChristiansMap) -> NSTimeInterval {
@@ -447,7 +599,66 @@ extension PerformerInteractor {
             }
             
             this.performerInstrumentsOutput.setCompassValue($0)
+            this.compassValueStore?.addValue($0)
             handler($0)
         }
+    }
+}
+
+class CompassValueStore {
+    
+    private var values: [(NSTimeInterval, Double)] = []
+    
+    private var timer: NSTimer?
+    
+    private let interval: NSTimeInterval
+    
+    private let handler: Double -> ()
+    
+    private let lock = NSRecursiveLock()
+    
+    init(interval: NSTimeInterval, handler: Double -> ()) {
+        
+        self.interval = interval
+        self.handler = handler
+    }
+    
+    func addValue(value: Double) {
+        
+        lock.lock()
+        values.append((NSDate().timeIntervalSince1970, value))
+        lock.unlock()
+    }
+    
+    func startSampling() {
+        
+        timer = NSTimer.scheduledTimerWithTimeInterval(interval, target: self, selector: #selector(sample), userInfo: nil, repeats: true)
+    }
+    
+    func stopSampling() {
+        
+        timer?.invalidate()
+    }
+    
+    @objc func sample() {
+        
+        let buf = buffer(NSDate().timeIntervalSince1970 - interval)
+        let norm = buf.map() { abs($0 - 180) }
+        let max = norm.maxElement() ?? 0
+        let min = norm.minElement() ?? 0
+        handler(max - min)
+        flush()
+    }
+    
+    private func buffer(since: NSTimeInterval) -> [Double] {
+        
+        return values.filter() { $0.0 > since }.map() { $0.1 }
+    }
+    
+    private func flush() {
+        
+        lock.lock()
+        values.removeAll()
+        lock.unlock()
     }
 }

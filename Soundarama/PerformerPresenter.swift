@@ -11,23 +11,25 @@ import TouchpressUI
 
 class PerformerPresenter {
     
+    /* Viper */
+    
     weak var performerWireframe: PerformerWireframe!
         
     weak var pickDJInput: PerformerDJPickerInput!
     
     weak var instrumentsInput: PerformerInstrumentsInput!
     
+    weak var instructionInput: PerformerInstructionInput!
+    
     weak var connectionInput: PerformerConnectionInput!
     
-    weak var compassUI: CompassUserInterface?
+    /* UI */
     
-    weak var coloredUI: ColoredUserInteface?
-    
-    weak var chargingUI: ChargingUserInteface?
-    
-    weak var reconnectionUI: ReconnectionUserInterface?
+    weak var performerUserInterface: PerformerUserInterface?
     
     weak var pickDJUI: PickDJUserInterface?
+    
+    /* Lifecyle */
     
     private var close: (() -> ())!
     
@@ -36,24 +38,70 @@ class PerformerPresenter {
         self.close = close
         performerWireframe.navigationController = navigationController
         performerWireframe.presentDJPickerUI(self)
+        //performerWireframe.presentInstrumentsUI(self)
+    }
+    
+    /* API */
+    
+    func requestShowInstruction(instruction: PerformerInstruction) {
+        
+        instructionInput.requestShowInstruction(instruction)
+    }
+    
+    func requestHideInstruction(instruction: PerformerInstruction) {
+    
+        instructionInput.requestHideInstruction(instruction)
     }
 }
 
 extension PerformerPresenter: PerformerInstrumentsOutput {
     
+    func setCurrentlyPerforming(name: String?) {
+        
+        performerUserInterface?.setCurrentlyPerforming(name)
+    }
+    
     func setCompassValue(value: Double) {
         
-        compassUI?.setCompassValue(value)
+        performerUserInterface?.setCompassValue(value)
+    }
+    
+    func setCompassActive(value: Bool) {
+        
+        performerUserInterface?.setCompassActive(value)
     }
     
     func setCharge(value: Double) {
         
-        chargingUI?.setCharge(value)
+        performerUserInterface?.setCharge(value)
     }
     
-    func setColor(color: UIColor) {
+    func setChargeActive(value: Bool) {
         
-        coloredUI?.setColor(color)
+        performerUserInterface?.setChargeActive(value)
+    }
+    
+    func setColors(colors: [UIColor]) {
+        
+        performerUserInterface?.setColors(colors)
+    }
+}
+
+extension PerformerPresenter: PerformerFlashingOutput {
+    
+    func startFlashing() {
+        
+        performerUserInterface?.startFlashing()
+    }
+    
+    func stopFlashing() {
+        
+        performerUserInterface?.stopFlashing()
+    }
+    
+    func flash(opacity: CGFloat, duration: NSTimeInterval) {
+        
+        performerUserInterface?.flash(opacity, duration: duration)
     }
 }
 
@@ -63,7 +111,7 @@ extension PerformerPresenter: PerformerDJPickerOutput {
      
         pickDJUI?.set(identifier, state: state, identifiers: identifiers, isReachable: isReachable)
         
-        if state == .Connected && compassUI == nil {
+        if state == .Connected && performerUserInterface == nil {
             
             performerWireframe.presentInstrumentsUI(self)
         }
@@ -74,7 +122,7 @@ extension PerformerPresenter: PerformerReconnectionOutput {
     
     func updateWithReconnectionEvent(event: ReconnectionEvent) {
         
-        reconnectionUI?.updateWithReconnectionEvent(event)
+        performerUserInterface?.updateWithReconnectionEvent(event)
     }
 }
 
@@ -87,7 +135,7 @@ extension PerformerPresenter: UserInterfaceDelegate {
             pickDJInput.startDJPickerInput()
         }
         
-        if userInterface === compassUI || userInterface === chargingUI {
+        if userInterface === performerUserInterface  {
             
             pickDJInput.stopDJPickerInput()
             instrumentsInput.startPerformerInstrumentInput()
@@ -104,17 +152,18 @@ extension PerformerPresenter: UserInterfaceDelegate {
             close()
         }
         
-        else if userInterface === compassUI || userInterface === chargingUI {
+        else if userInterface === performerUserInterface {
             
             connectionInput.disconnect()
             instrumentsInput.stopPerfromerInstrumentInput()
+            instructionInput.stopPerformerInstructionInput()
             performerWireframe.dismissInstrumentsUI(self)
         }
     }
 
     func userInterfaceDidLoad(userInterface: UserInterface) { }
     
-    func userInterfaceDidAppear(userInterface: UserInterface) {}
+    func userInterfaceDidAppear(userInterface: UserInterface) { }
 }
 
 extension PerformerPresenter: PickDJUserInterfaceDelegate {
@@ -122,6 +171,19 @@ extension PerformerPresenter: PickDJUserInterfaceDelegate {
     func didPickIdentifier(identifier: Int) {
         
         connectionInput.connect(identifier)
+    }
+}
+
+extension PerformerPresenter: PerformerInstructionOutput {
+    
+    func showInstruction(instruction: PerformerInstruction) {
+     
+        performerUserInterface?.showInstruction(instruction)
+    }
+    
+    func hideInstruction() {
+        
+        performerUserInterface?.hideInstruction()
     }
 }
 
