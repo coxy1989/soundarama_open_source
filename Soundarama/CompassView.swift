@@ -79,4 +79,9 @@ class CompassView: UIView {
         north_point.center = CGPointMake(bounds.size.width * 0.5, 0)
         south_point.center = CGPointMake(bounds.size.width * 0.5, bounds.size.height)
     }
+    
+    func setPointsHidden(value: Bool) {
+        
+        [north_point, south_point].forEach() { $0.hidden = value }
+    }
 }

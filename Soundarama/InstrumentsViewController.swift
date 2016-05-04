@@ -80,7 +80,6 @@ class InstrumentsViewController: ViewController, PerformerUserInterface {
         super.viewDidLoad()
        
         view.layer.insertSublayer(backgroundGradientLayer, atIndex: 0)
-        //view.layer.insertSublayer(backgroundGradientLayer, below: compassView!.layer)
         compassView?.addSubview(chargeGradientView)
         compassView!.addSubview(chargeLevelView)
     }
@@ -182,13 +181,18 @@ extension InstrumentsViewController: CurrentlyPerformingUserInterface {
         guard let name = name else {
             
             topLabel.text = "Waiting for the conductor \n to send you a sound"
+            chargeLevelView.hidden = true
+            chargeGradientView.hidden = true
+            compassView?.setPointsHidden(true)
             return
         }
     
-        let s = NSMutableAttributedString(string: "Currently performing\n", attributes: UIFont.fontAttribute(UIFont.avenirLight(16)))
-            
-        s.appendAttributedString(NSMutableAttributedString(string: name, attributes: UIFont.fontAttribute(UIFont.avenirHeavy(16))))
+        chargeLevelView.hidden = false
+        chargeGradientView.hidden = false
+        compassView?.setPointsHidden(false)
         
+        let s = NSMutableAttributedString(string: "Currently performing\n", attributes: UIFont.fontAttribute(UIFont.avenirLight(16)))
+        s.appendAttributedString(NSMutableAttributedString(string: name, attributes: UIFont.fontAttribute(UIFont.avenirHeavy(16))))
         topLabel.attributedText = s
     }
 }

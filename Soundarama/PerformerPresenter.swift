@@ -38,7 +38,7 @@ class PerformerPresenter {
         self.close = close
         performerWireframe.navigationController = navigationController
         performerWireframe.presentDJPickerUI(self)
-       // performerWireframe.presentInstrumentsUI(self)
+        //performerWireframe.presentInstrumentsUI(self)
     }
     
     /* API */
