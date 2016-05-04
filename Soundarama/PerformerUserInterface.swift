@@ -9,7 +9,20 @@
 import Foundation
 import UIKit
 
-protocol PerformerUserInterface: CurrentlyPerformingUserInterface, CompassUserInterface, ColoredUserInteface, ChargingUserInteface, ReconnectionUserInterface, PerformerInstructionUserInterface, FlashingUserinterface {}
+protocol PerformerUserInterface:
+        CurrentlyPerformingUserInterface,
+        CompassUserInterface,
+        ColoredUserInteface,
+        ChargingUserInteface,
+        ReconnectionUserInterface,
+        PerformerInstructionUserInterface,
+        FlashingUserinterface,
+        MutedUserInterface{}
+
+protocol MutedUserInterface: class {
+    
+    func setMuted(value: Bool)
+}
 
 protocol FlashingUserinterface: class {
     

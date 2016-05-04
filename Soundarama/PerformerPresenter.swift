@@ -37,8 +37,9 @@ class PerformerPresenter {
         
         self.close = close
         performerWireframe.navigationController = navigationController
-        //performerWireframe.presentDJPickerUI(self)
-        performerWireframe.presentInstrumentsUI(self)
+        performerWireframe.presentDJPickerUI(self)
+        //performerWireframe.presentInstrumentsUI(self)
+        
     }
     
     /* API */
@@ -84,6 +85,11 @@ extension PerformerPresenter: PerformerInstrumentsOutput {
     func setColors(colors: [UIColor]) {
         
         performerUserInterface?.setColors(colors)
+    }
+    
+    func setMuted(value: Bool) {
+        
+        performerUserInterface?.setMuted(value)
     }
 }
 

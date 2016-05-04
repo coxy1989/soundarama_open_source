@@ -57,13 +57,15 @@ protocol PerformerInstrumentsOutput: class {
     
     func setCompassValue(value: Double)
     
-    func setCompassActive(value: Bool)
-    
     func setCharge(value: Double)
+    
+    func setCompassActive(value: Bool)
     
     func setChargeActive(value: Bool)
     
     func setColors(colors: [UIColor])
+    
+    func setMuted(value: Bool)
 }
 
 protocol PerformerFlashingOutput: class {

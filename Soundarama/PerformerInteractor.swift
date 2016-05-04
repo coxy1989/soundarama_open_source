@@ -250,6 +250,7 @@ extension PerformerInteractor {
          
             debugPrint("Changed mute state: \(muteState)")
             toggleMuteAudio(muteState)
+            dispatch_async(dispatch_get_main_queue()) { [weak self] in self?.performerInstrumentsOutput.setMuted(muteState) }
         }
         
         if poststate?.audioStem == prestate?.audioStem {

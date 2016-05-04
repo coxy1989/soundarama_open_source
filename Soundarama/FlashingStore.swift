@@ -26,13 +26,8 @@ class FlashingStore {
     }
     
     func start() {
-        
-        //let t = referenceTime % loop_time
-        
-        // let looptime = dispatch_time(DISPATCH_TIME_NOW, Int64(45.0 * Double(NSEC_PER_SEC)))
-        // dispatch_after(looptime, dispatch_get_main_queue()) { [weak self] in
-        
-        // }
+
+        /* TODO: Sync to reference time */
         
         handler(0.25, 0)
         peak()

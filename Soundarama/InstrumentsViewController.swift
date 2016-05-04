@@ -59,15 +59,19 @@ class InstrumentsViewController: ViewController, PerformerUserInterface {
         return v
     }()
     
+    private lazy var mutedOverlayView: UIView = {
+        
+        let v = NSBundle.mainBundle().loadNibNamed("MutedView", owner: self, options: nil).first as! UIView
+        v.userInteractionEnabled = false
+        return v
+    }()
+    
     private let chargeGradientView = ChargeGradientView()
     
     private let chargeLevelView = ChargeLevelView()
     
     private var instructionView: InstructionView?
     
-    //TODO: Lose this!
-    var dirtyCalibrated = false
-
     override func viewDidLoad() {
         
         super.viewDidLoad()
@@ -101,7 +105,7 @@ class InstrumentsViewController: ViewController, PerformerUserInterface {
     }
 }
 
-extension InstrumentsViewController {
+extension InstrumentsViewController: FlashingUserinterface {
     
     func startFlashing() {
         
@@ -123,7 +127,21 @@ extension InstrumentsViewController {
     }
 }
 
-extension InstrumentsViewController /*: PerformerInstructionUserInterface */ {
+extension InstrumentsViewController: MutedUserInterface {
+    
+    func setMuted(value: Bool) {
+        
+        mutedOverlayView.removeFromSuperview()
+        
+        if value {
+            
+            mutedOverlayView.frame = view.bounds
+            view.addSubview(mutedOverlayView)
+        }
+    }
+}
+
+extension InstrumentsViewController: PerformerInstructionUserInterface {
     
     func showInstruction(instruction: PerformerInstruction) {
         
@@ -152,7 +170,7 @@ extension InstrumentsViewController /*: PerformerInstructionUserInterface */ {
     }
 }
 
-extension InstrumentsViewController /*: CurrentlyPerformingUserInterface */ {
+extension InstrumentsViewController: CurrentlyPerformingUserInterface {
     
     func setCurrentlyPerforming(name: String?) {
         
@@ -176,7 +194,7 @@ extension InstrumentsViewController /*: CurrentlyPerformingUserInterface */ {
     }
 }
 
-extension InstrumentsViewController /*: ColoredUserInteface */ {
+extension InstrumentsViewController: ColoredUserInteface {
     
     func setColors(colors: [UIColor]) {
         
@@ -187,7 +205,7 @@ extension InstrumentsViewController /*: ColoredUserInteface */ {
     }
 }
 
-extension InstrumentsViewController /*: ChargingUserInteface */ {
+extension InstrumentsViewController: ChargingUserInteface {
  
     func setCharge(value: Double) {
         
@@ -208,6 +226,7 @@ extension InstrumentsViewController /*: ChargingUserInteface */ {
     func setChargeActive(value: Bool) {
         
         UIView.animateWithDuration(0.2) { [weak self] in
+            
             let alpha = CGFloat(value ? 1 : 0.4)
             self?.danceIcon.alpha = alpha
             self?.danceLabel.alpha = alpha
@@ -220,13 +239,6 @@ extension InstrumentsViewController: CompassUserInterface {
     func setCompassValue(value: Double) {
         
         let radians = CGFloat((M_PI * value) / 180)
-        
-        guard dirtyCalibrated == true else {
-            
-            compassView?.transform = CGAffineTransformMakeRotation(-radians)
-            dirtyCalibrated = true
-            return
-        }
         
         UIView.animateWithDuration(0.1) { [weak self] in
         
@@ -275,7 +287,7 @@ extension InstrumentsViewController {
     }
 }
 
-extension InstrumentsViewController /* : ReconnectionUserInterface */ {
+extension InstrumentsViewController: ReconnectionUserInterface {
     
     func updateWithReconnectionEvent(event: ReconnectionEvent) {
         
