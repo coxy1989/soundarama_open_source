@@ -33,7 +33,7 @@ class ChargeLevelView: UIView {
         l.fillColor = UIColor.clearColor().CGColor
         l.lineWidth = 4
         l.strokeColor = UIColor.whiteColor().CGColor
-        l.lineDashPattern = [ 0, l.lineWidth * 2]
+        l.lineDashPattern = [ 0, l.lineWidth * 3]
         l.lineCap = "round"
         return l
     }()

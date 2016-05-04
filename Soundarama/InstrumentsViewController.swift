@@ -23,6 +23,8 @@ class InstrumentsViewController: ViewController, PerformerUserInterface {
     
     @IBOutlet weak var danceLabel: UILabel!
     
+    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
+    
     @IBAction private func turnIconWasTapped(sender: AnyObject) {
     
         requestShowInstruction?(.CompassInstruction)
@@ -72,11 +74,13 @@ class InstrumentsViewController: ViewController, PerformerUserInterface {
     
     private var instructionView: InstructionView?
     
+    
     override func viewDidLoad() {
         
         super.viewDidLoad()
        
-        view.layer.insertSublayer(backgroundGradientLayer, below: compassView!.layer)
+        view.layer.insertSublayer(backgroundGradientLayer, atIndex: 0)
+        //view.layer.insertSublayer(backgroundGradientLayer, below: compassView!.layer)
         compassView?.addSubview(chargeGradientView)
         compassView!.addSubview(chargeLevelView)
     }
@@ -109,6 +113,7 @@ extension InstrumentsViewController: FlashingUserinterface {
     
     func startFlashing() {
         
+        flashingOverlayView.removeFromSuperview()
         flashingOverlayView.frame = view.bounds
         view.addSubview(flashingOverlayView)
     }
@@ -176,21 +181,15 @@ extension InstrumentsViewController: CurrentlyPerformingUserInterface {
         
         guard let name = name else {
             
-            topLabel.text = "Waiting for the conductor \n to send you a sound..."
+            topLabel.text = "Waiting for the conductor \n to send you a sound"
             return
         }
+    
+        let s = NSMutableAttributedString(string: "Currently performing\n", attributes: UIFont.fontAttribute(UIFont.avenirLight(16)))
+            
+        s.appendAttributedString(NSMutableAttributedString(string: name, attributes: UIFont.fontAttribute(UIFont.avenirHeavy(16))))
         
-        let avenir_light = UIFont .customFontWithName("Avenir-Light", size: 16)
-        let avenir_light_map = [NSFontAttributeName : avenir_light]
-        let part_1 = NSMutableAttributedString(string: "Currently performing:\n", attributes: avenir_light_map)
-        
-        let avenir_heavy = UIFont .customFontWithName("Avenir-Heavy", size: 16)
-        let avenir_heavy_map = [NSFontAttributeName : avenir_heavy]
-        let part_2 = NSMutableAttributedString(string: name, attributes: avenir_heavy_map)
-        
-        part_1.appendAttributedString(part_2)
-        
-        topLabel.attributedText = part_1
+        topLabel.attributedText = s
     }
 }
 
@@ -291,15 +290,34 @@ extension InstrumentsViewController: ReconnectionUserInterface {
     
     func updateWithReconnectionEvent(event: ReconnectionEvent) {
         
-        /*
         switch event {
             
-            case .Started: reconnectionLabel.hidden = false
+            case .Started:
+        
+                let s = NSMutableAttributedString(string: "Lost connection to the conductor\n", attributes: UIFont.fontAttribute(UIFont.avenirLight(16)))
+                
+                s.appendAttributedString(NSMutableAttributedString(string: "Attempting to reconnect", attributes: UIFont.fontAttribute(UIFont.avenirHeavy(16))))
+                
+                topLabel.attributedText = s
             
-            case .EndedFailure: reconnectionLabel.text = "Failed to reconnect"
+                activityIndicator.hidden = false
+                activityIndicator.startAnimating()
             
-            case .EndedSucceess: reconnectionLabel.hidden = true
+            case .EndedFailure:
+            
+                topLabel.text = "The conductor became unreachable"
+                
+                activityIndicator.hidden = true
+                activityIndicator.stopAnimating()
+            
+            case .EndedSucceess:
+            
+                debugPrint("Successfully reconnected")
+                
+                topLabel.text = "Waiting for the conductor \n to send you a sound"
+            
+                activityIndicator.hidden = true
+                activityIndicator.stopAnimating()
         }
- */
     }
 }

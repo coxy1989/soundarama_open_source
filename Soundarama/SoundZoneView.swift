@@ -90,7 +90,7 @@ class SoundZoneView: UIView {
        
         let l = UILabel()
         l.textAlignment = .Center
-        l.font = UIFont.soundaramaSansSerifLightFont(size: 14)
+        l.font = UIFont.avenirLight(14)
         l.textColor = UIColor.whiteColor()
         return l
     }()
@@ -132,7 +132,7 @@ class SoundZoneView: UIView {
         b.setTitle(NSLocalizedString("SOUND_ZONE_ADD_NEW_STEM", comment: ""), forState: .Normal)
         b.setImage(UIImage(named: "icn-add-new-stem"), forState: .Normal)
         b.titleEdgeInsets = UIEdgeInsets(top: 0.0, left: 12.0, bottom: 0.0, right: 0.0)
-        b.titleLabel?.font = UIFont.soundaramaSansSerifRomanFont(size: 14)
+        b.titleLabel?.font = UIFont.avenirRoman(14)
         b.setTitleColor(UIColor.whiteColor(), forState: .Normal)
         b.clipsToBounds = true
         b.addTarget(self, action: #selector(SoundZoneView.didPressAddNewStemButton), forControlEvents: .TouchUpInside)

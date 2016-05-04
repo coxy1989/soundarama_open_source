@@ -10,27 +10,33 @@ import UIKit
 
 extension UIFont {
     
-    class func soundaramaSansSerifLightFont(size size: CGFloat) -> UIFont {
+    class func fontAttribute(font: UIFont) -> [String : UIFont] {
+        
+        return [NSFontAttributeName : font]
+    }
+}
+
+extension UIFont {
+    
+    class func avenirLight(size: CGFloat) -> UIFont {
         
         return UIFont.customFontWithName("Avenir-Light", size: size)
     }
     
-    class func soundaramaSansSerifRomanFont(size size: CGFloat) -> UIFont {
-        
-        return UIFont.customFontWithName("Avenir-Roman", size: size)
-    }
-    
-    class func soundaramaSansSerifHeavyFont(size size: CGFloat) -> UIFont {
+    class func avenirHeavy(size: CGFloat) -> UIFont {
         
         return UIFont.customFontWithName("Avenir-Heavy", size: size)
     }
     
-    class func soundaramaSansSerifBookFont(size size: CGFloat) -> UIFont {
+    class func avenirRoman(size: CGFloat) -> UIFont {
         
-        return UIFont.customFontWithName("Avenir-Book", size: size)
+        return UIFont.customFontWithName("Avenir-Roman", size: size)
     }
+}
+
+extension UIFont {
     
-    class func customFontWithName(name: String, size: CGFloat) -> UIFont {
+    private class func customFontWithName(name: String, size: CGFloat) -> UIFont {
         
         if let font = UIFont(name: name, size: size) {
             return font

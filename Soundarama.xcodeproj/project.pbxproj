@@ -40,6 +40,7 @@
 		421B7BFB1CCD176000E90C71 /* SyncMessageSerialization.swift in Sources */ = {isa = PBXBuildFile; fileRef = 421B7BFA1CCD176000E90C71 /* SyncMessageSerialization.swift */; };
 		421B7BFD1CCD179800E90C71 /* SyncMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 421B7BFC1CCD179800E90C71 /* SyncMessage.swift */; };
 		422662FD1CD9FA33001C8CB4 /* MutedView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 422662FC1CD9FA33001C8CB4 /* MutedView.xib */; };
+		422662FF1CDA2E0A001C8CB4 /* StateMessageStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 422662FE1CDA2E0A001C8CB4 /* StateMessageStore.swift */; };
 		422EB05A1C8DBA2200B27134 /* DJAudioStemsPickerUserInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = 422EB0591C8DBA2200B27134 /* DJAudioStemsPickerUserInterface.swift */; };
 		422EB05C1C8DC39500B27134 /* UIAudioStemTransformer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 422EB05B1C8DC39500B27134 /* UIAudioStemTransformer.swift */; };
 		4244598D1CA2EB5F00547B3C /* AGaramondPro-Italic.otf in Resources */ = {isa = PBXBuildFile; fileRef = 4244598B1CA2EB5F00547B3C /* AGaramondPro-Italic.otf */; };
@@ -226,6 +227,7 @@
 		421B7BFA1CCD176000E90C71 /* SyncMessageSerialization.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SyncMessageSerialization.swift; sourceTree = "<group>"; };
 		421B7BFC1CCD179800E90C71 /* SyncMessage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SyncMessage.swift; sourceTree = "<group>"; };
 		422662FC1CD9FA33001C8CB4 /* MutedView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MutedView.xib; sourceTree = "<group>"; };
+		422662FE1CDA2E0A001C8CB4 /* StateMessageStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StateMessageStore.swift; sourceTree = "<group>"; };
 		422EB0591C8DBA2200B27134 /* DJAudioStemsPickerUserInterface.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DJAudioStemsPickerUserInterface.swift; sourceTree = "<group>"; };
 		422EB05B1C8DC39500B27134 /* UIAudioStemTransformer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIAudioStemTransformer.swift; sourceTree = "<group>"; };
 		4244598B1CA2EB5F00547B3C /* AGaramondPro-Italic.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "AGaramondPro-Italic.otf"; path = "Resources/Font/AGaramondPro-Italic.otf"; sourceTree = "<group>"; };
@@ -794,6 +796,7 @@
 				42C1D2291CAACBD5005D0347 /* ReferenceTimestampStore.swift */,
 				42F64F671CB3BAF600565F4B /* ResolvableStore.swift */,
 				4200803A1C5BD289009009E8 /* SuiteStore.swift */,
+				422662FE1CDA2E0A001C8CB4 /* StateMessageStore.swift */,
 			);
 			name = "Stores (ReadWrite)";
 			sourceTree = "<group>";
@@ -1168,6 +1171,7 @@
 			files = (
 				42A727AA1C552D9400BFCA47 /* PerformerInteractor.swift in Sources */,
 				4249B5981C578A5A0096872D /* SearchSocketEndpoint.swift in Sources */,
+				422662FF1CDA2E0A001C8CB4 /* StateMessageStore.swift in Sources */,
 				420AA69F1C550B1700F7BB25 /* DecideViewController.swift in Sources */,
 				42A727B81C5537CF00BFCA47 /* PerformerUseCase.swift in Sources */,
 				421468681C568EC600892786 /* SocketEndpoint.swift in Sources */,

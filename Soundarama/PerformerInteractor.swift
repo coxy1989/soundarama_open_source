@@ -35,14 +35,13 @@ class PerformerInteractor {
     
     private var discoveryStore = DiscoveryStore()
     
+    private var stateMessageStore = StateMessageStore()
+    
     private var onboardingStore: PerformerOnboardingStore?
     
     private var compassValueStore: CompassValueStore?
     
     private var flashingStore: FlashingStore?
-    
-    //TODO: Move to thread safe store
-    private var stateMessage: StateMessage?
     
     /* Audio */
     
@@ -240,9 +239,9 @@ extension PerformerInteractor {
         /* TODO: refactor this garbage! */
         
         let get_ws: Workspace -> Bool = { $0.performers.contains(m.performer) }
-        let prestate = stateMessage?.suite.filter(get_ws).first
+        let prestate = stateMessageStore.getMessage()?.suite.filter(get_ws).first
         let poststate = m.suite.filter(get_ws).first
-        stateMessage = m
+        stateMessageStore.setMessage(m)
         
         let muteState = poststate == nil ? false : (poststate!.isAntiSolo || poststate!.isMuted)
         
@@ -327,14 +326,19 @@ extension PerformerInteractor {
         reactiveEndpoint = ReactiveEndpoint()
         reactiveEndpoint?.producer(endpoint, resolvable: resolvable)
             .map(StateMessageDeserializer.deserialize)
-            .on(failed: attemptReshake)
+            .on(failed: handleEndpointError)
             .on(next: { [weak self] msg in  self?.handleMessage(msg, time_map: time_map)})
             .on(disposed: {debugPrint("reactive endpoint signal disposed")})
             .start()
     }
     
-    func attemptReshake(error: EndpointError) {
+    func handleEndpointError(error: EndpointError) {
     
+        stopAudio()
+        stopFlashingOutput()
+        stateMessageStore.flush()
+        performerInstrumentsOutput.setColors(ColorStore.nullColors())
+        performerInstrumentsOutput.setCurrentlyPerforming(nil)
         performerReconnectionOutput.updateWithReconnectionEvent(.Started)
         
         switch error {
@@ -357,7 +361,6 @@ extension PerformerInteractor {
                         debugPrint("Failed to reconnect: \(e)")
                         self?.performerReconnectionOutput.updateWithReconnectionEvent(.EndedFailure)
                     })
-                    
                     
                     .on(disposed: {debugPrint("reshake signal disposed")})
                     
