@@ -177,8 +177,8 @@ extension DJPresenter: DJUserInterfaceDelegate {
     func didRequestAudioStemChangeInWorkspace(workspaceID: WorkspaceID) {
         
         let audioStemPickerUI = djWireframe.djAudioStemPickerUserInterface()
-        audioStemPickerUI.colors = djInput.getStemKeyColors()
-        audioStemPickerUI.keys = djInput.getStemKeys()
+        audioStemPickerUI.colors = djInput.getCategoryKeyColors()
+        audioStemPickerUI.keys = djInput.getCategoryKeys()
         audioStemPickerUI.stemsIndex = djInput.getStemsIndex()
         audioStemPickerUI.identifier = workspaceID
         djWireframe.presentAudioStemPickerUserInterface(audioStemPickerUI)

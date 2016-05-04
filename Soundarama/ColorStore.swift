@@ -54,9 +54,10 @@ class ColorStore {
         "Kick" : gp
     ]
     
-    static let lowColors: [String : UIColor] = [
+    static let categoryKeyColors: [String : UIColor] = [
     
-    
+        "All" : UIColor.whiteColor(),
+        
         "Synth" : color_map["Synth"]!.first!,
         
         "Bass" : color_map["Bass"]!.first!,

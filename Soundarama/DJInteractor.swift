@@ -17,8 +17,6 @@ class DJInteractor {
     
     weak var djAudioStemPickerOutput: DJAudioStemPickerOutput!
     
-    weak var djBroadcastConfigurationOutput: DJBroadcastConfigurationOutput?
-    
     /* State */
     
     private let suiteStore = SuiteStore(number: UIDevice.isPad() ? 9 : 4)
@@ -105,14 +103,14 @@ extension DJInteractor: DJInput {
         heartbeat?.invalidate()
     }
     
-    func getStemKeys() -> [String] {
+    func getCategoryKeys() -> [String] {
         
         return AudioStemStore.categoryKeys
     }
     
-    func getStemKeyColors() -> [String : UIColor] {
+    func getCategoryKeyColors() -> [String : UIColor] {
         
-        return ColorStore.lowColors
+        return ColorStore.categoryKeyColors
     }
     
     func getStemsIndex() -> [CategoryKey : [SongKey : Set<UIAudioStem>]] {

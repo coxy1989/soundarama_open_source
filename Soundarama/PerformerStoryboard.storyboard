@@ -215,15 +215,19 @@
                                     <constraint firstAttribute="width" secondItem="IRr-Tg-YW5" secondAttribute="height" multiplier="1:1" id="mRY-lx-9rH"/>
                                 </constraints>
                             </view>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dWK-Ms-9aU">
-                                <rect key="frame" x="8" y="8" width="13" height="22"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dWK-Ms-9aU">
+                                <rect key="frame" x="0.0" y="8" width="40" height="40"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="40" id="hWF-DI-6V7"/>
+                                    <constraint firstAttribute="height" constant="40" id="zfL-pI-GlV"/>
+                                </constraints>
                                 <state key="normal" image="back-btn"/>
                                 <connections>
                                     <action selector="didPressBackButton:" destination="x8l-Qe-jsB" eventType="touchUpInside" id="FSw-fg-gbb"/>
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Coxy is the king. Amen." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="W11-do-vSB">
-                                <rect key="frame" x="168" y="30" width="263" height="22"/>
+                                <rect key="frame" x="168" y="48" width="263" height="22"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="263" id="F1o-Mo-YMa"/>
                                 </constraints>
@@ -291,7 +295,7 @@
                             <constraint firstItem="uXu-2k-RzA" firstAttribute="centerX" secondItem="3A5-Ka-Dqu" secondAttribute="centerX" id="aTN-we-3qJ"/>
                             <constraint firstItem="IRr-Tg-YW5" firstAttribute="centerY" secondItem="3A5-Ka-Dqu" secondAttribute="centerY" id="bla-KD-9oO"/>
                             <constraint firstItem="W11-do-vSB" firstAttribute="centerX" secondItem="3A5-Ka-Dqu" secondAttribute="centerX" id="bvE-9X-GqJ"/>
-                            <constraint firstItem="dWK-Ms-9aU" firstAttribute="leading" secondItem="3A5-Ka-Dqu" secondAttribute="leading" constant="8" id="cjL-4p-7dT"/>
+                            <constraint firstItem="dWK-Ms-9aU" firstAttribute="leading" secondItem="3A5-Ka-Dqu" secondAttribute="leading" id="cjL-4p-7dT"/>
                             <constraint firstItem="udR-rS-rsr" firstAttribute="centerX" secondItem="c4t-2c-uri" secondAttribute="centerX" id="dH1-V3-nZE"/>
                             <constraint firstItem="m7x-Da-xg1" firstAttribute="top" secondItem="IRr-Tg-YW5" secondAttribute="bottom" constant="40" id="goa-dW-pVe"/>
                             <constraint firstItem="J1F-EH-1Q9" firstAttribute="centerY" secondItem="udR-rS-rsr" secondAttribute="centerY" id="gyl-Nc-HTa"/>

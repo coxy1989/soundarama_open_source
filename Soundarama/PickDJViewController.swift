@@ -35,7 +35,6 @@ class PickDJViewController: ViewController {
     private var sections: [Section<UIDJIdentifier>] = []
     
     private var connectionState: ConnectionState = .NotConnected
-    
 }
 
 extension PickDJViewController: PickDJUserInterface {

@@ -168,17 +168,12 @@ extension PerformerInteractor: PerformerInstrumentsInput {
         
         performerInstrumentsOutput.setChargeActive(false)
         performerInstrumentsOutput.setCompassActive(false)
-        compassValueStore = CompassValueStore(interval: 0.5) {
+        compassValueStore = CompassValueStore(interval: 0.5) { v in
             
-            let active = $0 > 1
-            
-            dispatch_async(dispatch_get_main_queue()) { [weak self] in
-                
-                self?.performerInstrumentsOutput.setCompassActive(active)
-            }
+            dispatch_async(dispatch_get_main_queue()) { [weak self] in self?.performerInstrumentsOutput.setCompassActive(v > 1) }
         }
         
-        compassValueStore?.startSampling()
+        compassValueStore?.start()
     }
     
     func stopPerfromerInstrumentInput() {
@@ -189,8 +184,11 @@ extension PerformerInteractor: PerformerInstrumentsInput {
         danceometer?.stop()
         danceometer = nil
         
-        compassValueStore?.stopSampling()
+        compassValueStore?.stop()
         compassValueStore = nil
+        
+        audioloop?.loop.stop()
+        audioloop = nil
     }
 }
 
@@ -441,11 +439,13 @@ extension PerformerInteractor {
     
     private func startFlashingOutput(referenceTime: NSTimeInterval) {
         
-        performerFlashingOutput.startFlashing()
+        dispatch_async(dispatch_get_main_queue()) { [weak self] in self?.performerFlashingOutput.startFlashing() }
+        
         flashingStore = FlashingStore(referenceTime: referenceTime) { [weak self] opac, dur in
             
-            self?.performerFlashingOutput.flash(opac, duration: dur)
+            dispatch_async(dispatch_get_main_queue()) { [weak self] in self?.performerFlashingOutput.flash(opac, duration: dur) }
         }
+        
         flashingStore?.start()
     }
     
@@ -454,53 +454,6 @@ extension PerformerInteractor {
         flashingStore?.stop()
         flashingStore = nil
         performerFlashingOutput.stopFlashing()
-    }
-}
-
-class FlashingStore {
-    
-    private static let loop_time = 1.9512195122 / 2
-    
-    private let referenceTime: NSTimeInterval
-    
-    private let handler: (CGFloat, NSTimeInterval) -> ()
-    
-    private var timer: NSTimer?
-    
-    init(referenceTime: NSTimeInterval, handler: (CGFloat, NSTimeInterval) -> ()) {
-        
-        self.referenceTime = referenceTime
-        self.handler = handler
-    }
-    
-    func start() {
-        
-        //let t = referenceTime % loop_time
-        
-       // let looptime = dispatch_time(DISPATCH_TIME_NOW, Int64(45.0 * Double(NSEC_PER_SEC)))
-       // dispatch_after(looptime, dispatch_get_main_queue()) { [weak self] in
-            
-       // }
-        
-        handler(0.25, 0)
-        peak()
-    }
-    
-    func stop() {
-        
-        timer?.invalidate()
-    }
-    
-    @objc private func trough() {
-        
-        handler(0.25,Double(FlashingStore.loop_time * 0.1))
-        timer = NSTimer.scheduledTimerWithTimeInterval(FlashingStore.loop_time * 0.1, target: self, selector: #selector(peak), userInfo: nil, repeats: false)
-    }
-    
-    @objc private func peak() {
-        
-        handler(CGFloat(0), Double(FlashingStore.loop_time * 0.9))
-        timer = NSTimer.scheduledTimerWithTimeInterval(FlashingStore.loop_time * 0.9, target: self, selector: #selector(trough), userInfo: nil, repeats: false)
     }
 }
 
@@ -602,63 +555,5 @@ extension PerformerInteractor {
             this.compassValueStore?.addValue($0)
             handler($0)
         }
-    }
-}
-
-class CompassValueStore {
-    
-    private var values: [(NSTimeInterval, Double)] = []
-    
-    private var timer: NSTimer?
-    
-    private let interval: NSTimeInterval
-    
-    private let handler: Double -> ()
-    
-    private let lock = NSRecursiveLock()
-    
-    init(interval: NSTimeInterval, handler: Double -> ()) {
-        
-        self.interval = interval
-        self.handler = handler
-    }
-    
-    func addValue(value: Double) {
-        
-        lock.lock()
-        values.append((NSDate().timeIntervalSince1970, value))
-        lock.unlock()
-    }
-    
-    func startSampling() {
-        
-        timer = NSTimer.scheduledTimerWithTimeInterval(interval, target: self, selector: #selector(sample), userInfo: nil, repeats: true)
-    }
-    
-    func stopSampling() {
-        
-        timer?.invalidate()
-    }
-    
-    @objc func sample() {
-        
-        let buf = buffer(NSDate().timeIntervalSince1970 - interval)
-        let norm = buf.map() { abs($0 - 180) }
-        let max = norm.maxElement() ?? 0
-        let min = norm.minElement() ?? 0
-        handler(max - min)
-        flush()
-    }
-    
-    private func buffer(since: NSTimeInterval) -> [Double] {
-        
-        return values.filter() { $0.0 > since }.map() { $0.1 }
-    }
-    
-    private func flush() {
-        
-        lock.lock()
-        values.removeAll()
-        lock.unlock()
     }
 }

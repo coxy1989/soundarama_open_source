@@ -15,9 +15,9 @@ protocol DJInput: class {
     
     func stopDJ()
     
-    func getStemKeys() -> [String]
+    func getCategoryKeys() -> [String]
     
-    func getStemKeyColors() -> [String : UIColor]
+    func getCategoryKeyColors() -> [String : UIColor]
     
     func getStemsIndex() -> [String : [String : Set<UIAudioStem>]]
     
@@ -103,21 +103,4 @@ protocol DJAudioStemPickerInput: class {
 protocol DJAudioStemPickerOutput: class {
     
     func setSelectedKey(key: String)
-}
-
-/*
-protocol DJBroadcastConfigurationInput: class {
-    
-    func startBroadcastConfiguration()
-    
-    func requestAddIdentifier(identifier: String)
-}
- */
-
-protocol DJBroadcastConfigurationOutput: class {
-    
-    func setIdentifiers(identifiers: [String])
-    
-    func setReachabilityState(isReachable: Bool)
-    
 }

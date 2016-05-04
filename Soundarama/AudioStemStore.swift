@@ -40,13 +40,6 @@ class AudioStemStore {
         return cache[reference]
     }
     
-    /*
-    func color(reference: String) -> UIColor {
-        
-        return cache[reference]?.colour ?? UIColor.grayColor()
-    }
- */
-    
     func name(reference: String) -> String {
         
         return cache[reference]?.name ?? "Unknown"
