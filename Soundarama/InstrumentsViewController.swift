@@ -193,7 +193,7 @@ extension InstrumentsViewController /*: ChargingUserInteface */ {
         
         UIView.animateWithDuration(0.1) { [weak self] in
             
-            if value > 0.7 {
+            if value >= 0.7 {
                 self?.chargeLevelView.setOverColor()
                 self?.chargeGradientView.alpha = 0.8
             }

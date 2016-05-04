@@ -33,7 +33,7 @@ class ChargeLevelView: UIView {
         l.fillColor = UIColor.clearColor().CGColor
         l.lineWidth = 4
         l.strokeColor = UIColor.whiteColor().CGColor
-        l.lineDashPattern = [ 0, l.lineWidth * 3]
+        l.lineDashPattern = [ 0, l.lineWidth * 2]
         l.lineCap = "round"
         return l
     }()
@@ -63,7 +63,7 @@ class ChargeLevelView: UIView {
         
         super.layoutSubviews()
         
-        dashed_layer.path = UIBezierPath(ovalInRect: CGRectInset(bounds, 10, 10)).CGPath
+        dashed_layer.path = UIBezierPath(ovalInRect: bounds).CGPath
     }
     
     func setColors(colors: [UIColor]) {
