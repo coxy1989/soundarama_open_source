@@ -9,6 +9,8 @@
 import Foundation
 import UIKit
 
+/* TODO: Threas safety */
+
 class FlashingStore {
     
     private static let loop_time = 1.9512195122 / 2

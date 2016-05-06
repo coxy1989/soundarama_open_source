@@ -57,7 +57,6 @@
 		4249B59F1C57979E0096872D /* ChristiansProcess.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4249B59E1C57979E0096872D /* ChristiansProcess.swift */; };
 		425498E31C987F8000793640 /* UnderlinedTextButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 425498E21C987F8000793640 /* UnderlinedTextButton.swift */; };
 		425498E51C987FB500793640 /* TableViewCells.swift in Sources */ = {isa = PBXBuildFile; fileRef = 425498E41C987FB500793640 /* TableViewCells.swift */; };
-		425571DA1CC406060066EABE /* PromiseK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 425571D91CC406060066EABE /* PromiseK.framework */; };
 		425571DD1CC430290066EABE /* NetworkError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 425571DC1CC430290066EABE /* NetworkError.swift */; };
 		425CC3281C74B8F200B39AB5 /* AudioLoop.swift in Sources */ = {isa = PBXBuildFile; fileRef = 425CC3271C74B8F200B39AB5 /* AudioLoop.swift */; };
 		426A26E51C721EA5003FE38D /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 426A26E41C721EA5003FE38D /* AVFoundation.framework */; };
@@ -245,7 +244,6 @@
 		4249B59E1C57979E0096872D /* ChristiansProcess.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChristiansProcess.swift; sourceTree = "<group>"; };
 		425498E21C987F8000793640 /* UnderlinedTextButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UnderlinedTextButton.swift; sourceTree = "<group>"; };
 		425498E41C987FB500793640 /* TableViewCells.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableViewCells.swift; sourceTree = "<group>"; };
-		425571D91CC406060066EABE /* PromiseK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = PromiseK.framework; path = Carthage/Build/iOS/PromiseK.framework; sourceTree = "<group>"; };
 		425571DC1CC430290066EABE /* NetworkError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkError.swift; sourceTree = "<group>"; };
 		425CC3271C74B8F200B39AB5 /* AudioLoop.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AudioLoop.swift; sourceTree = "<group>"; };
 		426A26E41C721EA5003FE38D /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
@@ -381,7 +379,6 @@
 				42F99EA71CA1BC1E0058F7AC /* TouchpressFoundation.framework in Frameworks */,
 				42EA0FAF1CC13922006D7D65 /* ReactiveCocoa.framework in Frameworks */,
 				42EA0FB11CC1398C006D7D65 /* Result.framework in Frameworks */,
-				425571DA1CC406060066EABE /* PromiseK.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -525,18 +522,6 @@
 			name = Sync;
 			sourceTree = "<group>";
 		};
-		421B7BF31CCD12FB00E90C71 /* Action */ = {
-			isa = PBXGroup;
-			children = (
-				42C1D2251CAAC5CA005D0347 /* MessageTransformer.swift */,
-				4249B59A1C5792490096872D /* ActionMessage.swift */,
-				421B7BF81CCD173900E90C71 /* MessageSerialisation.swift */,
-				42C1D2231CAA9DCE005D0347 /* MessageDeserializer.swift */,
-				42AFC6641C55805300AD4B9B /* MessageSerializer.swift */,
-			);
-			name = Action;
-			sourceTree = "<group>";
-		};
 		424991F71CC666B600BC36D9 /* Sync */ = {
 			isa = PBXGroup;
 			children = (
@@ -557,24 +542,6 @@
 				424991F71CC666B600BC36D9 /* Sync */,
 			);
 			name = Handshake;
-			sourceTree = "<group>";
-		};
-		4249B5931C5789E00096872D /* Search */ = {
-			isa = PBXGroup;
-			children = (
-				4249B5971C578A5A0096872D /* SearchSocketEndpoint.swift */,
-				421468631C567E9600892786 /* SearchStrategy.swift */,
-			);
-			name = Search;
-			sourceTree = "<group>";
-		};
-		4249B5941C5789E30096872D /* Broadcast */ = {
-			isa = PBXGroup;
-			children = (
-				4249B5951C578A160096872D /* BroadcastSocketEndpoint.swift */,
-				421468651C56831F00892786 /* BroadcastStrategy.swift */,
-			);
-			name = Broadcast;
 			sourceTree = "<group>";
 		};
 		4249B5991C5792190096872D /* Representation */ = {
@@ -879,19 +846,26 @@
 		42E8BE191C54FB730034F1C8 /* Legacy */ = {
 			isa = PBXGroup;
 			children = (
-				421B7BF31CCD12FB00E90C71 /* Action */,
 				42ED6C6B1CAC2D8D002A7211 /* BroadcastStore.swift */,
 				42ED6C691CAC1F32002A7211 /* DJBroadcastConfigurationViewController.swift */,
 				428AF2AD1CA032BF0023FCC9 /* Level.swift */,
+				42C1D2251CAAC5CA005D0347 /* MessageTransformer.swift */,
+				4249B59A1C5792490096872D /* ActionMessage.swift */,
+				421B7BF81CCD173900E90C71 /* MessageSerialisation.swift */,
+				42C1D2231CAA9DCE005D0347 /* MessageDeserializer.swift */,
+				42AFC6641C55805300AD4B9B /* MessageSerializer.swift */,
 				4207563B1CA00E0400A4666A /* xCompassView.swift */,
+				429EC9681C847740002FDBCC /* UIColor+Hex.swift */,
 				42B3D1EF1C99D7D80065842D /* Altimeter.swift */,
 				42889BF41CA0468B00ACC3B9 /* Flickometer.swift */,
 				42B3D1E91C99B3130065842D /* CompassLevelVolumeController.swift */,
+				4249B5971C578A5A0096872D /* SearchSocketEndpoint.swift */,
+				421468631C567E9600892786 /* SearchStrategy.swift */,
 				42ED6C651CAC028E002A7211 /* Host.swift */,
+				4249B5951C578A160096872D /* BroadcastSocketEndpoint.swift */,
+				421468651C56831F00892786 /* BroadcastStrategy.swift */,
 				421468541C56345700892786 /* TP2P.swift */,
 				421468671C568EC600892786 /* SocketEndpoint.swift */,
-				4249B5941C5789E30096872D /* Broadcast */,
-				4249B5931C5789E00096872D /* Search */,
 				428AF2AF1CA0396F0023FCC9 /* LevelStore.swift */,
 				42AFC6621C55802000AD4B9B /* ReadableMessageAdapter.swift */,
 				429EC9601C847697002FDBCC /* AudioController.h */,
@@ -948,7 +922,6 @@
 			children = (
 				42F90EE71C5D74280010F1C5 /* UIColor.swift */,
 				42F90EE91C5D74920010F1C5 /* UIFont.swift */,
-				429EC9681C847740002FDBCC /* UIColor+Hex.swift */,
 			);
 			name = Theme;
 			sourceTree = "<group>";
@@ -997,7 +970,6 @@
 		FF8F05C000FBA5897614E1FA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				425571D91CC406060066EABE /* PromiseK.framework */,
 				42EA0FB01CC1398C006D7D65 /* Result.framework */,
 				42EA0FAE1CC13922006D7D65 /* ReactiveCocoa.framework */,
 				426A26E41C721EA5003FE38D /* AVFoundation.framework */,
@@ -1129,7 +1101,6 @@
 				"$(SRCROOT)/Carthage/Build/iOS/TouchpressUI.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/ReactiveCocoa.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/Result.framework",
-				"$(SRCROOT)/Carthage/Build/iOS/PromiseK.framework",
 			);
 			outputPaths = (
 			);

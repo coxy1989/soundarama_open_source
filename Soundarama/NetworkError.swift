@@ -7,7 +7,6 @@
 //
 
 import Result
-import PromiseK
 
 /* Reachability */
 

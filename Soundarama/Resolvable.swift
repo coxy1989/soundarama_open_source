@@ -7,7 +7,6 @@
 //
 
 import Foundation
-import PromiseK
 import Result
 import ReactiveCocoa
 

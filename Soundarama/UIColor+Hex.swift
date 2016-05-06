@@ -6,6 +6,7 @@
 //  Copyright (c) 2014 P.D.Q. All rights reserved.
 //
 
+/*
 import UIKit
 
 /**
@@ -152,3 +153,5 @@ extension UIColor {
         return self.hexString(true)
     }
 }
+ 
+ */
