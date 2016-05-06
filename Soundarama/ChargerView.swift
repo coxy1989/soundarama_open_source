@@ -63,7 +63,10 @@ class ChargeLevelView: UIView {
         
         super.layoutSubviews()
         
-        dashed_layer.path = UIBezierPath(ovalInRect: bounds).CGPath
+        let side = min (bounds.size.height, bounds.size.width)
+        let x = (bounds.size.width - side) * 0.5
+        let y = (bounds.size.height - side) * 0.5
+        dashed_layer.path = UIBezierPath(ovalInRect: CGRectInset(bounds, x, y)).CGPath
     }
     
     func setColors(colors: [UIColor]) {

@@ -160,10 +160,10 @@ extension PerformerInteractor: PerformerInstrumentsInput {
     func startPerformerInstrumentInput() {
         
         startInstruments()
-        performerInstrumentsOutput.setColors(ColorStore.nullColors())
-        performerInstrumentsOutput.setCurrentlyPerforming(nil)
-        //performerInstrumentsOutput.setCurrentlyPerforming("Mother Fucker")
-        //performerInstrumentsOutput.setColors(ColorStore.colors("Bass"))
+        //performerInstrumentsOutput.setColors(ColorStore.nullColors())
+        //performerInstrumentsOutput.setCurrentlyPerforming(nil)
+        performerInstrumentsOutput.setCurrentlyPerforming("Mother Fucker")
+        performerInstrumentsOutput.setColors(ColorStore.colors("Bass"))
         
         performerInstrumentsOutput.setChargeActive(false)
         performerInstrumentsOutput.setCompassActive(false)

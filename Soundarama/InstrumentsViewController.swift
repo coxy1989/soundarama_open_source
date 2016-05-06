@@ -74,7 +74,6 @@ class InstrumentsViewController: ViewController, PerformerUserInterface {
     
     private var instructionView: InstructionView?
     
-    
     override func viewDidLoad() {
         
         super.viewDidLoad()
@@ -97,13 +96,19 @@ class InstrumentsViewController: ViewController, PerformerUserInterface {
         
         backgroundGradientLayer.frame = view.bounds
         
-        chargeLevelView.frame = CGRectApplyAffineTransform(compassView!.bounds, CGAffineTransformMakeScale(0.7, 0.7))
+        let size = compassView!.intrinsicContentSize()
+        let rect = CGRectMake(0, 0, size.width, size.height)
+        
+        chargeLevelView.frame = CGRectApplyAffineTransform(rect, CGAffineTransformMakeScale(0.7, 0.7))
         chargeLevelView.center = CGPointMake(CGRectGetMidX(compassView!.bounds), CGRectGetMidY(compassView!.bounds))
     }
     
     func setChargeGradientViewScale(scale: CGFloat) {
         
-        chargeGradientView.frame = CGRectApplyAffineTransform(compassView!.bounds, CGAffineTransformMakeScale(scale, scale))
+        let size = compassView!.intrinsicContentSize()
+        let rect = CGRectMake(0, 0, size.width, size.height)
+        
+        chargeGradientView.frame = CGRectApplyAffineTransform(rect, CGAffineTransformMakeScale(scale, scale))
         chargeGradientView.center = CGPointMake(CGRectGetMidX(compassView!.bounds), CGRectGetMidY(compassView!.bounds))
     }
 }

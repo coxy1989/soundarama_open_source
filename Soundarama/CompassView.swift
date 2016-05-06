@@ -8,6 +8,13 @@
 
 import UIKit
 
+private struct Layout {
+    
+    static let compass_point_diameter: CGFloat = 40
+    
+    static let compass_gradient_width: CGFloat = 3
+}
+
 class CompassView: UIView {
     
     private let circle_layer = CAShapeLayer()
@@ -15,8 +22,8 @@ class CompassView: UIView {
     private lazy var north_point: UIView = {
        
         let v = UIView()
-        v.frame.size = CGSizeMake(40, 40)
-        v.layer.cornerRadius = 20
+        v.frame.size = CGSizeMake(Layout.compass_point_diameter, Layout.compass_point_diameter)
+        v.layer.cornerRadius = Layout.compass_point_diameter * 0.5
         v.clipsToBounds = false
         return v
     }()
@@ -24,8 +31,8 @@ class CompassView: UIView {
     private lazy var south_point: UIView = {
         
         let v = UIView()
-        v.frame.size = CGSizeMake(40, 40)
-        v.layer.cornerRadius = 20
+        v.frame.size = CGSizeMake(Layout.compass_point_diameter, Layout.compass_point_diameter)
+        v.layer.cornerRadius = Layout.compass_point_diameter * 0.5
         v.clipsToBounds = false
         return v
     }()
@@ -72,16 +79,28 @@ class CompassView: UIView {
     override func layoutSubviews() {
         
         super.layoutSubviews()
+    
+        let side = min (bounds.size.height, bounds.size.width) - Layout.compass_point_diameter
+        let x = (bounds.size.width - side) * 0.5
+        let y = (bounds.size.height - side) * 0.5
+
+        circle_gradient_layer.frame = CGRectMake(x, y, side, side)
+        circle_gradient_layer.cornerRadius = side * 0.5
         
-        circle_gradient_layer.frame = bounds
-        circle_gradient_layer.cornerRadius = bounds.size.width * 0.5
-        circle_layer.path = UIBezierPath(ovalInRect: CGRectInset(bounds, 3, 3)).CGPath
-        north_point.center = CGPointMake(bounds.size.width * 0.5, 0)
-        south_point.center = CGPointMake(bounds.size.width * 0.5, bounds.size.height)
+        circle_layer.path = UIBezierPath(ovalInRect: CGRectInset(bounds, x + Layout.compass_gradient_width, y + Layout.compass_gradient_width)).CGPath
+        
+        north_point.center = CGPointMake(x + (side * 0.5), y)
+        south_point.center = CGPointMake(x + (side * 0.5), y + side)
     }
     
     func setPointsHidden(value: Bool) {
         
         [north_point, south_point].forEach() { $0.hidden = value }
+    }
+    
+    override func intrinsicContentSize() -> CGSize {
+        
+        let side = min (bounds.size.height, bounds.size.width) - Layout.compass_point_diameter
+        return CGSizeMake(side, side)
     }
 }
