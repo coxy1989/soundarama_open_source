@@ -47,20 +47,21 @@
 /* DJ */
 
 "SOUND_ZONE_ADD_NEW_STEM" = "Add new stem";
-"SOUND_ZONE_MUTE" = "Mute";
-"SOUND_ZONE_SOLO" = "Solo";
-"SOUND_ZONE_EMPTY" = "Empty";
 
-"SOUND_LIST_HEADER" = "Stems";
-"SOUND_CATEGORY_DRUMS"  = "Drums";
-"SOUND_CATEGORY_VOCALS" = "Vocals";
-"SOUND_CATEGORY_BASS" = "Bass";
-"SOUND_CATEGORY_LEADS" = "Leads";
+//"SOUND_ZONE_MUTE" = "Mute";
+//"SOUND_ZONE_SOLO" = "Solo";
+//"SOUND_ZONE_EMPTY" = "Empty";
+
+//"SOUND_LIST_HEADER" = "Stems";
+//"SOUND_CATEGORY_DRUMS"  = "Drums";
+//"SOUND_CATEGORY_VOCALS" = "Vocals";
+//"SOUND_CATEGORY_BASS" = "Bass";
+//"SOUND_CATEGORY_LEADS" = "Leads";
 
 /* Onboarding */
 
-"ONBOARDING_CONDUCTOR" = "Conductor mode";
-"ONBOARDING_PERFORMER" = "Performer mode";
-"ONBOARDING_START" = "Start";
+//"ONBOARDING_CONDUCTOR" = "Conductor mode";
+//"ONBOARDING_PERFORMER" = "Performer mode";
+//"ONBOARDING_START" = "Start";
 
 

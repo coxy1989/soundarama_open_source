@@ -107,7 +107,7 @@ class SoundZoneView: UIView {
     private lazy var muteButton: UIButton = {
        
         let b = UIButton()
-        b.setTitle(NSLocalizedString("SOUND_ZONE_MUTE", comment: ""), forState: .Normal)
+        b.setTitle("M", forState: .Normal)
         b.setTitleColor(UIColor.blackColor(), forState: .Normal)
         b.setTitleColor(UIColor.whiteColor().colorWithAlphaComponent(0.5), forState: .Selected)
         b.layer.borderWidth = 2.0
@@ -118,7 +118,7 @@ class SoundZoneView: UIView {
     private lazy var soloButton: UIButton = {
         
         let b = UIButton()
-        b.setTitle(NSLocalizedString("SOUND_ZONE_SOLO", comment: ""), forState: .Normal)
+        b.setTitle("S", forState: .Normal)
         b.setTitleColor(UIColor.blackColor(), forState: .Normal)
         b.setTitleColor(UIColor.whiteColor().colorWithAlphaComponent(0.5), forState: .Selected)
         b.layer.borderWidth = 2.0
@@ -129,7 +129,7 @@ class SoundZoneView: UIView {
     private lazy var addNewStemButton: UIButton = {
         
         let b = UIButton()
-        b.setTitle(NSLocalizedString("SOUND_ZONE_ADD_NEW_STEM", comment: ""), forState: .Normal)
+        b.setTitle("SOUND_ZONE_ADD_NEW_STEM".localizedString, forState: .Normal)
         b.setImage(UIImage(named: "icn-add-new-stem"), forState: .Normal)
         b.titleEdgeInsets = UIEdgeInsets(top: 0.0, left: 12.0, bottom: 0.0, right: 0.0)
         b.titleLabel?.font = UIFont.avenirRoman(14)
