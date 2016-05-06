@@ -169,7 +169,10 @@ extension PerformerInteractor: PerformerInstrumentsInput {
         performerInstrumentsOutput.setCompassActive(false)
         compassValueStore = CompassValueStore(interval: 0.5) { v in
             
-            dispatch_async(dispatch_get_main_queue()) { [weak self] in self?.performerInstrumentsOutput.setCompassActive(v > 1) }
+            dispatch_async(dispatch_get_main_queue()) { [weak self] in
+                
+                self?.performerInstrumentsOutput.setCompassActive(v > 1)
+            }
         }
         
         compassValueStore?.start()
@@ -426,6 +429,7 @@ extension PerformerInteractor {
 }
 
 extension PerformerInteractor {
+    
     
     private func startOnboardingIfNeeded() {
         
