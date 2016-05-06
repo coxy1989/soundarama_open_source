@@ -63,8 +63,9 @@ class InstrumentsViewController: ViewController, PerformerUserInterface {
     
     private lazy var mutedOverlayView: UIView = {
         
-        let v = NSBundle.mainBundle().loadNibNamed("MutedView", owner: self, options: nil).first as! UIView
+        let v = NSBundle.mainBundle().loadNibNamed("MutedView", owner: self, options: nil).first as! MutedView
         v.userInteractionEnabled = false
+        v.label.text = "PERFORMER_MUTED".localizedString
         return v
     }()
     
@@ -81,6 +82,9 @@ class InstrumentsViewController: ViewController, PerformerUserInterface {
         view.layer.insertSublayer(backgroundGradientLayer, atIndex: 0)
         compassView?.addSubview(chargeGradientView)
         compassView!.addSubview(chargeLevelView)
+        
+        turnLabel.text = "PERFORMER_COMPASS_INSTRUCTION".localizedString
+        danceLabel.text = "PERFORMER_DANCEOMETER_INSTRUCTION".localizedString
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -163,13 +167,13 @@ extension InstrumentsViewController: PerformerInstructionUserInterface {
             
             case .ChargingInstruction:
             
-                instructionView?.titleLabel.text = "Move around!"
-                instructionView?.messageLabel.text = "Move around to unlock added sounds"
+                instructionView?.titleLabel.text = "PERFORMER_DANCEOMETER_ONBOARDING_HEADER".localizedString
+                instructionView?.messageLabel.text = "PERFORMER_DANCEOMETER_ONBOARDING_BODY".localizedString
             
             case .CompassInstruction:
             
-                instructionView?.titleLabel.text = "Turn on the spot"
-                instructionView?.messageLabel.text = "Turn on the spot to change your sound"
+                instructionView?.titleLabel.text = "PERFORMER_COMPASS_ONBOARDING_HEADER".localizedString
+                instructionView?.messageLabel.text = "PERFORMER_COMPASS_ONBOARDING_BODY".localizedString
         }
     }
     
@@ -185,7 +189,7 @@ extension InstrumentsViewController: CurrentlyPerformingUserInterface {
         
         guard let name = name else {
             
-            topLabel.text = "Waiting for the conductor \n to send you a sound"
+            topLabel.text = "PERFORMER_WAITING_FOR_SOUND".localizedString
             chargeLevelView.hidden = true
             chargeGradientView.hidden = true
             compassView?.setPointsHidden(true)
@@ -196,7 +200,7 @@ extension InstrumentsViewController: CurrentlyPerformingUserInterface {
         chargeGradientView.hidden = false
         compassView?.setPointsHidden(false)
         
-        let s = NSMutableAttributedString(string: "Currently performing\n", attributes: UIFont.fontAttribute(UIFont.avenirLight(16)))
+        let s = NSMutableAttributedString(string: "PERFORMER_CURRENTLY_PERFORMING".localizedString + "\n", attributes: UIFont.fontAttribute(UIFont.avenirLight(16)))
         s.appendAttributedString(NSMutableAttributedString(string: name, attributes: UIFont.fontAttribute(UIFont.avenirHeavy(16))))
         topLabel.attributedText = s
     }
@@ -302,10 +306,10 @@ extension InstrumentsViewController: ReconnectionUserInterface {
         switch event {
             
             case .Started:
-        
-                let s = NSMutableAttributedString(string: "Lost connection to the conductor\n", attributes: UIFont.fontAttribute(UIFont.avenirLight(16)))
                 
-                s.appendAttributedString(NSMutableAttributedString(string: "Attempting to reconnect", attributes: UIFont.fontAttribute(UIFont.avenirHeavy(16))))
+                let s = NSMutableAttributedString(string: "PERFORMER_LOST_CONNECTION_HEADER".localizedString + "\n", attributes: UIFont.fontAttribute(UIFont.avenirLight(16)))
+                
+                s.appendAttributedString(NSMutableAttributedString(string: "PERFORMER_ATTEMPT_RECONNECT_BODY".localizedString, attributes: UIFont.fontAttribute(UIFont.avenirHeavy(16))))
                 
                 topLabel.attributedText = s
             
@@ -314,16 +318,14 @@ extension InstrumentsViewController: ReconnectionUserInterface {
             
             case .EndedFailure:
             
-                topLabel.text = "The conductor became unreachable"
+                topLabel.text = "PERFORMER_RECONNECT_FAILED".localizedString
                 
                 activityIndicator.hidden = true
                 activityIndicator.stopAnimating()
             
             case .EndedSucceess:
-            
-                debugPrint("Successfully reconnected")
                 
-                topLabel.text = "Waiting for the conductor \n to send you a sound"
+                topLabel.text = "PERFORMER_WAITING_FOR_SOUND".localizedString
             
                 activityIndicator.hidden = true
                 activityIndicator.stopAnimating()

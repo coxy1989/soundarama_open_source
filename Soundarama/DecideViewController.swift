@@ -21,4 +21,19 @@ class DecideViewController: UIViewController, DecideUserInterface {
         
         delegate.decideUserInterfaceDidSelectDJ(self)
     }
+    
+    @IBOutlet weak var djLabel: UILabel!
+    
+    @IBOutlet weak var performerLabel: UILabel!
+    
+    @IBOutlet weak var aboutButton: UIButton!
+    
+    override func viewDidLoad() {
+        
+        super.viewDidLoad()
+    
+        djLabel.text = "DECIDE_DJ".localizedString
+        performerLabel.text = "DECIDE_PERFORMER".localizedString
+        aboutButton.setTitle("ABOUT".localizedString, forState: .Normal)
+    }
 }

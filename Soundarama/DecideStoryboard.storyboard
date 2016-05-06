@@ -102,6 +102,11 @@
                     </view>
                     <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="iPad"/>
+                    <connections>
+                        <outlet property="aboutButton" destination="vgC-tb-0TP" id="f51-Lg-izN"/>
+                        <outlet property="djLabel" destination="P7h-tv-hVF" id="oxB-gb-e72"/>
+                        <outlet property="performerLabel" destination="cWW-QL-v7D" id="LXd-WE-b9U"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="uTf-ZL-Rw7" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <tapGestureRecognizer id="byY-NP-oz2">
@@ -271,6 +276,11 @@
                         </constraints>
                     </view>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina55"/>
+                    <connections>
+                        <outlet property="aboutButton" destination="9zK-dR-CCp" id="0JQ-OC-v8c"/>
+                        <outlet property="djLabel" destination="eTS-OA-fjt" id="OaY-kz-PDq"/>
+                        <outlet property="performerLabel" destination="jmm-Qd-iYf" id="4tU-yi-gjE"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="F7P-Eb-oi2" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <tapGestureRecognizer id="QZA-A0-nRv">

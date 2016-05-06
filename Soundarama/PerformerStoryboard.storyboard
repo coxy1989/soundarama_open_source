@@ -189,7 +189,9 @@
                         </variation>
                     </view>
                     <connections>
+                        <outlet property="backButton" destination="9y4-0r-ITo" id="Qo9-Tf-V7P"/>
                         <outlet property="tableView" destination="ahv-xd-7TO" id="dld-Ra-Blp"/>
+                        <outlet property="titleLabel" destination="0h4-u2-aBx" id="77E-Dh-FmH"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="e3a-KP-FZb" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -583,7 +585,9 @@ Coxy is the king.</string>
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="backButton" destination="HGG-kr-yzR" id="Dd4-Hu-LAr"/>
                         <outlet property="tableView" destination="c6a-NF-sIE" id="928-uI-Xaw"/>
+                        <outlet property="titleLabel" destination="eb8-fK-lJW" id="z8W-rU-QKt"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ba7-xV-Cqb" userLabel="First Responder" sceneMemberID="firstResponder"/>

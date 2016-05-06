@@ -41,6 +41,7 @@
 		421B7BFD1CCD179800E90C71 /* SyncMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 421B7BFC1CCD179800E90C71 /* SyncMessage.swift */; };
 		422662FD1CD9FA33001C8CB4 /* MutedView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 422662FC1CD9FA33001C8CB4 /* MutedView.xib */; };
 		422662FF1CDA2E0A001C8CB4 /* StateMessageStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 422662FE1CDA2E0A001C8CB4 /* StateMessageStore.swift */; };
+		422663011CDCE530001C8CB4 /* MutedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 422663001CDCE530001C8CB4 /* MutedView.swift */; };
 		422EB05A1C8DBA2200B27134 /* DJAudioStemsPickerUserInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = 422EB0591C8DBA2200B27134 /* DJAudioStemsPickerUserInterface.swift */; };
 		422EB05C1C8DC39500B27134 /* UIAudioStemTransformer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 422EB05B1C8DC39500B27134 /* UIAudioStemTransformer.swift */; };
 		4244598D1CA2EB5F00547B3C /* AGaramondPro-Italic.otf in Resources */ = {isa = PBXBuildFile; fileRef = 4244598B1CA2EB5F00547B3C /* AGaramondPro-Italic.otf */; };
@@ -228,6 +229,7 @@
 		421B7BFC1CCD179800E90C71 /* SyncMessage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SyncMessage.swift; sourceTree = "<group>"; };
 		422662FC1CD9FA33001C8CB4 /* MutedView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MutedView.xib; sourceTree = "<group>"; };
 		422662FE1CDA2E0A001C8CB4 /* StateMessageStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StateMessageStore.swift; sourceTree = "<group>"; };
+		422663001CDCE530001C8CB4 /* MutedView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MutedView.swift; sourceTree = "<group>"; };
 		422EB0591C8DBA2200B27134 /* DJAudioStemsPickerUserInterface.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DJAudioStemsPickerUserInterface.swift; sourceTree = "<group>"; };
 		422EB05B1C8DC39500B27134 /* UIAudioStemTransformer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIAudioStemTransformer.swift; sourceTree = "<group>"; };
 		4244598B1CA2EB5F00547B3C /* AGaramondPro-Italic.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "AGaramondPro-Italic.otf"; path = "Resources/Font/AGaramondPro-Italic.otf"; sourceTree = "<group>"; };
@@ -423,6 +425,7 @@
 				42FDDD121CBE429F00776C06 /* ChargerView.swift */,
 				427B05C31CBBB71B0009EF75 /* CompassView.swift */,
 				42DCE5FC1CD8B5BE0041B513 /* InstructionView.swift */,
+				422663001CDCE530001C8CB4 /* MutedView.swift */,
 				42DCE5FA1CD8B3790041B513 /* InstructionView.xib */,
 				422662FC1CD9FA33001C8CB4 /* MutedView.xib */,
 			);
@@ -1205,6 +1208,7 @@
 				428AF2AE1CA032BF0023FCC9 /* Level.swift in Sources */,
 				4249B59D1C5797920096872D /* ChristiansTimeServer.swift in Sources */,
 				42FDDD151CBE80CF00776C06 /* CompassChargeVolumeController.swift in Sources */,
+				422663011CDCE530001C8CB4 /* MutedView.swift in Sources */,
 				428AF2AC1CA0327C0023FCC9 /* Connection.swift in Sources */,
 				429EC9671C84770C002FDBCC /* SwiftyJSON.swift in Sources */,
 				421B7BFD1CCD179800E90C71 /* SyncMessage.swift in Sources */,

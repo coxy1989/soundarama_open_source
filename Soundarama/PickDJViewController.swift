@@ -28,6 +28,10 @@ class PickDJViewController: ViewController {
     
     weak var delegate: PickDJUserInterfaceDelegate!
     
+    @IBOutlet weak var titleLabel: UILabel!
+    
+    @IBOutlet weak var backButton: UIButton!
+    
     @IBOutlet private weak var tableView: UITableView!
     
     @IBAction private func didPressDismissButton(sender: AnyObject) { userInterfaceDelegate?.userInterfaceDidNavigateBack(self) }
@@ -38,6 +42,14 @@ class PickDJViewController: ViewController {
 }
 
 extension PickDJViewController: PickDJUserInterface {
+    
+    override func viewDidLoad() {
+        
+        super.viewDidLoad()
+        
+        titleLabel.text = "PICK_DJ_TITLE".localizedString
+        backButton.setTitle("BACK".localizedString, forState: .Normal)
+    }
     
     func set(identifier: UIDJIdentifier?, state: ConnectionState, identifiers: [UIDJIdentifier], isReachable: Bool) {
         
@@ -53,7 +65,7 @@ extension PickDJViewController: PickDJUserInterface {
         
         guard isReachable else {
             
-            return Section(header: "Please connect to the interwebs", rows: [])
+            return Section(header: "PICK_DJ_NOT_CONNECTED".localizedString, rows: [])
         }
         
         guard let id = identifier else {
@@ -66,7 +78,7 @@ extension PickDJViewController: PickDJUserInterface {
             return nil
         }
         
-        let header = state == .Connecting ? "Connecting" : "Connected"
+        let header = state == .Connecting ? "PICK_DJ_CONNECTING".localizedString : "PICK_DJ_CONNECTED".localizedString
         
         return Section(header: header, rows: [id])
     }
@@ -78,7 +90,7 @@ extension PickDJViewController: PickDJUserInterface {
             return nil
         }
         
-        let header = identifiers.count == 0 ? "There are no available DJs" : "Available DJs"
+        let header = identifiers.count == 0 ? "PICK_DJ_NO_DJS".localizedString : "PICK_DJ_AVAILABLE".localizedString
     
         return Section(header: header, rows: identifiers.sort() {$0.name > $1.name})
     }
