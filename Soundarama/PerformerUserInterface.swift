@@ -41,15 +41,11 @@ protocol CurrentlyPerformingUserInterface: class {
 protocol CompassUserInterface: class {
     
     func setCompassValue(value: Double)
-    
-    func setCompassActive(value: Bool)
 }
 
 protocol ChargingUserInteface: class {
     
     func setCharge(value: Double)
-    
-    func setChargeActive(value: Bool)
 }
 
 protocol ColoredUserInteface: class {

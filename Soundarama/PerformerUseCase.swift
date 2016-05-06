@@ -59,10 +59,6 @@ protocol PerformerInstrumentsOutput: class {
     
     func setCharge(value: Double)
     
-    func setCompassActive(value: Bool)
-    
-    func setChargeActive(value: Bool)
-    
     func setColors(colors: [UIColor])
     
     func setMuted(value: Bool)

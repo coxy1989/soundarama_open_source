@@ -234,16 +234,6 @@ extension InstrumentsViewController: ChargingUserInteface {
             self?.setChargeGradientViewScale(CGFloat(value))
         }
     }
-    
-    func setChargeActive(value: Bool) {
-        
-        UIView.animateWithDuration(0.2) { [weak self] in
-            
-            let alpha = CGFloat(value ? 1 : 0.4)
-            self?.danceIcon.alpha = alpha
-            self?.danceLabel.alpha = alpha
-        }
-    }
 }
 
 extension InstrumentsViewController: CompassUserInterface {
@@ -255,16 +245,6 @@ extension InstrumentsViewController: CompassUserInterface {
         UIView.animateWithDuration(0.1) { [weak self] in
         
             self?.compassView?.transform = CGAffineTransformMakeRotation(-radians)
-        }
-    }
-    
-    func setCompassActive(value: Bool) {
-        
-        UIView.animateWithDuration(0.1) { [weak self] in
-            
-            let alpha = CGFloat(value ? 1 : 0.4)
-            self?.turnIcon.alpha = alpha
-            self?.turnLabel.alpha = alpha
         }
     }
 }

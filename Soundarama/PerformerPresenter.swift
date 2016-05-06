@@ -66,19 +66,9 @@ extension PerformerPresenter: PerformerInstrumentsOutput {
         performerUserInterface?.setCompassValue(value)
     }
     
-    func setCompassActive(value: Bool) {
-        
-        performerUserInterface?.setCompassActive(value)
-    }
-    
     func setCharge(value: Double) {
         
         performerUserInterface?.setCharge(value)
-    }
-    
-    func setChargeActive(value: Bool) {
-        
-        performerUserInterface?.setChargeActive(value)
     }
     
     func setColors(colors: [UIColor]) {

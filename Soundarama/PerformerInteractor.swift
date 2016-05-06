@@ -165,15 +165,16 @@ extension PerformerInteractor: PerformerInstrumentsInput {
         performerInstrumentsOutput.setCurrentlyPerforming("Mother Fucker")
         performerInstrumentsOutput.setColors(ColorStore.colors("Bass"))
         
-        performerInstrumentsOutput.setChargeActive(false)
-        performerInstrumentsOutput.setCompassActive(false)
+
+        /*
         compassValueStore = CompassValueStore(interval: 0.5) { v in
             
             dispatch_async(dispatch_get_main_queue()) { [weak self] in
                 
-                self?.performerInstrumentsOutput.setCompassActive(v > 1)
+            
             }
         }
+ */
         
         compassValueStore?.start()
     }
