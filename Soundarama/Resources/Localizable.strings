@@ -6,14 +6,49 @@
   Copyright © 2015 Touchpress Ltd. All rights reserved.
 */
 
-"DEVICES" = "Devices";
 
-"SOUND_ZONE_EMPTY" = "Empty";
-"SOUND_ZONE_ADD_NEW_STEM" = "Add new stem";
-"SOUND_ZONE_MUTE" = "M";
-"SOUND_ZONE_SOLO" = "S";
+//General UI
+"BACK_BTN"  =   "Back";
 
-"HOME_PERFORMER" = "Performer";
-"HOME_DJ" = "DJ";
+//Home Screen
+"HOME_SCREEN_DJ"    =   "Conductor";
+"HOME_SCREEN_PERFORMER" =   "Performer";
+"HOME_SCREEN_ABOUT" =   "About";
 
-"DJ_STEMS_LIST_TITLE" = "Stems";
+//DJ Screen
+
+"SOUND_ZONE_ADD_NEW_STEM"   =   "Add new stem";
+"SOUND_ZONE_MUTE"   =   "Mute";
+"SOUND_ZONE_SOLO"   =   "Solo";
+"SOUND_ZONE_EMPTY"  =   "Empty";
+
+"SOUND_LIST_HEADER" =   "Stems";
+"SOUND_CATEGORY_DRUMS"  =   "Drums";
+"SOUND_CATEGORY_VOCALS"  =   "Vocals";
+"SOUND_CATEGORY_BASS"  =   "Bass";
+"SOUND_CATEGORY_LEADS"  =   "Leads";
+
+//Decide
+"DECIDE_HEADER" =   "Pick a DJ";
+"DECIDE_NO_DJS"  =   "There are no available DJs";
+"DECIDE_CONNECTING" =   "Connecting";
+"DECIDE_CONNECTED"  =   "Connected";
+"DECIDE_AVAILABLE"  =   "Available";
+
+//Performer Screen
+"DANCEOMETER_ICON"  =   "Dance";
+"COMPASS_ICON"  =   "Turn";
+"COMPASS_ONBOARDING_HEADER" =   "Turn on the spot";
+"COMPASS_ONBOARDING_BODY" =   "Turn on the spot to change your sound";
+"DANCEOMETER_ONBOARDING_HEADER" =   "Move around!";
+"DANCEOMETER_ONBOARDING_BODY" =   "Move around to unlock added sounds";
+"CURRENTLY_PERFORMING"  =   "Currently performing:";
+"PERFORMER_MUTED"   =   "MUTED BY THE CONDUCTOR";
+"LOST_CONNECTION_HEADER"    =   "Lost connection with the conductor:";
+"LOST_CONNECTION_BODY"  =   "RECONNECTING";
+"WAITING_FOR_SOUND" =   "Waiting for the conductor to send you a sound…";
+
+//Main On-Boarding
+"ONBOARDING_CONDUCTOR"  =   "Conductor mode";
+"ONBOARDING_PERFORMER"  =   "Performer mode";
+"ONBOARDING_START"  =   "Start";
