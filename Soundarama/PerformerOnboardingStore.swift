@@ -30,17 +30,32 @@ class PerformerOnboardingStore {
         }
     }
     
-    init(showHandler: PerformerInstruction -> (), hideHandler: PerformerInstruction -> ()) {
+    private static func instructionsFromUserDefaults() -> [PerformerInstruction] {
         
+        var i: [PerformerInstruction] = []
+        let defs = NSUserDefaults.standardUserDefaults()
         
-        if !NSUserDefaults.standardUserDefaults().boolForKey(PerformerOnboardingStore.key(.CompassInstruction)) {
-            instructions.append(.CompassInstruction)
-        }
-        
-        if !NSUserDefaults.standardUserDefaults().boolForKey(PerformerOnboardingStore.key(.ChargingInstruction)) {
+        if !defs.boolForKey(PerformerOnboardingStore.key(.CompassInstruction)) {
             
-            instructions.append(.ChargingInstruction)
+            i.append(.CompassInstruction)
         }
+        
+        if !defs.boolForKey(PerformerOnboardingStore.key(.ChargingInstruction)) {
+            
+            i.append(.ChargingInstruction)
+        }
+        
+        return i
+    }
+    
+    private static func flushInstructionsFromUserDefaults() {
+        
+        let defs = NSUserDefaults.standardUserDefaults()
+        defs.setBool(false, forKey: PerformerOnboardingStore.key(.CompassInstruction))
+        defs.setBool(false, forKey: PerformerOnboardingStore.key(.ChargingInstruction))
+    }
+    
+    init(showHandler: PerformerInstruction -> (), hideHandler: PerformerInstruction -> ()) {
         
         self.showHandler = showHandler
         self.hideHandler = hideHandler
@@ -48,6 +63,9 @@ class PerformerOnboardingStore {
     
     func start() {
         
+        lock.lock()
+        instructions = PerformerOnboardingStore.instructionsFromUserDefaults()
+        lock.unlock()
         scheduleNextInstruction()
     }
     
@@ -56,6 +74,16 @@ class PerformerOnboardingStore {
         timer?.invalidate()
     }
     
+    func restart() {
+        
+        if let i = currentInstruction {
+            
+            hideHandler(i)
+        }
+        
+        PerformerOnboardingStore.flushInstructionsFromUserDefaults()
+        start()
+    }
     
     func requestHideInstruction(instruction: PerformerInstruction) {
         

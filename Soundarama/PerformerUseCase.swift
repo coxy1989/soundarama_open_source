@@ -30,9 +30,7 @@ protocol PerformerInstructionInput: class {
     
     func stopPerformerInstructionInput()
     
-    func requestShowInstruction(instruction: PerformerInstruction)
-    
-    func requestHideInstruction(instruction: PerformerInstruction)
+    func restartPerformerInstructionInput()
 }
 
 protocol PerformerConnectionInput: class {

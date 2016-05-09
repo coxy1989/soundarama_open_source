@@ -225,6 +225,11 @@ extension PerformerInteractor: PerformerInstructionInput {
         onboardingStore!.start()
     }
     
+    func restartPerformerInstructionInput() {
+        
+        onboardingStore?.restart()
+    }
+    
     func stopPerformerInstructionInput() {
         
         onboardingStore?.stop()
@@ -235,16 +240,6 @@ extension PerformerInteractor: PerformerInstructionInput {
         
         danceometerValueStore?.stop()
         danceometerValueStore = nil
-    }
-    
-    func requestShowInstruction(instruction: PerformerInstruction) {
-
-        onboardingStore?.requestShowInstruction(instruction)
-    }
-    
-    func requestHideInstruction(instruction: PerformerInstruction) {
-        
-        onboardingStore?.requestHideInstruction(instruction)
     }
 }
 

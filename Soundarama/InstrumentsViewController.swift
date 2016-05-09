@@ -14,35 +14,19 @@ class InstrumentsViewController: ViewController, PerformerUserInterface {
     @IBOutlet private weak var topLabel: UILabel!
     
     @IBOutlet private weak var compassView: CompassView?
-
-    @IBOutlet weak var turnIcon: UIImageView!
-    
-    @IBOutlet weak var turnLabel: UILabel!
-    
-    @IBOutlet weak var danceIcon: UIImageView!
-    
-    @IBOutlet weak var danceLabel: UILabel!
     
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
-    @IBAction private func turnIconWasTapped(sender: AnyObject) {
+    @IBOutlet weak var infoButton: UIButton!
     
-        requestShowInstruction?(.CompassInstruction)
-    }
-    
-    @IBAction private func danceIconWasTapped(sender: AnyObject) {
-        
-        requestShowInstruction?(.ChargingInstruction)
-    }
+    @IBAction func didPressInfoButton(sender: AnyObject) { requestOnboarding?() }
     
     @IBAction private func didPressBackButton(sender: AnyObject) {
         
         userInterfaceDelegate?.userInterfaceDidNavigateBack(self)
     }
     
-    var requestShowInstruction: ((PerformerInstruction) -> ())?
-    
-    var requestHideInstruction: ((PerformerInstruction) -> ())?
+    var requestOnboarding: (() -> ())?
     
     private lazy var backgroundGradientLayer: CAGradientLayer = {
         
@@ -73,9 +57,6 @@ class InstrumentsViewController: ViewController, PerformerUserInterface {
         view.layer.insertSublayer(backgroundGradientLayer, atIndex: 0)
         compassView?.addSubview(chargeGradientView)
         compassView!.addSubview(chargeLevelView)
-        
-        turnLabel.text = "PERFORMER_COMPASS_INSTRUCTION".localizedString
-        danceLabel.text = "PERFORMER_DANCEOMETER_INSTRUCTION".localizedString
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -127,7 +108,6 @@ extension InstrumentsViewController: PerformerInstructionUserInterface {
     func showInstruction(instruction: PerformerInstruction) {
         
         instructionView = newInstructionView()
-        instructionView!.dismissAction = { [weak self] in self?.requestHideInstruction?(instruction) }
         view.addSubview(instructionView!)
         presentInstructionView(instructionView!)
         

@@ -73,8 +73,7 @@ extension PerformerWireframe {
         let vc = sb.instantiateViewControllerWithIdentifier("InstrumentsViewController") as! InstrumentsViewController
         vc.userInterfaceDelegate = performerPresenter
         performerPresenter.performerUserInterface = vc
-        vc.requestShowInstruction = performerPresenter.requestShowInstruction
-        vc.requestHideInstruction = performerPresenter.requestHideInstruction
+        vc.requestOnboarding = performerPresenter.requestOnboarding
         return vc
     }
     

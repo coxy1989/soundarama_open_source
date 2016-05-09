@@ -43,14 +43,9 @@ class PerformerPresenter {
     
     /* API */
     
-    func requestShowInstruction(instruction: PerformerInstruction) {
+    func requestOnboarding() {
         
-        instructionInput.requestShowInstruction(instruction)
-    }
-    
-    func requestHideInstruction(instruction: PerformerInstruction) {
-    
-        instructionInput.requestHideInstruction(instruction)
+       instructionInput.restartPerformerInstructionInput()
     }
 }
 

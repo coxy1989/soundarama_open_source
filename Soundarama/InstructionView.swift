@@ -10,14 +10,8 @@ import UIKit
 
 class InstructionView: UIView {
     
-    var dismissAction: (() -> ())?
-    
     @IBOutlet weak var titleLabel: UILabel!
     
     @IBOutlet weak var messageLabel: UILabel!
     
-    @IBAction func didPressCloseButton(sender: AnyObject) {
-        
-        dismissAction?()
-    }
 }
