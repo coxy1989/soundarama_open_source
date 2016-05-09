@@ -8,7 +8,7 @@
 
 import Foundation
 
-class CompassValueStore {
+class SamplingValueStore {
     
     private var values: [(NSTimeInterval, Double)] = []
     

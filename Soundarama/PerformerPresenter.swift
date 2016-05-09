@@ -137,6 +137,14 @@ extension PerformerPresenter: UserInterfaceDelegate {
         }
     }
     
+    func userInterfaceDidAppear(userInterface: UserInterface) {
+        
+        if userInterface === performerUserInterface {
+            
+            instructionInput.startPerformerInstructionInput()
+        }
+    }
+    
     func userInterfaceDidNavigateBack(userInterface: UserInterface) {
     
         if userInterface === pickDJUI {
@@ -155,10 +163,8 @@ extension PerformerPresenter: UserInterfaceDelegate {
             performerWireframe.dismissInstrumentsUI(self)
         }
     }
-
-    func userInterfaceDidLoad(userInterface: UserInterface) { }
     
-    func userInterfaceDidAppear(userInterface: UserInterface) { }
+    func userInterfaceDidLoad(userInterface: UserInterface) { }
 }
 
 extension PerformerPresenter: PickDJUserInterfaceDelegate {
@@ -176,7 +182,7 @@ extension PerformerPresenter: PerformerInstructionOutput {
         performerUserInterface?.showInstruction(instruction)
     }
     
-    func hideInstruction() {
+    func hideInstruction(instruction: PerformerInstruction) {
         
         performerUserInterface?.hideInstruction()
     }

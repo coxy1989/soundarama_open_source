@@ -39,7 +39,9 @@ class PerformerInteractor {
     
     private var onboardingStore: PerformerOnboardingStore?
     
-    private var compassValueStore: CompassValueStore?
+    private var compassValueStore: SamplingValueStore?
+    
+    private var danceometerValueStore: SamplingValueStore?
     
     private var flashingStore: FlashingStore?
     
@@ -164,19 +166,6 @@ extension PerformerInteractor: PerformerInstrumentsInput {
         //performerInstrumentsOutput.setCurrentlyPerforming(nil)
         performerInstrumentsOutput.setCurrentlyPerforming("Mother Fucker")
         performerInstrumentsOutput.setColors(ColorStore.colors("Bass"))
-        
-
-        /*
-        compassValueStore = CompassValueStore(interval: 0.5) { v in
-            
-            dispatch_async(dispatch_get_main_queue()) { [weak self] in
-                
-            
-            }
-        }
- */
-        
-        compassValueStore?.start()
     }
     
     func stopPerfromerInstrumentInput() {
@@ -199,25 +188,108 @@ extension PerformerInteractor: PerformerInstructionInput {
     
     func startPerformerInstructionInput() {
         
-        startOnboardingIfNeeded()
+        guard onboardingStore == nil else {
+            
+            return
+        }
+        
+        let show: PerformerInstruction -> () = { [weak self] i in
+            
+            switch i {
+                
+                case .CompassInstruction: self?.startCompassValueStore()
+                
+                case .ChargingInstruction: self?.startDanceometerValueStore()
+                
+            }
+            
+            dispatch_async(dispatch_get_main_queue()) { [weak self] in self?.performerInstructionOutput.showInstruction(i) }
+        }
+        
+        let hide: PerformerInstruction -> () = { [weak self] i in
+            
+            switch i {
+                
+                case .CompassInstruction: self?.stopCompassValueStore()
+                
+                case .ChargingInstruction: self?.stopDanceometerValueStore()
+                
+            }
+            
+            dispatch_async(dispatch_get_main_queue()) { [weak self] in self?.performerInstructionOutput.hideInstruction(i) }
+        
+        }
+        
+        onboardingStore = PerformerOnboardingStore(showHandler:show, hideHandler: hide)
+        onboardingStore!.start()
     }
     
     func stopPerformerInstructionInput() {
         
         onboardingStore?.stop()
         onboardingStore = nil
+        
+        compassValueStore?.stop()
+        compassValueStore = nil
+        
+        danceometerValueStore?.stop()
+        danceometerValueStore = nil
     }
     
     func requestShowInstruction(instruction: PerformerInstruction) {
-        
-        performerInstructionOutput.showInstruction(instruction)
+
+        onboardingStore?.requestShowInstruction(instruction)
     }
     
     func requestHideInstruction(instruction: PerformerInstruction) {
         
-        onboardingStore?.descheduleInstruction(instruction)
-        onboardingStore?.scheduleNextInstruction()
-        performerInstructionOutput.hideInstruction()
+        onboardingStore?.requestHideInstruction(instruction)
+    }
+}
+
+extension PerformerInteractor {
+    
+    private func startCompassValueStore() {
+        
+        compassValueStore = SamplingValueStore(interval: 0.5) { [weak self] in
+            
+            if $0 > 25 {
+                
+                self?.onboardingStore?.requestHideInstruction(.CompassInstruction)
+            }
+        }
+        
+        compassValueStore?.start()
+    }
+    
+    private func startDanceometerValueStore() {
+        
+        danceometerValueStore = SamplingValueStore(interval: 0.1) { [weak self] in
+            
+            guard self?.danceometer?.score > 0.2 else {
+                
+                return
+            }
+            
+            if $0 > 0.02 {
+                
+                self?.onboardingStore?.requestHideInstruction(.ChargingInstruction)
+            }
+        }
+        
+        danceometerValueStore!.start()
+    }
+    
+    private func stopCompassValueStore() {
+        
+        compassValueStore?.stop()
+        compassValueStore = nil
+    }
+    
+    private func stopDanceometerValueStore() {
+        
+        danceometerValueStore?.stop()
+        danceometerValueStore = nil
     }
 }
 
@@ -272,7 +344,7 @@ extension PerformerInteractor {
             
             debugPrint("Started an audio stem")
             scheduleStartAudio(poststate!.audioStem!, timeMap: time_map, timestamp: m.timestamp, referenceTimestamp: ts, muted: muteState)
-            startOnboardingIfNeeded()
+            startPerformerInstructionInput()
             startFlashingOutput(ts)
             
             
@@ -341,9 +413,13 @@ extension PerformerInteractor {
         stopAudio()
         stopFlashingOutput()
         stateMessageStore.flush()
-        performerInstrumentsOutput.setColors(ColorStore.nullColors())
-        performerInstrumentsOutput.setCurrentlyPerforming(nil)
-        performerReconnectionOutput.updateWithReconnectionEvent(.Started)
+        
+        dispatch_async(dispatch_get_main_queue()) { [weak self] in
+         
+            self?.performerInstrumentsOutput.setColors(ColorStore.nullColors())
+            self?.performerInstrumentsOutput.setCurrentlyPerforming(nil)
+            self?.performerReconnectionOutput.updateWithReconnectionEvent(.Started)
+        }
         
         switch error {
             
@@ -357,13 +433,13 @@ extension PerformerInteractor {
                         
                         debugPrint("Successfully reconnected")
                         self?.onSuccessfulHandshake($0.0, resolvable: resolvable, time_map: $0.1)
-                        self?.performerReconnectionOutput.updateWithReconnectionEvent(.EndedSucceess)
+                        dispatch_async(dispatch_get_main_queue()) { [weak self] in self?.performerReconnectionOutput.updateWithReconnectionEvent(.EndedSucceess) }
                     })
                     
                     .on(failed: { [weak self] e in
                         
                         debugPrint("Failed to reconnect: \(e)")
-                        self?.performerReconnectionOutput.updateWithReconnectionEvent(.EndedFailure)
+                        dispatch_async(dispatch_get_main_queue()) { [weak self] in self?.performerReconnectionOutput.updateWithReconnectionEvent(.EndedFailure) }
                     })
                     
                     .on(disposed: {debugPrint("reshake signal disposed")})
@@ -431,21 +507,6 @@ extension PerformerInteractor {
 
 extension PerformerInteractor {
     
-    
-    private func startOnboardingIfNeeded() {
-        
-        guard onboardingStore == nil else {
-            
-            return
-        }
-        
-        onboardingStore = PerformerOnboardingStore() { [weak self] in self?.performerInstructionOutput.showInstruction($0) }
-        onboardingStore?.scheduleNextInstruction()
-    }
-}
-
-extension PerformerInteractor {
-    
     private func startFlashingOutput(referenceTime: NSTimeInterval) {
         
         dispatch_async(dispatch_get_main_queue()) { [weak self] in self?.performerFlashingOutput.startFlashing() }
@@ -462,7 +523,11 @@ extension PerformerInteractor {
         
         flashingStore?.stop()
         flashingStore = nil
-        performerFlashingOutput.stopFlashing()
+        
+        dispatch_async(dispatch_get_main_queue()) { [weak self] in
+            
+            self?.performerFlashingOutput.stopFlashing()
+        }
     }
 }
 
@@ -507,6 +572,8 @@ extension PerformerInteractor {
 
 extension PerformerInteractor {
     
+    /* TODO: Refactor this garbage! */
+    
     private func startInstruments() {
         
         var c: Double?
@@ -515,14 +582,14 @@ extension PerformerInteractor {
         danceometer = Danceometer(accellerometer: Accellerometer(motionManager: MotionService.manager))
         danceometer!.start() { [weak self] in
             
-            /* TODO: Refactor this garbage! */
-            
             guard let this = self else {
                 
                 return
             }
             
             this.performerInstrumentsOutput.setCharge($0)
+            
+            this.danceometerValueStore?.addValue($0)
             
             guard let al = this.audioloop else {
                 
@@ -560,7 +627,9 @@ extension PerformerInteractor {
                 return
             }
             
+            // TODO: Main Thread!
             this.performerInstrumentsOutput.setCompassValue($0)
+            
             this.compassValueStore?.addValue($0)
             handler($0)
         }

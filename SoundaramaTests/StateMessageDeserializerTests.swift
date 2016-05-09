@@ -16,7 +16,7 @@ extension StateMesssageDeserializerTests {
     
     func test_deserialize() {
         
-        
+        /*
         let workspace = Workspace(identifier: "", audioStem: "", performers: Set([""]), isMuted: true, isSolo: true, isAntiSolo: true)
         
         let msg = StateMessage(suite: Set([workspace]), performer: "", referenceTimestamps: [ : ], timestamp: 3)
@@ -34,7 +34,7 @@ extension StateMesssageDeserializerTests {
         
         debugPrint(dic2)
         assert(dic == dic2 as! [String : String])
-        
+        */
         //data.appendData(Serialisation.terminator)
         
         //let payload = Serialisation.getPayload(data as! NSData)

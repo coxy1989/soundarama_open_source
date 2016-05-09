@@ -158,7 +158,6 @@
 		42F99EA51CA1BC1A0058F7AC /* CocoaAsyncSocket.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 42F99EA41CA1BC1A0058F7AC /* CocoaAsyncSocket.framework */; };
 		42F99EA71CA1BC1E0058F7AC /* TouchpressFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 42F99EA61CA1BC1E0058F7AC /* TouchpressFoundation.framework */; };
 		42F99EA91CA1BC230058F7AC /* TouchpressUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 42F99EA81CA1BC230058F7AC /* TouchpressUI.framework */; };
-		42FC502A1CAD832E00591803 /* BroadcastStateTransformer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42FC50291CAD832E00591803 /* BroadcastStateTransformer.swift */; };
 		42FDDD111CBD58A400776C06 /* Danceometer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42FDDD101CBD58A400776C06 /* Danceometer.swift */; };
 		42FDDD131CBE429F00776C06 /* ChargerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42FDDD121CBE429F00776C06 /* ChargerView.swift */; };
 		42FDDD151CBE80CF00776C06 /* CompassChargeVolumeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42FDDD141CBE80CF00776C06 /* CompassChargeVolumeController.swift */; };
@@ -348,7 +347,6 @@
 		42F99EA41CA1BC1A0058F7AC /* CocoaAsyncSocket.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CocoaAsyncSocket.framework; path = Carthage/Build/iOS/CocoaAsyncSocket.framework; sourceTree = "<group>"; };
 		42F99EA61CA1BC1E0058F7AC /* TouchpressFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = TouchpressFoundation.framework; path = Carthage/Build/iOS/TouchpressFoundation.framework; sourceTree = "<group>"; };
 		42F99EA81CA1BC230058F7AC /* TouchpressUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = TouchpressUI.framework; path = Carthage/Build/iOS/TouchpressUI.framework; sourceTree = "<group>"; };
-		42FC50291CAD832E00591803 /* BroadcastStateTransformer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BroadcastStateTransformer.swift; sourceTree = "<group>"; };
 		42FDDD101CBD58A400776C06 /* Danceometer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Danceometer.swift; sourceTree = "<group>"; };
 		42FDDD121CBE429F00776C06 /* ChargerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChargerView.swift; sourceTree = "<group>"; };
 		42FDDD141CBE80CF00776C06 /* CompassChargeVolumeController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CompassChargeVolumeController.swift; sourceTree = "<group>"; };
@@ -616,7 +614,6 @@
 				4273BC601C876708002E9EF9 /* GroupTransformer.swift */,
 				422EB05B1C8DC39500B27134 /* UIAudioStemTransformer.swift */,
 				4273BC621C87673C002E9EF9 /* UISuiteTransformer.swift */,
-				42FC50291CAD832E00591803 /* BroadcastStateTransformer.swift */,
 			);
 			name = Transformation;
 			sourceTree = "<group>";
@@ -1149,7 +1146,6 @@
 				420AA69F1C550B1700F7BB25 /* DecideViewController.swift in Sources */,
 				42A727B81C5537CF00BFCA47 /* PerformerUseCase.swift in Sources */,
 				421468681C568EC600892786 /* SocketEndpoint.swift in Sources */,
-				42FC502A1CAD832E00591803 /* BroadcastStateTransformer.swift in Sources */,
 				42A727B01C552E2800BFCA47 /* DJModule.swift in Sources */,
 				42F64F681CB3BAF600565F4B /* ResolvableStore.swift in Sources */,
 				421022C21CC9032E00D29CF2 /* AssertiveDiscovery.swift in Sources */,

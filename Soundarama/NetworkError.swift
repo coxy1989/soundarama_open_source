@@ -41,20 +41,7 @@ enum SearchError: ErrorType {
     case SearchFailed
 }
 
-/* Handshake */
-
-/*
-enum ReceptiveHandshakeError: ErrorType {
-    
-    case AcceptorFailed
-    
-    case AcceptorDisconnected
-    
-    case SyncTimeout
-    
-    case Cancelled
-}
- */
+/* Acceptor */
 
 enum SocketAcceptorError: ErrorType {
     
@@ -62,6 +49,8 @@ enum SocketAcceptorError: ErrorType {
     
     case Disconnected
 }
+
+/* Connector */
 
 enum HandshakeError: ErrorType {
     

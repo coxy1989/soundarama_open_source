@@ -77,7 +77,7 @@ protocol PerformerInstructionOutput: class {
     
     func showInstruction(instruction: PerformerInstruction)
     
-    func hideInstruction()
+    func hideInstruction(instruction: PerformerInstruction)
 }
 
 protocol PerformerReconnectionOutput: class {
