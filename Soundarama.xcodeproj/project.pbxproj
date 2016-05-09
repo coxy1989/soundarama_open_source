@@ -1038,7 +1038,7 @@
 					};
 					E25279C11BF606C8008B4690 = {
 						CreatedOnToolsVersion = 7.1.1;
-						DevelopmentTeam = KAA57NG7X5;
+						DevelopmentTeam = YL8CTL4C9C;
 					};
 				};
 			};

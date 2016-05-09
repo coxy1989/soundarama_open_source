@@ -524,8 +524,9 @@ extension PerformerInteractor {
         let remote_now = remoteTime(timeMap)
         let latency = remote_now - timestamp
         let time_elapsed = timestamp  + latency
-        let time_modulus = time_elapsed % audioConfig.loopLength
+        let time_modulus = time_elapsed % Double(1.9512195122 / 2)
         
+        debugPrint("time_Mod: \(time_modulus)")
         
         flashingStore?.start(time_modulus)
     }

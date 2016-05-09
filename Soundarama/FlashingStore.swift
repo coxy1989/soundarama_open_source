@@ -27,6 +27,7 @@ class FlashingStore {
     func start(afterDelay: NSTimeInterval) {
         
         delay(afterDelay, queue: dispatch_get_main_queue()) { [weak self] in
+            
             self?.handler(0.25, 0)
             self?.peak()
         }
@@ -39,7 +40,7 @@ class FlashingStore {
     
     @objc private func trough() {
         
-        handler(0.25,Double(FlashingStore.loop_time * 0.1))
+        handler(0.25, Double(FlashingStore.loop_time * 0.1))
         timer = NSTimer.scheduledTimerWithTimeInterval(FlashingStore.loop_time * 0.1, target: self, selector: #selector(peak), userInfo: nil, repeats: false)
     }
     
