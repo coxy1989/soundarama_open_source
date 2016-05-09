@@ -759,7 +759,6 @@
 				421022C31CC90FF600D29CF2 /* ConnectionStore.swift */,
 				421022C51CC9101000D29CF2 /* DiscoveryStore.swift */,
 				42F64F701CB3FB1A00565F4B /* EndpointStore.swift */,
-				42DCE6031CD9E4F70041B513 /* FlashingStore.swift */,
 				429EC9851C85AECE002FDBCC /* GroupStore.swift */,
 				42DCE6011CD8E6DB0041B513 /* PerformerOnboardingStore.swift */,
 				42C1D2291CAACBD5005D0347 /* ReferenceTimestampStore.swift */,
@@ -846,6 +845,7 @@
 		42E8BE191C54FB730034F1C8 /* Legacy */ = {
 			isa = PBXGroup;
 			children = (
+				42DCE6031CD9E4F70041B513 /* FlashingStore.swift */,
 				42ED6C6B1CAC2D8D002A7211 /* BroadcastStore.swift */,
 				42ED6C691CAC1F32002A7211 /* DJBroadcastConfigurationViewController.swift */,
 				428AF2AD1CA032BF0023FCC9 /* Level.swift */,

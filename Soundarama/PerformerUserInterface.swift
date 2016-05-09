@@ -16,21 +16,11 @@ protocol PerformerUserInterface:
         ChargingUserInteface,
         ReconnectionUserInterface,
         PerformerInstructionUserInterface,
-        FlashingUserinterface,
         MutedUserInterface{}
 
 protocol MutedUserInterface: class {
     
     func setMuted(value: Bool)
-}
-
-protocol FlashingUserinterface: class {
-    
-    func startFlashing()
-    
-    func stopFlashing()
-    
-    func flash(opacity: CGFloat, duration: NSTimeInterval)
 }
 
 protocol CurrentlyPerformingUserInterface: class {

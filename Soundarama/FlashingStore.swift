@@ -6,6 +6,7 @@
 //  Copyright © 2016 Touchpress Ltd. All rights reserved.
 //
 
+/*
 import Foundation
 import UIKit
 
@@ -50,3 +51,4 @@ class FlashingStore {
         timer = NSTimer.scheduledTimerWithTimeInterval(FlashingStore.loop_time * 0.9, target: self, selector: #selector(trough), userInfo: nil, repeats: false)
     }
 }
+*/

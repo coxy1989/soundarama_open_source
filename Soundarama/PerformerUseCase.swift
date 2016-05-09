@@ -64,15 +64,6 @@ protocol PerformerInstrumentsOutput: class {
     func setMuted(value: Bool)
 }
 
-protocol PerformerFlashingOutput: class {
-    
-    func startFlashing()
-    
-    func stopFlashing()
-    
-    func flash(opacity: CGFloat, duration: NSTimeInterval)
-}
-
 protocol PerformerInstructionOutput: class {
     
     func showInstruction(instruction: PerformerInstruction)

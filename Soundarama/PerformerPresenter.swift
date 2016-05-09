@@ -82,24 +82,6 @@ extension PerformerPresenter: PerformerInstrumentsOutput {
     }
 }
 
-extension PerformerPresenter: PerformerFlashingOutput {
-    
-    func startFlashing() {
-        
-        performerUserInterface?.startFlashing()
-    }
-    
-    func stopFlashing() {
-        
-        performerUserInterface?.stopFlashing()
-    }
-    
-    func flash(opacity: CGFloat, duration: NSTimeInterval) {
-        
-        performerUserInterface?.flash(opacity, duration: duration)
-    }
-}
-
 extension PerformerPresenter: PerformerDJPickerOutput {
     
     func set(identifier: UIDJIdentifier?, state: ConnectionState, identifiers: [UIDJIdentifier], isReachable: Bool) {

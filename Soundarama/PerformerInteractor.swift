@@ -23,8 +23,6 @@ class PerformerInteractor {
     
     weak var performerInstructionOutput: PerformerInstructionOutput!
     
-    weak var performerFlashingOutput: PerformerFlashingOutput!
-    
     /* State */
     
     private let audioStemStore = AudioStemStore()
@@ -44,8 +42,6 @@ class PerformerInteractor {
     private var compassValueStore: SamplingValueStore?
     
     private var danceometerValueStore: SamplingValueStore?
-    
-    private var flashingStore: FlashingStore?
     
     /* Audio */
     
@@ -350,8 +346,6 @@ extension PerformerInteractor {
             debugPrint("Started an audio stem")
             scheduleStartAudio(poststate!.audioStem!, timeMap: time_map, timestamp: m.timestamp, referenceTimestamp: ts, muted: muteState)
             startPerformerInstructionInput()
-            startFlashingOutput(poststate!.audioStem!, timeMap: time_map, timestamp: m.timestamp)
-            
             
             let c = ColorStore.colors(poststate!.audioStem!)
             let n = audioStemStore.audioStem(poststate!.audioStem!)?.name
@@ -367,7 +361,6 @@ extension PerformerInteractor {
             
             debugPrint("Stopped an audio stem")
             stopAudio()
-            stopFlashingOutput()
             
             dispatch_async(dispatch_get_main_queue()) { [weak self] in
                 
@@ -416,7 +409,6 @@ extension PerformerInteractor {
     func handleEndpointError(error: EndpointError) {
     
         stopAudio()
-        stopFlashingOutput()
         stateMessageStore.flush()
         
         dispatch_async(dispatch_get_main_queue()) { [weak self] in
@@ -506,39 +498,6 @@ extension PerformerInteractor {
             let isReachable = this.discoveryStore.getIsUp()
             
             this.performerDJPickerOutput.set(identifier, state: state, identifiers: identifiers, isReachable: isReachable)
-        }
-    }
-}
-
-extension PerformerInteractor {
-    
-    private func startFlashingOutput(reference: String, timeMap: ChristiansMap, timestamp: NSTimeInterval) {
-        
-        dispatch_async(dispatch_get_main_queue()) { [weak self] in self?.performerFlashingOutput.startFlashing() }
-        
-        flashingStore = FlashingStore() { [weak self] opac, dur in
-            
-            dispatch_async(dispatch_get_main_queue()) { [weak self] in self?.performerFlashingOutput.flash(opac, duration: dur) }
-        }
-        
-        let remote_now = remoteTime(timeMap)
-        let latency = remote_now - timestamp
-        let time_elapsed = timestamp  + latency
-        let time_modulus = time_elapsed % Double(1.9512195122 / 2)
-        
-        debugPrint("time_Mod: \(time_modulus)")
-        
-        flashingStore?.start(time_modulus)
-    }
-    
-    private func stopFlashingOutput() {
-        
-        flashingStore?.stop()
-        flashingStore = nil
-        
-        dispatch_async(dispatch_get_main_queue()) { [weak self] in
-            
-            self?.performerFlashingOutput.stopFlashing()
         }
     }
 }

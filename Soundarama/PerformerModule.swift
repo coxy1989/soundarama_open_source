@@ -38,6 +38,5 @@ class PerformerModule {
         interactor.performerInstrumentsOutput = presenter
         interactor.performerReconnectionOutput = presenter
         interactor.performerInstructionOutput = presenter
-        interactor.performerFlashingOutput = presenter
     }
 }

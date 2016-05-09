@@ -52,15 +52,6 @@ class InstrumentsViewController: ViewController, PerformerUserInterface {
         return l
     }()
     
-    private lazy var flashingOverlayView: UIView = {
-        
-        let v = UIView()
-        v.backgroundColor = UIColor.whiteColor()
-        v.alpha = 0
-        v.userInteractionEnabled = false
-        return v
-    }()
-    
     private lazy var mutedOverlayView: UIView = {
         
         let v = NSBundle.mainBundle().loadNibNamed("MutedView", owner: self, options: nil).first as! MutedView
@@ -114,29 +105,6 @@ class InstrumentsViewController: ViewController, PerformerUserInterface {
         
         chargeGradientView.frame = CGRectApplyAffineTransform(rect, CGAffineTransformMakeScale(scale, scale))
         chargeGradientView.center = CGPointMake(CGRectGetMidX(compassView!.bounds), CGRectGetMidY(compassView!.bounds))
-    }
-}
-
-extension InstrumentsViewController: FlashingUserinterface {
-    
-    func startFlashing() {
-        
-        flashingOverlayView.removeFromSuperview()
-        flashingOverlayView.frame = view.bounds
-        view.addSubview(flashingOverlayView)
-    }
-    
-    func stopFlashing() {
-        
-        flashingOverlayView.removeFromSuperview()
-    }
-    
-    func flash(opacity: CGFloat, duration: NSTimeInterval) {
-        
-        UIView.animateWithDuration(duration) { [weak self] in
-            
-            self?.flashingOverlayView.alpha = opacity
-        }
     }
 }
 
