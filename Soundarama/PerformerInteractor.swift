@@ -12,7 +12,7 @@ import ReactiveCocoa
 import Result
 
 class PerformerInteractor {
- 
+    
     /* Viper */
     
     weak var performerDJPickerOutput: PerformerDJPickerOutput!
@@ -36,6 +36,8 @@ class PerformerInteractor {
     private var discoveryStore = DiscoveryStore()
     
     private var stateMessageStore = StateMessageStore()
+    
+    private var vibrationStore: VibrationStore?
     
     private var onboardingStore: PerformerOnboardingStore?
     
@@ -162,10 +164,11 @@ extension PerformerInteractor: PerformerInstrumentsInput {
     func startPerformerInstrumentInput() {
         
         startInstruments()
-        //performerInstrumentsOutput.setColors(ColorStore.nullColors())
-        //performerInstrumentsOutput.setCurrentlyPerforming(nil)
-        performerInstrumentsOutput.setCurrentlyPerforming("Mother Fucker")
-        performerInstrumentsOutput.setColors(ColorStore.colors("Bass"))
+        vibrationStore = VibrationStore()
+        performerInstrumentsOutput.setColors(ColorStore.nullColors())
+        performerInstrumentsOutput.setCurrentlyPerforming(nil)
+        //performerInstrumentsOutput.setCurrentlyPerforming("Mother Fucker")
+        //performerInstrumentsOutput.setColors(ColorStore.colors("Bass"))
     }
     
     func stopPerfromerInstrumentInput() {
@@ -181,6 +184,8 @@ extension PerformerInteractor: PerformerInstrumentsInput {
         
         audioloop?.loop.stop()
         audioloop = nil
+        
+        vibrationStore = nil
     }
 }
 
@@ -586,6 +591,8 @@ extension PerformerInteractor {
                 
                 return
             }
+            
+            self?.vibrationStore?.setValue($0)
             
             this.performerInstrumentsOutput.setCharge($0)
             
