@@ -148,6 +148,11 @@ extension PerformerPresenter: PickDJUserInterfaceDelegate {
 
 extension PerformerPresenter: PerformerInstructionOutput {
     
+    func setCanRequestInstructions(state: Bool) {
+        
+        performerUserInterface?.setCanRequestInstructions(state)
+    }
+    
     func showInstruction(instruction: PerformerInstruction) {
      
         performerUserInterface?.showInstruction(instruction)

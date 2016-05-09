@@ -163,6 +163,7 @@ extension PerformerInteractor: PerformerInstrumentsInput {
         vibrationStore = VibrationStore()
         performerInstrumentsOutput.setColors(ColorStore.nullColors())
         performerInstrumentsOutput.setCurrentlyPerforming(nil)
+        performerInstructionOutput.setCanRequestInstructions(false)
         //performerInstrumentsOutput.setCurrentlyPerforming("Mother Fucker")
         //performerInstrumentsOutput.setColors(ColorStore.colors("Bass"))
     }
@@ -342,6 +343,7 @@ extension PerformerInteractor {
             scheduleStartAudio(poststate!.audioStem!, timeMap: time_map, timestamp: m.timestamp, referenceTimestamp: ts, muted: muteState)
             startPerformerInstructionInput()
             
+            
             let c = ColorStore.colors(poststate!.audioStem!)
             let n = audioStemStore.audioStem(poststate!.audioStem!)?.name
             
@@ -349,6 +351,7 @@ extension PerformerInteractor {
                 
                 self?.performerInstrumentsOutput.setCurrentlyPerforming(n)
                 self?.performerInstrumentsOutput.setColors(c)
+                self?.performerInstructionOutput.setCanRequestInstructions(true)
             }
         }
         
@@ -361,6 +364,7 @@ extension PerformerInteractor {
                 
                 self?.performerInstrumentsOutput.setCurrentlyPerforming(nil)
                 self?.performerInstrumentsOutput.setColors(ColorStore.nullColors())
+                self?.performerInstructionOutput.setCanRequestInstructions(false)
             }
         }
         
@@ -411,6 +415,7 @@ extension PerformerInteractor {
             self?.performerInstrumentsOutput.setColors(ColorStore.nullColors())
             self?.performerInstrumentsOutput.setCurrentlyPerforming(nil)
             self?.performerReconnectionOutput.updateWithReconnectionEvent(.Started)
+            self?.performerInstructionOutput.setCanRequestInstructions(false)
         }
         
         switch error {

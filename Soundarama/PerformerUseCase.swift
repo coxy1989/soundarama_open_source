@@ -64,6 +64,8 @@ protocol PerformerInstrumentsOutput: class {
 
 protocol PerformerInstructionOutput: class {
     
+    func setCanRequestInstructions(state: Bool)
+    
     func showInstruction(instruction: PerformerInstruction)
     
     func hideInstruction(instruction: PerformerInstruction)

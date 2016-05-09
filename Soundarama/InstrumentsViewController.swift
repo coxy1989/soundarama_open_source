@@ -105,6 +105,11 @@ extension InstrumentsViewController: MutedUserInterface {
 
 extension InstrumentsViewController: PerformerInstructionUserInterface {
     
+    func setCanRequestInstructions(state: Bool) {
+        
+        infoButton.hidden = !state
+    }
+    
     func showInstruction(instruction: PerformerInstruction) {
         
         instructionView = newInstructionView()

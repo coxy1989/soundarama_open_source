@@ -50,6 +50,8 @@ protocol ReconnectionUserInterface: class {
 
 protocol PerformerInstructionUserInterface {
     
+    func setCanRequestInstructions(state: Bool)
+    
     func showInstruction(instruction: PerformerInstruction)
     
     func hideInstruction()
