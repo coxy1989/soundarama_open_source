@@ -126,13 +126,6 @@ extension DJPresenter: UserInterfaceDelegate {
             
             djAudioStemPickerInput.startDJAudioStemPicker()
         }
-        
-            /*
-        else if userInterface === djBroadcastConfigurationUI {
-         
-            djBroadcastConfigurationInput.startBroadcastConfiguration()
-        }
- */
     }
     
     func userInterfaceDidNavigateBack(userInterface: UserInterface) {
@@ -156,13 +149,6 @@ extension DJPresenter: UserInterfaceDelegate {
 }
 
 extension DJPresenter: DJUserInterfaceDelegate {
-    
-    /*
-    func didRequestConfigureBroadcast() {
-        
-       djWireframe.presentBroadcastConfigurationUserInterface()
-    }
- */
     
     func didRequestToggleMuteInWorkspace(workspaceID: WorkspaceID) {
         

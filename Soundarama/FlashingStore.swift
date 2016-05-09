@@ -9,30 +9,27 @@
 import Foundation
 import UIKit
 
-/* TODO: Threas safety */
+/* TODO: Thread safety */
 
 class FlashingStore {
     
     private static let loop_time = 1.9512195122 / 2
     
-    private let referenceTime: NSTimeInterval
-    
     private let handler: (CGFloat, NSTimeInterval) -> ()
     
     private var timer: NSTimer?
     
-    init(referenceTime: NSTimeInterval, handler: (CGFloat, NSTimeInterval) -> ()) {
+    init(handler: (CGFloat, NSTimeInterval) -> ()) {
         
-        self.referenceTime = referenceTime
         self.handler = handler
     }
     
-    func start() {
-
-        /* TODO: Sync to reference time */
+    func start(afterDelay: NSTimeInterval) {
         
-        handler(0.25, 0)
-        peak()
+        delay(afterDelay, queue: dispatch_get_main_queue()) { [weak self] in
+            self?.handler(0.25, 0)
+            self?.peak()
+        }
     }
     
     func stop() {

@@ -350,7 +350,7 @@ extension PerformerInteractor {
             debugPrint("Started an audio stem")
             scheduleStartAudio(poststate!.audioStem!, timeMap: time_map, timestamp: m.timestamp, referenceTimestamp: ts, muted: muteState)
             startPerformerInstructionInput()
-            startFlashingOutput(ts)
+            startFlashingOutput(poststate!.audioStem!, timeMap: time_map, timestamp: m.timestamp)
             
             
             let c = ColorStore.colors(poststate!.audioStem!)
@@ -512,16 +512,22 @@ extension PerformerInteractor {
 
 extension PerformerInteractor {
     
-    private func startFlashingOutput(referenceTime: NSTimeInterval) {
+    private func startFlashingOutput(reference: String, timeMap: ChristiansMap, timestamp: NSTimeInterval) {
         
         dispatch_async(dispatch_get_main_queue()) { [weak self] in self?.performerFlashingOutput.startFlashing() }
         
-        flashingStore = FlashingStore(referenceTime: referenceTime) { [weak self] opac, dur in
+        flashingStore = FlashingStore() { [weak self] opac, dur in
             
             dispatch_async(dispatch_get_main_queue()) { [weak self] in self?.performerFlashingOutput.flash(opac, duration: dur) }
         }
         
-        flashingStore?.start()
+        let remote_now = remoteTime(timeMap)
+        let latency = remote_now - timestamp
+        let time_elapsed = timestamp  + latency
+        let time_modulus = time_elapsed % audioConfig.loopLength
+        
+        
+        flashingStore?.start(time_modulus)
     }
     
     private func stopFlashingOutput() {
@@ -538,19 +544,19 @@ extension PerformerInteractor {
 
 extension PerformerInteractor {
     
-    private func scheduleStartAudio(reference: String, timeMap: ChristiansMap, timestamp: NSTimeInterval, referenceTimestamp: NSTimeInterval, muted: Bool) {
+    func remoteTime(timeMap: ChristiansMap) -> NSTimeInterval {
+        
+        let local_now = NSDate().timeIntervalSince1970
+        let elapsed = local_now - timeMap.local
+        let remote_now = timeMap.remote + elapsed
+        return remote_now
+    }
     
-        func remoteTime(timeMap: ChristiansMap) -> NSTimeInterval {
-            
-            let local_now = NSDate().timeIntervalSince1970
-            let elapsed = local_now - timeMap.local
-            let remote_now = timeMap.remote + elapsed
-            return remote_now
-        }
+    private func scheduleStartAudio(reference: String, timeMap: ChristiansMap, timestamp: NSTimeInterval, referenceTimestamp: NSTimeInterval, muted: Bool) {
         
         let remote_now = remoteTime(timeMap)
         let latency = remote_now - timestamp
-        let time_elapsed = timestamp - referenceTimestamp + latency
+        let time_elapsed = timestamp  + latency
         let time_modulus = time_elapsed % audioConfig.audioFileLength
         
         startAudio(TaggedAudioPathStore.taggedAudioPaths(reference), afterDelay: 0, atTime: time_modulus, muted: muted)

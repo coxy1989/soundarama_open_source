@@ -137,14 +137,6 @@ extension PerformerPresenter: UserInterfaceDelegate {
         }
     }
     
-    func userInterfaceDidAppear(userInterface: UserInterface) {
-        
-        if userInterface === performerUserInterface {
-            
-            instructionInput.startPerformerInstructionInput()
-        }
-    }
-    
     func userInterfaceDidNavigateBack(userInterface: UserInterface) {
     
         if userInterface === pickDJUI {
@@ -165,6 +157,8 @@ extension PerformerPresenter: UserInterfaceDelegate {
     }
     
     func userInterfaceDidLoad(userInterface: UserInterface) { }
+    
+    func userInterfaceDidAppear(userInterface: UserInterface) {}
 }
 
 extension PerformerPresenter: PickDJUserInterfaceDelegate {
