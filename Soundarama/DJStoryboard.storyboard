@@ -183,13 +183,6 @@
                                                     <color key="textColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icn-plus" translatesAutoresizingMaskIntoConstraints="NO" id="soX-Yh-tYL">
-                                                    <rect key="frame" x="576" y="16" width="16" height="16"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="width" constant="16" id="Ge7-bs-Nos"/>
-                                                        <constraint firstAttribute="height" constant="16" id="JFC-UC-ZdF"/>
-                                                    </constraints>
-                                                </imageView>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8sb-1v-hCQ">
                                                     <rect key="frame" x="12" y="47" width="588" height="1"/>
                                                     <color key="backgroundColor" red="0.30196078431372547" green="0.30196078431372547" blue="0.30196078431372547" alpha="1" colorSpace="calibratedRGB"/>
@@ -203,10 +196,8 @@
                                                 <constraint firstItem="69o-oU-QSR" firstAttribute="top" secondItem="GIY-1u-vcP" secondAttribute="topMargin" id="0dS-V0-BkP"/>
                                                 <constraint firstItem="69o-oU-QSR" firstAttribute="leading" secondItem="GIY-1u-vcP" secondAttribute="leadingMargin" constant="4" id="2j1-gD-8PQ"/>
                                                 <constraint firstItem="M2l-No-iGK" firstAttribute="top" secondItem="69o-oU-QSR" secondAttribute="bottom" id="BVX-3O-wLA"/>
-                                                <constraint firstItem="soX-Yh-tYL" firstAttribute="centerY" secondItem="GIY-1u-vcP" secondAttribute="centerY" id="Dl6-tS-msc"/>
                                                 <constraint firstItem="8sb-1v-hCQ" firstAttribute="leading" secondItem="GIY-1u-vcP" secondAttribute="leadingMargin" constant="4" id="Kr1-wr-gqa"/>
                                                 <constraint firstAttribute="bottomMargin" secondItem="8sb-1v-hCQ" secondAttribute="bottomMargin" id="NpB-lW-hrM"/>
-                                                <constraint firstItem="soX-Yh-tYL" firstAttribute="trailing" secondItem="GIY-1u-vcP" secondAttribute="trailingMargin" id="QqB-P4-UVg"/>
                                                 <constraint firstItem="M2l-No-iGK" firstAttribute="leading" secondItem="GIY-1u-vcP" secondAttribute="leadingMargin" constant="4" id="hPx-ta-1Ba"/>
                                                 <constraint firstAttribute="trailingMargin" secondItem="8sb-1v-hCQ" secondAttribute="trailingMargin" id="ygw-3A-y4z"/>
                                             </constraints>
@@ -606,13 +597,6 @@
                                                     <color key="textColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icn-plus" translatesAutoresizingMaskIntoConstraints="NO" id="CZy-Yd-Ipl">
-                                                    <rect key="frame" x="576" y="16" width="16" height="16"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="width" constant="16" id="Qv0-TQ-IYg"/>
-                                                        <constraint firstAttribute="height" constant="16" id="eP8-V8-Zju"/>
-                                                    </constraints>
-                                                </imageView>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="J4B-aC-12J">
                                                     <rect key="frame" x="12" y="47" width="588" height="1"/>
                                                     <color key="backgroundColor" red="0.30196078430000001" green="0.30196078430000001" blue="0.30196078430000001" alpha="1" colorSpace="calibratedRGB"/>
@@ -628,9 +612,7 @@
                                                 <constraint firstAttribute="trailingMargin" secondItem="J4B-aC-12J" secondAttribute="trailingMargin" id="Hcy-X6-rha"/>
                                                 <constraint firstItem="J4B-aC-12J" firstAttribute="leading" secondItem="X1p-88-3r9" secondAttribute="leadingMargin" constant="4" id="OKb-9H-U9U"/>
                                                 <constraint firstItem="H9K-hV-DW8" firstAttribute="top" secondItem="Zot-hj-mdK" secondAttribute="bottom" id="bMf-pn-I8P"/>
-                                                <constraint firstItem="CZy-Yd-Ipl" firstAttribute="centerY" secondItem="X1p-88-3r9" secondAttribute="centerY" id="cYu-NN-eKO"/>
                                                 <constraint firstItem="Zot-hj-mdK" firstAttribute="leading" secondItem="X1p-88-3r9" secondAttribute="leadingMargin" constant="4" id="kn7-8l-Udc"/>
-                                                <constraint firstItem="CZy-Yd-Ipl" firstAttribute="trailing" secondItem="X1p-88-3r9" secondAttribute="trailingMargin" id="sLM-Yz-dny"/>
                                                 <constraint firstItem="Zot-hj-mdK" firstAttribute="top" secondItem="X1p-88-3r9" secondAttribute="topMargin" id="vHd-SK-gCX"/>
                                             </constraints>
                                         </tableViewCellContentView>
@@ -838,6 +820,5 @@
         <image name="bg-device-tray" width="240" height="756"/>
         <image name="cross-btn" width="16" height="16"/>
         <image name="dj-device-tray-bg" width="375" height="203"/>
-        <image name="icn-plus" width="16" height="16"/>
     </resources>
 </document>

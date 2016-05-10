@@ -154,7 +154,7 @@ extension InstrumentsViewController: CurrentlyPerformingUserInterface {
         compassView?.setPointsHidden(false)
         
         let s = NSMutableAttributedString(string: "PERFORMER_CURRENTLY_PERFORMING".localizedString + "\n", attributes: UIFont.fontAttribute(UIFont.avenirLight(16)))
-        s.appendAttributedString(NSMutableAttributedString(string: name, attributes: UIFont.fontAttribute(UIFont.avenirHeavy(16))))
+        s.appendAttributedString(NSMutableAttributedString(string: name.uppercaseString, attributes: UIFont.fontAttribute(UIFont.avenirHeavy(16))))
         topLabel.attributedText = s
     }
 }
