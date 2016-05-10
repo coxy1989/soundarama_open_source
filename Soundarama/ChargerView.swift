@@ -8,8 +8,6 @@
 
 import UIKit
 
-// TODO: apply gradient to the dotted line
-
 class CircleView: UIView {
     
     override func layoutSubviews() {
@@ -25,18 +23,16 @@ class CircleView: UIView {
 
 class ChargeLevelView: UIView {
     
+    private struct Dot {
+        
+        static let diameter: CGFloat = 4
+        
+        static let spacing: CGFloat = Dot.diameter * 3
+    }
+    
     private var colors: [UIColor]?
     
-    private lazy var dashed_layer : CAShapeLayer = {
-        
-        let l = CAShapeLayer()
-        l.fillColor = UIColor.clearColor().CGColor
-        l.lineWidth = 4
-        l.strokeColor = UIColor.whiteColor().CGColor
-        l.lineDashPattern = [ 0, l.lineWidth * 3]
-        l.lineCap = "round"
-        return l
-    }()
+    private var dots: [UIView]?
     
     override init(frame: CGRect) {
         
@@ -55,18 +51,31 @@ class ChargeLevelView: UIView {
     private func commonInit() {
         
         clipsToBounds = false
-        layer.addSublayer(dashed_layer)
     }
-    
     
     override func layoutSubviews() {
         
         super.layoutSubviews()
-        
+    
         let side = min (bounds.size.height, bounds.size.width)
-        let x = (bounds.size.width - side) * 0.5
-        let y = (bounds.size.height - side) * 0.5
-        dashed_layer.path = UIBezierPath(ovalInRect: CGRectInset(bounds, x, y)).CGPath
+        let radius = CGFloat((side * 0.5) - (Dot.diameter * 0.5))
+        let circum = 2 * CGFloat(M_PI) * radius
+        let num = Int(round((circum / (Dot.diameter + Dot.spacing))))
+        
+        let r: Range<Int> = 0..<num
+        
+        let vs: [UIView] = r.map() { _ in
+            
+            let v = UIView()
+            v.backgroundColor = UIColor.whiteColor().colorWithAlphaComponent(0.5)
+            v.frame.size.height = Dot.diameter
+            v.frame.size.width = Dot.diameter
+            v.layer.cornerRadius = (Dot.diameter * 0.5)
+            return v
+        }
+        
+        dots = vs
+        layoutDots(vs, radius: radius)
     }
     
     func setColors(colors: [UIColor]) {
@@ -76,12 +85,34 @@ class ChargeLevelView: UIView {
     
     func setUnderColor() {
         
-        dashed_layer.strokeColor = UIColor.whiteColor().colorWithAlphaComponent(0.5).CGColor
+        dots?.forEach() { $0.backgroundColor = UIColor.whiteColor().colorWithAlphaComponent(0.5) }
     }
     
     func setOverColor() {
         
-        dashed_layer.strokeColor = colors?[3].CGColor ?? UIColor.whiteColor().CGColor
+        dots?.forEach() { v in  v.backgroundColor =  colors?[3] ?? UIColor.whiteColor() }
+    }
+    
+    func layoutDots(dots: [UIView], radius: CGFloat) {
+        
+        let center = CGPointMake(bounds.width/2 ,bounds.height/2)
+    
+        var angle = CGFloat(2 * M_PI)
+        let step = CGFloat(2 * M_PI) / CGFloat(dots.count)
+        
+        dots.forEach() {
+            
+            let x = cos(angle) * radius + center.x
+            let y = sin(angle) * radius + center.y
+            
+            
+            
+            $0.center.x = x
+            $0.center.y = y
+            
+            addSubview($0)
+            angle += step
+        }
     }
 }
 
