@@ -44,6 +44,7 @@ class DJInteractor {
 
 extension DJInteractor: DJInput {
    
+    /*
     @objc func beatHeart() {
         
         endpointStore.getEndpoints().forEach() { address, endpoint in
@@ -52,10 +53,11 @@ extension DJInteractor: DJInput {
             endpoint.writeData(StateMessageSerializer.serialize(StateMessage(suite: suiteStore.suite, performer: address, referenceTimestamps: referenceTimestampStore.getTimestamps(), timestamp: NSDate().timeIntervalSince1970)))
         }
     }
+     */
     
     func startDJ() {
 
-        heartbeat = NSTimer.scheduledTimerWithTimeInterval(3, target: self, selector: #selector(beatHeart), userInfo: nil, repeats: true)
+        /* heartbeat = NSTimer.scheduledTimerWithTimeInterval(3, target: self, selector: #selector(beatHeart), userInfo: nil, repeats: true) */
         
         djOutput.setUISuite(UISuiteTransformer.transform(suiteStore.suite, name: audioStemStore.name, colors: ColorStore.colors))
         djOutput.setGroupingMode(true)
