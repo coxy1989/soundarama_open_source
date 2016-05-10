@@ -7,28 +7,34 @@
     "AudioStems" :
     [
                     {
-                        "Name" : "Synth Example",
+                        "Name" : "Kick",
      
-                        "Category" : "Synth",
-                        "Ref" : "Synth"
+                        "Category" : "Kick",
+                        "Ref" : "clek-kickA"
                     },
                     {
-                        "Name" : "Bass Example",
-     
-                        "Category" : "Bass",
-                        "Ref" : "Bass"
-                    },
-                    {
-                        "Name" : "Hats Example",
+                        "Name" : "Percussion",
      
                         "Category" : "Hats",
-                        "Ref" : "Hats"
+                        "Ref" : "clek-percusA"
                     },
                     {
-                        "Name" : "Kick Example",
+                        "Name" : "Hats",
+     
+                        "Category" : "Hats",
+                        "Ref" : "clek-rhodesA"
+                    },
+                    {
+                        "Name" : "Synth",
                         
-                        "Category" : "Kick",
-                        "Ref" : "Kick"
+                        "Category" : "Synth",
+                        "Ref" : "clek-synthA"
+                    },
+                    {
+                        "Name" : "Tom",
+     
+                        "Category" : "Bass",
+                        "Ref" : "clek-tomA"
                     }
      ]
 }
