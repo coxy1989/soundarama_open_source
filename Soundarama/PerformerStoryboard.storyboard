@@ -26,22 +26,26 @@
                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9y4-0r-ITo">
-                                        <rect key="frame" x="8" y="19" width="34" height="30"/>
-                                        <state key="normal" title="Back">
-                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kk3-ed-a7E">
+                                        <rect key="frame" x="8" y="21" width="246" height="25"/>
+                                        <fontDescription key="fontDescription" name="Avenir-Roman" family="Avenir" pointSize="18"/>
+                                        <inset key="contentEdgeInsets" minX="4" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                        <inset key="titleEdgeInsets" minX="4" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                        <state key="normal" title=" Back" image="back-btn">
+                                            <color key="titleColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
                                         </state>
                                         <connections>
-                                            <action selector="didPressDismissButton:" destination="gZ2-hE-N4q" eventType="touchUpInside" id="VKE-T2-gmd"/>
+                                            <action selector="didPressDismissButton:" destination="gZ2-hE-N4q" eventType="touchUpInside" id="dUX-st-hd1"/>
                                         </connections>
                                     </button>
                                 </subviews>
                                 <color key="backgroundColor" red="0.16078431369999999" green="0.16078431369999999" blue="0.16078431369999999" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstItem="0h4-u2-aBx" firstAttribute="centerY" secondItem="6C8-1L-XNh" secondAttribute="centerY" id="4eH-ew-Cjx"/>
-                                    <constraint firstItem="9y4-0r-ITo" firstAttribute="leading" secondItem="6C8-1L-XNh" secondAttribute="leading" constant="8" id="ZuY-1E-ZXV"/>
+                                    <constraint firstItem="kk3-ed-a7E" firstAttribute="leading" secondItem="6C8-1L-XNh" secondAttribute="leading" constant="8" id="51h-ku-1nF"/>
+                                    <constraint firstItem="0h4-u2-aBx" firstAttribute="leading" secondItem="kk3-ed-a7E" secondAttribute="trailing" constant="8" id="EBa-5Y-MiO"/>
+                                    <constraint firstItem="kk3-ed-a7E" firstAttribute="centerY" secondItem="0h4-u2-aBx" secondAttribute="centerY" id="TMU-5t-xnX"/>
                                     <constraint firstItem="0h4-u2-aBx" firstAttribute="centerX" secondItem="6C8-1L-XNh" secondAttribute="centerX" id="dzV-7B-FCt"/>
-                                    <constraint firstItem="9y4-0r-ITo" firstAttribute="centerY" secondItem="6C8-1L-XNh" secondAttribute="centerY" id="hQS-iU-WFk"/>
                                     <constraint firstAttribute="height" constant="67" id="umZ-1y-9Wy"/>
                                 </constraints>
                             </view>
@@ -188,7 +192,7 @@
                         </variation>
                     </view>
                     <connections>
-                        <outlet property="backButton" destination="9y4-0r-ITo" id="Qo9-Tf-V7P"/>
+                        <outlet property="backButton" destination="kk3-ed-a7E" id="9Fc-Xp-NBP"/>
                         <outlet property="tableView" destination="ahv-xd-7TO" id="dld-Ra-Blp"/>
                         <outlet property="titleLabel" destination="0h4-u2-aBx" id="77E-Dh-FmH"/>
                     </connections>
@@ -360,23 +364,25 @@ Coxy is the king.</string>
                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HGG-kr-yzR">
-                                        <rect key="frame" x="8" y="19" width="34" height="30"/>
-                                        <state key="normal" title="Back">
-                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="02Z-J7-eQc">
+                                        <rect key="frame" x="8" y="21" width="84" height="25"/>
+                                        <fontDescription key="fontDescription" name="Avenir-Roman" family="Avenir" pointSize="18"/>
+                                        <inset key="titleEdgeInsets" minX="4" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                        <state key="normal" title=" Back" image="back-btn">
+                                            <color key="titleColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
                                         </state>
                                         <connections>
-                                            <action selector="didPressDismissButton:" destination="1By-Ih-44U" eventType="touchUpInside" id="H6G-2a-otv"/>
-                                            <action selector="didPressDismissButton:" destination="gZ2-hE-N4q" eventType="touchUpInside" id="JUa-rZ-bou"/>
+                                            <action selector="didPressDismissButton:" destination="1By-Ih-44U" eventType="touchUpInside" id="YJO-ac-xKz"/>
                                         </connections>
                                     </button>
                                 </subviews>
                                 <color key="backgroundColor" red="0.16078431369999999" green="0.16078431369999999" blue="0.16078431369999999" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
-                                    <constraint firstItem="HGG-kr-yzR" firstAttribute="centerY" secondItem="P9T-bk-lZi" secondAttribute="centerY" id="HNX-6v-7f5"/>
+                                    <constraint firstItem="02Z-J7-eQc" firstAttribute="centerY" secondItem="eb8-fK-lJW" secondAttribute="centerY" id="Ib6-kf-zEb"/>
                                     <constraint firstItem="eb8-fK-lJW" firstAttribute="centerY" secondItem="P9T-bk-lZi" secondAttribute="centerY" id="QZW-xj-UL3"/>
                                     <constraint firstAttribute="height" constant="67" id="VQp-Bs-Jc5"/>
-                                    <constraint firstItem="HGG-kr-yzR" firstAttribute="leading" secondItem="P9T-bk-lZi" secondAttribute="leading" constant="8" id="fcY-73-Saf"/>
+                                    <constraint firstItem="eb8-fK-lJW" firstAttribute="leading" secondItem="02Z-J7-eQc" secondAttribute="trailing" constant="8" id="cGQ-jT-yPW"/>
+                                    <constraint firstItem="02Z-J7-eQc" firstAttribute="leading" secondItem="P9T-bk-lZi" secondAttribute="leading" constant="8" id="hwc-rv-GVd"/>
                                     <constraint firstItem="eb8-fK-lJW" firstAttribute="centerX" secondItem="P9T-bk-lZi" secondAttribute="centerX" id="qny-Y7-uyG"/>
                                 </constraints>
                             </view>
@@ -517,7 +523,7 @@ Coxy is the king.</string>
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="backButton" destination="HGG-kr-yzR" id="Dd4-Hu-LAr"/>
+                        <outlet property="backButton" destination="02Z-J7-eQc" id="WrJ-GL-8jF"/>
                         <outlet property="tableView" destination="c6a-NF-sIE" id="928-uI-Xaw"/>
                         <outlet property="titleLabel" destination="eb8-fK-lJW" id="z8W-rU-QKt"/>
                     </connections>

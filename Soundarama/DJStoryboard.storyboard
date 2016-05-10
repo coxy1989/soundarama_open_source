@@ -26,10 +26,9 @@
                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aP1-7q-730">
-                                        <rect key="frame" x="8" y="3" width="30" height="34"/>
-                                        <fontDescription key="fontDescription" name="Avenir-Heavy" family="Avenir" pointSize="16"/>
-                                        <state key="normal" title="X">
+                                    <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aP1-7q-730">
+                                        <rect key="frame" x="8" y="9" width="16" height="22"/>
+                                        <state key="normal" image="cross-btn">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                         <connections>
@@ -55,7 +54,7 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IlJ-yM-EzN" customClass="UnderlinedTextButton" customModule="Soundarama" customModuleProvider="target">
-                                        <rect key="frame" x="253.5" y="33" width="52" height="33"/>
+                                        <rect key="frame" x="252" y="33" width="52" height="33"/>
                                         <fontDescription key="fontDescription" name="Avenir-Roman" family="Avenir" pointSize="15"/>
                                         <state key="normal" title="Rhythm"/>
                                         <connections>
@@ -63,25 +62,25 @@
                                         </connections>
                                     </button>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8jV-xI-SNd">
-                                        <rect key="frame" x="85" y="37" width="69" height="25"/>
+                                        <rect key="frame" x="85" y="37" width="68.5" height="25"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="25" id="35F-YK-4ee"/>
                                         </constraints>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Yx9-MH-OYo">
-                                        <rect key="frame" x="184.5" y="37" width="69" height="25"/>
+                                        <rect key="frame" x="184" y="37" width="68.5" height="25"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="25" id="MB7-7h-u4S"/>
                                         </constraints>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gK2-bV-T4S">
-                                        <rect key="frame" x="305.5" y="37" width="68.5" height="25"/>
+                                        <rect key="frame" x="304" y="37" width="69" height="25"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                     </view>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PXP-AJ-eRD" customClass="UnderlinedTextButton" customModule="Soundarama" customModuleProvider="target">
-                                        <rect key="frame" x="373.5" y="33" width="73" height="33"/>
+                                        <rect key="frame" x="373" y="33" width="73" height="33"/>
                                         <fontDescription key="fontDescription" name="Avenir-Roman" family="Avenir" pointSize="15"/>
                                         <state key="normal" title="Instrument"/>
                                         <connections>
@@ -89,7 +88,7 @@
                                         </connections>
                                     </button>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fHH-KX-swc">
-                                        <rect key="frame" x="446.5" y="37" width="68.5" height="25"/>
+                                        <rect key="frame" x="446" y="37" width="69" height="25"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                     </view>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LF4-69-uxs" customClass="UnderlinedTextButton" customModule="Soundarama" customModuleProvider="target">
@@ -837,6 +836,7 @@
     <resources>
         <image name="back-btn" width="13" height="22"/>
         <image name="bg-device-tray" width="240" height="756"/>
+        <image name="cross-btn" width="16" height="16"/>
         <image name="dj-device-tray-bg" width="375" height="203"/>
         <image name="icn-plus" width="16" height="16"/>
     </resources>
