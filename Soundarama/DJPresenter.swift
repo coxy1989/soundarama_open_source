@@ -119,9 +119,6 @@ extension DJPresenter: UserInterfaceDelegate {
         
         if userInterface === djUI {
             
-            djUI.addPerformer("X")
-            djUI.addPerformer("Y")
-            djUI.addPerformer("Z")
             djInput.startDJ()
         }
         
