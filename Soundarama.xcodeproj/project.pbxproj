@@ -560,18 +560,9 @@
 			isa = PBXGroup;
 			children = (
 				42177FA01C9AAB0E008411B0 /* TPFoundationToAdd */,
-				425CC3251C74B86300B39AB5 /* Experimental */,
 				42E8BE191C54FB730034F1C8 /* Legacy */,
 			);
 			name = Extras;
-			sourceTree = "<group>";
-		};
-		425CC3251C74B86300B39AB5 /* Experimental */ = {
-			isa = PBXGroup;
-			children = (
-				DFBAD41E1C64C346004C1D47 /* SpringMesh.swift */,
-			);
-			name = Experimental;
 			sourceTree = "<group>";
 		};
 		425CC3261C74B8A100B39AB5 /* Audio */ = {
@@ -846,6 +837,7 @@
 			isa = PBXGroup;
 			children = (
 				42DCE6031CD9E4F70041B513 /* FlashingStore.swift */,
+				DFBAD41E1C64C346004C1D47 /* SpringMesh.swift */,
 				42ED6C6B1CAC2D8D002A7211 /* BroadcastStore.swift */,
 				42ED6C691CAC1F32002A7211 /* DJBroadcastConfigurationViewController.swift */,
 				428AF2AD1CA032BF0023FCC9 /* Level.swift */,

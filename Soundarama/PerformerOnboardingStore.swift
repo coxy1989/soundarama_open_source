@@ -133,7 +133,7 @@ class PerformerOnboardingStore {
         }
     
         timer?.invalidate()
-        timer = NSTimer.scheduledTimerWithTimeInterval(1, target: self, selector: #selector(executeNextInstruction), userInfo: nil, repeats: false)
+        timer = NSTimer.scheduledTimerWithTimeInterval(2, target: self, selector: #selector(executeNextInstruction), userInfo: nil, repeats: false)
     }
     
     @objc private func executeNextInstruction() {

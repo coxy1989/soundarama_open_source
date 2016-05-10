@@ -269,17 +269,14 @@ extension PerformerInteractor {
     
     private func startDanceometerValueStore() {
         
-        danceometerValueStore = SamplingValueStore(interval: 0.1) { [weak self] in
+        danceometerValueStore = SamplingValueStore(interval: 0.1) { [weak self] _ in
             
-            guard self?.danceometer?.score > 0.4 else {
+            guard self?.danceometer?.score > 0.7 else {
                 
                 return
             }
-            
-            if $0 > 0.02 {
                 
-                self?.onboardingStore?.requestHideInstruction(.ChargingInstruction)
-            }
+            self?.onboardingStore?.requestHideInstruction(.ChargingInstruction)
         }
         
         danceometerValueStore!.start()
