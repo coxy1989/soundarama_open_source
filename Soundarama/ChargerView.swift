@@ -105,8 +105,6 @@ class ChargeLevelView: UIView {
             let x = cos(angle) * radius + center.x
             let y = sin(angle) * radius + center.y
             
-            
-            
             $0.center.x = x
             $0.center.y = y
             

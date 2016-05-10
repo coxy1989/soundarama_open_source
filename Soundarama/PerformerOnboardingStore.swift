@@ -63,9 +63,7 @@ class PerformerOnboardingStore {
     
     func start() {
         
-        lock.lock()
-        instructions = PerformerOnboardingStore.instructionsFromUserDefaults()
-        lock.unlock()
+        loadInstructionsFromUserDefaults()
         scheduleNextInstruction()
     }
     
@@ -76,13 +74,14 @@ class PerformerOnboardingStore {
     
     func restart() {
         
-        if let i = currentInstruction {
+        guard currentInstruction == nil else {
             
-            hideHandler(i)
+            return
         }
         
         PerformerOnboardingStore.flushInstructionsFromUserDefaults()
-        start()
+        loadInstructionsFromUserDefaults()
+        executeNextInstruction()
     }
     
     func requestHideInstruction(instruction: PerformerInstruction) {
@@ -117,6 +116,13 @@ class PerformerOnboardingStore {
         lock.unlock()
         
         executeNextInstruction()
+    }
+    
+    private func loadInstructionsFromUserDefaults() {
+        
+        lock.lock()
+        instructions = PerformerOnboardingStore.instructionsFromUserDefaults()
+        lock.unlock()
     }
     
     private func scheduleNextInstruction() {

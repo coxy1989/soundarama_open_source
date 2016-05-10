@@ -161,11 +161,14 @@ extension PerformerInteractor: PerformerInstrumentsInput {
         
         startInstruments()
         vibrationStore = VibrationStore()
-        //performerInstrumentsOutput.setColors(ColorStore.nullColors())
-        //performerInstrumentsOutput.setCurrentlyPerforming(nil)
+        performerInstrumentsOutput.setColors(ColorStore.nullColors())
+        performerInstrumentsOutput.setCurrentlyPerforming(nil)
         performerInstructionOutput.setCanRequestInstructions(false)
-        performerInstrumentsOutput.setCurrentlyPerforming("Mother Fucker")
-        performerInstrumentsOutput.setColors(ColorStore.colors("Bass"))
+        
+        //startPerformerInstructionInput()
+        //performerInstructionOutput.setCanRequestInstructions(true)
+        //performerInstrumentsOutput.setCurrentlyPerforming("Mother Fucker")
+        //performerInstrumentsOutput.setColors(ColorStore.colors("Bass"))
     }
     
     func stopPerfromerInstrumentInput() {
