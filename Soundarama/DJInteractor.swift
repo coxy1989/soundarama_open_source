@@ -276,6 +276,8 @@ extension DJInteractor: DJInput {
         }
         
         djOutput.moveGroup(groupID, translation: translation)
+        
+        djOutput.cancelLasoo()
     }
     
     func requestAddGroupToWorkspace(groupID: GroupID, workspaceID: WorkspaceID) {
