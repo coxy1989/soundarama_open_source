@@ -120,12 +120,12 @@ extension InstrumentsViewController: PerformerInstructionUserInterface {
             
             case .ChargingInstruction:
             
-                instructionView?.titleLabel.text = "PERFORMER_DANCEOMETER_ONBOARDING_HEADER".localizedString
+                instructionView?.titleLabel.text = "PERFORMER_DANCEOMETER_ONBOARDING_HEADER".localizedString.uppercaseString
                 instructionView?.messageLabel.text = "PERFORMER_DANCEOMETER_ONBOARDING_BODY".localizedString
             
             case .CompassInstruction:
             
-                instructionView?.titleLabel.text = "PERFORMER_COMPASS_ONBOARDING_HEADER".localizedString
+                instructionView?.titleLabel.text = "PERFORMER_COMPASS_ONBOARDING_HEADER".localizedString.uppercaseString
                 instructionView?.messageLabel.text = "PERFORMER_COMPASS_ONBOARDING_BODY".localizedString
         }
     }
@@ -178,11 +178,11 @@ extension InstrumentsViewController: ChargingUserInteface {
             
             if value >= 0.7 {
                 self?.chargeLevelView.setOverColor()
-                self?.chargeGradientView.alpha = 0.8
+                self?.chargeGradientView.alpha = 0.9
             }
             else {
                 self?.chargeLevelView.setUnderColor()
-                self?.chargeGradientView.alpha = 0.4
+                self?.chargeGradientView.alpha = 0.25
             }
             self?.setChargeGradientViewScale(CGFloat(value))
         }
@@ -207,7 +207,7 @@ extension InstrumentsViewController {
     func newInstructionView() -> InstructionView {
         
         let v =  NSBundle.mainBundle().loadNibNamed("InstructionView", owner: self, options: nil).first as! InstructionView
-        v.frame = CGRectMake(0, view.bounds.size.height, view.bounds.size.width, 127)
+        v.frame = CGRectMake(0, view.bounds.size.height, view.bounds.size.width, 107)
         return v
     }
     
@@ -242,7 +242,7 @@ extension InstrumentsViewController: ReconnectionUserInterface {
                 
                 let s = NSMutableAttributedString(string: "PERFORMER_LOST_CONNECTION_HEADER".localizedString + "\n", attributes: UIFont.fontAttribute(UIFont.avenirLight(16)))
                 
-                s.appendAttributedString(NSMutableAttributedString(string: "PERFORMER_ATTEMPT_RECONNECT_BODY".localizedString, attributes: UIFont.fontAttribute(UIFont.avenirHeavy(16))))
+                s.appendAttributedString(NSMutableAttributedString(string: "PERFORMER_ATTEMPT_RECONNECT_BODY".localizedString.uppercaseString, attributes: UIFont.fontAttribute(UIFont.avenirHeavy(16))))
                 
                 topLabel.attributedText = s
             

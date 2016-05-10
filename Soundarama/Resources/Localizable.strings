@@ -31,7 +31,7 @@
 
 /* Performer */
 
-"PERFORMER_CURRENTLY_PERFORMING" = "Currently performing:";
+"PERFORMER_CURRENTLY_PERFORMING" = "Currently performing";
 "PERFORMER_COMPASS_INSTRUCTION" = "Turn";
 "PERFORMER_DANCEOMETER_INSTRUCTION" = "Dance";
 "PERFORMER_COMPASS_ONBOARDING_HEADER" = "Turn on the spot";
@@ -39,8 +39,8 @@
 "PERFORMER_DANCEOMETER_ONBOARDING_HEADER" = "Move around!";
 "PERFORMER_DANCEOMETER_ONBOARDING_BODY" = "Move around to unlock added sounds";
 "PERFORMER_WAITING_FOR_SOUND" = "Waiting for the conductor \n to send you a sound";
-"PERFORMER_LOST_CONNECTION_HEADER" = "Lost connection to the conductor:";
-"PERFORMER_ATTEMPT_RECONNECT_BODY" = "Attempting to reconnect";
+"PERFORMER_LOST_CONNECTION_HEADER" = "Conductor unreachable";
+"PERFORMER_ATTEMPT_RECONNECT_BODY" = "Reconnecting";
 "PERFORMER_RECONNECT_FAILED" = "The conductor became unreachable";
 "PERFORMER_MUTED" = "MUTED BY THE CONDUCTOR";
 

@@ -169,6 +169,11 @@ extension PerformerInteractor: PerformerInstrumentsInput {
         performerInstructionOutput.setCanRequestInstructions(true)
         performerInstrumentsOutput.setCurrentlyPerforming("Mother Fucker")
         performerInstrumentsOutput.setColors(ColorStore.colors("Bass"))
+        
+        //performerInstrumentsOutput.setColors(ColorStore.nullColors())
+        //performerInstrumentsOutput.setCurrentlyPerforming(nil)
+        //performerReconnectionOutput.updateWithReconnectionEvent(.Started)
+        //performerInstructionOutput.setCanRequestInstructions(false)
     }
     
     func stopPerfromerInstrumentInput() {

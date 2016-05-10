@@ -11,14 +11,14 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Turn on the spot to change the timbre of your current sound" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Fun-hA-m1q">
-                    <rect key="frame" x="21" y="59" width="334" height="44"/>
+                    <rect key="frame" x="21" y="54" width="334" height="44"/>
                     <fontDescription key="fontDescription" name="Avenir-Roman" family="Avenir" pointSize="16"/>
                     <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Turn Around" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9Eu-kj-wqY">
-                    <rect key="frame" x="138" y="24" width="99" height="23.5"/>
-                    <fontDescription key="fontDescription" name="Avenir-Heavy" family="Avenir" pointSize="17"/>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="TURN AROUND" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9Eu-kj-wqY">
+                    <rect key="frame" x="127.5" y="24" width="120" height="22"/>
+                    <fontDescription key="fontDescription" name="Avenir-Heavy" family="Avenir" pointSize="16"/>
                     <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
@@ -29,7 +29,7 @@
                 <constraint firstItem="Fun-hA-m1q" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="TDj-Vh-vl1"/>
                 <constraint firstItem="Fun-hA-m1q" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="iN0-l3-epB" secondAttribute="leading" constant="8" id="eMe-Wj-951"/>
                 <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="Fun-hA-m1q" secondAttribute="trailing" constant="8" id="j7I-Ak-tvc"/>
-                <constraint firstItem="Fun-hA-m1q" firstAttribute="top" secondItem="9Eu-kj-wqY" secondAttribute="bottom" constant="12" id="mYP-YQ-Ddz"/>
+                <constraint firstItem="Fun-hA-m1q" firstAttribute="top" secondItem="9Eu-kj-wqY" secondAttribute="bottom" constant="8" id="mYP-YQ-Ddz"/>
                 <constraint firstItem="9Eu-kj-wqY" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="24" id="oqP-hO-TNd"/>
             </constraints>
             <nil key="simulatedStatusBarMetrics"/>

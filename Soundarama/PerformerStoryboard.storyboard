@@ -214,16 +214,16 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="x52-JA-XYe">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="144"/>
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="110"/>
                                 <subviews>
                                     <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="white" translatesAutoresizingMaskIntoConstraints="NO" id="hy5-sd-z9c">
-                                        <rect key="frame" x="150" y="106" width="20" height="20"/>
+                                        <rect key="frame" x="150" y="88" width="20" height="20"/>
                                     </activityIndicatorView>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dWK-Ms-9aU">
-                                        <rect key="frame" x="0.0" y="0.0" width="40" height="40"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="44" height="44"/>
                                         <constraints>
-                                            <constraint firstAttribute="width" constant="40" id="KWg-2T-TsR"/>
-                                            <constraint firstAttribute="height" constant="40" id="siB-9b-tMK"/>
+                                            <constraint firstAttribute="width" constant="44" id="KWg-2T-TsR"/>
+                                            <constraint firstAttribute="height" constant="44" id="siB-9b-tMK"/>
                                         </constraints>
                                         <state key="normal" image="back-btn"/>
                                         <connections>
@@ -231,16 +231,19 @@
                                         </connections>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NKl-Y7-zPk">
-                                        <rect key="frame" x="101" y="32" width="117" height="66"/>
+                                        <rect key="frame" x="101" y="36" width="117" height="44"/>
                                         <string key="text">Coxy is the king.
-Coxy is the king.
 Coxy is the king.</string>
                                         <fontDescription key="fontDescription" name="Avenir-Light" family="Avenir" pointSize="16"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="infoLight" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kYY-Zq-4s1">
-                                        <rect key="frame" x="290" y="8" width="22" height="24"/>
+                                    <button opaque="NO" alpha="0.59999999999999998" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="infoLight" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kYY-Zq-4s1">
+                                        <rect key="frame" x="276" y="0.0" width="44" height="44"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="44" id="GN0-SJ-SoW"/>
+                                            <constraint firstAttribute="height" constant="44" id="YtL-8O-091"/>
+                                        </constraints>
                                         <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <connections>
                                             <action selector="didPressInfoButton:" destination="x8l-Qe-jsB" eventType="touchUpInside" id="nSC-wB-KvS"/>
@@ -251,11 +254,11 @@ Coxy is the king.</string>
                                 <constraints>
                                     <constraint firstItem="kYY-Zq-4s1" firstAttribute="centerY" secondItem="dWK-Ms-9aU" secondAttribute="centerY" id="9rM-uF-SkW"/>
                                     <constraint firstItem="hy5-sd-z9c" firstAttribute="centerX" secondItem="NKl-Y7-zPk" secondAttribute="centerX" id="Bh4-Wd-3t8"/>
-                                    <constraint firstAttribute="trailing" secondItem="kYY-Zq-4s1" secondAttribute="trailing" constant="8" id="UlT-xD-k07"/>
+                                    <constraint firstAttribute="trailing" secondItem="kYY-Zq-4s1" secondAttribute="trailing" id="UlT-xD-k07"/>
                                     <constraint firstItem="dWK-Ms-9aU" firstAttribute="leading" secondItem="x52-JA-XYe" secondAttribute="leading" id="XXb-Lp-4D0"/>
-                                    <constraint firstAttribute="height" constant="144" id="YYL-sH-2Gu"/>
+                                    <constraint firstAttribute="height" constant="110" id="YYL-sH-2Gu"/>
                                     <constraint firstItem="NKl-Y7-zPk" firstAttribute="top" secondItem="dWK-Ms-9aU" secondAttribute="bottom" constant="-8" id="cV9-qU-ZQQ"/>
-                                    <constraint firstItem="kYY-Zq-4s1" firstAttribute="top" secondItem="x52-JA-XYe" secondAttribute="top" constant="8" id="l3H-tM-l7G"/>
+                                    <constraint firstItem="kYY-Zq-4s1" firstAttribute="top" secondItem="x52-JA-XYe" secondAttribute="top" id="l3H-tM-l7G"/>
                                     <constraint firstItem="NKl-Y7-zPk" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="dWK-Ms-9aU" secondAttribute="trailing" constant="8" id="lEJ-kG-H2A"/>
                                     <constraint firstItem="NKl-Y7-zPk" firstAttribute="centerX" secondItem="x52-JA-XYe" secondAttribute="centerX" id="ln3-9l-KCg"/>
                                     <constraint firstItem="dWK-Ms-9aU" firstAttribute="top" secondItem="x52-JA-XYe" secondAttribute="top" id="s29-ZG-cyy"/>
@@ -270,7 +273,7 @@ Coxy is the king.</string>
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WjW-if-C9s" customClass="CompassView" customModule="Soundarama" customModuleProvider="target">
-                                <rect key="frame" x="16" y="152" width="288" height="176"/>
+                                <rect key="frame" x="16" y="118" width="288" height="244"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             </view>
                         </subviews>
@@ -300,7 +303,7 @@ Coxy is the king.</string>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hrN-V0-Oda" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="345" y="462"/>
+            <point key="canvasLocation" x="308" y="355"/>
         </scene>
         <!--PickDJ View Controller i Pad Background View Controller-->
         <scene sceneID="fq4-qN-SZ3">
