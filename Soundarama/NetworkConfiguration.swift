@@ -16,9 +16,9 @@ struct NetworkConfiguration {
     
     static let port32: Int32 = 6565
     
-    static let resolveTimeout: NSTimeInterval = 5
+    static let resolveTimeout: NSTimeInterval = 10
     
-    static let connectTimeout: NSTimeInterval = 5
+    static let connectTimeout: NSTimeInterval = 10
     
     static let christiansTimeServerTimeout: NSTimeInterval = 5
     
