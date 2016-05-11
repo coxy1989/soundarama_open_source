@@ -21,7 +21,7 @@
                     {
                         "Name" : "V-rhodes",
      
-                        "Category" : "Hats",
+                        "Category" : "Synth",
                         "Ref" : "V-rhodes"
                     },
                     {
@@ -33,7 +33,7 @@
                     {
                         "Name" : "V-tom",
      
-                        "Category" : "Bass",
+                        "Category" : "Tom",
                         "Ref" : "V-tom"
                     }
      ]

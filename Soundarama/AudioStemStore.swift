@@ -24,7 +24,7 @@ class AudioStemStore {
     
     private static let union = "All"
     
-    private static let categories = ["Synth", "Bass", "Hats", "Kick"]
+    private static let categories = ["Synth", "Tom", "Hats", "Kick"]
     
     private var cache: [String : AudioStem]!
     

@@ -49,7 +49,7 @@ class ColorStore {
 
         "V-percus" : br,
         
-        "V-rhodes" : br,
+        "V-rhodes" : pg,
         
         "V-synth" : pg,
         
@@ -62,7 +62,7 @@ class ColorStore {
         
         "Synth" : purple.first!,
         
-        "Bass" : red.first!,
+        "Tom" : red.first!,
         
         "Hats" : blue.first!,
         
