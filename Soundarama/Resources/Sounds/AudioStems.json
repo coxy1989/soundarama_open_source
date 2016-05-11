@@ -1,37 +1,37 @@
 {
     "Songs" :
     {
-        "SONG 1" : [ "Synth", "Bass", "Hats", "Kick" ]
+        "Cleck-Cleck-Boom" : [ "clek-kickA", "clek-percusA", "clek-rhodesA", "clek-synthA", "clek-tomA" ]
     },
     
     "AudioStems" :
     [
                     {
-                        "Name" : "Kick",
+                        "Name" : "Kick-A",
      
                         "Category" : "Kick",
                         "Ref" : "clek-kickA"
                     },
                     {
-                        "Name" : "Percussion",
+                        "Name" : "Percuss-A",
      
                         "Category" : "Hats",
                         "Ref" : "clek-percusA"
                     },
                     {
-                        "Name" : "Hats",
+                        "Name" : "Rhodes-A",
      
                         "Category" : "Hats",
                         "Ref" : "clek-rhodesA"
                     },
                     {
-                        "Name" : "Synth",
+                        "Name" : "Synth-A",
                         
                         "Category" : "Synth",
                         "Ref" : "clek-synthA"
                     },
                     {
-                        "Name" : "Tom",
+                        "Name" : "Tom-A",
      
                         "Category" : "Bass",
                         "Ref" : "clek-tomA"

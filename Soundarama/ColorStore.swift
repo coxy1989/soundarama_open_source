@@ -45,26 +45,28 @@ class ColorStore {
     
     private static let color_map: [String : [UIColor]] = [
     
-        "Synth" : pg,
+        "clek-kickA" : gp,
 
-        "Bass" : rb,
+        "clek-percusA" : br,
         
-        "Hats" : br,
+        "clek-rhodesA" : br,
         
-        "Kick" : gp
+        "clek-synthA" : pg,
+        
+        "clek-tomA" : rb
     ]
     
     static let categoryKeyColors: [String : UIColor] = [
     
         "All" : UIColor.whiteColor(),
         
-        "Synth" : color_map["Synth"]!.first!,
+        "Synth" : purple.first!,
         
-        "Bass" : color_map["Bass"]!.first!,
+        "Bass" : red.first!,
         
-        "Hats" : color_map["Hats"]!.first!,
+        "Hats" : blue.first!,
         
-        "Kick" : color_map["Kick"]!.first!
+        "Kick" : green.first!
     ]
     
     static func nullColors() -> [UIColor] {
