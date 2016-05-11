@@ -45,15 +45,15 @@ class ColorStore {
     
     private static let color_map: [String : [UIColor]] = [
     
-        "clek-kickA" : gp,
+        "V-kick" : gp,
 
-        "clek-percusA" : br,
+        "V-percus" : br,
         
-        "clek-rhodesA" : br,
+        "V-rhodes" : br,
         
-        "clek-synthA" : pg,
+        "V-synth" : pg,
         
-        "clek-tomA" : rb
+        "V-tom" : rb
     ]
     
     static let categoryKeyColors: [String : UIColor] = [

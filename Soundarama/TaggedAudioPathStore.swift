@@ -10,7 +10,7 @@ struct TaggedAudioPathStore {
     
     static func taggedAudioPaths(reference: String) -> Set<TaggedAudioPath> {
         
-        let altitude = ["HIGH", "MIDDLE", "LOW"]
+        let altitude = ["HIGH", "MIDDLE"]
         let direction = ["NORTH", "SOUTH"]
         
         let north = (0...altitude.count).map() { _ in (name: reference + "_\(direction[0])", tags: Set(["Compass:\(direction[0])"])) }

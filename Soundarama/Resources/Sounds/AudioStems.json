@@ -1,40 +1,40 @@
 {
     "Songs" :
     {
-        "Cleck-Cleck-Boom" : [ "clek-kickA", "clek-percusA", "clek-rhodesA", "clek-synthA", "clek-tomA" ]
+        "Cleck-Cleck-Boom" : [ "V-kick", "V-percus", "V-rhodes", "V-synth", "V-tom" ]
     },
     
     "AudioStems" :
     [
                     {
-                        "Name" : "Kick-A",
+                        "Name" : "V-kick",
      
                         "Category" : "Kick",
-                        "Ref" : "clek-kickA"
+                        "Ref" : "V-kick"
                     },
                     {
-                        "Name" : "Percuss-A",
+                        "Name" : "V-percus",
      
                         "Category" : "Hats",
-                        "Ref" : "clek-percusA"
+                        "Ref" : "V-percus"
                     },
                     {
-                        "Name" : "Rhodes-A",
+                        "Name" : "V-rhodes",
      
                         "Category" : "Hats",
-                        "Ref" : "clek-rhodesA"
+                        "Ref" : "V-rhodes"
                     },
                     {
-                        "Name" : "Synth-A",
+                        "Name" : "V-synth",
                         
                         "Category" : "Synth",
-                        "Ref" : "clek-synthA"
+                        "Ref" : "V-synth"
                     },
                     {
-                        "Name" : "Tom-A",
+                        "Name" : "V-tom",
      
                         "Category" : "Bass",
-                        "Ref" : "clek-tomA"
+                        "Ref" : "V-tom"
                     }
      ]
 }
