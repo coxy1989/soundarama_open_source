@@ -78,11 +78,11 @@ class SoundZoneView: UIView {
     private struct Layout {
         
         /* Outer -> Innner */
-        //static let ringFillOpacities: [CGFloat] = [ 0.0, 0.15, 0.35, 0.5, 1.0 ]
-        //static let ringStrokeWidths: [CGFloat] = [ 2.0, 2.0, 2.0, 2.0, 0.0 ]
-        //static let ringStrokeOpacities: [CGFloat] = [ 0.8, 0.2, 0.5, 0.8, 0.0 ]
+        static let ringFillOpacities: [CGFloat] = [ 0.0, 0.15, 0.35, 0.5, 1.0 ]
+        static let ringStrokeWidths: [CGFloat] = [ 2.0, 2.0, 2.0, 2.0, 0.0 ]
+        static let ringStrokeOpacities: [CGFloat] = [ 0.8, 0.2, 0.5, 0.8, 0.0 ]
         static let ringPadding: CGFloat = 12.0
-        //static let widthOfEachRing: CGFloat = 28
+        static let widthOfEachRing: CGFloat = 28
         static let buttonWidth: CGFloat = 36
     }
     
@@ -156,7 +156,7 @@ class SoundZoneView: UIView {
     func commonInit() {
         
         clipsToBounds = false
-        //addRings()
+        addRings()
         addControls()
     }
     
@@ -176,7 +176,7 @@ class SoundZoneView: UIView {
         //let largestRingRadius = ringRect.width / 2.0
         //let centreOfRing = CGPoint(x: ringRect.midX, y: ringRect.midY)
         
-        /*
+        
         let middleSquareSize = min(bounds.width, bounds.height)
         let middleSquareRect = CGRect(x: (bounds.width - middleSquareSize) / 2.0, y: (bounds.height - middleSquareSize) / 2.0, width: middleSquareSize, height: middleSquareSize)
         var ringRect = CGRectInset(middleSquareRect, Layout.ringPadding, Layout.ringPadding)
@@ -195,7 +195,6 @@ class SoundZoneView: UIView {
                 ringRect = CGRectInset(ringRect, Layout.widthOfEachRing, Layout.widthOfEachRing)
             }
         }
- */
         
         /* Controls */
         
@@ -208,20 +207,20 @@ class SoundZoneView: UIView {
         muteButton.frame = CGRect(x: 0.0, y: 0.0, width: Layout.buttonWidth, height: Layout.buttonWidth)
         muteButton.layer.cornerRadius = muteButton.frame.width / 2.0
         
-        /*
+        
         var angle: CGFloat = 5.2
         playlistButton.center = CGPoint(x: largestRingRadius * CGFloat(cos(angle)) + centreOfRing.x, y: largestRingRadius * CGFloat(sin(angle)) + centreOfRing.y)
         angle += 0.425
         muteButton.center = CGPoint(x: largestRingRadius * CGFloat(cos(angle)) + centreOfRing.x, y: largestRingRadius * CGFloat(sin(angle)) + centreOfRing.y)
         angle += 0.425
         soloButton.center = CGPoint(x: largestRingRadius * CGFloat(cos(angle)) + centreOfRing.x, y: largestRingRadius * CGFloat(sin(angle)) + centreOfRing.y)
-        */
+        
         
         /* Title Button */
         
-       // titleLabel.frame = CGRect(x: 0.0, y: 0.0, width: largestRingRadius, height: 44.0)
-        //titleLabel.sizeToFit()
-        //titleLabel.center = CGPoint(x: centreOfRing.x, y: centreOfRing.y)
+        titleLabel.frame = CGRect(x: 0.0, y: 0.0, width: largestRingRadius, height: 44.0)
+        titleLabel.sizeToFit()
+        titleLabel.center = CGPoint(x: centreOfRing.x, y: centreOfRing.y + (largestRingRadius - Layout.widthOfEachRing))
     }
 }
 
@@ -229,10 +228,10 @@ extension SoundZoneView {
     
     func updateWithColor(color: UIColor) {
         
-        //for (idx, opacity) in Layout.ringFillOpacities.enumerate() {
-//            ringShapeLayers[idx].fillColor = color.colorWithAlphaComponent(opacity).CGColor
-  //          ringShapeLayers[idx].strokeColor = color.colorWithAlphaComponent(Layout.ringStrokeOpacities[idx]).CGColor
-    //    }
+        for (idx, opacity) in Layout.ringFillOpacities.enumerate() {
+            ringShapeLayers[idx].fillColor = color.colorWithAlphaComponent(opacity).CGColor
+            ringShapeLayers[idx].strokeColor = color.colorWithAlphaComponent(Layout.ringStrokeOpacities[idx]).CGColor
+        }
         
         playlistButton.backgroundColor = color.lighterColor()
         playlistButton.layer.borderColor = color.CGColor
@@ -294,7 +293,6 @@ extension SoundZoneView {
         }
     }
     
-    /*
     func addRings() {
         
         for i in 0..<Layout.ringFillOpacities.count {
@@ -304,7 +302,6 @@ extension SoundZoneView {
             ringShapeLayers.append(newShapeLayer)
         }
     }
- */
 }
 
 class SoundZoneView_TopAligned: SoundZoneView {
