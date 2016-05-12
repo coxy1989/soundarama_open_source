@@ -21,6 +21,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         appSetup()
         soundarama = Soundarama.start(UIWindow(frame: UIScreen.mainScreen().bounds))
         
+        NSLocale.supportedLanguages = ["en", "fr"]
+        
         return true
     }
 }

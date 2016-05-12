@@ -32,8 +32,6 @@ class DecideViewController: UIViewController, DecideUserInterface {
         
         super.viewDidLoad()
     
-        debugPrint(NSLocalizedString("DECIDE_DJ", comment: ""))
-        debugPrint("DECIDE_DJ".localizedString)
         djLabel.text = "DECIDE_DJ".localizedString
         performerLabel.text = "DECIDE_PERFORMER".localizedString
         aboutButton.setTitle("ABOUT".localizedString, forState: .Normal)
