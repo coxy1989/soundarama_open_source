@@ -1,0 +1,185 @@
+{
+    "AudioStems" :
+    [
+     {
+     "Name" : "BASS EOE",
+     "Colour" : "#6DAABD",
+     "Category" : "Bass",
+     "Ref" : "BASS_E0E"
+     },
+     {
+     "Name" : "BASS LIID",
+     "Colour" : "#6DAABD",
+     "Category" : "Bass",
+     "Ref" : "BASS_LIID"
+     },
+     {
+     "Name" : "INSTR TRUMPET 2",
+     "Colour" : "#BD8371",
+     "Category" : "Instrument",
+     "Ref" : "INSTR_TRUMPET_2"
+     },
+     {
+     "Name" : "INSTR TRUMPET REV",
+     "Colour" : "#BD8371",
+     "Category" : "Instrument",
+     "Ref" : "INSTR_TRUMPET_REV"
+     },
+     {
+     "Name" : "INSTR VOC A3",
+     "Colour" : "#BD8371",
+     "Category" : "Instrument",
+     "Ref" : "INSTR_VOC_A3"
+     },
+     {
+     "Name" : "INSTR VOC D3",
+     "Colour" : "#BD8371",
+     "Category" : "Instrument",
+     "Ref" : "INSTR_VOC_D3"
+     },
+     {
+     "Name" : "INSTR VOC G3",
+     "Colour" : "#BD8371",
+     "Category" : "Instrument",
+     "Ref" : "INSTR_VOC_G3"
+     },
+     {
+     "Name" : "INSTR VOC G4",
+     "Colour" : "#BD8371",
+     "Category" : "Instrument",
+     "Ref" : "INSTR_VOC_G4"
+     },
+     {
+     "Name" : "LEAD ARPEG NL",
+     "Colour" : "#71BD83",
+     "Category" : "Lead",
+     "Ref" : "LEAD_ARPEG_NL"
+     },
+     {
+     "Name" : "LEAD FUNKY LIID",
+     "Colour" : "#71BD83",
+     "Category" : "Lead",
+     "Ref" : "LEAD_FUNKY_LIID"
+     },
+     {
+     "Name" : "LEAD VOC 1",
+     "Colour" : "#71BD83",
+     "Category" : "Lead",
+     "Ref" : "LEAD_VOC_1"
+     },
+     {
+     "Name" : "PAD AMBIENT BBB",
+     "Colour" : "#BD71A2",
+     "Category" : "Pad",
+     "Ref" : "PAD_AMBIENT_BBB"
+     },
+     {
+     "Name" : "PAD AMBIENT BBBB",
+     "Colour" : "#BD71A2",
+     "Category" : "Pad",
+     "Ref" : "PAD_AMBIENT_BBBB"
+     },
+     {
+     "Name" : "PAD CELLO A",
+     "Colour" : "#BD71A2",
+     "Category" : "Pad",
+     "Ref" : "PAD_CELLO_A"
+     },
+     {
+     "Name" : "PAD PIANO",
+     "Colour" : "#BD71A2",
+     "Category" : "Pad",
+     "Ref" : "PAD_PIANO"
+     },
+     {
+     "Name" : "PAD VIOLINS A",
+     "Colour" : "#BD71A2",
+     "Category" : "Pad",
+     "Ref" : "PAD_VIOLINS_A"
+     },
+     {
+     "Name" : "RYTH CLAP ORGNK",
+     "Colour" : "#8371BD",
+     "Category" : "Rhythm",
+     "Ref" : "RYTH_CLAP_ORGNK"
+     },
+     {
+     "Name" : "RYTH HH 9A9",
+     "Colour" : "#8371BD",
+     "Category" : "Rhythm",
+     "Ref" : "RYTH_HH_9A9"
+     },
+     {
+     "Name" : "RYTH HH NOIZI",
+     "Colour" : "#8371BD",
+     "Category" : "Rhythm",
+     "Ref" : "RYTH_HH_NOIZI"
+     },
+     {
+     "Name" : "RYTH KIK 8A8",
+     "Colour" : "#8371BD",
+     "Category" : "Rhythm",
+     "Ref" : "RYTH_KIK_8A8"
+     },
+     {
+     "Name" : "RYTH KIK 9A9",
+     "Colour" : "#8371BD",
+     "Category" : "Rhythm",
+     "Ref" : "RYTH_KIK_9A9"
+     },
+     {
+     "Name" : "RYTH LOOP BROKN",
+     "Colour" : "#8371BD",
+     "Category" : "Rhythm",
+     "Ref" : "RYTH_LOOP_BROKN"
+     },
+     {
+     "Name" : "RYTH LOOP PRC SYNTH",
+     "Colour" : "#8371BD",
+     "Category" : "Rhythm",
+     "Ref" : "RYTH_LOOP_PRC_STH"
+     },
+     {
+     "Name" : "RYTH LOOP TONAL",
+     "Colour" : "#8371BD",
+     "Category" : "Rhythm",
+     "Ref" : "RYTH_LOOP_TONAL"
+     },
+     {
+     "Name" : "RYTH LOOP TONAL2",
+     "Colour" : "#8371BD",
+     "Category" : "Rhythm",
+     "Ref" : "RYTH_LOOP_TONAL2"
+     },
+     {
+     "Name" : "RYTH LOOP WEIRD",
+     "Colour" : "#8371BD",
+     "Category" : "Rhythm",
+     "Ref" : "RYTH_LOOP_WEIRD"
+     },
+     {
+     "Name" : "RYTH SHAKER1",
+     "Colour" : "#8371BD",
+     "Category" : "Rhythm",
+     "Ref" : "RYTH_SHAKER1"
+     },
+     {
+     "Name" : "RYTH SNARE 9A9",
+     "Colour" : "#8371BD",
+     "Category" : "Rhythm",
+     "Ref" : "RYTH_SNR_9A9"
+     },
+     {
+     "Name" : "RYTH SNARE BROKN",
+     "Colour" : "#8371BD",
+     "Category" : "Rhythm",
+     "Ref" : "RYTH_SNR_BKN"
+     },
+     {
+     "Name" : "RYTH TAMBORIN",
+     "Colour" : "#8371BD",
+     "Category" : "Rhythm",
+     "Ref" : "RYTH_TAMBORIN"
+     }
+     ]
+}
